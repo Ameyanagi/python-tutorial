@@ -1,0 +1,40 @@
+# Python Tutorial {.unnumbered}
+
+Welcome to the comprehensive Python tutorial! This book will take you from Python basics to advanced applications.
+
+## What You'll Learn
+
+This tutorial is designed for mixed skill levels and covers:
+
+- **Environment Setup** - uv, poetry, miniforge, Git/GitHub, VS Code
+- **Python Basics** - Syntax, data types, control flow, functions  
+- **Object-Oriented Programming** - Classes, inheritance, advanced patterns
+- **Advanced Topics** - Type hints, async programming, multiprocessing
+- **Real Applications** - Data science, automation, web development
+
+## Tutorial Features
+
+- 🖥️ **Interactive Examples** - Code with execution output
+- 📝 **Exercises & Quizzes** - Test your understanding
+- 🚀 **Hands-on Projects** - Build real applications
+- 🎯 **Multiple Formats** - Book, slides, PDF
+- 🌐 **Bilingual** - Available in English and Japanese
+
+## Prerequisites
+
+- Basic computer literacy
+- Willingness to learn and experiment
+- Python 3.12+ (we'll help you install it!)
+
+## How to Use This Tutorial
+
+1. **Linear Learning** - Follow chapters in order for best results
+2. **Practice Code** - Run every example yourself
+3. **Complete Exercises** - Reinforce your learning
+4. **Build Projects** - Apply knowledge to real problems
+
+Ready to start your Python journey? Let's begin with [Environment Setup](book/01-setup.qmd)!
+
+---
+
+🎌 **日本語版をお探しですか？** [こちらから日本語版にアクセスできます](../ja/index.html)

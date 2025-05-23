@@ -1,0 +1,65 @@
+project:
+  type: book
+  output-dir: ../docs/en
+  
+book:
+  title: "Python Tutorial"
+  subtitle: "From Basics to Advanced Applications"
+  author: "Python Tutorial Team"
+  date: today
+  language: en
+  
+  chapters:
+    - index.qmd
+    - part: "Foundation"
+      chapters:
+        - book/01-setup.qmd
+        - book/02-git-github.qmd
+    - part: "Python Basics"
+      chapters:
+        - book/03-syntax.qmd
+        - book/04-data-types.qmd
+        - book/05-control-flow.qmd
+        - book/06-functions.qmd
+    - part: "Object-Oriented Programming"
+      chapters:
+        - book/07-classes.qmd
+        - book/08-inheritance.qmd
+        - book/09-advanced-oop.qmd
+    - part: "Advanced Topics"
+      chapters:
+        - book/10-type-hints.qmd
+        - book/11-async.qmd
+        - book/12-multiprocessing.qmd
+    - part: "Applications"
+      chapters:
+        - book/13-data-science.qmd
+        - book/14-automation.qmd
+        - book/15-general-programming.qmd
+        - book/16-web-development.qmd
+
+format:
+  html:
+    theme: 
+      - cosmo
+      - ../custom.scss
+    css: ../styles.css
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    highlight-style: github
+    code-fold: false
+    code-tools: true
+    
+  pdf:
+    documentclass: scrreprt
+    toc: true
+    number-sections: true
+    colorlinks: true
+    
+  revealjs:
+    theme: dark
+    transition: slide
+    background-transition: fade
+    highlight-style: github
+    code-fold: false

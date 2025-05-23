@@ -1,0 +1,35 @@
+# Python Tutorial
+
+Welcome to our comprehensive Python tutorial! This tutorial is available in multiple formats and languages.
+
+## Available Versions
+
+### 📖 Book Format
+- **[English Version](en/index.html)** - Complete interactive book
+- **[日本語版](ja/index.html)** - 完全なインタラクティブ書籍
+
+### 🎯 Presentation Slides
+- **[English Slides](en/slides/)** - Chapter-by-chapter presentations
+- **[日本語スライド](ja/slides/)** - 章ごとのプレゼンテーション
+
+### 📄 PDF Downloads
+- **[English PDF](en/Python-Tutorial.pdf)** - Printable version
+- **[日本語 PDF](ja/Python-Tutorial.pdf)** - 印刷可能版
+
+## What You'll Learn
+
+This tutorial covers Python from basics to advanced applications:
+
+1. **Foundation** - Environment setup, Git/GitHub
+2. **Python Basics** - Syntax, data types, functions
+3. **Object-Oriented Programming** - Classes, inheritance, advanced OOP
+4. **Advanced Topics** - Type hints, async programming, multiprocessing
+5. **Applications** - Data science, automation, web development
+
+## Getting Started
+
+Choose your preferred language and format above to begin your Python journey!
+
+## Repository
+
+This tutorial is open source and available on [GitHub](https://github.com/your-username/python-tutorial). Contributions welcome!

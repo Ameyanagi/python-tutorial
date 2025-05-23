@@ -1,0 +1,47 @@
+project:
+  type: book
+  output-dir: docs
+  
+book:
+  title: "Python Tutorial"
+  subtitle: "From Basics to Advanced Applications"
+  author: "Python Tutorial Team"
+  date: today
+  
+  chapters:
+    - index.qmd
+    - part: "Language Versions"
+      chapters:
+        - en/index.qmd
+        - ja/index.qmd
+
+format:
+  html:
+    theme: 
+      - cosmo
+      - custom.scss
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    highlight-style: github
+    code-fold: false
+    code-tools: true
+    
+  pdf:
+    documentclass: scrreprt
+    toc: true
+    number-sections: true
+    colorlinks: true
+
+website:
+  title: "Python Tutorial"
+  navbar:
+    left:
+      - text: "English"
+        href: en/index.html
+      - text: "日本語"
+        href: ja/index.html
+    right:
+      - icon: github
+        href: https://github.com/your-username/python-tutorial
