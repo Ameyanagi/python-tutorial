@@ -1,0 +1,1044 @@
+# Classes and Objects - Introduction to OOP
+
+Object-Oriented Programming (OOP) is a programming paradigm that organizes code into classes and objects, making it easier to build complex, maintainable applications.
+
+## Why Object-Oriented Programming?
+
+```{python}
+# Without OOP - procedural approach
+def create_student(name, age, grades):
+    return {"name": name, "age": age, "grades": grades}
+
+def add_grade(student, grade):
+    student["grades"].append(grade)
+
+def get_average(student):
+    return sum(student["grades"]) / len(student["grades"])
+
+# Using the functions
+student1 = create_student("Alice", 20, [85, 90, 78])
+add_grade(student1, 92)
+print(f"Average: {get_average(student1):.1f}")
+
+# With OOP - cleaner and more organized
+class Student:
+    def __init__(self, name, age, grades=None):
+        self.name = name
+        self.age = age
+        self.grades = grades or []
+    
+    def add_grade(self, grade):
+        self.grades.append(grade)
+    
+    def get_average(self):
+        if not self.grades:
+            return 0
+        return sum(self.grades) / len(self.grades)
+
+# Using the class
+student2 = Student("Bob", 19, [88, 92, 85])
+student2.add_grade(90)
+print(f"Average: {student2.get_average():.1f}")
+```
+
+## Creating Classes
+
+### Basic Class Definition
+
+```{python}
+class Car:
+    """A simple car class."""
+    
+    def __init__(self, make, model, year):
+        """Initialize a new car."""
+        self.make = make
+        self.model = model
+        self.year = year
+        self.mileage = 0
+    
+    def drive(self, miles):
+        """Drive the car and update mileage."""
+        self.mileage += miles
+        print(f"Drove {miles} miles. Total mileage: {self.mileage}")
+    
+    def get_info(self):
+        """Return car information."""
+        return f"{self.year} {self.make} {self.model} - {self.mileage} miles"
+
+# Creating instances (objects)
+my_car = Car("Toyota", "Camry", 2022)
+print(my_car.get_info())
+
+my_car.drive(150)
+my_car.drive(75)
+print(my_car.get_info())
+```
+
+### Class vs Instance Attributes
+
+```{python}
+class BankAccount:
+    """Bank account with class and instance attributes."""
+    
+    # Class attribute - shared by all instances
+    bank_name = "Python Bank"
+    interest_rate = 0.02
+    
+    def __init__(self, account_holder, initial_balance=0):
+        """Initialize account with instance attributes."""
+        # Instance attributes - unique to each object
+        self.account_holder = account_holder
+        self.balance = initial_balance
+        self.transaction_count = 0
+    
+    def deposit(self, amount):
+        """Deposit money to account."""
+        if amount > 0:
+            self.balance += amount
+            self.transaction_count += 1
+            print(f"Deposited ${amount:.2f}. New balance: ${self.balance:.2f}")
+        else:
+            print("Deposit amount must be positive")
+    
+    def withdraw(self, amount):
+        """Withdraw money from account."""
+        if amount > 0 and amount <= self.balance:
+            self.balance -= amount
+            self.transaction_count += 1
+            print(f"Withdrew ${amount:.2f}. New balance: ${self.balance:.2f}")
+        else:
+            print("Insufficient funds or invalid amount")
+    
+    def apply_interest(self):
+        """Apply interest to account."""
+        interest = self.balance * self.interest_rate
+        self.balance += interest
+        print(f"Interest applied: ${interest:.2f}")
+
+# Create accounts
+account1 = BankAccount("Alice Johnson", 1000)
+account2 = BankAccount("Bob Smith", 500)
+
+print(f"Bank: {BankAccount.bank_name}")
+print(f"Interest rate: {BankAccount.interest_rate * 100}%")
+
+account1.deposit(200)
+account1.withdraw(150)
+account1.apply_interest()
+
+print(f"Alice's transactions: {account1.transaction_count}")
+print(f"Bob's balance: ${account2.balance:.2f}")
+```
+
+## Methods and Properties
+
+### Instance Methods
+
+```{python}
+class Rectangle:
+    """Rectangle class with various methods."""
+    
+    def __init__(self, width, height):
+        """Initialize rectangle with width and height."""
+        self.width = width
+        self.height = height
+    
+    def area(self):
+        """Calculate area of rectangle."""
+        return self.width * self.height
+    
+    def perimeter(self):
+        """Calculate perimeter of rectangle."""
+        return 2 * (self.width + self.height)
+    
+    def is_square(self):
+        """Check if rectangle is a square."""
+        return self.width == self.height
+    
+    def scale(self, factor):
+        """Scale rectangle by a factor."""
+        self.width *= factor
+        self.height *= factor
+    
+    def __str__(self):
+        """String representation of rectangle."""
+        return f"Rectangle({self.width}x{self.height})"
+
+# Test the Rectangle class
+rect = Rectangle(5, 3)
+print(rect)
+print(f"Area: {rect.area()}")
+print(f"Perimeter: {rect.perimeter()}")
+print(f"Is square: {rect.is_square()}")
+
+rect.scale(2)
+print(f"After scaling: {rect}")
+print(f"New area: {rect.area()}")
+```
+
+### Class Methods and Static Methods
+
+```{python}
+class MathUtils:
+    """Utility class with class and static methods."""
+    
+    pi = 3.14159
+    
+    def __init__(self, name):
+        self.name = name
+    
+    @classmethod
+    def circle_area(cls, radius):
+        """Calculate circle area using class method."""
+        return cls.pi * radius ** 2
+    
+    @staticmethod
+    def is_even(number):
+        """Check if number is even using static method."""
+        return number % 2 == 0
+    
+    @staticmethod
+    def factorial(n):
+        """Calculate factorial using static method."""
+        if n <= 1:
+            return 1
+        result = 1
+        for i in range(2, n + 1):
+            result *= i
+        return result
+
+# Using class and static methods
+print(f"Circle area (radius 5): {MathUtils.circle_area(5):.2f}")
+print(f"Is 8 even? {MathUtils.is_even(8)}")
+print(f"Factorial of 5: {MathUtils.factorial(5)}")
+
+# Can also call on instance
+math_helper = MathUtils("Helper")
+print(f"Is 7 even? {math_helper.is_even(7)}")
+```
+
+### Properties with @property
+
+```{python}
+class Temperature:
+    """Temperature class with property decorators."""
+    
+    def __init__(self, celsius=0):
+        """Initialize with Celsius temperature."""
+        self._celsius = celsius
+    
+    @property
+    def celsius(self):
+        """Get temperature in Celsius."""
+        return self._celsius
+    
+    @celsius.setter
+    def celsius(self, value):
+        """Set temperature in Celsius with validation."""
+        if value < -273.15:
+            raise ValueError("Temperature cannot be below absolute zero")
+        self._celsius = value
+    
+    @property
+    def fahrenheit(self):
+        """Get temperature in Fahrenheit."""
+        return (self._celsius * 9/5) + 32
+    
+    @fahrenheit.setter
+    def fahrenheit(self, value):
+        """Set temperature using Fahrenheit."""
+        self.celsius = (value - 32) * 5/9
+    
+    @property
+    def kelvin(self):
+        """Get temperature in Kelvin."""
+        return self._celsius + 273.15
+    
+    def __str__(self):
+        return f"{self._celsius:.1f}°C ({self.fahrenheit:.1f}°F, {self.kelvin:.1f}K)"
+
+# Using properties
+temp = Temperature(25)
+print(f"Initial: {temp}")
+
+temp.fahrenheit = 86  # Set using Fahrenheit
+print(f"After setting 86°F: {temp}")
+
+temp.celsius = 0  # Set using Celsius
+print(f"Freezing point: {temp}")
+
+try:
+    temp.celsius = -300  # This will raise an error
+except ValueError as e:
+    print(f"Error: {e}")
+```
+
+## Special Methods (Magic Methods)
+
+### String Representation and Comparison
+
+```{python}
+class Person:
+    """Person class with magic methods."""
+    
+    def __init__(self, name, age, height):
+        self.name = name
+        self.age = age
+        self.height = height  # in cm
+    
+    def __str__(self):
+        """Human-readable string representation."""
+        return f"{self.name}, {self.age} years old"
+    
+    def __repr__(self):
+        """Developer-friendly representation."""
+        return f"Person('{self.name}', {self.age}, {self.height})"
+    
+    def __eq__(self, other):
+        """Check equality based on name and age."""
+        if isinstance(other, Person):
+            return self.name == other.name and self.age == other.age
+        return False
+    
+    def __lt__(self, other):
+        """Compare based on age for sorting."""
+        if isinstance(other, Person):
+            return self.age < other.age
+        return NotImplemented
+    
+    def __len__(self):
+        """Return height as 'length' of person."""
+        return self.height
+
+# Test magic methods
+person1 = Person("Alice", 25, 165)
+person2 = Person("Bob", 30, 180)
+person3 = Person("Alice", 25, 170)
+
+print(f"str(person1): {str(person1)}")
+print(f"repr(person1): {repr(person1)}")
+
+print(f"person1 == person3: {person1 == person3}")
+print(f"person1 < person2: {person1 < person2}")
+print(f"len(person1): {len(person1)} cm")
+
+# Sorting people by age
+people = [person2, person1, Person("Charlie", 20, 175)]
+sorted_people = sorted(people)
+print("Sorted by age:")
+for person in sorted_people:
+    print(f"  {person}")
+```
+
+### Arithmetic Operations
+
+```{python}
+class Vector2D:
+    """2D vector with arithmetic operations."""
+    
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    
+    def __str__(self):
+        return f"Vector2D({self.x}, {self.y})"
+    
+    def __add__(self, other):
+        """Add two vectors."""
+        if isinstance(other, Vector2D):
+            return Vector2D(self.x + other.x, self.y + other.y)
+        return NotImplemented
+    
+    def __sub__(self, other):
+        """Subtract two vectors."""
+        if isinstance(other, Vector2D):
+            return Vector2D(self.x - other.x, self.y - other.y)
+        return NotImplemented
+    
+    def __mul__(self, scalar):
+        """Multiply vector by scalar."""
+        if isinstance(scalar, (int, float)):
+            return Vector2D(self.x * scalar, self.y * scalar)
+        return NotImplemented
+    
+    def __rmul__(self, scalar):
+        """Right multiplication (scalar * vector)."""
+        return self.__mul__(scalar)
+    
+    def magnitude(self):
+        """Calculate vector magnitude."""
+        return (self.x ** 2 + self.y ** 2) ** 0.5
+    
+    def normalize(self):
+        """Return normalized vector."""
+        mag = self.magnitude()
+        if mag == 0:
+            return Vector2D(0, 0)
+        return Vector2D(self.x / mag, self.y / mag)
+
+# Test vector operations
+v1 = Vector2D(3, 4)
+v2 = Vector2D(1, 2)
+
+print(f"v1: {v1}")
+print(f"v2: {v2}")
+print(f"v1 + v2: {v1 + v2}")
+print(f"v1 - v2: {v1 - v2}")
+print(f"v1 * 2: {v1 * 2}")
+print(f"3 * v2: {3 * v2}")
+print(f"Magnitude of v1: {v1.magnitude():.2f}")
+print(f"Normalized v1: {v1.normalize()}")
+```
+
+## Real-World Examples
+
+### Example 1: Library Management System
+
+```{python}
+from datetime import datetime, timedelta
+
+class Book:
+    """Represents a book in the library."""
+    
+    def __init__(self, title, author, isbn, copies=1):
+        self.title = title
+        self.author = author
+        self.isbn = isbn
+        self.total_copies = copies
+        self.available_copies = copies
+        self.borrowed_by = []
+    
+    def is_available(self):
+        """Check if book is available for borrowing."""
+        return self.available_copies > 0
+    
+    def borrow(self, member_id):
+        """Borrow the book."""
+        if self.is_available():
+            self.available_copies -= 1
+            due_date = datetime.now() + timedelta(days=14)
+            self.borrowed_by.append({
+                'member_id': member_id,
+                'borrowed_date': datetime.now(),
+                'due_date': due_date
+            })
+            return due_date
+        return None
+    
+    def return_book(self, member_id):
+        """Return the book."""
+        for i, record in enumerate(self.borrowed_by):
+            if record['member_id'] == member_id:
+                self.borrowed_by.pop(i)
+                self.available_copies += 1
+                return True
+        return False
+    
+    def __str__(self):
+        return f"'{self.title}' by {self.author} ({self.available_copies}/{self.total_copies} available)"
+
+class LibraryMember:
+    """Represents a library member."""
+    
+    def __init__(self, name, member_id):
+        self.name = name
+        self.member_id = member_id
+        self.borrowed_books = []
+    
+    def borrow_book(self, book):
+        """Borrow a book from the library."""
+        due_date = book.borrow(self.member_id)
+        if due_date:
+            self.borrowed_books.append({
+                'book': book,
+                'due_date': due_date
+            })
+            print(f"{self.name} borrowed '{book.title}' (due: {due_date.strftime('%Y-%m-%d')})")
+            return True
+        else:
+            print(f"Sorry, '{book.title}' is not available")
+            return False
+    
+    def return_book(self, book):
+        """Return a borrowed book."""
+        for i, record in enumerate(self.borrowed_books):
+            if record['book'] == book:
+                if book.return_book(self.member_id):
+                    self.borrowed_books.pop(i)
+                    print(f"{self.name} returned '{book.title}'")
+                    return True
+        print(f"{self.name} hasn't borrowed '{book.title}'")
+        return False
+    
+    def list_borrowed_books(self):
+        """List all borrowed books."""
+        if not self.borrowed_books:
+            print(f"{self.name} has no borrowed books")
+        else:
+            print(f"{self.name}'s borrowed books:")
+            for record in self.borrowed_books:
+                book = record['book']
+                due_date = record['due_date']
+                print(f"  - '{book.title}' (due: {due_date.strftime('%Y-%m-%d')})")
+
+# Demonstrate the library system
+book1 = Book("Python Programming", "John Doe", "978-0123456789", 2)
+book2 = Book("Web Development", "Jane Smith", "978-0987654321", 1)
+
+member1 = LibraryMember("Alice Johnson", "M001")
+member2 = LibraryMember("Bob Wilson", "M002")
+
+print("=== Library Management System Demo ===")
+print(f"Available books:")
+print(f"  {book1}")
+print(f"  {book2}")
+
+# Borrowing books
+member1.borrow_book(book1)
+member2.borrow_book(book1)
+member2.borrow_book(book2)
+
+print(f"\nAfter borrowing:")
+print(f"  {book1}")
+print(f"  {book2}")
+
+# List borrowed books
+member1.list_borrowed_books()
+member2.list_borrowed_books()
+
+# Return a book
+member1.return_book(book1)
+print(f"\nAfter Alice returns the book:")
+print(f"  {book1}")
+```
+
+### Example 2: Game Character System
+
+```{python}
+import random
+
+class GameCharacter:
+    """Base class for game characters."""
+    
+    def __init__(self, name, health=100, attack_power=20, defense=10):
+        self.name = name
+        self.max_health = health
+        self.health = health
+        self.attack_power = attack_power
+        self.defense = defense
+        self.level = 1
+        self.experience = 0
+    
+    def is_alive(self):
+        """Check if character is still alive."""
+        return self.health > 0
+    
+    def take_damage(self, damage):
+        """Take damage with defense calculation."""
+        actual_damage = max(1, damage - self.defense)
+        self.health = max(0, self.health - actual_damage)
+        print(f"{self.name} takes {actual_damage} damage! Health: {self.health}/{self.max_health}")
+        
+        if not self.is_alive():
+            print(f"{self.name} has been defeated!")
+    
+    def heal(self, amount):
+        """Heal the character."""
+        old_health = self.health
+        self.health = min(self.max_health, self.health + amount)
+        healed = self.health - old_health
+        print(f"{self.name} heals for {healed} HP! Health: {self.health}/{self.max_health}")
+    
+    def attack(self, target):
+        """Attack another character."""
+        if not self.is_alive():
+            print(f"{self.name} cannot attack - defeated!")
+            return
+        
+        # Add some randomness to attacks
+        damage = random.randint(int(self.attack_power * 0.8), int(self.attack_power * 1.2))
+        print(f"{self.name} attacks {target.name} for {damage} damage!")
+        target.take_damage(damage)
+        
+        # Gain experience
+        if not target.is_alive():
+            exp_gained = target.level * 20
+            self.gain_experience(exp_gained)
+    
+    def gain_experience(self, exp):
+        """Gain experience and possibly level up."""
+        self.experience += exp
+        print(f"{self.name} gains {exp} experience!")
+        
+        # Check for level up
+        exp_needed = self.level * 100
+        if self.experience >= exp_needed:
+            self.level_up()
+    
+    def level_up(self):
+        """Level up the character."""
+        self.level += 1
+        self.experience = 0
+        
+        # Stat increases
+        health_increase = 20
+        attack_increase = 5
+        defense_increase = 3
+        
+        self.max_health += health_increase
+        self.health += health_increase
+        self.attack_power += attack_increase
+        self.defense += defense_increase
+        
+        print(f"🎉 {self.name} leveled up to level {self.level}!")
+        print(f"   Health: +{health_increase}, Attack: +{attack_increase}, Defense: +{defense_increase}")
+    
+    def get_stats(self):
+        """Get character statistics."""
+        return {
+            'name': self.name,
+            'level': self.level,
+            'health': f"{self.health}/{self.max_health}",
+            'attack': self.attack_power,
+            'defense': self.defense,
+            'experience': self.experience
+        }
+    
+    def __str__(self):
+        stats = self.get_stats()
+        return f"{stats['name']} (Lv.{stats['level']}) - HP: {stats['health']}, ATK: {stats['attack']}, DEF: {stats['defense']}"
+
+class Warrior(GameCharacter):
+    """Warrior class with special abilities."""
+    
+    def __init__(self, name):
+        super().__init__(name, health=120, attack_power=25, defense=15)
+        self.shield_active = False
+    
+    def shield_bash(self, target):
+        """Special attack that stuns and damages."""
+        if not self.is_alive():
+            return
+        
+        damage = int(self.attack_power * 1.5)
+        print(f"{self.name} performs Shield Bash!")
+        print(f"💥 Critical hit for {damage} damage!")
+        target.take_damage(damage)
+    
+    def defensive_stance(self):
+        """Activate defensive stance."""
+        self.shield_active = True
+        temp_defense = self.defense * 2
+        print(f"{self.name} enters defensive stance! Defense doubled temporarily.")
+        return temp_defense
+
+class Mage(GameCharacter):
+    """Mage class with magic abilities."""
+    
+    def __init__(self, name):
+        super().__init__(name, health=80, attack_power=30, defense=5)
+        self.mana = 100
+        self.max_mana = 100
+    
+    def fireball(self, target):
+        """Cast fireball spell."""
+        if not self.is_alive():
+            return
+        
+        mana_cost = 20
+        if self.mana < mana_cost:
+            print(f"{self.name} doesn't have enough mana!")
+            return
+        
+        self.mana -= mana_cost
+        damage = int(self.attack_power * 1.8)
+        print(f"{self.name} casts Fireball! 🔥")
+        print(f"Magical damage: {damage}!")
+        target.take_damage(damage)
+        print(f"Mana: {self.mana}/{self.max_mana}")
+    
+    def heal_spell(self, target=None):
+        """Cast healing spell."""
+        mana_cost = 15
+        if self.mana < mana_cost:
+            print(f"{self.name} doesn't have enough mana!")
+            return
+        
+        if target is None:
+            target = self
+        
+        self.mana -= mana_cost
+        heal_amount = 30
+        print(f"{self.name} casts Heal on {target.name}! ✨")
+        target.heal(heal_amount)
+        print(f"Mana: {self.mana}/{self.max_mana}")
+
+# Game demonstration
+print("=== RPG Combat System Demo ===")
+
+# Create characters
+hero = Warrior("Sir Galahad")
+mage = Mage("Merlin")
+enemy = GameCharacter("Goblin Warrior", health=60, attack_power=15, defense=5)
+
+print("Characters created:")
+print(f"  {hero}")
+print(f"  {mage}")
+print(f"  {enemy}")
+
+print("\n=== Combat Begins! ===")
+
+# Combat simulation
+round_num = 1
+while hero.is_alive() and mage.is_alive() and enemy.is_alive():
+    print(f"\n--- Round {round_num} ---")
+    
+    # Hero attacks
+    if random.choice([True, False]):
+        hero.attack(enemy)
+    else:
+        hero.shield_bash(enemy)
+    
+    if not enemy.is_alive():
+        break
+    
+    # Mage's turn
+    if mage.health < 50:
+        mage.heal_spell()  # Heal self
+    else:
+        mage.fireball(enemy)
+    
+    if not enemy.is_alive():
+        break
+    
+    # Enemy attacks
+    target = random.choice([hero, mage])
+    enemy.attack(target)
+    
+    round_num += 1
+    
+    # Prevent infinite combat
+    if round_num > 10:
+        print("Combat ended due to time limit!")
+        break
+
+print("\n=== Combat Results ===")
+print(f"Final stats:")
+print(f"  {hero}")
+print(f"  {mage}")
+print(f"  {enemy}")
+```
+
+## Exercises
+
+### Exercise 1: Shopping Cart System
+
+```{python}
+class Product:
+    """Represents a product in the store."""
+    
+    def __init__(self, name, price, category, stock=0):
+        self.name = name
+        self.price = price
+        self.category = category
+        self.stock = stock
+    
+    def is_in_stock(self, quantity=1):
+        """Check if product has enough stock."""
+        return self.stock >= quantity
+    
+    def reduce_stock(self, quantity):
+        """Reduce stock after purchase."""
+        if self.is_in_stock(quantity):
+            self.stock -= quantity
+            return True
+        return False
+    
+    def __str__(self):
+        return f"{self.name} - ${self.price:.2f} ({self.stock} in stock)"
+
+class CartItem:
+    """Represents an item in the shopping cart."""
+    
+    def __init__(self, product, quantity):
+        self.product = product
+        self.quantity = quantity
+    
+    def get_total_price(self):
+        """Get total price for this cart item."""
+        return self.product.price * self.quantity
+    
+    def __str__(self):
+        total = self.get_total_price()
+        return f"{self.product.name} x{self.quantity} = ${total:.2f}"
+
+class ShoppingCart:
+    """Shopping cart that holds products."""
+    
+    def __init__(self):
+        self.items = []
+    
+    def add_item(self, product, quantity=1):
+        """Add item to cart."""
+        if not product.is_in_stock(quantity):
+            print(f"Sorry, only {product.stock} {product.name}(s) available")
+            return False
+        
+        # Check if product already in cart
+        for item in self.items:
+            if item.product == product:
+                item.quantity += quantity
+                print(f"Updated {product.name} quantity to {item.quantity}")
+                return True
+        
+        # Add new item
+        self.items.append(CartItem(product, quantity))
+        print(f"Added {quantity} {product.name}(s) to cart")
+        return True
+    
+    def remove_item(self, product):
+        """Remove item from cart."""
+        for i, item in enumerate(self.items):
+            if item.product == product:
+                removed_item = self.items.pop(i)
+                print(f"Removed {removed_item.product.name} from cart")
+                return True
+        print(f"{product.name} not found in cart")
+        return False
+    
+    def get_total(self):
+        """Calculate total cart value."""
+        return sum(item.get_total_price() for item in self.items)
+    
+    def checkout(self):
+        """Process checkout."""
+        if not self.items:
+            print("Cart is empty!")
+            return False
+        
+        total = self.get_total()
+        print("=== CHECKOUT ===")
+        for item in self.items:
+            print(f"  {item}")
+            # Reduce stock
+            item.product.reduce_stock(item.quantity)
+        
+        print(f"Total: ${total:.2f}")
+        print("Thank you for your purchase!")
+        
+        # Clear cart
+        self.items = []
+        return True
+    
+    def show_cart(self):
+        """Display cart contents."""
+        if not self.items:
+            print("Cart is empty")
+            return
+        
+        print("Shopping Cart:")
+        for item in self.items:
+            print(f"  {item}")
+        print(f"Total: ${self.get_total():.2f}")
+
+# Test the shopping system
+print("=== Online Store Demo ===")
+
+# Create products
+laptop = Product("Gaming Laptop", 1299.99, "Electronics", 5)
+mouse = Product("Wireless Mouse", 29.99, "Electronics", 20)
+keyboard = Product("Mechanical Keyboard", 89.99, "Electronics", 15)
+
+# Create shopping cart
+cart = ShoppingCart()
+
+# Shopping simulation
+print("\nAvailable products:")
+for product in [laptop, mouse, keyboard]:
+    print(f"  {product}")
+
+print("\n--- Shopping Session ---")
+cart.add_item(laptop, 1)
+cart.add_item(mouse, 2)
+cart.add_item(keyboard, 1)
+
+cart.show_cart()
+
+# Try to add out-of-stock item
+cart.add_item(laptop, 10)  # Should fail
+
+# Checkout
+cart.checkout()
+
+# Show updated stock
+print("\nUpdated inventory:")
+for product in [laptop, mouse, keyboard]:
+    print(f"  {product}")
+```
+
+### Exercise 2: Simple Banking System
+
+```{python}
+from datetime import datetime
+
+class Transaction:
+    """Represents a bank transaction."""
+    
+    def __init__(self, transaction_type, amount, description=""):
+        self.timestamp = datetime.now()
+        self.type = transaction_type  # 'deposit', 'withdrawal', 'transfer'
+        self.amount = amount
+        self.description = description
+    
+    def __str__(self):
+        date_str = self.timestamp.strftime("%Y-%m-%d %H:%M")
+        return f"{date_str} | {self.type.title()}: ${self.amount:.2f} - {self.description}"
+
+class BankAccount:
+    """Enhanced bank account with transaction history."""
+    
+    def __init__(self, account_number, account_holder, initial_balance=0):
+        self.account_number = account_number
+        self.account_holder = account_holder
+        self.balance = initial_balance
+        self.transactions = []
+        
+        if initial_balance > 0:
+            self.transactions.append(
+                Transaction("deposit", initial_balance, "Initial deposit")
+            )
+    
+    def deposit(self, amount, description="Deposit"):
+        """Deposit money to account."""
+        if amount <= 0:
+            print("Deposit amount must be positive")
+            return False
+        
+        self.balance += amount
+        transaction = Transaction("deposit", amount, description)
+        self.transactions.append(transaction)
+        
+        print(f"Deposited ${amount:.2f}. New balance: ${self.balance:.2f}")
+        return True
+    
+    def withdraw(self, amount, description="Withdrawal"):
+        """Withdraw money from account."""
+        if amount <= 0:
+            print("Withdrawal amount must be positive")
+            return False
+        
+        if amount > self.balance:
+            print("Insufficient funds")
+            return False
+        
+        self.balance -= amount
+        transaction = Transaction("withdrawal", amount, description)
+        self.transactions.append(transaction)
+        
+        print(f"Withdrew ${amount:.2f}. New balance: ${self.balance:.2f}")
+        return True
+    
+    def transfer_to(self, target_account, amount, description="Transfer"):
+        """Transfer money to another account."""
+        if self.withdraw(amount, f"Transfer to {target_account.account_number}"):
+            target_account.deposit(amount, f"Transfer from {self.account_number}")
+            print(f"Transfer completed: ${amount:.2f} to account {target_account.account_number}")
+            return True
+        return False
+    
+    def get_statement(self, num_transactions=10):
+        """Get account statement."""
+        print(f"\n=== Account Statement ===")
+        print(f"Account: {self.account_number}")
+        print(f"Holder: {self.account_holder}")
+        print(f"Current Balance: ${self.balance:.2f}")
+        print(f"\nRecent Transactions:")
+        
+        recent_transactions = self.transactions[-num_transactions:]
+        for transaction in reversed(recent_transactions):
+            print(f"  {transaction}")
+    
+    def __str__(self):
+        return f"Account {self.account_number} ({self.account_holder}): ${self.balance:.2f}"
+
+# Test the banking system
+print("=== Banking System Demo ===")
+
+# Create accounts
+alice_account = BankAccount("ACC001", "Alice Johnson", 1000)
+bob_account = BankAccount("ACC002", "Bob Wilson", 500)
+
+print("Initial accounts:")
+print(f"  {alice_account}")
+print(f"  {bob_account}")
+
+# Perform transactions
+print("\n--- Transaction Activity ---")
+alice_account.deposit(200, "Salary deposit")
+alice_account.withdraw(50, "ATM withdrawal")
+bob_account.deposit(100, "Gift money")
+
+# Transfer money
+alice_account.transfer_to(bob_account, 150, "Loan payment")
+
+# Show final balances
+print(f"\nFinal balances:")
+print(f"  {alice_account}")
+print(f"  {bob_account}")
+
+# Show statements
+alice_account.get_statement()
+bob_account.get_statement()
+```
+
+## Self-Review Questions
+
+### Knowledge Check
+
+1. **What's the difference between a class and an object?**
+2. **What is the purpose of the `__init__` method?**
+3. **What's the difference between instance and class attributes?**
+4. **When would you use a static method vs a class method?**
+5. **What's the purpose of the `self` parameter?**
+
+### Coding Challenges
+
+1. **Create a `Calculator` class with basic arithmetic operations**
+2. **Implement a `Playlist` class for managing songs**
+3. **Design a `Student` class with grade management**
+4. **Build a simple `Inventory` management system**
+
+### Answers
+
+1. A class is a blueprint/template; an object is an instance of a class
+2. `__init__` initializes new instances with their starting state
+3. Instance attributes are unique per object; class attributes are shared
+4. Static methods are utilities; class methods work with class itself
+5. `self` refers to the current instance of the class
+
+## Best Practices
+
+1. **Use descriptive class and method names**
+2. **Keep classes focused** - Single Responsibility Principle
+3. **Use properties** for computed attributes or validation
+4. **Implement `__str__` and `__repr__`** for better debugging
+5. **Validate inputs** in methods that change state
+6. **Use private attributes** (leading underscore) for internal data
+
+## Common Mistakes
+
+1. **Forgetting `self` parameter** in method definitions
+2. **Using mutable default arguments** in `__init__`
+3. **Not calling parent `__init__`** in inheritance
+4. **Making everything public** instead of encapsulating data
+5. **Creating God classes** that do too many things
+
+## Next Steps
+
+Excellent! You now understand the fundamentals of classes and objects. Next, we'll explore [Inheritance and Polymorphism](08-inheritance.qmd) to learn how to build more complex class hierarchies and reuse code effectively.
+
+## Resources
+
+- [Python Classes Documentation](https://docs.python.org/3/tutorial/classes.html)
+- [Real Python: Object-Oriented Programming](https://realpython.com/python3-object-oriented-programming/)
+- [Magic Methods Guide](https://rszalski.github.io/magicmethods/)

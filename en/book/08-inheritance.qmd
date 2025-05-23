@@ -1,0 +1,1223 @@
+# Inheritance and Polymorphism
+
+Inheritance allows you to create new classes based on existing classes, promoting code reuse and creating logical hierarchies. Polymorphism enables objects of different types to be treated uniformly.
+
+## Understanding Inheritance
+
+### Basic Inheritance
+
+```{python}
+# Base class (Parent/Superclass)
+class Animal:
+    """Base class representing a generic animal."""
+    
+    def __init__(self, name, species):
+        self.name = name
+        self.species = species
+        self.energy = 100
+    
+    def eat(self, food):
+        """Generic eating behavior."""
+        self.energy += 10
+        print(f"{self.name} eats {food} and gains energy. Energy: {self.energy}")
+    
+    def sleep(self):
+        """Generic sleeping behavior."""
+        self.energy += 20
+        print(f"{self.name} sleeps and recovers energy. Energy: {self.energy}")
+    
+    def make_sound(self):
+        """Generic sound - to be overridden by subclasses."""
+        print(f"{self.name} makes a sound")
+    
+    def __str__(self):
+        return f"{self.name} the {self.species}"
+
+# Derived class (Child/Subclass)
+class Dog(Animal):
+    """Dog class inheriting from Animal."""
+    
+    def __init__(self, name, breed):
+        # Call parent constructor
+        super().__init__(name, "Dog")
+        self.breed = breed
+        self.tricks = []
+    
+    def make_sound(self):
+        """Override parent method."""
+        print(f"{self.name} barks: Woof! Woof!")
+    
+    def learn_trick(self, trick):
+        """Dog-specific behavior."""
+        self.tricks.append(trick)
+        print(f"{self.name} learned a new trick: {trick}")
+    
+    def perform_trick(self):
+        """Perform a random trick."""
+        if self.tricks:
+            import random
+            trick = random.choice(self.tricks)
+            print(f"{self.name} performs: {trick}")
+        else:
+            print(f"{self.name} doesn't know any tricks yet")
+
+class Cat(Animal):
+    """Cat class inheriting from Animal."""
+    
+    def __init__(self, name, color):
+        super().__init__(name, "Cat")
+        self.color = color
+        self.lives = 9
+    
+    def make_sound(self):
+        """Override parent method."""
+        print(f"{self.name} meows: Meow!")
+    
+    def climb(self):
+        """Cat-specific behavior."""
+        print(f"{self.name} climbs gracefully")
+    
+    def use_life(self):
+        """Cat-specific behavior."""
+        if self.lives > 0:
+            self.lives -= 1
+            print(f"{self.name} used a life. Lives remaining: {self.lives}")
+        else:
+            print(f"{self.name} has no more lives!")
+
+# Test inheritance
+print("=== Inheritance Demo ===")
+
+# Create instances
+dog = Dog("Buddy", "Golden Retriever")
+cat = Cat("Whiskers", "Orange")
+
+print(f"Created: {dog}")
+print(f"Created: {cat}")
+
+# Use inherited methods
+dog.eat("dog food")
+cat.eat("fish")
+
+# Use overridden methods
+dog.make_sound()
+cat.make_sound()
+
+# Use specific methods
+dog.learn_trick("sit")
+dog.learn_trick("roll over")
+dog.perform_trick()
+
+cat.climb()
+cat.use_life()
+```
+
+### Multiple Inheritance
+
+```{python}
+# Multiple base classes
+class Flyable:
+    """Mixin for flying behavior."""
+    
+    def __init__(self):
+        self.altitude = 0
+    
+    def fly(self, height):
+        """Flying behavior."""
+        self.altitude = height
+        print(f"Flying at {self.altitude} feet")
+    
+    def land(self):
+        """Landing behavior."""
+        self.altitude = 0
+        print("Landed safely")
+
+class Swimmable:
+    """Mixin for swimming behavior."""
+    
+    def __init__(self):
+        self.depth = 0
+    
+    def swim(self, depth):
+        """Swimming behavior."""
+        self.depth = depth
+        print(f"Swimming at {self.depth} feet depth")
+    
+    def surface(self):
+        """Surface behavior."""
+        self.depth = 0
+        print("Surfaced to water level")
+
+# Class with multiple inheritance
+class Duck(Animal, Flyable, Swimmable):
+    """Duck that can fly and swim."""
+    
+    def __init__(self, name):
+        # Initialize all parent classes
+        Animal.__init__(self, name, "Duck")
+        Flyable.__init__(self)
+        Swimmable.__init__(self)
+    
+    def make_sound(self):
+        """Duck-specific sound."""
+        print(f"{self.name} quacks: Quack! Quack!")
+    
+    def migrate(self):
+        """Duck-specific behavior using multiple inheritance."""
+        print(f"{self.name} is migrating...")
+        self.fly(1000)
+        self.land()
+        self.swim(5)
+        self.surface()
+
+# Test multiple inheritance
+print("\n=== Multiple Inheritance Demo ===")
+
+duck = Duck("Donald")
+print(f"Created: {duck}")
+
+duck.make_sound()
+duck.eat("bread crumbs")
+duck.migrate()
+
+# Check Method Resolution Order
+print(f"\nMethod Resolution Order for Duck: {Duck.__mro__}")
+```
+
+## Polymorphism
+
+### Method Overriding and Polymorphism
+
+```{python}
+class Shape:
+    """Base class for geometric shapes."""
+    
+    def __init__(self, name):
+        self.name = name
+    
+    def area(self):
+        """Calculate area - to be implemented by subclasses."""
+        raise NotImplementedError("Subclasses must implement area()")
+    
+    def perimeter(self):
+        """Calculate perimeter - to be implemented by subclasses."""
+        raise NotImplementedError("Subclasses must implement perimeter()")
+    
+    def describe(self):
+        """Describe the shape."""
+        return f"This is a {self.name} with area {self.area():.2f} and perimeter {self.perimeter():.2f}"
+
+class Rectangle(Shape):
+    """Rectangle implementation."""
+    
+    def __init__(self, width, height):
+        super().__init__("Rectangle")
+        self.width = width
+        self.height = height
+    
+    def area(self):
+        """Calculate rectangle area."""
+        return self.width * self.height
+    
+    def perimeter(self):
+        """Calculate rectangle perimeter."""
+        return 2 * (self.width + self.height)
+
+class Circle(Shape):
+    """Circle implementation."""
+    
+    def __init__(self, radius):
+        super().__init__("Circle")
+        self.radius = radius
+    
+    def area(self):
+        """Calculate circle area."""
+        import math
+        return math.pi * self.radius ** 2
+    
+    def perimeter(self):
+        """Calculate circle circumference."""
+        import math
+        return 2 * math.pi * self.radius
+
+class Triangle(Shape):
+    """Triangle implementation."""
+    
+    def __init__(self, base, height, side1, side2):
+        super().__init__("Triangle")
+        self.base = base
+        self.height = height
+        self.side1 = side1
+        self.side2 = side2
+    
+    def area(self):
+        """Calculate triangle area."""
+        return 0.5 * self.base * self.height
+    
+    def perimeter(self):
+        """Calculate triangle perimeter."""
+        return self.base + self.side1 + self.side2
+
+# Polymorphism in action
+def calculate_total_area(shapes):
+    """Calculate total area of multiple shapes."""
+    total = 0
+    for shape in shapes:
+        # Polymorphism: same method call works for all shape types
+        total += shape.area()
+        print(f"{shape.name}: {shape.area():.2f}")
+    return total
+
+def print_shape_info(shapes):
+    """Print information about shapes using polymorphism."""
+    for shape in shapes:
+        # Polymorphism: describe() calls different area() methods
+        print(shape.describe())
+
+# Test polymorphism
+print("\n=== Polymorphism Demo ===")
+
+shapes = [
+    Rectangle(5, 3),
+    Circle(4),
+    Triangle(6, 4, 5, 5),
+    Rectangle(2, 8)
+]
+
+print("Shape areas:")
+total_area = calculate_total_area(shapes)
+print(f"Total area: {total_area:.2f}")
+
+print("\nShape descriptions:")
+print_shape_info(shapes)
+```
+
+### Duck Typing
+
+```{python}
+# Duck typing: "If it walks like a duck and quacks like a duck, it's a duck"
+
+class RealDuck:
+    """A real duck."""
+    
+    def quack(self):
+        return "Quack!"
+    
+    def fly(self):
+        return "Flap flap!"
+
+class RubberDuck:
+    """A toy duck."""
+    
+    def quack(self):
+        return "Squeak!"
+    
+    # Note: No fly method
+
+class Robot:
+    """A robot that can mimic duck behavior."""
+    
+    def quack(self):
+        return "BEEP QUACK BEEP!"
+    
+    def fly(self):
+        return "ROCKET THRUSTERS ENGAGED!"
+
+def make_it_quack(duck_like_object):
+    """Function that works with any object that can quack."""
+    try:
+        return duck_like_object.quack()
+    except AttributeError:
+        return "This object can't quack!"
+
+def make_it_fly(duck_like_object):
+    """Function that works with any object that can fly."""
+    try:
+        return duck_like_object.fly()
+    except AttributeError:
+        return "This object can't fly!"
+
+# Test duck typing
+print("\n=== Duck Typing Demo ===")
+
+duck_like_objects = [RealDuck(), RubberDuck(), Robot(), "Not a duck"]
+
+for obj in duck_like_objects:
+    obj_name = obj.__class__.__name__ if hasattr(obj, '__class__') else str(obj)
+    print(f"{obj_name}:")
+    print(f"  Quack: {make_it_quack(obj)}")
+    print(f"  Fly: {make_it_fly(obj)}")
+```
+
+## Advanced Inheritance Concepts
+
+### Abstract Base Classes
+
+```{python}
+from abc import ABC, abstractmethod
+
+class Vehicle(ABC):
+    """Abstract base class for vehicles."""
+    
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.fuel_level = 100
+    
+    @abstractmethod
+    def start_engine(self):
+        """Abstract method - must be implemented by subclasses."""
+        pass
+    
+    @abstractmethod
+    def stop_engine(self):
+        """Abstract method - must be implemented by subclasses."""
+        pass
+    
+    @abstractmethod
+    def accelerate(self):
+        """Abstract method - must be implemented by subclasses."""
+        pass
+    
+    def honk(self):
+        """Concrete method - can be used by all vehicles."""
+        print("HONK! HONK!")
+    
+    def refuel(self):
+        """Concrete method - can be used by all vehicles."""
+        self.fuel_level = 100
+        print("Vehicle refueled")
+
+class Car(Vehicle):
+    """Car implementation of Vehicle."""
+    
+    def __init__(self, make, model, year, doors):
+        super().__init__(make, model, year)
+        self.doors = doors
+        self.engine_running = False
+    
+    def start_engine(self):
+        """Start car engine."""
+        if not self.engine_running:
+            self.engine_running = True
+            print(f"Car engine started: Vroom!")
+        else:
+            print("Engine is already running")
+    
+    def stop_engine(self):
+        """Stop car engine."""
+        if self.engine_running:
+            self.engine_running = False
+            print("Car engine stopped")
+        else:
+            print("Engine is already off")
+    
+    def accelerate(self):
+        """Accelerate the car."""
+        if self.engine_running and self.fuel_level > 0:
+            self.fuel_level -= 5
+            print(f"Car accelerating... Fuel: {self.fuel_level}%")
+        else:
+            print("Cannot accelerate: engine off or no fuel")
+
+class Motorcycle(Vehicle):
+    """Motorcycle implementation of Vehicle."""
+    
+    def __init__(self, make, model, year, engine_size):
+        super().__init__(make, model, year)
+        self.engine_size = engine_size
+        self.engine_running = False
+    
+    def start_engine(self):
+        """Start motorcycle engine."""
+        if not self.engine_running:
+            self.engine_running = True
+            print(f"Motorcycle engine started: BRAAAP!")
+        else:
+            print("Engine is already running")
+    
+    def stop_engine(self):
+        """Stop motorcycle engine."""
+        if self.engine_running:
+            self.engine_running = False
+            print("Motorcycle engine stopped")
+        else:
+            print("Engine is already off")
+    
+    def accelerate(self):
+        """Accelerate the motorcycle."""
+        if self.engine_running and self.fuel_level > 0:
+            self.fuel_level -= 8  # Uses more fuel
+            print(f"Motorcycle accelerating fast! Fuel: {self.fuel_level}%")
+        else:
+            print("Cannot accelerate: engine off or no fuel")
+    
+    def wheelie(self):
+        """Motorcycle-specific method."""
+        if self.engine_running:
+            print("Doing a wheelie! 🏍️")
+        else:
+            print("Need to start engine first")
+
+# Test abstract base class
+print("\n=== Abstract Base Class Demo ===")
+
+# This would raise an error:
+# vehicle = Vehicle("Generic", "Car", 2023)  # TypeError!
+
+car = Car("Toyota", "Camry", 2023, 4)
+motorcycle = Motorcycle("Harley", "Sportster", 2022, 883)
+
+vehicles = [car, motorcycle]
+
+for vehicle in vehicles:
+    print(f"\n{vehicle.make} {vehicle.model}:")
+    vehicle.start_engine()
+    vehicle.accelerate()
+    vehicle.honk()
+    
+    # Motorcycle-specific behavior
+    if isinstance(vehicle, Motorcycle):
+        vehicle.wheelie()
+```
+
+### Method Resolution Order (MRO)
+
+```{python}
+class A:
+    def method(self):
+        print("A.method")
+
+class B(A):
+    def method(self):
+        print("B.method")
+        super().method()
+
+class C(A):
+    def method(self):
+        print("C.method")
+        super().method()
+
+class D(B, C):
+    def method(self):
+        print("D.method")
+        super().method()
+
+# Demonstrate MRO
+print("\n=== Method Resolution Order Demo ===")
+
+d = D()
+print("Calling d.method():")
+d.method()
+
+print(f"\nMRO for class D: {[cls.__name__ for cls in D.__mro__]}")
+
+# Understanding super() in multiple inheritance
+class Base:
+    def __init__(self, value):
+        self.value = value
+        print(f"Base.__init__({value})")
+
+class Mixin1:
+    def __init__(self, **kwargs):
+        print("Mixin1.__init__")
+        super().__init__(**kwargs)
+
+class Mixin2:
+    def __init__(self, **kwargs):
+        print("Mixin2.__init__")
+        super().__init__(**kwargs)
+
+class Combined(Mixin1, Mixin2, Base):
+    def __init__(self, value, extra=None):
+        print(f"Combined.__init__({value}, {extra})")
+        super().__init__(value=value)
+
+print("\nMultiple inheritance with super():")
+obj = Combined("test", extra="data")
+print(f"Final value: {obj.value}")
+```
+
+## Real-World Examples
+
+### Example 1: Employee Management System
+
+```{python}
+from datetime import datetime, date
+
+class Employee:
+    """Base employee class."""
+    
+    def __init__(self, employee_id, name, hire_date, base_salary):
+        self.employee_id = employee_id
+        self.name = name
+        self.hire_date = hire_date
+        self.base_salary = base_salary
+        self.benefits = []
+    
+    def add_benefit(self, benefit):
+        """Add a benefit to the employee."""
+        self.benefits.append(benefit)
+        print(f"Added benefit '{benefit}' to {self.name}")
+    
+    def calculate_salary(self):
+        """Calculate salary - to be overridden by subclasses."""
+        return self.base_salary
+    
+    def years_of_service(self):
+        """Calculate years of service."""
+        today = date.today()
+        return today.year - self.hire_date.year
+    
+    def get_info(self):
+        """Get employee information."""
+        return {
+            'id': self.employee_id,
+            'name': self.name,
+            'hire_date': self.hire_date,
+            'years_of_service': self.years_of_service(),
+            'salary': self.calculate_salary(),
+            'benefits': self.benefits
+        }
+    
+    def __str__(self):
+        return f"Employee {self.employee_id}: {self.name}"
+
+class FullTimeEmployee(Employee):
+    """Full-time employee with benefits."""
+    
+    def __init__(self, employee_id, name, hire_date, base_salary, department):
+        super().__init__(employee_id, name, hire_date, base_salary)
+        self.department = department
+        self.vacation_days = 20
+    
+    def calculate_salary(self):
+        """Full-time employees get yearly bonus."""
+        years = self.years_of_service()
+        bonus = min(years * 0.05, 0.20)  # Max 20% bonus
+        return self.base_salary * (1 + bonus)
+    
+    def take_vacation(self, days):
+        """Take vacation days."""
+        if days <= self.vacation_days:
+            self.vacation_days -= days
+            print(f"{self.name} took {days} vacation days. Remaining: {self.vacation_days}")
+        else:
+            print(f"Insufficient vacation days. Available: {self.vacation_days}")
+
+class PartTimeEmployee(Employee):
+    """Part-time employee with hourly wage."""
+    
+    def __init__(self, employee_id, name, hire_date, hourly_rate, hours_per_week):
+        # Calculate annual salary from hourly rate
+        annual_salary = hourly_rate * hours_per_week * 52
+        super().__init__(employee_id, name, hire_date, annual_salary)
+        self.hourly_rate = hourly_rate
+        self.hours_per_week = hours_per_week
+    
+    def calculate_salary(self):
+        """Part-time salary calculation."""
+        return self.hourly_rate * self.hours_per_week * 52
+
+class Manager(FullTimeEmployee):
+    """Manager with additional responsibilities."""
+    
+    def __init__(self, employee_id, name, hire_date, base_salary, department, team_size):
+        super().__init__(employee_id, name, hire_date, base_salary, department)
+        self.team_size = team_size
+        self.direct_reports = []
+    
+    def calculate_salary(self):
+        """Managers get base salary plus management bonus."""
+        base_with_years = super().calculate_salary()
+        management_bonus = self.team_size * 2000  # $2000 per team member
+        return base_with_years + management_bonus
+    
+    def add_direct_report(self, employee):
+        """Add employee to team."""
+        self.direct_reports.append(employee)
+        self.team_size = len(self.direct_reports)
+        print(f"Added {employee.name} to {self.name}'s team")
+    
+    def conduct_review(self, employee):
+        """Conduct employee review."""
+        if employee in self.direct_reports:
+            print(f"{self.name} conducting review for {employee.name}")
+        else:
+            print(f"{employee.name} is not in {self.name}'s team")
+
+# Company class to manage employees
+class Company:
+    """Company that manages employees."""
+    
+    def __init__(self, name):
+        self.name = name
+        self.employees = {}
+    
+    def hire_employee(self, employee):
+        """Hire a new employee."""
+        self.employees[employee.employee_id] = employee
+        print(f"Hired {employee.name} at {self.name}")
+    
+    def get_employee(self, employee_id):
+        """Get employee by ID."""
+        return self.employees.get(employee_id)
+    
+    def calculate_payroll(self):
+        """Calculate total payroll."""
+        total = 0
+        print(f"\n=== {self.name} Payroll ===")
+        for employee in self.employees.values():
+            salary = employee.calculate_salary()
+            total += salary
+            emp_type = employee.__class__.__name__
+            print(f"{employee.name} ({emp_type}): ${salary:,.2f}")
+        
+        print(f"Total Payroll: ${total:,.2f}")
+        return total
+    
+    def list_employees_by_type(self):
+        """List employees grouped by type."""
+        from collections import defaultdict
+        groups = defaultdict(list)
+        
+        for employee in self.employees.values():
+            emp_type = employee.__class__.__name__
+            groups[emp_type].append(employee)
+        
+        print(f"\n=== {self.name} Employee Roster ===")
+        for emp_type, employees in groups.items():
+            print(f"{emp_type}s ({len(employees)}):")
+            for emp in employees:
+                print(f"  - {emp.name}")
+
+# Demonstrate the employee system
+print("=== Employee Management System Demo ===")
+
+# Create company
+company = Company("TechCorp Inc.")
+
+# Create employees
+full_time = FullTimeEmployee("FT001", "Alice Johnson", date(2020, 1, 15), 75000, "Engineering")
+part_time = PartTimeEmployee("PT001", "Bob Wilson", date(2022, 6, 1), 25, 20)
+manager = Manager("MG001", "Carol Smith", date(2018, 3, 10), 95000, "Engineering", 0)
+
+# Hire employees
+company.hire_employee(full_time)
+company.hire_employee(part_time)
+company.hire_employee(manager)
+
+# Add team structure
+manager.add_direct_report(full_time)
+
+# Add benefits
+full_time.add_benefit("Health Insurance")
+full_time.add_benefit("401k")
+manager.add_benefit("Health Insurance")
+manager.add_benefit("Stock Options")
+
+# Show polymorphism in action
+company.calculate_payroll()
+company.list_employees_by_type()
+
+# Manager-specific actions
+manager.conduct_review(full_time)
+full_time.take_vacation(5)
+```
+
+### Example 2: Media Player System
+
+```{python}
+import os
+from abc import ABC, abstractmethod
+
+class MediaFile(ABC):
+    """Abstract base class for media files."""
+    
+    def __init__(self, filename, duration):
+        self.filename = filename
+        self.duration = duration  # in seconds
+        self.position = 0
+        self.is_playing = False
+    
+    @abstractmethod
+    def play(self):
+        """Start playing the media."""
+        pass
+    
+    @abstractmethod
+    def get_file_info(self):
+        """Get specific file information."""
+        pass
+    
+    def pause(self):
+        """Pause playback."""
+        if self.is_playing:
+            self.is_playing = False
+            print(f"Paused {self.filename} at {self.position}s")
+        else:
+            print(f"{self.filename} is not playing")
+    
+    def stop(self):
+        """Stop playback."""
+        self.is_playing = False
+        self.position = 0
+        print(f"Stopped {self.filename}")
+    
+    def seek(self, position):
+        """Seek to specific position."""
+        if 0 <= position <= self.duration:
+            self.position = position
+            print(f"Seeked to {position}s in {self.filename}")
+        else:
+            print(f"Invalid position: {position}s (duration: {self.duration}s)")
+    
+    def get_progress(self):
+        """Get playback progress as percentage."""
+        return (self.position / self.duration) * 100 if self.duration > 0 else 0
+    
+    def __str__(self):
+        return f"{self.filename} ({self.duration}s)"
+
+class AudioFile(MediaFile):
+    """Audio file implementation."""
+    
+    def __init__(self, filename, duration, bitrate, sample_rate):
+        super().__init__(filename, duration)
+        self.bitrate = bitrate
+        self.sample_rate = sample_rate
+    
+    def play(self):
+        """Play audio file."""
+        self.is_playing = True
+        print(f"🎵 Playing audio: {self.filename}")
+        print(f"   Quality: {self.bitrate}kbps, {self.sample_rate}Hz")
+    
+    def get_file_info(self):
+        """Get audio file information."""
+        return {
+            'type': 'Audio',
+            'filename': self.filename,
+            'duration': self.duration,
+            'bitrate': f"{self.bitrate}kbps",
+            'sample_rate': f"{self.sample_rate}Hz",
+            'file_size': f"{(self.bitrate * self.duration) // 8}KB (estimated)"
+        }
+
+class VideoFile(MediaFile):
+    """Video file implementation."""
+    
+    def __init__(self, filename, duration, resolution, fps, codec):
+        super().__init__(filename, duration)
+        self.resolution = resolution  # tuple (width, height)
+        self.fps = fps
+        self.codec = codec
+    
+    def play(self):
+        """Play video file."""
+        self.is_playing = True
+        print(f"🎬 Playing video: {self.filename}")
+        print(f"   Resolution: {self.resolution[0]}x{self.resolution[1]}")
+        print(f"   FPS: {self.fps}, Codec: {self.codec}")
+    
+    def get_file_info(self):
+        """Get video file information."""
+        return {
+            'type': 'Video',
+            'filename': self.filename,
+            'duration': self.duration,
+            'resolution': f"{self.resolution[0]}x{self.resolution[1]}",
+            'fps': self.fps,
+            'codec': self.codec,
+            'total_frames': self.fps * self.duration
+        }
+    
+    def take_screenshot(self):
+        """Take screenshot at current position."""
+        if self.is_playing:
+            frame_number = int(self.position * self.fps)
+            screenshot_name = f"{self.filename}_frame_{frame_number}.jpg"
+            print(f"📸 Screenshot saved: {screenshot_name}")
+            return screenshot_name
+        else:
+            print("Cannot take screenshot: video not playing")
+            return None
+
+class StreamingFile(MediaFile):
+    """Streaming media file."""
+    
+    def __init__(self, url, title, duration, quality):
+        super().__init__(title, duration)
+        self.url = url
+        self.quality = quality
+        self.buffer_health = 100  # Percentage
+    
+    def play(self):
+        """Play streaming content."""
+        print(f"🌐 Streaming: {self.filename}")
+        print(f"   URL: {self.url}")
+        print(f"   Quality: {self.quality}")
+        print(f"   Buffer: {self.buffer_health}%")
+        self.is_playing = True
+    
+    def get_file_info(self):
+        """Get streaming file information."""
+        return {
+            'type': 'Stream',
+            'title': self.filename,
+            'url': self.url,
+            'duration': self.duration,
+            'quality': self.quality,
+            'buffer_health': f"{self.buffer_health}%"
+        }
+    
+    def check_connection(self):
+        """Check streaming connection."""
+        import random
+        self.buffer_health = random.randint(70, 100)
+        if self.buffer_health < 80:
+            print(f"⚠️ Low buffer: {self.buffer_health}%")
+        else:
+            print(f"✅ Good connection: {self.buffer_health}%")
+
+class MediaPlayer:
+    """Media player that can handle different file types."""
+    
+    def __init__(self, name):
+        self.name = name
+        self.playlist = []
+        self.current_index = 0
+        self.volume = 50
+        self.shuffle = False
+    
+    def add_media(self, media_file):
+        """Add media file to playlist."""
+        self.playlist.append(media_file)
+        print(f"Added '{media_file.filename}' to playlist")
+    
+    def play_current(self):
+        """Play current media file."""
+        if self.playlist and 0 <= self.current_index < len(self.playlist):
+            current_media = self.playlist[self.current_index]
+            print(f"\n[{self.name}] Playing #{self.current_index + 1}")
+            current_media.play()
+            return current_media
+        else:
+            print("No media to play")
+            return None
+    
+    def next_track(self):
+        """Skip to next track."""
+        if self.playlist:
+            self.current_index = (self.current_index + 1) % len(self.playlist)
+            print(f"⏭️ Next track")
+            return self.play_current()
+        return None
+    
+    def previous_track(self):
+        """Go to previous track."""
+        if self.playlist:
+            self.current_index = (self.current_index - 1) % len(self.playlist)
+            print(f"⏮️ Previous track")
+            return self.play_current()
+        return None
+    
+    def show_playlist(self):
+        """Show current playlist."""
+        print(f"\n=== {self.name} Playlist ===")
+        if not self.playlist:
+            print("Playlist is empty")
+            return
+        
+        for i, media in enumerate(self.playlist):
+            marker = "▶️" if i == self.current_index else "  "
+            media_type = media.__class__.__name__
+            print(f"{marker} {i+1}. {media.filename} ({media_type}, {media.duration}s)")
+    
+    def show_media_info(self, index=None):
+        """Show detailed information about media file."""
+        if index is None:
+            index = self.current_index
+        
+        if 0 <= index < len(self.playlist):
+            media = self.playlist[index]
+            info = media.get_file_info()
+            
+            print(f"\n=== Media Information ===")
+            for key, value in info.items():
+                print(f"{key.title()}: {value}")
+        else:
+            print("Invalid media index")
+    
+    def set_volume(self, volume):
+        """Set player volume."""
+        self.volume = max(0, min(100, volume))
+        print(f"🔊 Volume: {self.volume}%")
+
+# Demonstrate the media player system
+print("=== Media Player System Demo ===")
+
+# Create media files
+audio1 = AudioFile("song1.mp3", 180, 320, 44100)
+audio2 = AudioFile("song2.flac", 240, 1411, 96000)
+video1 = VideoFile("movie.mp4", 7200, (1920, 1080), 24, "H.264")
+video2 = VideoFile("clip.avi", 30, (640, 480), 30, "XVID")
+stream1 = StreamingFile("https://stream.com/live", "Live Concert", 0, "1080p")
+
+# Create media player
+player = MediaPlayer("MyPlayer Pro")
+
+# Add media to playlist
+media_files = [audio1, audio2, video1, video2, stream1]
+for media in media_files:
+    player.add_media(media)
+
+# Show playlist
+player.show_playlist()
+
+# Play media and demonstrate polymorphism
+print("\n=== Playback Demo ===")
+current = player.play_current()
+
+# Show media info
+player.show_media_info()
+
+# Control playback
+current.seek(30)
+print(f"Progress: {current.get_progress():.1f}%")
+
+# Try video-specific functionality
+if isinstance(current, VideoFile):
+    current.take_screenshot()
+
+# Navigation
+player.next_track()
+player.set_volume(75)
+
+# Check streaming
+current = player.playlist[4]  # Stream
+if isinstance(current, StreamingFile):
+    current.check_connection()
+```
+
+## Exercises
+
+### Exercise 1: Shape Hierarchy with Areas
+
+```{python}
+import math
+
+class Shape:
+    """Base shape class."""
+    
+    def __init__(self, name, color="white"):
+        self.name = name
+        self.color = color
+    
+    def area(self):
+        """Calculate area - abstract method."""
+        raise NotImplementedError("Subclasses must implement area()")
+    
+    def perimeter(self):
+        """Calculate perimeter - abstract method."""
+        raise NotImplementedError("Subclasses must implement perimeter()")
+    
+    def describe(self):
+        """Describe the shape."""
+        return f"A {self.color} {self.name} with area {self.area():.2f}"
+
+class Square(Shape):
+    def __init__(self, side, color="white"):
+        super().__init__("square", color)
+        self.side = side
+    
+    def area(self):
+        return self.side ** 2
+    
+    def perimeter(self):
+        return 4 * self.side
+
+class Circle(Shape):
+    def __init__(self, radius, color="white"):
+        super().__init__("circle", color)
+        self.radius = radius
+    
+    def area(self):
+        return math.pi * self.radius ** 2
+    
+    def perimeter(self):
+        return 2 * math.pi * self.radius
+
+# Test the shape hierarchy
+shapes = [
+    Square(5, "red"),
+    Circle(3, "blue"),
+    Square(2, "green")
+]
+
+total_area = 0
+for shape in shapes:
+    print(shape.describe())
+    total_area += shape.area()
+
+print(f"Total area: {total_area:.2f}")
+```
+
+### Exercise 2: Vehicle Fleet Management
+
+```{python}
+class Vehicle:
+    """Base vehicle class."""
+    
+    def __init__(self, make, model, year, fuel_capacity):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.fuel_capacity = fuel_capacity
+        self.fuel_level = fuel_capacity
+        self.mileage = 0
+    
+    def drive(self, distance):
+        """Drive the vehicle."""
+        fuel_needed = self.calculate_fuel_consumption(distance)
+        if fuel_needed <= self.fuel_level:
+            self.fuel_level -= fuel_needed
+            self.mileage += distance
+            print(f"Drove {distance} miles. Fuel: {self.fuel_level:.1f}/{self.fuel_capacity}")
+        else:
+            print("Not enough fuel!")
+    
+    def refuel(self):
+        """Refuel to full capacity."""
+        self.fuel_level = self.fuel_capacity
+        print("Refueled to full capacity")
+    
+    def calculate_fuel_consumption(self, distance):
+        """Calculate fuel consumption - to be overridden."""
+        return distance / 25  # Default: 25 MPG
+
+class Car(Vehicle):
+    def __init__(self, make, model, year, doors):
+        super().__init__(make, model, year, 15)  # 15-gallon tank
+        self.doors = doors
+    
+    def calculate_fuel_consumption(self, distance):
+        """Cars are fuel efficient."""
+        return distance / 30  # 30 MPG
+
+class Truck(Vehicle):
+    def __init__(self, make, model, year, cargo_capacity):
+        super().__init__(make, model, year, 25)  # 25-gallon tank
+        self.cargo_capacity = cargo_capacity
+        self.cargo_weight = 0
+    
+    def calculate_fuel_consumption(self, distance):
+        """Trucks consume more fuel, especially when loaded."""
+        base_mpg = 15
+        # Reduce efficiency based on cargo weight
+        efficiency_factor = 1 - (self.cargo_weight / self.cargo_capacity) * 0.3
+        effective_mpg = base_mpg * efficiency_factor
+        return distance / effective_mpg
+    
+    def load_cargo(self, weight):
+        """Load cargo onto truck."""
+        if self.cargo_weight + weight <= self.cargo_capacity:
+            self.cargo_weight += weight
+            print(f"Loaded {weight} lbs. Total cargo: {self.cargo_weight}/{self.cargo_capacity} lbs")
+        else:
+            print("Cannot load: exceeds capacity")
+
+# Fleet management
+class Fleet:
+    def __init__(self):
+        self.vehicles = []
+    
+    def add_vehicle(self, vehicle):
+        self.vehicles.append(vehicle)
+        print(f"Added {vehicle.make} {vehicle.model} to fleet")
+    
+    def total_mileage(self):
+        return sum(v.mileage for v in self.vehicles)
+    
+    def vehicles_needing_fuel(self, threshold=0.25):
+        """Find vehicles that need fuel."""
+        needy_vehicles = []
+        for vehicle in self.vehicles:
+            fuel_percentage = vehicle.fuel_level / vehicle.fuel_capacity
+            if fuel_percentage < threshold:
+                needy_vehicles.append(vehicle)
+        return needy_vehicles
+
+# Test the fleet
+fleet = Fleet()
+fleet.add_vehicle(Car("Toyota", "Camry", 2022, 4))
+fleet.add_vehicle(Truck("Ford", "F-150", 2021, 2000))
+
+# Test driving
+car = fleet.vehicles[0]
+truck = fleet.vehicles[1]
+
+car.drive(100)
+truck.load_cargo(1000)
+truck.drive(100)
+
+print(f"Fleet total mileage: {fleet.total_mileage()}")
+
+# Check fuel levels
+needy = fleet.vehicles_needing_fuel()
+for vehicle in needy:
+    print(f"{vehicle.make} {vehicle.model} needs fuel")
+```
+
+## Self-Review Questions
+
+### Knowledge Check
+
+1. **What is inheritance and why is it useful?**
+2. **What's the difference between method overriding and method overloading?**
+3. **What is polymorphism and how does it work in Python?**
+4. **When would you use an abstract base class?**
+5. **What is the Method Resolution Order (MRO)?**
+
+### Coding Challenges
+
+1. **Create an animal hierarchy with different sound behaviors**
+2. **Implement a drawing application with different shape tools**
+3. **Design a game character system with different classes**
+4. **Build a file system hierarchy (files, directories, links)**
+
+### Answers
+
+1. Inheritance allows code reuse by creating new classes based on existing ones
+2. Overriding replaces parent methods; Python doesn't have built-in overloading
+3. Polymorphism allows different objects to respond to the same interface
+4. When you want to define a common interface but prevent direct instantiation
+5. MRO determines the order in which methods are searched in inheritance chains
+
+## Best Practices
+
+1. **Favor composition over inheritance** when possible
+2. **Use abstract base classes** to define clear interfaces
+3. **Follow the Liskov Substitution Principle** - subclasses should be substitutable
+4. **Keep inheritance hierarchies shallow** - avoid deep nesting
+5. **Use super()** correctly in multiple inheritance scenarios
+6. **Override `__str__` and `__repr__`** for better debugging
+
+## Common Mistakes
+
+1. **Too deep inheritance hierarchies** - makes code hard to understand
+2. **Violating the IS-A relationship** - inheritance should model real relationships
+3. **Not calling super() in `__init__`** - missing parent initialization
+4. **Diamond problem confusion** - misunderstanding MRO in multiple inheritance
+5. **Overusing inheritance** instead of composition
+
+## Next Steps
+
+Excellent! You now understand inheritance and polymorphism. Next, we'll explore [Advanced OOP Concepts](09-advanced-oop.qmd) including decorators, metaclasses, and design patterns.
+
+## Resources
+
+- [Python Inheritance Documentation](https://docs.python.org/3/tutorial/classes.html#inheritance)
+- [Real Python: Inheritance and Composition](https://realpython.com/inheritance-composition-python/)
+- [Method Resolution Order](https://www.python.org/download/releases/2.3/mro/)
