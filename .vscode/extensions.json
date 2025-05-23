@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "quarto.quarto",
+        "charliermarsh.ruff",
+        "ms-pyright.pyright",
+        "usernamehw.errorlens",
+        "ms-python.python",
+        "ms-toolsai.jupyter"
+    ]
+}
