@@ -1,0 +1,59 @@
+name: Render and Publish Quarto
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Install Python and Dependencies
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
+      - name: Install dependencies
+        run: |
+          uv sync
+
+      - name: Render English content
+        run: |
+          uv run quarto render en/
+
+      - name: Render Japanese content  
+        run: |
+          uv run quarto render ja/
+
+      - name: Render main site
+        run: |
+          uv run quarto render
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: docs
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
