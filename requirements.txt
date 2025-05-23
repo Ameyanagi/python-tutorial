@@ -1,0 +1,26 @@
+# Python Tutorial Requirements
+# Use 'uv sync' for faster installation, or 'pip install -r requirements.txt'
+
+# Core dependencies
+jupyter>=1.1.1
+pyright>=1.1.401
+pytest>=8.3.5
+ruff>=0.11.11
+
+# Data science libraries (for advanced chapters)
+pandas>=2.0.0
+numpy>=1.24.0
+matplotlib>=3.6.0
+
+# Web development (for web development chapters)
+streamlit>=1.28.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+
+# Utility libraries
+requests>=2.31.0
+python-dateutil>=2.8.2
+
+# Development tools
+ipykernel>=6.25.0
+black>=23.0.0  # Optional: some prefer black over ruff format
