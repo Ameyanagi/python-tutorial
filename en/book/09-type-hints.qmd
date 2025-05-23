@@ -1,0 +1,966 @@
+# Type Hints and Static Typing
+
+Type hints make Python code more readable, maintainable, and help catch errors before runtime. They're especially valuable in larger codebases and team environments.
+
+## Why Type Hints Matter
+
+```{python}
+# Without type hints - unclear what types are expected
+def calculate_discount(price, discount_rate, is_member):
+    if is_member:
+        discount_rate += 0.05
+    return price * (1 - discount_rate)
+
+# With type hints - crystal clear
+def calculate_discount_typed(price: float, discount_rate: float, is_member: bool) -> float:
+    """Calculate discounted price with member bonus."""
+    if is_member:
+        discount_rate += 0.05
+    return price * (1 - discount_rate)
+
+# Usage is now self-documenting
+regular_price = calculate_discount_typed(100.0, 0.1, True)
+print(f"Discounted price: ${regular_price:.2f}")
+```
+
+## Basic Type Hints
+
+### Built-in Types
+
+```{python}
+# Basic type annotations
+def greet_user(name: str, age: int, height: float) -> str:
+    """Greet a user with their details."""
+    return f"Hello {name}! You are {age} years old and {height} feet tall."
+
+def is_adult(age: int) -> bool:
+    """Check if person is an adult."""
+    return age >= 18
+
+def calculate_area(width: float, height: float) -> float:
+    """Calculate rectangular area."""
+    return width * height
+
+# Variable annotations
+name: str = "Alice"
+age: int = 25
+height: float = 5.6
+is_student: bool = True
+
+print(greet_user(name, age, height))
+print(f"Is adult: {is_adult(age)}")
+print(f"Area: {calculate_area(10.0, 5.0)}")
+```
+
+### Collection Types
+
+```{python}
+from typing import List, Dict, Tuple, Set, Optional, Union
+
+def process_scores(scores: List[int]) -> Dict[str, float]:
+    """Process a list of scores and return statistics."""
+    return {
+        "average": sum(scores) / len(scores),
+        "highest": float(max(scores)),
+        "lowest": float(min(scores))
+    }
+
+def get_student_info(name: str, grades: List[int]) -> Tuple[str, float, str]:
+    """Get student information with calculated grade."""
+    average = sum(grades) / len(grades)
+    
+    if average >= 90:
+        letter_grade = "A"
+    elif average >= 80:
+        letter_grade = "B"
+    elif average >= 70:
+        letter_grade = "C"
+    else:
+        letter_grade = "F"
+    
+    return name, average, letter_grade
+
+def find_common_interests(person1: Set[str], person2: Set[str]) -> Set[str]:
+    """Find common interests between two people."""
+    return person1 & person2
+
+# Test the functions
+test_scores = [85, 92, 78, 96, 88]
+stats = process_scores(test_scores)
+print(f"Score statistics: {stats}")
+
+student_name, avg, grade = get_student_info("Alice", test_scores)
+print(f"{student_name}: {avg:.1f} ({grade})")
+
+interests1 = {"python", "music", "hiking"}
+interests2 = {"python", "photography", "hiking"}
+common = find_common_interests(interests1, interests2)
+print(f"Common interests: {common}")
+```
+
+### Optional and Union Types
+
+```{python}
+from typing import Optional, Union
+
+def find_user_by_id(user_id: int, users: List[Dict[str, Union[str, int]]]) -> Optional[Dict[str, Union[str, int]]]:
+    """Find user by ID, return None if not found."""
+    for user in users:
+        if user["id"] == user_id:
+            return user
+    return None
+
+def format_phone(phone: Union[str, int]) -> str:
+    """Format phone number from string or integer."""
+    if isinstance(phone, int):
+        phone_str = str(phone)
+    else:
+        phone_str = phone
+    
+    # Remove non-digits
+    digits = ''.join(c for c in phone_str if c.isdigit())
+    
+    if len(digits) == 10:
+        return f"({digits[:3]}) {digits[3:6]}-{digits[6:]}"
+    else:
+        return digits
+
+def safe_divide(a: float, b: float) -> Optional[float]:
+    """Safely divide two numbers, return None if division by zero."""
+    if b == 0:
+        return None
+    return a / b
+
+# Test optional and union types
+users_db = [
+    {"id": 1, "name": "Alice", "age": 25},
+    {"id": 2, "name": "Bob", "age": 30},
+]
+
+found_user = find_user_by_id(1, users_db)
+if found_user:
+    print(f"Found user: {found_user['name']}")
+else:
+    print("User not found")
+
+# Union type examples
+print(f"Phone 1: {format_phone(1234567890)}")
+print(f"Phone 2: {format_phone('123-456-7890')}")
+
+result = safe_divide(10, 2)
+if result is not None:
+    print(f"Division result: {result}")
+else:
+    print("Cannot divide by zero")
+```
+
+## Advanced Type Hints
+
+### Generic Types and TypeVar
+
+```{python}
+from typing import TypeVar, Generic, List, Callable, Any
+
+T = TypeVar('T')  # Generic type variable
+
+class Stack(Generic[T]):
+    """Generic stack implementation."""
+    
+    def __init__(self) -> None:
+        self._items: List[T] = []
+    
+    def push(self, item: T) -> None:
+        """Push item onto stack."""
+        self._items.append(item)
+    
+    def pop(self) -> T:
+        """Pop item from stack."""
+        if not self._items:
+            raise IndexError("Stack is empty")
+        return self._items.pop()
+    
+    def peek(self) -> T:
+        """Peek at top item without removing."""
+        if not self._items:
+            raise IndexError("Stack is empty")
+        return self._items[-1]
+    
+    def is_empty(self) -> bool:
+        """Check if stack is empty."""
+        return len(self._items) == 0
+    
+    def size(self) -> int:
+        """Get stack size."""
+        return len(self._items)
+
+def map_function(func: Callable[[T], T], items: List[T]) -> List[T]:
+    """Apply function to each item in list."""
+    return [func(item) for item in items]
+
+def filter_items(predicate: Callable[[T], bool], items: List[T]) -> List[T]:
+    """Filter items based on predicate function."""
+    return [item for item in items if predicate(item)]
+
+# Test generic types
+int_stack: Stack[int] = Stack()
+int_stack.push(1)
+int_stack.push(2)
+int_stack.push(3)
+
+print(f"Stack size: {int_stack.size()}")
+print(f"Top item: {int_stack.peek()}")
+print(f"Popped: {int_stack.pop()}")
+
+string_stack: Stack[str] = Stack()
+string_stack.push("hello")
+string_stack.push("world")
+
+# Function type examples
+numbers = [1, 2, 3, 4, 5]
+squared = map_function(lambda x: x ** 2, numbers)
+evens = filter_items(lambda x: x % 2 == 0, numbers)
+
+print(f"Original: {numbers}")
+print(f"Squared: {squared}")
+print(f"Evens: {evens}")
+```
+
+### Protocol and Structural Typing
+
+```{python}
+from typing import Protocol, runtime_checkable
+
+@runtime_checkable
+class Drawable(Protocol):
+    """Protocol for objects that can be drawn."""
+    
+    def draw(self) -> str:
+        """Draw the object."""
+        ...
+    
+    def area(self) -> float:
+        """Calculate area."""
+        ...
+
+class Circle:
+    """Circle that implements Drawable protocol."""
+    
+    def __init__(self, radius: float):
+        self.radius = radius
+    
+    def draw(self) -> str:
+        return f"Drawing circle with radius {self.radius}"
+    
+    def area(self) -> float:
+        import math
+        return math.pi * self.radius ** 2
+
+class Rectangle:
+    """Rectangle that implements Drawable protocol."""
+    
+    def __init__(self, width: float, height: float):
+        self.width = width
+        self.height = height
+    
+    def draw(self) -> str:
+        return f"Drawing rectangle {self.width}x{self.height}"
+    
+    def area(self) -> float:
+        return self.width * self.height
+
+def render_shapes(shapes: List[Drawable]) -> None:
+    """Render a list of drawable shapes."""
+    total_area = 0
+    for shape in shapes:
+        print(shape.draw())
+        area = shape.area()
+        print(f"  Area: {area:.2f}")
+        total_area += area
+    print(f"Total area: {total_area:.2f}")
+
+# Test protocol
+shapes: List[Drawable] = [
+    Circle(5),
+    Rectangle(4, 3),
+    Circle(2)
+]
+
+render_shapes(shapes)
+
+# Runtime protocol checking
+circle = Circle(1)
+print(f"Is circle Drawable? {isinstance(circle, Drawable)}")
+```
+
+### Literal and Final Types
+
+```{python}
+from typing import Literal, Final
+from enum import Enum
+
+# Literal types for specific values
+def set_log_level(level: Literal["DEBUG", "INFO", "WARNING", "ERROR"]) -> None:
+    """Set logging level to specific allowed values."""
+    print(f"Log level set to: {level}")
+
+def get_http_status(code: Literal[200, 404, 500]) -> str:
+    """Get HTTP status message for specific codes."""
+    messages = {
+        200: "OK",
+        404: "Not Found", 
+        500: "Internal Server Error"
+    }
+    return messages[code]
+
+# Final types for constants
+MAX_CONNECTIONS: Final[int] = 100
+API_VERSION: Final[str] = "v1.2.3"
+
+class DatabaseConfig:
+    """Database configuration with final attributes."""
+    
+    def __init__(self, host: str, port: int):
+        self.host: Final[str] = host
+        self.port: Final[int] = port
+        self._connection_string: Final[str] = f"{host}:{port}"
+    
+    @property
+    def connection_string(self) -> str:
+        """Get connection string."""
+        return self._connection_string
+
+# Test literal and final types
+set_log_level("INFO")  # Valid
+set_log_level("DEBUG")  # Valid
+# set_log_level("TRACE")  # Would be flagged by type checker
+
+print(get_http_status(404))
+
+config = DatabaseConfig("localhost", 5432)
+print(f"Connection: {config.connection_string}")
+print(f"Max connections: {MAX_CONNECTIONS}")
+```
+
+## Type Checking with mypy
+
+### Creating a Type-Checked Module
+
+```{python}
+# This would be in a separate .py file for mypy checking
+"""
+Example module demonstrating type checking.
+Run with: mypy example_module.py
+"""
+
+from typing import Dict, List, Optional, Protocol
+from dataclasses import dataclass
+from datetime import datetime
+
+@dataclass
+class Person:
+    """Person data class with type hints."""
+    name: str
+    age: int
+    email: Optional[str] = None
+    
+    def is_adult(self) -> bool:
+        """Check if person is an adult."""
+        return self.age >= 18
+    
+    def get_display_name(self) -> str:
+        """Get display name with age."""
+        return f"{self.name} ({self.age})"
+
+class PersonRepository(Protocol):
+    """Protocol for person storage."""
+    
+    def save(self, person: Person) -> bool:
+        """Save person to storage."""
+        ...
+    
+    def find_by_name(self, name: str) -> Optional[Person]:
+        """Find person by name."""
+        ...
+    
+    def list_all(self) -> List[Person]:
+        """List all persons."""
+        ...
+
+class MemoryPersonRepository:
+    """In-memory implementation of PersonRepository."""
+    
+    def __init__(self) -> None:
+        self._people: Dict[str, Person] = {}
+    
+    def save(self, person: Person) -> bool:
+        """Save person to memory."""
+        self._people[person.name] = person
+        return True
+    
+    def find_by_name(self, name: str) -> Optional[Person]:
+        """Find person by name."""
+        return self._people.get(name)
+    
+    def list_all(self) -> List[Person]:
+        """List all persons."""
+        return list(self._people.values())
+
+class PersonService:
+    """Service for managing persons."""
+    
+    def __init__(self, repository: PersonRepository) -> None:
+        self._repository = repository
+    
+    def create_person(self, name: str, age: int, email: Optional[str] = None) -> Person:
+        """Create and save a new person."""
+        person = Person(name=name, age=age, email=email)
+        
+        if self._repository.save(person):
+            print(f"Created person: {person.get_display_name()}")
+            return person
+        else:
+            raise RuntimeError("Failed to save person")
+    
+    def get_adults(self) -> List[Person]:
+        """Get all adult persons."""
+        all_people = self._repository.list_all()
+        return [person for person in all_people if person.is_adult()]
+    
+    def find_person(self, name: str) -> Optional[Person]:
+        """Find person by name."""
+        return self._repository.find_by_name(name)
+
+# Demonstration
+def demonstrate_typed_service() -> None:
+    """Demonstrate the typed person service."""
+    print("=== Type-Checked Person Service Demo ===")
+    
+    # Create repository and service
+    repository = MemoryPersonRepository()
+    service = PersonService(repository)
+    
+    # Create some people
+    alice = service.create_person("Alice Johnson", 25, "alice@example.com")
+    bob = service.create_person("Bob Wilson", 17)
+    charlie = service.create_person("Charlie Brown", 30)
+    
+    # Find adults
+    adults = service.get_adults()
+    print(f"\nAdults ({len(adults)}):")
+    for adult in adults:
+        print(f"  - {adult.get_display_name()}")
+    
+    # Find specific person
+    found_person = service.find_person("Alice Johnson")
+    if found_person:
+        print(f"\nFound: {found_person.get_display_name()}")
+        print(f"Email: {found_person.email or 'Not provided'}")
+
+demonstrate_typed_service()
+```
+
+## Type Checking Tools and Configuration
+
+### mypy Configuration
+
+```python
+# mypy.ini configuration file
+"""
+[mypy]
+python_version = 3.12
+warn_return_any = True
+warn_unused_configs = True
+disallow_untyped_defs = True
+disallow_incomplete_defs = True
+check_untyped_defs = True
+disallow_untyped_decorators = True
+no_implicit_optional = True
+warn_redundant_casts = True
+warn_unused_ignores = True
+warn_no_return = True
+warn_unreachable = True
+strict_equality = True
+
+[mypy-external_library.*]
+ignore_missing_imports = True
+"""
+
+# Example of gradual typing
+def legacy_function(data):  # type: ignore
+    """Legacy function without types."""
+    return data.process()
+
+def modern_function(data: Dict[str, Any]) -> List[str]:
+    """Modern function with types."""
+    result: List[str] = []
+    for key, value in data.items():
+        if isinstance(value, str):
+            result.append(f"{key}: {value}")
+    return result
+```
+
+## Real-World Examples
+
+### Example 1: API Client with Type Hints
+
+```{python}
+from typing import Dict, List, Optional, Union, Any, TypedDict
+from dataclasses import dataclass
+from enum import Enum
+import json
+from datetime import datetime
+
+class HttpMethod(Enum):
+    """HTTP methods for API requests."""
+    GET = "GET"
+    POST = "POST"
+    PUT = "PUT"
+    DELETE = "DELETE"
+
+class ApiResponse(TypedDict):
+    """Typed dictionary for API responses."""
+    status_code: int
+    data: Optional[Dict[str, Any]]
+    error: Optional[str]
+
+@dataclass
+class User:
+    """User data model."""
+    id: int
+    name: str
+    email: str
+    created_at: datetime
+    is_active: bool = True
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'User':
+        """Create User from dictionary."""
+        return cls(
+            id=data['id'],
+            name=data['name'],
+            email=data['email'],
+            created_at=datetime.fromisoformat(data['created_at']),
+            is_active=data.get('is_active', True)
+        )
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert User to dictionary."""
+        return {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'created_at': self.created_at.isoformat(),
+            'is_active': self.is_active
+        }
+
+class ApiClient:
+    """Type-safe API client."""
+    
+    def __init__(self, base_url: str, api_key: str) -> None:
+        self.base_url = base_url.rstrip('/')
+        self.api_key = api_key
+    
+    def _make_request(
+        self, 
+        method: HttpMethod, 
+        endpoint: str, 
+        data: Optional[Dict[str, Any]] = None
+    ) -> ApiResponse:
+        """Make HTTP request (simulated)."""
+        # Simulate API call
+        print(f"{method.value} {self.base_url}{endpoint}")
+        if data:
+            print(f"Data: {json.dumps(data, indent=2)}")
+        
+        # Simulate successful response
+        if method == HttpMethod.GET and "/users/" in endpoint:
+            user_id = int(endpoint.split('/')[-1])
+            return {
+                'status_code': 200,
+                'data': {
+                    'id': user_id,
+                    'name': f'User {user_id}',
+                    'email': f'user{user_id}@example.com',
+                    'created_at': '2023-01-01T00:00:00',
+                    'is_active': True
+                },
+                'error': None
+            }
+        elif method == HttpMethod.POST and endpoint == "/users":
+            return {
+                'status_code': 201,
+                'data': {**data, 'id': 123, 'created_at': '2023-01-01T00:00:00'},
+                'error': None
+            }
+        else:
+            return {
+                'status_code': 200,
+                'data': None,
+                'error': None
+            }
+    
+    def get_user(self, user_id: int) -> Optional[User]:
+        """Get user by ID."""
+        response = self._make_request(HttpMethod.GET, f"/users/{user_id}")
+        
+        if response['status_code'] == 200 and response['data']:
+            return User.from_dict(response['data'])
+        return None
+    
+    def create_user(self, name: str, email: str) -> Optional[User]:
+        """Create new user."""
+        user_data = {
+            'name': name,
+            'email': email,
+            'is_active': True
+        }
+        
+        response = self._make_request(HttpMethod.POST, "/users", user_data)
+        
+        if response['status_code'] in (200, 201) and response['data']:
+            return User.from_dict(response['data'])
+        return None
+    
+    def list_users(self, active_only: bool = True) -> List[User]:
+        """List users with optional filtering."""
+        response = self._make_request(HttpMethod.GET, "/users")
+        
+        if response['status_code'] == 200 and response['data']:
+            # Simulate multiple users
+            users_data = [response['data']]  # In reality, would be a list
+            users = [User.from_dict(user_data) for user_data in users_data]
+            
+            if active_only:
+                return [user for user in users if user.is_active]
+            return users
+        return []
+
+# Demonstrate typed API client
+def demonstrate_api_client() -> None:
+    """Demonstrate the type-safe API client."""
+    print("=== Type-Safe API Client Demo ===")
+    
+    client = ApiClient("https://api.example.com", "secret-key")
+    
+    # Get user
+    user = client.get_user(1)
+    if user:
+        print(f"Retrieved user: {user.name} ({user.email})")
+    
+    # Create user
+    new_user = client.create_user("Jane Doe", "jane@example.com")
+    if new_user:
+        print(f"Created user: {new_user.name} with ID {new_user.id}")
+    
+    # List users
+    users = client.list_users(active_only=True)
+    print(f"Found {len(users)} active users")
+
+demonstrate_api_client()
+```
+
+### Example 2: Configuration Management with Types
+
+```{python}
+from typing import Dict, List, Optional, Union, Literal, get_type_hints
+from dataclasses import dataclass, field
+from pathlib import Path
+import os
+
+@dataclass
+class DatabaseConfig:
+    """Database configuration with type validation."""
+    host: str
+    port: int
+    username: str
+    password: str
+    database: str
+    ssl_enabled: bool = False
+    connection_timeout: int = 30
+    
+    def __post_init__(self) -> None:
+        """Validate configuration after initialization."""
+        if not 1 <= self.port <= 65535:
+            raise ValueError(f"Invalid port: {self.port}")
+        if self.connection_timeout <= 0:
+            raise ValueError("Connection timeout must be positive")
+
+@dataclass 
+class CacheConfig:
+    """Cache configuration."""
+    backend: Literal["redis", "memcached", "memory"]
+    host: Optional[str] = None
+    port: Optional[int] = None
+    ttl_seconds: int = 3600
+    max_size: Optional[int] = None
+    
+    def __post_init__(self) -> None:
+        """Validate cache configuration."""
+        if self.backend in ("redis", "memcached"):
+            if not self.host or not self.port:
+                raise ValueError(f"{self.backend} backend requires host and port")
+
+@dataclass
+class LoggingConfig:
+    """Logging configuration."""
+    level: Literal["DEBUG", "INFO", "WARNING", "ERROR"]
+    format: str = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    file_path: Optional[Path] = None
+    max_file_size_mb: int = 10
+    backup_count: int = 5
+
+@dataclass
+class AppConfig:
+    """Main application configuration."""
+    app_name: str
+    debug: bool
+    secret_key: str
+    database: DatabaseConfig
+    cache: CacheConfig
+    logging: LoggingConfig
+    allowed_hosts: List[str] = field(default_factory=list)
+    api_rate_limit: int = 1000
+    
+    @classmethod
+    def from_env(cls) -> 'AppConfig':
+        """Create configuration from environment variables."""
+        return cls(
+            app_name=os.getenv("APP_NAME", "MyApp"),
+            debug=os.getenv("DEBUG", "false").lower() == "true",
+            secret_key=os.getenv("SECRET_KEY", "dev-secret"),
+            database=DatabaseConfig(
+                host=os.getenv("DB_HOST", "localhost"),
+                port=int(os.getenv("DB_PORT", "5432")),
+                username=os.getenv("DB_USER", "user"),
+                password=os.getenv("DB_PASSWORD", "password"),
+                database=os.getenv("DB_NAME", "myapp"),
+                ssl_enabled=os.getenv("DB_SSL", "false").lower() == "true"
+            ),
+            cache=CacheConfig(
+                backend=os.getenv("CACHE_BACKEND", "memory"),  # type: ignore
+                host=os.getenv("CACHE_HOST"),
+                port=int(os.getenv("CACHE_PORT", "6379")) if os.getenv("CACHE_PORT") else None
+            ),
+            logging=LoggingConfig(
+                level=os.getenv("LOG_LEVEL", "INFO"),  # type: ignore
+                file_path=Path(os.getenv("LOG_FILE")) if os.getenv("LOG_FILE") else None
+            ),
+            allowed_hosts=os.getenv("ALLOWED_HOSTS", "").split(",") if os.getenv("ALLOWED_HOSTS") else []
+        )
+    
+    def validate(self) -> List[str]:
+        """Validate entire configuration and return errors."""
+        errors: List[str] = []
+        
+        if not self.secret_key or len(self.secret_key) < 16:
+            errors.append("Secret key must be at least 16 characters")
+        
+        if self.api_rate_limit <= 0:
+            errors.append("API rate limit must be positive")
+        
+        # Validate database connection would work
+        if self.database.port == self.cache.port and self.database.host == self.cache.host:
+            errors.append("Database and cache cannot use same host:port")
+        
+        return errors
+
+class ConfigManager:
+    """Type-safe configuration manager."""
+    
+    def __init__(self, config: AppConfig) -> None:
+        self.config = config
+        self._validate_config()
+    
+    def _validate_config(self) -> None:
+        """Validate configuration on initialization."""
+        errors = self.config.validate()
+        if errors:
+            error_msg = "Configuration errors:\n" + "\n".join(f"  - {error}" for error in errors)
+            raise ValueError(error_msg)
+    
+    def get_database_url(self) -> str:
+        """Get database connection URL."""
+        db = self.config.database
+        protocol = "postgresql+asyncpg" if db.ssl_enabled else "postgresql"
+        return f"{protocol}://{db.username}:{db.password}@{db.host}:{db.port}/{db.database}"
+    
+    def get_cache_url(self) -> Optional[str]:
+        """Get cache connection URL."""
+        cache = self.config.cache
+        if cache.backend == "memory":
+            return None
+        elif cache.backend == "redis":
+            return f"redis://{cache.host}:{cache.port}"
+        elif cache.backend == "memcached":
+            return f"memcached://{cache.host}:{cache.port}"
+        return None
+    
+    def is_production(self) -> bool:
+        """Check if running in production mode."""
+        return not self.config.debug and self.config.secret_key != "dev-secret"
+    
+    def print_config_summary(self) -> None:
+        """Print configuration summary."""
+        print("=== Configuration Summary ===")
+        print(f"App: {self.config.app_name}")
+        print(f"Debug: {self.config.debug}")
+        print(f"Database: {self.config.database.host}:{self.config.database.port}")
+        print(f"Cache: {self.config.cache.backend}")
+        print(f"Log level: {self.config.logging.level}")
+        print(f"Production mode: {self.is_production()}")
+
+# Demonstrate configuration management
+def demonstrate_config_management() -> None:
+    """Demonstrate type-safe configuration management."""
+    print("=== Type-Safe Configuration Demo ===")
+    
+    # Create configuration from environment
+    try:
+        config = AppConfig.from_env()
+        manager = ConfigManager(config)
+        
+        manager.print_config_summary()
+        
+        print(f"\nDatabase URL: {manager.get_database_url()}")
+        cache_url = manager.get_cache_url()
+        if cache_url:
+            print(f"Cache URL: {cache_url}")
+        else:
+            print("Using in-memory cache")
+        
+    except ValueError as e:
+        print(f"Configuration error: {e}")
+
+demonstrate_config_management()
+```
+
+## Best Practices
+
+### Type Hint Guidelines
+
+```python
+# Good practices for type hints
+
+# 1. Use type hints for public APIs
+def public_function(param: str) -> int:
+    """Public functions should always have type hints."""
+    return len(param)
+
+# 2. Use Optional for nullable values
+def find_item(items: List[str], target: str) -> Optional[str]:
+    """Return None when item not found."""
+    return target if target in items else None
+
+# 3. Use Union sparingly, prefer Protocols
+from typing import Protocol
+
+class Readable(Protocol):
+    def read(self) -> str: ...
+
+def process_readable(source: Readable) -> str:
+    """Better than Union[File, StringIO, ...]"""
+    return source.read().upper()
+
+# 4. Use TypedDict for dictionary schemas
+class UserDict(TypedDict):
+    name: str
+    age: int
+    email: Optional[str]
+
+def process_user_data(user: UserDict) -> str:
+    """Clear schema for dictionary parameters."""
+    return f"{user['name']} ({user['age']})"
+
+# 5. Use Generic for reusable containers
+from typing import TypeVar, Generic
+
+T = TypeVar('T')
+
+class Repository(Generic[T]):
+    def save(self, item: T) -> T: ...
+    def find_by_id(self, id: int) -> Optional[T]: ...
+```
+
+## Common Type Checking Errors
+
+```python
+# Common mistakes and solutions
+
+# Mistake 1: Using List instead of list (Python 3.9+)
+# Old way (before Python 3.9)
+from typing import List, Dict
+def old_style(items: List[str]) -> Dict[str, int]:
+    pass
+
+# New way (Python 3.9+)
+def new_style(items: list[str]) -> dict[str, int]:
+    pass
+
+# Mistake 2: Not handling None in Optional types
+def unsafe_function(value: Optional[str]) -> int:
+    return len(value)  # Error: value might be None
+
+def safe_function(value: Optional[str]) -> int:
+    if value is None:
+        return 0
+    return len(value)
+
+# Mistake 3: Using Any too liberally
+def bad_function(data: Any) -> Any:  # Defeats purpose of type hints
+    return data.some_method()
+
+def better_function(data: Dict[str, Union[str, int]]) -> str:
+    return str(data.get('name', 'Unknown'))
+```
+
+## Self-Review Questions
+
+### Knowledge Check
+
+1. **What's the difference between type hints and runtime type checking?**
+2. **When should you use Optional vs Union?**
+3. **What are Protocol types and when are they useful?**
+4. **How do Generic types improve code reusability?**
+5. **What's the purpose of TypedDict?**
+
+### Coding Challenges
+
+1. **Add comprehensive type hints to an existing function**
+2. **Create a Generic class for a data structure**
+3. **Design a Protocol for a plugin system**
+4. **Build a type-safe configuration loader**
+
+### Answers
+
+1. Type hints are compile-time annotations; runtime checking requires additional tools
+2. Optional for nullable single types; Union for multiple possible types
+3. Protocols define structural types; useful for duck typing with type safety
+4. Generics allow type-safe containers and functions that work with multiple types
+5. TypedDict provides type safety for dictionary schemas
+
+## Tools and Integration
+
+### Popular Type Checking Tools
+
+1. **mypy** - The most popular static type checker
+2. **pyright** - Microsoft's fast type checker (used in Pylance)
+3. **pyre** - Facebook's type checker
+4. **pytype** - Google's type checker
+
+### IDE Integration
+
+- **VS Code**: Pylance extension (pyright-based)
+- **PyCharm**: Built-in type checking
+- **Vim/Neovim**: coc-pyright, ALE
+- **Emacs**: lsp-pyright
+
+## Next Steps
+
+Excellent! You now understand Python's type hinting system. Next, we'll explore [Async Programming](10-async.qmd) to learn about concurrent and asynchronous programming with asyncio.
+
+## Resources
+
+- [Python Typing Documentation](https://docs.python.org/3/library/typing.html)
+- [mypy Documentation](https://mypy.readthedocs.io/)
+- [Real Python: Type Checking](https://realpython.com/python-type-checking/)
+- [PEP 484: Type Hints](https://www.python.org/dev/peps/pep-0484/)

@@ -1,0 +1,957 @@
+# Multiprocessing and Parallel Computing
+
+Multiprocessing allows you to leverage multiple CPU cores for true parallelism, making it perfect for CPU-intensive tasks that can benefit from parallel execution.
+
+## Understanding Parallelism vs Concurrency
+
+### The Difference
+
+```{python}
+import time
+import multiprocessing as mp
+import threading
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+from typing import List
+
+def cpu_intensive_task(n: int) -> int:
+    """Simulate CPU-intensive work."""
+    total = 0
+    for i in range(n * 1000000):
+        total += i % 1000
+    return total
+
+def io_intensive_task(duration: float) -> str:
+    """Simulate I/O-intensive work."""
+    time.sleep(duration)
+    return f"I/O task completed in {duration}s"
+
+def compare_approaches():
+    """Compare sequential, threading, and multiprocessing approaches."""
+    print("=== Parallelism vs Concurrency Comparison ===")
+    
+    # Test data
+    cpu_tasks = [5, 5, 5, 5]  # 4 CPU-intensive tasks
+    io_tasks = [1, 1, 1, 1]   # 4 I/O-intensive tasks
+    
+    # Sequential execution
+    print("1. Sequential Execution:")
+    start_time = time.time()
+    cpu_results = [cpu_intensive_task(n) for n in cpu_tasks]
+    sequential_time = time.time() - start_time
+    print(f"   CPU tasks sequential: {sequential_time:.2f}s")
+    
+    start_time = time.time()
+    io_results = [io_intensive_task(d) for d in io_tasks]
+    sequential_io_time = time.time() - start_time
+    print(f"   I/O tasks sequential: {sequential_io_time:.2f}s")
+    
+    # Threading (good for I/O, limited for CPU due to GIL)
+    print("\n2. Threading:")
+    start_time = time.time()
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        threaded_cpu_results = list(executor.map(cpu_intensive_task, cpu_tasks))
+    threaded_cpu_time = time.time() - start_time
+    print(f"   CPU tasks threaded: {threaded_cpu_time:.2f}s (GIL limited)")
+    
+    start_time = time.time()
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        threaded_io_results = list(executor.map(io_intensive_task, io_tasks))
+    threaded_io_time = time.time() - start_time
+    print(f"   I/O tasks threaded: {threaded_io_time:.2f}s")
+    
+    # Multiprocessing (true parallelism for CPU tasks)
+    print("\n3. Multiprocessing:")
+    start_time = time.time()
+    with ProcessPoolExecutor(max_workers=4) as executor:
+        parallel_cpu_results = list(executor.map(cpu_intensive_task, cpu_tasks))
+    parallel_cpu_time = time.time() - start_time
+    print(f"   CPU tasks parallel: {parallel_cpu_time:.2f}s")
+    
+    start_time = time.time()
+    with ProcessPoolExecutor(max_workers=4) as executor:
+        parallel_io_results = list(executor.map(io_intensive_task, io_tasks))
+    parallel_io_time = time.time() - start_time
+    print(f"   I/O tasks parallel: {parallel_io_time:.2f}s")
+    
+    # Summary
+    print(f"\n=== Performance Summary ===")
+    print(f"CPU-intensive tasks:")
+    print(f"  Sequential: {sequential_time:.2f}s")
+    print(f"  Threading: {threaded_cpu_time:.2f}s (speedup: {sequential_time/threaded_cpu_time:.1f}x)")
+    print(f"  Multiprocessing: {parallel_cpu_time:.2f}s (speedup: {sequential_time/parallel_cpu_time:.1f}x)")
+    
+    print(f"\nI/O-intensive tasks:")
+    print(f"  Sequential: {sequential_io_time:.2f}s")
+    print(f"  Threading: {threaded_io_time:.2f}s (speedup: {sequential_io_time/threaded_io_time:.1f}x)")
+    print(f"  Multiprocessing: {parallel_io_time:.2f}s (speedup: {sequential_io_time/parallel_io_time:.1f}x)")
+
+# Note: This would run in a script, not in an interactive environment
+if __name__ == "__main__":
+    compare_approaches()
+else:
+    print("Multiprocessing comparison code ready (run in script for full demo)")
+```
+
+## Basic Multiprocessing
+
+### Process Creation and Management
+
+```{python}
+import multiprocessing as mp
+import os
+import time
+from typing import List, Tuple
+
+def worker_function(worker_id: int, shared_data: List[int]) -> Tuple[int, int, List[int]]:
+    """Worker function that processes data."""
+    process_id = os.getpid()
+    print(f"Worker {worker_id} (PID: {process_id}) starting...")
+    
+    # Simulate some work
+    result = []
+    for item in shared_data:
+        # CPU-intensive calculation
+        processed = sum(range(item * 100000))
+        result.append(processed)
+        time.sleep(0.1)  # Simulate additional work
+    
+    print(f"Worker {worker_id} (PID: {process_id}) completed")
+    return worker_id, process_id, result
+
+def basic_multiprocessing_demo():
+    """Demonstrate basic multiprocessing concepts."""
+    print("=== Basic Multiprocessing Demo ===")
+    print(f"Main process PID: {os.getpid()}")
+    print(f"CPU count: {mp.cpu_count()}")
+    
+    # Create processes manually
+    processes = []
+    results = []
+    
+    # Data for workers
+    work_data = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ]
+    
+    # Create and start processes
+    for i, data in enumerate(work_data):
+        process = mp.Process(
+            target=worker_function,
+            args=(i, data)
+        )
+        processes.append(process)
+        process.start()
+        print(f"Started process {i}")
+    
+    # Wait for all processes to complete
+    for i, process in enumerate(processes):
+        process.join()
+        print(f"Process {i} finished")
+    
+    print("All processes completed")
+
+# Demonstrate process pools
+def process_pool_demo():
+    """Demonstrate process pools for easier management."""
+    print("\n=== Process Pool Demo ===")
+    
+    def square_number(n: int) -> int:
+        """Square a number with some CPU work."""
+        result = n * n
+        # Add some CPU work
+        for _ in range(n * 100000):
+            pass
+        return result
+    
+    numbers = list(range(1, 9))  # Numbers to square
+    
+    # Sequential processing
+    start_time = time.time()
+    sequential_results = [square_number(n) for n in numbers]
+    sequential_time = time.time() - start_time
+    
+    # Parallel processing with pool
+    start_time = time.time()
+    with mp.Pool(processes=4) as pool:
+        parallel_results = pool.map(square_number, numbers)
+    parallel_time = time.time() - start_time
+    
+    print(f"Sequential results: {sequential_results}")
+    print(f"Parallel results: {parallel_results}")
+    print(f"Sequential time: {sequential_time:.2f}s")
+    print(f"Parallel time: {parallel_time:.2f}s")
+    print(f"Speedup: {sequential_time / parallel_time:.1f}x")
+
+if __name__ == "__main__":
+    basic_multiprocessing_demo()
+    process_pool_demo()
+else:
+    print("Process demos ready (run in script for full execution)")
+```
+
+## Inter-Process Communication
+
+### Shared Memory and Synchronization
+
+```{python}
+import multiprocessing as mp
+import time
+import random
+from typing import List
+
+def shared_memory_demo():
+    """Demonstrate shared memory between processes."""
+    print("=== Shared Memory Demo ===")
+    
+    def worker_with_shared_array(worker_id: int, shared_array, lock, start_index: int, count: int):
+        """Worker that modifies shared array safely."""
+        print(f"Worker {worker_id} starting...")
+        
+        for i in range(count):
+            with lock:  # Acquire lock for thread-safe access
+                index = start_index + i
+                if index < len(shared_array):
+                    old_value = shared_array[index]
+                    # Simulate some computation
+                    time.sleep(0.01)
+                    shared_array[index] = old_value + worker_id * 10
+                    print(f"Worker {worker_id}: updated index {index} from {old_value} to {shared_array[index]}")
+        
+        print(f"Worker {worker_id} completed")
+    
+    # Create shared array
+    shared_array = mp.Array('i', [i for i in range(20)])  # 'i' for integers
+    lock = mp.Lock()
+    
+    print(f"Initial array: {list(shared_array[:10])}...")
+    
+    # Create processes that modify shared array
+    processes = []
+    for worker_id in range(4):
+        p = mp.Process(
+            target=worker_with_shared_array,
+            args=(worker_id, shared_array, lock, worker_id * 5, 5)
+        )
+        processes.append(p)
+        p.start()
+    
+    # Wait for completion
+    for p in processes:
+        p.join()
+    
+    print(f"Final array: {list(shared_array[:10])}...")
+
+def queue_communication_demo():
+    """Demonstrate queue-based communication."""
+    print("\n=== Queue Communication Demo ===")
+    
+    def producer(queue: mp.Queue, producer_id: int, num_items: int):
+        """Produce items and put them in queue."""
+        print(f"Producer {producer_id} starting...")
+        
+        for i in range(num_items):
+            item = f"Item-{producer_id}-{i}"
+            queue.put(item)
+            print(f"Producer {producer_id} produced: {item}")
+            time.sleep(random.uniform(0.1, 0.3))
+        
+        print(f"Producer {producer_id} finished")
+    
+    def consumer(queue: mp.Queue, consumer_id: int, timeout: int = 5):
+        """Consume items from queue."""
+        print(f"Consumer {consumer_id} starting...")
+        processed_items = []
+        
+        while True:
+            try:
+                item = queue.get(timeout=timeout)
+                if item is None:  # Poison pill
+                    break
+                
+                # Process item
+                print(f"Consumer {consumer_id} processing: {item}")
+                time.sleep(0.2)  # Simulate processing
+                processed_items.append(item)
+                
+            except:  # Timeout
+                print(f"Consumer {consumer_id} timeout, stopping")
+                break
+        
+        print(f"Consumer {consumer_id} processed {len(processed_items)} items")
+        return processed_items
+    
+    # Create queue
+    queue = mp.Queue(maxsize=10)
+    
+    # Create producers and consumers
+    producers = []
+    consumers = []
+    
+    # Start producers
+    for i in range(2):
+        p = mp.Process(target=producer, args=(queue, i, 3))
+        producers.append(p)
+        p.start()
+    
+    # Start consumers
+    for i in range(2):
+        p = mp.Process(target=consumer, args=(queue, i, 2))
+        consumers.append(p)
+        p.start()
+    
+    # Wait for producers to finish
+    for p in producers:
+        p.join()
+    
+    # Send poison pills to stop consumers
+    for _ in consumers:
+        queue.put(None)
+    
+    # Wait for consumers to finish
+    for p in consumers:
+        p.join()
+    
+    print("Queue communication demo completed")
+
+if __name__ == "__main__":
+    shared_memory_demo()
+    queue_communication_demo()
+else:
+    print("IPC demos ready (run in script for full execution)")
+```
+
+## Advanced Multiprocessing Patterns
+
+### Map-Reduce Pattern
+
+```{python}
+import multiprocessing as mp
+from concurrent.futures import ProcessPoolExecutor
+from typing import List, Dict, Callable, Any
+import time
+import functools
+
+def map_reduce_framework():
+    """Implement a simple map-reduce framework."""
+    print("=== Map-Reduce Framework Demo ===")
+    
+    class MapReduceJob:
+        """Simple map-reduce job framework."""
+        
+        def __init__(self, num_workers: int = None):
+            self.num_workers = num_workers or mp.cpu_count()
+        
+        def run(self, data: List[Any], map_func: Callable, reduce_func: Callable) -> Any:
+            """Run map-reduce job on data."""
+            print(f"Running map-reduce with {self.num_workers} workers")
+            print(f"Input data size: {len(data)}")
+            
+            # Map phase - parallel processing
+            start_time = time.time()
+            with ProcessPoolExecutor(max_workers=self.num_workers) as executor:
+                mapped_results = list(executor.map(map_func, data))
+            map_time = time.time() - start_time
+            
+            print(f"Map phase completed in {map_time:.2f}s")
+            print(f"Mapped results: {len(mapped_results)} items")
+            
+            # Reduce phase - combine results
+            start_time = time.time()
+            final_result = functools.reduce(reduce_func, mapped_results)
+            reduce_time = time.time() - start_time
+            
+            print(f"Reduce phase completed in {reduce_time:.2f}s")
+            print(f"Total time: {map_time + reduce_time:.2f}s")
+            
+            return final_result
+    
+    # Example 1: Word count
+    def word_count_mapper(text_chunk: str) -> Dict[str, int]:
+        """Map function for word counting."""
+        words = text_chunk.lower().split()
+        word_count = {}
+        for word in words:
+            # Remove punctuation
+            clean_word = ''.join(c for c in word if c.isalnum())
+            if clean_word:
+                word_count[clean_word] = word_count.get(clean_word, 0) + 1
+        return word_count
+    
+    def word_count_reducer(count1: Dict[str, int], count2: Dict[str, int]) -> Dict[str, int]:
+        """Reduce function for word counting."""
+        result = count1.copy()
+        for word, count in count2.items():
+            result[word] = result.get(word, 0) + count
+        return result
+    
+    # Test data
+    text_chunks = [
+        "Hello world hello python programming",
+        "Python is great for data processing",
+        "Multiprocessing enables parallel computing",
+        "Hello world of parallel python programming"
+    ]
+    
+    # Run word count job
+    job = MapReduceJob(num_workers=4)
+    word_counts = job.run(text_chunks, word_count_mapper, word_count_reducer)
+    
+    print(f"\nWord count results:")
+    for word, count in sorted(word_counts.items()):
+        print(f"  {word}: {count}")
+    
+    # Example 2: Sum of squares
+    def square_mapper(number: int) -> int:
+        """Map function: square a number."""
+        return number * number
+    
+    def sum_reducer(a: int, b: int) -> int:
+        """Reduce function: sum two numbers."""
+        return a + b
+    
+    numbers = list(range(1, 101))  # 1 to 100
+    sum_of_squares = job.run(numbers, square_mapper, sum_reducer)
+    
+    print(f"\nSum of squares (1-100): {sum_of_squares}")
+    print(f"Expected: {sum(i*i for i in range(1, 101))}")
+
+if __name__ == "__main__":
+    map_reduce_framework()
+else:
+    print("Map-reduce framework ready (run in script for execution)")
+```
+
+## Real-World Examples
+
+### Example 1: Parallel Image Processing
+
+```{python}
+import multiprocessing as mp
+from concurrent.futures import ProcessPoolExecutor, as_completed
+import time
+from typing import List, Tuple
+from dataclasses import dataclass
+import os
+
+@dataclass
+class ImageProcessingResult:
+    """Result from processing a single image."""
+    filename: str
+    original_size: Tuple[int, int]
+    processed_size: Tuple[int, int]
+    processing_time: float
+    operations_applied: List[str]
+
+def simulate_image_processing(image_data: Tuple[str, Tuple[int, int], List[str]]) -> ImageProcessingResult:
+    """Simulate image processing operations."""
+    filename, size, operations = image_data
+    start_time = time.time()
+    
+    print(f"Processing {filename} (PID: {os.getpid()})")
+    
+    # Simulate processing operations
+    current_size = size
+    applied_operations = []
+    
+    for operation in operations:
+        if operation == "resize":
+            # Simulate resize operation
+            time.sleep(0.5)  # CPU-intensive work
+            current_size = (current_size[0] // 2, current_size[1] // 2)
+            applied_operations.append("resize")
+            
+        elif operation == "blur":
+            # Simulate blur operation
+            time.sleep(0.3)
+            applied_operations.append("blur")
+            
+        elif operation == "sharpen":
+            # Simulate sharpen operation
+            time.sleep(0.4)
+            applied_operations.append("sharpen")
+            
+        elif operation == "color_adjust":
+            # Simulate color adjustment
+            time.sleep(0.2)
+            applied_operations.append("color_adjust")
+    
+    processing_time = time.time() - start_time
+    
+    result = ImageProcessingResult(
+        filename=filename,
+        original_size=size,
+        processed_size=current_size,
+        processing_time=processing_time,
+        operations_applied=applied_operations
+    )
+    
+    print(f"Completed {filename} in {processing_time:.2f}s")
+    return result
+
+class ParallelImageProcessor:
+    """Parallel image processing system."""
+    
+    def __init__(self, max_workers: int = None):
+        self.max_workers = max_workers or mp.cpu_count()
+    
+    def process_images_batch(self, image_tasks: List[Tuple[str, Tuple[int, int], List[str]]]) -> List[ImageProcessingResult]:
+        """Process multiple images in parallel."""
+        print(f"Processing {len(image_tasks)} images with {self.max_workers} workers")
+        
+        start_time = time.time()
+        results = []
+        
+        with ProcessPoolExecutor(max_workers=self.max_workers) as executor:
+            # Submit all tasks
+            future_to_task = {
+                executor.submit(simulate_image_processing, task): task 
+                for task in image_tasks
+            }
+            
+            # Collect results as they complete
+            for future in as_completed(future_to_task):
+                task = future_to_task[future]
+                try:
+                    result = future.result()
+                    results.append(result)
+                except Exception as e:
+                    print(f"Error processing {task[0]}: {e}")
+        
+        total_time = time.time() - start_time
+        print(f"Batch processing completed in {total_time:.2f}s")
+        
+        return results
+    
+    def generate_processing_report(self, results: List[ImageProcessingResult]):
+        """Generate a processing report."""
+        if not results:
+            print("No results to report")
+            return
+        
+        total_processing_time = sum(r.processing_time for r in results)
+        avg_processing_time = total_processing_time / len(results)
+        
+        print(f"\n=== Image Processing Report ===")
+        print(f"Images processed: {len(results)}")
+        print(f"Total processing time: {total_processing_time:.2f}s")
+        print(f"Average time per image: {avg_processing_time:.2f}s")
+        
+        # Operations summary
+        all_operations = []
+        for result in results:
+            all_operations.extend(result.operations_applied)
+        
+        operation_counts = {}
+        for op in all_operations:
+            operation_counts[op] = operation_counts.get(op, 0) + 1
+        
+        print(f"Operations performed:")
+        for op, count in operation_counts.items():
+            print(f"  {op}: {count} times")
+        
+        # Individual results
+        print(f"\nIndividual results:")
+        for result in sorted(results, key=lambda x: x.processing_time, reverse=True):
+            print(f"  {result.filename}: {result.processing_time:.2f}s "
+                  f"({result.original_size} → {result.processed_size})")
+
+def image_processing_demo():
+    """Demonstrate parallel image processing."""
+    print("=== Parallel Image Processing Demo ===")
+    
+    # Simulate image processing tasks
+    image_tasks = [
+        ("photo_001.jpg", (4000, 3000), ["resize", "blur", "color_adjust"]),
+        ("photo_002.jpg", (3840, 2160), ["resize", "sharpen"]),
+        ("photo_003.jpg", (5000, 3500), ["blur", "color_adjust"]),
+        ("photo_004.jpg", (2048, 1536), ["resize", "sharpen", "color_adjust"]),
+        ("photo_005.jpg", (6000, 4000), ["resize", "blur"]),
+        ("photo_006.jpg", (1920, 1080), ["sharpen", "color_adjust"]),
+    ]
+    
+    processor = ParallelImageProcessor(max_workers=4)
+    results = processor.process_images_batch(image_tasks)
+    processor.generate_processing_report(results)
+
+if __name__ == "__main__":
+    image_processing_demo()
+else:
+    print("Image processing demo ready (run in script for execution)")
+```
+
+### Example 2: Parallel Data Analysis
+
+```{python}
+import multiprocessing as mp
+from concurrent.futures import ProcessPoolExecutor
+import time
+import random
+import statistics
+from typing import List, Dict, Any, Tuple
+from dataclasses import dataclass
+
+@dataclass
+class DataChunk:
+    """Represents a chunk of data to be processed."""
+    chunk_id: int
+    data: List[float]
+    metadata: Dict[str, Any]
+
+@dataclass
+class AnalysisResult:
+    """Result from analyzing a data chunk."""
+    chunk_id: int
+    count: int
+    mean: float
+    median: float
+    std_dev: float
+    min_value: float
+    max_value: float
+    outliers: List[float]
+    processing_time: float
+
+def analyze_data_chunk(chunk: DataChunk) -> AnalysisResult:
+    """Analyze a single chunk of data."""
+    start_time = time.time()
+    
+    print(f"Analyzing chunk {chunk.chunk_id} with {len(chunk.data)} data points (PID: {os.getpid()})")
+    
+    # Simulate CPU-intensive analysis
+    data = chunk.data
+    
+    # Basic statistics
+    count = len(data)
+    mean = statistics.mean(data)
+    median = statistics.median(data)
+    std_dev = statistics.stdev(data) if count > 1 else 0.0
+    min_value = min(data)
+    max_value = max(data)
+    
+    # Find outliers (values > 2 standard deviations from mean)
+    outliers = []
+    if std_dev > 0:
+        for value in data:
+            if abs(value - mean) > 2 * std_dev:
+                outliers.append(value)
+    
+    # Simulate more complex analysis
+    time.sleep(0.1)  # Additional processing time
+    
+    processing_time = time.time() - start_time
+    
+    result = AnalysisResult(
+        chunk_id=chunk.chunk_id,
+        count=count,
+        mean=mean,
+        median=median,
+        std_dev=std_dev,
+        min_value=min_value,
+        max_value=max_value,
+        outliers=outliers,
+        processing_time=processing_time
+    )
+    
+    print(f"Completed chunk {chunk.chunk_id} analysis in {processing_time:.3f}s")
+    return result
+
+class ParallelDataAnalyzer:
+    """Parallel data analysis system."""
+    
+    def __init__(self, max_workers: int = None, chunk_size: int = 1000):
+        self.max_workers = max_workers or mp.cpu_count()
+        self.chunk_size = chunk_size
+    
+    def create_data_chunks(self, data: List[float]) -> List[DataChunk]:
+        """Split large dataset into chunks for parallel processing."""
+        chunks = []
+        for i in range(0, len(data), self.chunk_size):
+            chunk_data = data[i:i + self.chunk_size]
+            chunk = DataChunk(
+                chunk_id=len(chunks),
+                data=chunk_data,
+                metadata={"start_index": i, "end_index": i + len(chunk_data)}
+            )
+            chunks.append(chunk)
+        
+        print(f"Created {len(chunks)} chunks of size ~{self.chunk_size}")
+        return chunks
+    
+    def analyze_parallel(self, data: List[float]) -> List[AnalysisResult]:
+        """Analyze large dataset in parallel."""
+        print(f"Starting parallel analysis of {len(data)} data points")
+        
+        # Split data into chunks
+        chunks = self.create_data_chunks(data)
+        
+        # Process chunks in parallel
+        start_time = time.time()
+        results = []
+        
+        with ProcessPoolExecutor(max_workers=self.max_workers) as executor:
+            chunk_results = list(executor.map(analyze_data_chunk, chunks))
+            results.extend(chunk_results)
+        
+        total_time = time.time() - start_time
+        print(f"Parallel analysis completed in {total_time:.2f}s")
+        
+        return results
+    
+    def aggregate_results(self, results: List[AnalysisResult]) -> Dict[str, Any]:
+        """Aggregate results from all chunks."""
+        if not results:
+            return {}
+        
+        total_count = sum(r.count for r in results)
+        all_means = [r.mean for r in results]
+        all_outliers = []
+        for r in results:
+            all_outliers.extend(r.outliers)
+        
+        # Weighted average of means (weighted by chunk size)
+        weighted_mean = sum(r.mean * r.count for r in results) / total_count
+        
+        # Overall statistics
+        aggregated = {
+            "total_data_points": total_count,
+            "num_chunks": len(results),
+            "overall_mean": weighted_mean,
+            "mean_of_means": statistics.mean(all_means),
+            "chunk_mean_std": statistics.stdev(all_means) if len(all_means) > 1 else 0,
+            "total_outliers": len(all_outliers),
+            "outlier_percentage": (len(all_outliers) / total_count) * 100,
+            "total_processing_time": sum(r.processing_time for r in results),
+            "avg_chunk_processing_time": statistics.mean([r.processing_time for r in results]),
+            "min_value_overall": min(r.min_value for r in results),
+            "max_value_overall": max(r.max_value for r in results)
+        }
+        
+        return aggregated
+    
+    def generate_report(self, results: List[AnalysisResult], aggregated: Dict[str, Any]):
+        """Generate analysis report."""
+        print(f"\n=== Data Analysis Report ===")
+        print(f"Total data points: {aggregated['total_data_points']:,}")
+        print(f"Number of chunks: {aggregated['num_chunks']}")
+        print(f"Overall mean: {aggregated['overall_mean']:.4f}")
+        print(f"Value range: {aggregated['min_value_overall']:.4f} to {aggregated['max_value_overall']:.4f}")
+        print(f"Total outliers: {aggregated['total_outliers']} ({aggregated['outlier_percentage']:.2f}%)")
+        print(f"Total processing time: {aggregated['total_processing_time']:.2f}s")
+        print(f"Average chunk processing time: {aggregated['avg_chunk_processing_time']:.3f}s")
+        
+        # Chunk performance analysis
+        fastest_chunk = min(results, key=lambda r: r.processing_time)
+        slowest_chunk = max(results, key=lambda r: r.processing_time)
+        
+        print(f"\nChunk Performance:")
+        print(f"  Fastest: Chunk {fastest_chunk.chunk_id} ({fastest_chunk.processing_time:.3f}s)")
+        print(f"  Slowest: Chunk {slowest_chunk.chunk_id} ({slowest_chunk.processing_time:.3f}s)")
+
+def data_analysis_demo():
+    """Demonstrate parallel data analysis."""
+    print("=== Parallel Data Analysis Demo ===")
+    
+    # Generate large dataset
+    random.seed(42)
+    dataset_size = 10000
+    dataset = []
+    
+    # Generate mostly normal data with some outliers
+    for _ in range(dataset_size):
+        if random.random() < 0.05:  # 5% outliers
+            value = random.uniform(-100, 100)  # Extreme values
+        else:
+            value = random.gauss(50, 15)  # Normal distribution
+        dataset.append(value)
+    
+    print(f"Generated dataset with {len(dataset)} points")
+    
+    # Analyze with different chunk sizes and worker counts
+    analyzer = ParallelDataAnalyzer(max_workers=4, chunk_size=1000)
+    
+    # Run analysis
+    results = analyzer.analyze_parallel(dataset)
+    aggregated = analyzer.aggregate_results(results)
+    analyzer.generate_report(results, aggregated)
+    
+    # Compare with sequential analysis
+    print(f"\n--- Sequential Analysis Comparison ---")
+    start_time = time.time()
+    all_data_chunk = DataChunk(chunk_id=0, data=dataset, metadata={})
+    sequential_result = analyze_data_chunk(all_data_chunk)
+    sequential_time = time.time() - start_time
+    
+    parallel_time = aggregated['total_processing_time']
+    speedup = sequential_time / parallel_time
+    
+    print(f"Sequential time: {sequential_time:.2f}s")
+    print(f"Parallel time: {parallel_time:.2f}s")
+    print(f"Speedup: {speedup:.1f}x")
+
+if __name__ == "__main__":
+    data_analysis_demo()
+else:
+    print("Data analysis demo ready (run in script for execution)")
+```
+
+## Performance Considerations and Best Practices
+
+### Choosing the Right Approach
+
+```{python}
+import multiprocessing as mp
+import threading
+import asyncio
+import time
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+
+def performance_guidelines():
+    """Guidelines for choosing the right parallelism approach."""
+    
+    print("=== Performance Guidelines ===")
+    
+    guidelines = {
+        "CPU-Intensive Tasks": {
+            "best_approach": "Multiprocessing",
+            "reason": "True parallelism, bypasses GIL",
+            "tools": ["ProcessPoolExecutor", "multiprocessing.Pool", "joblib"],
+            "examples": ["Mathematical calculations", "Image processing", "Data analysis"]
+        },
+        
+        "I/O-Intensive Tasks": {
+            "best_approach": "Async Programming or Threading",
+            "reason": "Efficient waiting, lower overhead",
+            "tools": ["asyncio", "aiohttp", "ThreadPoolExecutor"],
+            "examples": ["Web requests", "File I/O", "Database queries"]
+        },
+        
+        "Mixed Workloads": {
+            "best_approach": "Hybrid approach",
+            "reason": "Use both async for I/O and processes for CPU",
+            "tools": ["asyncio + ProcessPoolExecutor", "concurrent.futures"],
+            "examples": ["Web scraping with data processing", "ETL pipelines"]
+        }
+    }
+    
+    for task_type, info in guidelines.items():
+        print(f"\n{task_type}:")
+        print(f"  Best approach: {info['best_approach']}")
+        print(f"  Reason: {info['reason']}")
+        print(f"  Tools: {', '.join(info['tools'])}")
+        print(f"  Examples: {', '.join(info['examples'])}")
+
+def overhead_analysis():
+    """Analyze overhead of different parallelism approaches."""
+    print("\n=== Overhead Analysis ===")
+    
+    def simple_task(x):
+        """Very simple task to measure overhead."""
+        return x * x
+    
+    data = list(range(100))
+    
+    # Measure sequential baseline
+    start = time.time()
+    sequential_results = [simple_task(x) for x in data]
+    sequential_time = time.time() - start
+    
+    # Measure threading overhead
+    start = time.time()
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        threading_results = list(executor.map(simple_task, data))
+    threading_time = time.time() - start
+    
+    # Measure multiprocessing overhead (if running in script)
+    try:
+        start = time.time()
+        with ProcessPoolExecutor(max_workers=4) as executor:
+            mp_results = list(executor.map(simple_task, data))
+        mp_time = time.time() - start
+    except:
+        mp_time = None
+    
+    print(f"Task: Square 100 numbers")
+    print(f"Sequential: {sequential_time:.4f}s")
+    print(f"Threading: {threading_time:.4f}s (overhead: {threading_time/sequential_time:.1f}x)")
+    if mp_time:
+        print(f"Multiprocessing: {mp_time:.4f}s (overhead: {mp_time/sequential_time:.1f}x)")
+    else:
+        print("Multiprocessing: (not available in this environment)")
+    
+    print("\nKey takeaway: Parallelism has overhead - ensure task complexity justifies it")
+
+def memory_considerations():
+    """Discuss memory considerations in multiprocessing."""
+    print("\n=== Memory Considerations ===")
+    
+    considerations = [
+        "Each process has its own memory space - no shared variables by default",
+        "Large datasets may need to be copied to each process (expensive)",
+        "Use shared memory (mp.Array, mp.Value) for frequently accessed data",
+        "Consider memory-mapped files for very large datasets",
+        "Monitor memory usage - processes use more RAM than threads",
+        "Use generators/iterators to process data in chunks"
+    ]
+    
+    for i, consideration in enumerate(considerations, 1):
+        print(f"{i}. {consideration}")
+
+# Run the performance analysis
+performance_guidelines()
+overhead_analysis()
+memory_considerations()
+```
+
+## Self-Review Questions
+
+### Knowledge Check
+
+1. **When should you use multiprocessing vs threading vs async?**
+2. **What is the GIL and how does multiprocessing avoid it?**
+3. **What are the trade-offs between shared memory and message passing?**
+4. **How do you handle exceptions in multiprocessing?**
+5. **What factors determine the optimal number of processes?**
+
+### Coding Challenges
+
+1. **Implement parallel file processing with progress tracking**
+2. **Create a parallel web crawler using multiprocessing**
+3. **Build a map-reduce system for log file analysis**
+4. **Design a parallel machine learning data preprocessor**
+
+### Answers
+
+1. Multiprocessing for CPU-bound; threading/async for I/O-bound tasks
+2. GIL prevents true Python thread parallelism; processes bypass this
+3. Shared memory is faster but requires synchronization; messages are safer
+4. Use return_exceptions=True or handle in worker functions
+5. CPU cores, task overhead, memory constraints, and I/O requirements
+
+## Common Pitfalls
+
+1. **Using multiprocessing for simple tasks** - overhead exceeds benefit
+2. **Not handling process cleanup** - zombie processes and resource leaks
+3. **Sharing complex objects** - pickling overhead and limitations
+4. **Ignoring the GIL** - using threading for CPU-bound tasks
+5. **Memory bloat** - creating too many processes or large shared data
+
+## Best Practices
+
+1. **Profile first** - measure before optimizing
+2. **Use pools** - avoid manual process management
+3. **Limit concurrency** - don't exceed CPU cores for CPU-bound tasks
+4. **Handle errors gracefully** - use timeouts and exception handling
+5. **Monitor resources** - watch memory and CPU usage
+6. **Use the right tool** - async for I/O, processes for CPU
+
+## Next Steps
+
+Excellent! You now understand multiprocessing and parallel computing. Next, we'll explore practical [Applications](12-applications.qmd) including data science, web development, and automation.
+
+## Resources
+
+- [Python Multiprocessing Documentation](https://docs.python.org/3/library/multiprocessing.html)
+- [Concurrent Futures Documentation](https://docs.python.org/3/library/concurrent.futures.html)
+- [Real Python: Multiprocessing](https://realpython.com/python-multiprocessing/)
+- [Joblib: Parallel Computing](https://joblib.readthedocs.io/)

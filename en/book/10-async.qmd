@@ -1,0 +1,926 @@
+# Async Programming and Concurrency
+
+Asynchronous programming allows you to write concurrent code that can handle multiple tasks efficiently without blocking, making it perfect for I/O-bound operations like web requests, file operations, and database queries.
+
+## Understanding Async Programming
+
+### Synchronous vs Asynchronous
+
+```{python}
+import time
+import asyncio
+
+# Synchronous approach - blocking
+def sync_task(name: str, duration: int) -> str:
+    """Simulate a time-consuming task synchronously."""
+    print(f"Starting {name}...")
+    time.sleep(duration)  # Blocks the entire program
+    print(f"Completed {name}")
+    return f"Result from {name}"
+
+def run_sync_tasks():
+    """Run multiple tasks synchronously."""
+    print("=== Synchronous Execution ===")
+    start_time = time.time()
+    
+    result1 = sync_task("Task 1", 2)
+    result2 = sync_task("Task 2", 2)
+    result3 = sync_task("Task 3", 2)
+    
+    end_time = time.time()
+    print(f"Total time: {end_time - start_time:.2f} seconds")
+    return [result1, result2, result3]
+
+# Asynchronous approach - non-blocking
+async def async_task(name: str, duration: int) -> str:
+    """Simulate a time-consuming task asynchronously."""
+    print(f"Starting {name}...")
+    await asyncio.sleep(duration)  # Non-blocking sleep
+    print(f"Completed {name}")
+    return f"Result from {name}"
+
+async def run_async_tasks():
+    """Run multiple tasks asynchronously."""
+    print("\n=== Asynchronous Execution ===")
+    start_time = time.time()
+    
+    # Run tasks concurrently
+    results = await asyncio.gather(
+        async_task("Task 1", 2),
+        async_task("Task 2", 2),
+        async_task("Task 3", 2)
+    )
+    
+    end_time = time.time()
+    print(f"Total time: {end_time - start_time:.2f} seconds")
+    return results
+
+# Demonstrate the difference
+sync_results = run_sync_tasks()
+async_results = asyncio.run(run_async_tasks())
+```
+
+## Basic Async/Await Syntax
+
+### Creating Async Functions
+
+```{python}
+import asyncio
+import aiohttp
+from typing import List, Dict, Any
+
+async def fetch_data(url: str) -> Dict[str, Any]:
+    """Simulate fetching data from an API."""
+    print(f"Fetching data from {url}")
+    
+    # Simulate network delay
+    await asyncio.sleep(1)
+    
+    # Simulate response data
+    return {
+        "url": url,
+        "status": "success",
+        "data": f"Data from {url}",
+        "timestamp": time.time()
+    }
+
+async def process_data(data: Dict[str, Any]) -> Dict[str, Any]:
+    """Process fetched data asynchronously."""
+    print(f"Processing data from {data['url']}")
+    
+    # Simulate processing time
+    await asyncio.sleep(0.5)
+    
+    processed_data = {
+        "original": data,
+        "processed": data["data"].upper(),
+        "word_count": len(data["data"].split())
+    }
+    
+    return processed_data
+
+async def fetch_and_process(url: str) -> Dict[str, Any]:
+    """Fetch and process data in sequence."""
+    # Await each async operation
+    raw_data = await fetch_data(url)
+    processed_data = await process_data(raw_data)
+    return processed_data
+
+# Run async functions
+async def main():
+    """Main async function demonstrating sequential execution."""
+    print("=== Sequential Async Operations ===")
+    
+    urls = [
+        "https://api.example.com/users",
+        "https://api.example.com/posts",
+        "https://api.example.com/comments"
+    ]
+    
+    results = []
+    for url in urls:
+        result = await fetch_and_process(url)
+        results.append(result)
+    
+    print(f"Processed {len(results)} items sequentially")
+    return results
+
+# Execute the async main function
+results = asyncio.run(main())
+```
+
+### Concurrent Execution with asyncio.gather()
+
+```{python}
+async def concurrent_fetch_and_process():
+    """Demonstrate concurrent execution of async operations."""
+    print("\n=== Concurrent Async Operations ===")
+    
+    urls = [
+        "https://api.example.com/users",
+        "https://api.example.com/posts", 
+        "https://api.example.com/comments"
+    ]
+    
+    start_time = time.time()
+    
+    # Run all fetch_and_process operations concurrently
+    results = await asyncio.gather(
+        *[fetch_and_process(url) for url in urls]
+    )
+    
+    end_time = time.time()
+    print(f"Processed {len(results)} items concurrently in {end_time - start_time:.2f}s")
+    
+    return results
+
+# Compare sequential vs concurrent
+sequential_results = asyncio.run(main())
+concurrent_results = asyncio.run(concurrent_fetch_and_process())
+```
+
+## Working with asyncio
+
+### Creating and Managing Tasks
+
+```{python}
+import asyncio
+from typing import Optional
+
+async def long_running_task(name: str, duration: int) -> str:
+    """Simulate a long-running task."""
+    print(f"Task {name} started")
+    try:
+        await asyncio.sleep(duration)
+        result = f"Task {name} completed successfully"
+        print(result)
+        return result
+    except asyncio.CancelledError:
+        print(f"Task {name} was cancelled")
+        raise
+
+async def task_management_demo():
+    """Demonstrate task creation and management."""
+    print("=== Task Management Demo ===")
+    
+    # Create tasks
+    task1 = asyncio.create_task(long_running_task("A", 3))
+    task2 = asyncio.create_task(long_running_task("B", 2))
+    task3 = asyncio.create_task(long_running_task("C", 4))
+    
+    # Wait for first task to complete
+    print("Waiting for task B to complete...")
+    result_b = await task2
+    print(f"Result: {result_b}")
+    
+    # Cancel task3 if it's still running
+    if not task3.done():
+        print("Cancelling task C...")
+        task3.cancel()
+    
+    # Wait for remaining tasks with timeout
+    try:
+        remaining_results = await asyncio.wait_for(
+            asyncio.gather(task1, task3, return_exceptions=True),
+            timeout=2.0
+        )
+        print(f"Remaining results: {remaining_results}")
+    except asyncio.TimeoutError:
+        print("Timeout waiting for remaining tasks")
+    except Exception as e:
+        print(f"Error in remaining tasks: {e}")
+
+asyncio.run(task_management_demo())
+```
+
+### asyncio.wait() and Task Control
+
+```{python}
+async def worker_task(worker_id: int, work_items: int) -> List[str]:
+    """Simulate a worker processing multiple items."""
+    results = []
+    for i in range(work_items):
+        await asyncio.sleep(0.5)  # Simulate work
+        result = f"Worker {worker_id} completed item {i + 1}"
+        print(result)
+        results.append(result)
+    return results
+
+async def wait_demo():
+    """Demonstrate asyncio.wait() for advanced task control."""
+    print("\n=== asyncio.wait() Demo ===")
+    
+    # Create multiple worker tasks
+    tasks = [
+        asyncio.create_task(worker_task(1, 3)),
+        asyncio.create_task(worker_task(2, 2)),
+        asyncio.create_task(worker_task(3, 4))
+    ]
+    
+    # Wait for first task to complete
+    done, pending = await asyncio.wait(
+        tasks, 
+        return_when=asyncio.FIRST_COMPLETED
+    )
+    
+    print(f"First task completed: {len(done)} done, {len(pending)} pending")
+    
+    # Get result from completed task
+    for task in done:
+        result = await task
+        print(f"First completed result: {len(result)} items")
+    
+    # Wait for all remaining tasks
+    if pending:
+        remaining_results = await asyncio.gather(*pending)
+        print(f"All tasks completed. Total results: {len(remaining_results)}")
+
+asyncio.run(wait_demo())
+```
+
+## Real-World Examples
+
+### Example 1: Web Scraper with Rate Limiting
+
+```{python}
+import asyncio
+import aiohttp
+from typing import List, Dict, Optional
+from dataclasses import dataclass
+from datetime import datetime
+import json
+
+@dataclass
+class ScrapingResult:
+    """Result from scraping a single URL."""
+    url: str
+    status_code: Optional[int]
+    content_length: Optional[int]
+    title: Optional[str]
+    error: Optional[str]
+    timestamp: datetime
+
+class RateLimitedScraper:
+    """Web scraper with rate limiting and error handling."""
+    
+    def __init__(self, max_concurrent: int = 5, delay_between_requests: float = 1.0):
+        self.max_concurrent = max_concurrent
+        self.delay_between_requests = delay_between_requests
+        self.semaphore = asyncio.Semaphore(max_concurrent)
+        self.session: Optional[aiohttp.ClientSession] = None
+    
+    async def __aenter__(self):
+        """Async context manager entry."""
+        self.session = aiohttp.ClientSession(
+            timeout=aiohttp.ClientTimeout(total=10),
+            headers={'User-Agent': 'AsyncScraper/1.0'}
+        )
+        return self
+    
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        """Async context manager exit."""
+        if self.session:
+            await self.session.close()
+    
+    async def scrape_url(self, url: str) -> ScrapingResult:
+        """Scrape a single URL with rate limiting."""
+        async with self.semaphore:  # Limit concurrent requests
+            try:
+                print(f"Scraping: {url}")
+                
+                # Add delay to respect rate limits
+                await asyncio.sleep(self.delay_between_requests)
+                
+                async with self.session.get(url) as response:
+                    content = await response.text()
+                    
+                    # Extract title (simplified)
+                    title = None
+                    if '<title>' in content.lower():
+                        start = content.lower().find('<title>') + 7
+                        end = content.lower().find('</title>', start)
+                        if end != -1:
+                            title = content[start:end].strip()
+                    
+                    return ScrapingResult(
+                        url=url,
+                        status_code=response.status,
+                        content_length=len(content),
+                        title=title,
+                        error=None,
+                        timestamp=datetime.now()
+                    )
+            
+            except asyncio.TimeoutError:
+                return ScrapingResult(
+                    url=url, status_code=None, content_length=None,
+                    title=None, error="Timeout", timestamp=datetime.now()
+                )
+            except Exception as e:
+                return ScrapingResult(
+                    url=url, status_code=None, content_length=None,
+                    title=None, error=str(e), timestamp=datetime.now()
+                )
+    
+    async def scrape_urls(self, urls: List[str]) -> List[ScrapingResult]:
+        """Scrape multiple URLs concurrently."""
+        print(f"Starting to scrape {len(urls)} URLs...")
+        
+        # Create tasks for all URLs
+        tasks = [self.scrape_url(url) for url in urls]
+        
+        # Execute tasks concurrently
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        
+        # Process results
+        valid_results = []
+        for result in results:
+            if isinstance(result, ScrapingResult):
+                valid_results.append(result)
+            else:
+                print(f"Unexpected error: {result}")
+        
+        return valid_results
+
+async def scraping_demo():
+    """Demonstrate the rate-limited web scraper."""
+    print("=== Web Scraping Demo ===")
+    
+    # Note: These are example URLs - in practice, use real websites
+    urls = [
+        "https://httpbin.org/delay/1",
+        "https://httpbin.org/status/200",
+        "https://httpbin.org/html",
+        "https://httpbin.org/json",
+        "https://httpbin.org/status/404",
+    ]
+    
+    async with RateLimitedScraper(max_concurrent=3, delay_between_requests=0.5) as scraper:
+        results = await scraper.scrape_urls(urls)
+        
+        print(f"\n=== Scraping Results ===")
+        successful = 0
+        for result in results:
+            if result.error:
+                print(f"❌ {result.url}: {result.error}")
+            else:
+                print(f"✅ {result.url}: {result.status_code} ({result.content_length} bytes)")
+                if result.title:
+                    print(f"   Title: {result.title[:50]}...")
+                successful += 1
+        
+        print(f"\nSummary: {successful}/{len(results)} URLs scraped successfully")
+
+# Run the demo (commented out as it requires network access)
+# asyncio.run(scraping_demo())
+print("Web scraping demo code ready (requires network access to run)")
+```
+
+### Example 2: Producer-Consumer Pattern
+
+```{python}
+import asyncio
+import random
+from typing import Any
+from dataclasses import dataclass
+from datetime import datetime
+
+@dataclass
+class WorkItem:
+    """Represents a work item in the queue."""
+    id: int
+    data: str
+    priority: int
+    created_at: datetime
+
+class AsyncProducerConsumer:
+    """Producer-consumer pattern using asyncio queues."""
+    
+    def __init__(self, max_queue_size: int = 10):
+        self.queue = asyncio.Queue(maxsize=max_queue_size)
+        self.processed_items = []
+        self.is_running = False
+    
+    async def producer(self, producer_id: int, num_items: int):
+        """Produce work items and add them to the queue."""
+        print(f"Producer {producer_id} starting...")
+        
+        for i in range(num_items):
+            # Create work item
+            item = WorkItem(
+                id=i,
+                data=f"Data from Producer {producer_id}, Item {i}",
+                priority=random.randint(1, 5),
+                created_at=datetime.now()
+            )
+            
+            # Add to queue (will block if queue is full)
+            await self.queue.put(item)
+            print(f"Producer {producer_id} produced item {i}")
+            
+            # Simulate production delay
+            await asyncio.sleep(random.uniform(0.1, 0.5))
+        
+        print(f"Producer {producer_id} finished")
+    
+    async def consumer(self, consumer_id: int):
+        """Consume work items from the queue."""
+        print(f"Consumer {consumer_id} starting...")
+        
+        while self.is_running:
+            try:
+                # Get item from queue with timeout
+                item = await asyncio.wait_for(self.queue.get(), timeout=1.0)
+                
+                # Process the item
+                await self.process_item(consumer_id, item)
+                
+                # Mark task as done
+                self.queue.task_done()
+                
+            except asyncio.TimeoutError:
+                # No items available, continue checking
+                continue
+            except Exception as e:
+                print(f"Consumer {consumer_id} error: {e}")
+        
+        print(f"Consumer {consumer_id} finished")
+    
+    async def process_item(self, consumer_id: int, item: WorkItem):
+        """Process a single work item."""
+        print(f"Consumer {consumer_id} processing item {item.id} (priority {item.priority})")
+        
+        # Simulate processing time based on priority (higher priority = faster processing)
+        processing_time = random.uniform(0.1, 1.0) / item.priority
+        await asyncio.sleep(processing_time)
+        
+        # Store processed item
+        processed_item = {
+            "consumer_id": consumer_id,
+            "item": item,
+            "processed_at": datetime.now(),
+            "processing_time": processing_time
+        }
+        self.processed_items.append(processed_item)
+        
+        print(f"Consumer {consumer_id} completed item {item.id}")
+    
+    async def run_system(self, num_producers: int = 2, num_consumers: int = 3, items_per_producer: int = 5):
+        """Run the complete producer-consumer system."""
+        print("=== Producer-Consumer System Starting ===")
+        self.is_running = True
+        
+        # Create producer tasks
+        producer_tasks = [
+            asyncio.create_task(self.producer(i, items_per_producer))
+            for i in range(num_producers)
+        ]
+        
+        # Create consumer tasks
+        consumer_tasks = [
+            asyncio.create_task(self.consumer(i))
+            for i in range(num_consumers)
+        ]
+        
+        # Wait for all producers to finish
+        await asyncio.gather(*producer_tasks)
+        print("All producers finished")
+        
+        # Wait for all items to be processed
+        await self.queue.join()
+        print("All items processed")
+        
+        # Stop consumers
+        self.is_running = False
+        await asyncio.gather(*consumer_tasks, return_exceptions=True)
+        
+        print("=== Producer-Consumer System Completed ===")
+        self.print_statistics()
+    
+    def print_statistics(self):
+        """Print processing statistics."""
+        if not self.processed_items:
+            print("No items were processed")
+            return
+        
+        total_items = len(self.processed_items)
+        avg_processing_time = sum(item["processing_time"] for item in self.processed_items) / total_items
+        
+        # Group by consumer
+        consumer_stats = {}
+        for item in self.processed_items:
+            consumer_id = item["consumer_id"]
+            if consumer_id not in consumer_stats:
+                consumer_stats[consumer_id] = 0
+            consumer_stats[consumer_id] += 1
+        
+        print(f"\nProcessing Statistics:")
+        print(f"Total items processed: {total_items}")
+        print(f"Average processing time: {avg_processing_time:.3f}s")
+        print("Items per consumer:")
+        for consumer_id, count in consumer_stats.items():
+            print(f"  Consumer {consumer_id}: {count} items")
+
+async def producer_consumer_demo():
+    """Demonstrate the producer-consumer pattern."""
+    system = AsyncProducerConsumer(max_queue_size=5)
+    await system.run_system(num_producers=2, num_consumers=3, items_per_producer=4)
+
+asyncio.run(producer_consumer_demo())
+```
+
+### Example 3: Async Context Managers and Resource Management
+
+```{python}
+import asyncio
+from typing import Optional, List, AsyncIterator
+from contextlib import asynccontextmanager
+import aiofiles
+from datetime import datetime
+
+class AsyncDatabaseConnection:
+    """Simulated async database connection."""
+    
+    def __init__(self, connection_string: str):
+        self.connection_string = connection_string
+        self.is_connected = False
+        self.transaction_active = False
+    
+    async def connect(self):
+        """Establish database connection."""
+        print(f"Connecting to database: {self.connection_string}")
+        await asyncio.sleep(0.1)  # Simulate connection time
+        self.is_connected = True
+        print("Database connected")
+    
+    async def disconnect(self):
+        """Close database connection."""
+        if self.is_connected:
+            print("Disconnecting from database")
+            await asyncio.sleep(0.05)  # Simulate disconnection time
+            self.is_connected = False
+            print("Database disconnected")
+    
+    async def execute_query(self, query: str) -> List[dict]:
+        """Execute a database query."""
+        if not self.is_connected:
+            raise RuntimeError("Database not connected")
+        
+        print(f"Executing query: {query}")
+        await asyncio.sleep(0.2)  # Simulate query execution
+        
+        # Simulate query results
+        return [
+            {"id": 1, "name": "Alice", "timestamp": datetime.now().isoformat()},
+            {"id": 2, "name": "Bob", "timestamp": datetime.now().isoformat()}
+        ]
+    
+    async def begin_transaction(self):
+        """Begin a database transaction."""
+        if not self.is_connected:
+            raise RuntimeError("Database not connected")
+        
+        print("Beginning transaction")
+        self.transaction_active = True
+    
+    async def commit_transaction(self):
+        """Commit the current transaction."""
+        if self.transaction_active:
+            print("Committing transaction")
+            await asyncio.sleep(0.1)
+            self.transaction_active = False
+    
+    async def rollback_transaction(self):
+        """Rollback the current transaction."""
+        if self.transaction_active:
+            print("Rolling back transaction")
+            await asyncio.sleep(0.1)
+            self.transaction_active = False
+
+@asynccontextmanager
+async def database_connection(connection_string: str) -> AsyncIterator[AsyncDatabaseConnection]:
+    """Async context manager for database connections."""
+    db = AsyncDatabaseConnection(connection_string)
+    try:
+        await db.connect()
+        yield db
+    finally:
+        await db.disconnect()
+
+@asynccontextmanager
+async def database_transaction(db: AsyncDatabaseConnection) -> AsyncIterator[AsyncDatabaseConnection]:
+    """Async context manager for database transactions."""
+    await db.begin_transaction()
+    try:
+        yield db
+        await db.commit_transaction()
+    except Exception as e:
+        await db.rollback_transaction()
+        print(f"Transaction rolled back due to error: {e}")
+        raise
+
+class AsyncFileProcessor:
+    """Async file processor with resource management."""
+    
+    def __init__(self, max_concurrent_files: int = 3):
+        self.semaphore = asyncio.Semaphore(max_concurrent_files)
+        self.processed_files = []
+    
+    async def process_file(self, file_path: str) -> dict:
+        """Process a single file asynchronously."""
+        async with self.semaphore:  # Limit concurrent file operations
+            print(f"Processing file: {file_path}")
+            
+            try:
+                # Simulate file processing
+                await asyncio.sleep(0.5)
+                
+                # Simulate file content
+                content = f"Processed content from {file_path}"
+                word_count = len(content.split())
+                
+                result = {
+                    "file_path": file_path,
+                    "word_count": word_count,
+                    "processed_at": datetime.now().isoformat(),
+                    "status": "success"
+                }
+                
+                self.processed_files.append(result)
+                print(f"Completed processing: {file_path}")
+                return result
+                
+            except Exception as e:
+                error_result = {
+                    "file_path": file_path,
+                    "error": str(e),
+                    "processed_at": datetime.now().isoformat(),
+                    "status": "error"
+                }
+                self.processed_files.append(error_result)
+                print(f"Error processing {file_path}: {e}")
+                return error_result
+
+async def resource_management_demo():
+    """Demonstrate async resource management patterns."""
+    print("=== Async Resource Management Demo ===")
+    
+    # Database operations with context managers
+    async with database_connection("postgresql://localhost/mydb") as db:
+        # Simple query
+        results = await db.execute_query("SELECT * FROM users")
+        print(f"Query results: {len(results)} rows")
+        
+        # Transaction with automatic rollback on error
+        try:
+            async with database_transaction(db) as tx_db:
+                await tx_db.execute_query("INSERT INTO users (name) VALUES ('Charlie')")
+                await tx_db.execute_query("UPDATE users SET name = 'Charles' WHERE name = 'Charlie'")
+                # Transaction will be committed automatically
+        except Exception as e:
+            print(f"Transaction failed: {e}")
+    
+    # File processing with semaphore
+    print("\n--- File Processing ---")
+    processor = AsyncFileProcessor(max_concurrent_files=2)
+    
+    file_paths = [
+        "file1.txt", "file2.txt", "file3.txt", "file4.txt", "file5.txt"
+    ]
+    
+    # Process files concurrently with resource limits
+    tasks = [processor.process_file(path) for path in file_paths]
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+    
+    print(f"\nProcessed {len(processor.processed_files)} files")
+    successful = sum(1 for r in processor.processed_files if r["status"] == "success")
+    print(f"Successful: {successful}, Errors: {len(processor.processed_files) - successful}")
+
+asyncio.run(resource_management_demo())
+```
+
+## Error Handling in Async Code
+
+### Exception Handling Best Practices
+
+```{python}
+import asyncio
+from typing import List, Union, Tuple
+
+async def risky_operation(operation_id: int, fail_probability: float = 0.3) -> str:
+    """Simulate an operation that might fail."""
+    await asyncio.sleep(0.5)
+    
+    if random.random() < fail_probability:
+        raise ValueError(f"Operation {operation_id} failed randomly")
+    
+    return f"Operation {operation_id} succeeded"
+
+async def safe_operation(operation_id: int) -> Tuple[bool, Union[str, Exception]]:
+    """Wrapper that handles exceptions gracefully."""
+    try:
+        result = await risky_operation(operation_id)
+        return True, result
+    except Exception as e:
+        return False, e
+
+async def error_handling_demo():
+    """Demonstrate error handling in async operations."""
+    print("=== Async Error Handling Demo ===")
+    
+    # Method 1: Handle exceptions individually
+    print("1. Individual error handling:")
+    for i in range(3):
+        success, result = await safe_operation(i)
+        if success:
+            print(f"  ✅ {result}")
+        else:
+            print(f"  ❌ {result}")
+    
+    # Method 2: Gather with return_exceptions=True
+    print("\n2. Batch operations with exception collection:")
+    tasks = [risky_operation(i) for i in range(5)]
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+    
+    for i, result in enumerate(results):
+        if isinstance(result, Exception):
+            print(f"  ❌ Operation {i}: {result}")
+        else:
+            print(f"  ✅ Operation {i}: {result}")
+    
+    # Method 3: Timeout handling
+    print("\n3. Timeout handling:")
+    try:
+        result = await asyncio.wait_for(risky_operation(99), timeout=0.1)
+        print(f"  ✅ Fast operation: {result}")
+    except asyncio.TimeoutError:
+        print(f"  ⏰ Operation timed out")
+    except Exception as e:
+        print(f"  ❌ Operation failed: {e}")
+
+asyncio.run(error_handling_demo())
+```
+
+## Performance and Best Practices
+
+### Async Performance Tips
+
+```{python}
+import asyncio
+import time
+from typing import List, Callable, Any
+
+async def cpu_bound_task(n: int) -> int:
+    """Simulate CPU-bound work (not ideal for async)."""
+    total = 0
+    for i in range(n):
+        total += i
+    return total
+
+async def io_bound_task(duration: float) -> str:
+    """Simulate I/O-bound work (perfect for async)."""
+    await asyncio.sleep(duration)
+    return f"I/O task completed in {duration}s"
+
+async def performance_comparison():
+    """Compare different async patterns for performance."""
+    print("=== Async Performance Comparison ===")
+    
+    # Test 1: I/O-bound operations (async shines here)
+    print("1. I/O-bound operations:")
+    
+    start_time = time.time()
+    # Sequential execution
+    for i in range(3):
+        await io_bound_task(0.5)
+    sequential_time = time.time() - start_time
+    print(f"  Sequential: {sequential_time:.2f}s")
+    
+    start_time = time.time()
+    # Concurrent execution
+    await asyncio.gather(*[io_bound_task(0.5) for _ in range(3)])
+    concurrent_time = time.time() - start_time
+    print(f"  Concurrent: {concurrent_time:.2f}s")
+    print(f"  Speedup: {sequential_time / concurrent_time:.1f}x")
+    
+    # Test 2: Mixed workload
+    print("\n2. Mixed I/O and CPU workload:")
+    
+    async def mixed_task(task_id: int):
+        # I/O operation
+        await io_bound_task(0.2)
+        # CPU operation
+        result = await asyncio.to_thread(cpu_bound_task, 100000)
+        return f"Task {task_id}: {result}"
+    
+    start_time = time.time()
+    results = await asyncio.gather(*[mixed_task(i) for i in range(3)])
+    mixed_time = time.time() - start_time
+    print(f"  Mixed workload: {mixed_time:.2f}s")
+    print(f"  Results: {len(results)} tasks completed")
+
+asyncio.run(performance_comparison())
+
+# Best practices summary
+async def best_practices_demo():
+    """Demonstrate async programming best practices."""
+    print("\n=== Async Best Practices ===")
+    
+    # ✅ Good: Use async for I/O-bound operations
+    async def good_io_operation():
+        async with aiohttp.ClientSession() as session:
+            async with session.get('https://api.example.com') as response:
+                return await response.text()
+    
+    # ❌ Bad: Using async for CPU-bound operations without threads
+    async def bad_cpu_operation():
+        return sum(range(1000000))  # Blocks event loop
+    
+    # ✅ Good: Use asyncio.to_thread for CPU-bound work
+    async def good_cpu_operation():
+        return await asyncio.to_thread(sum, range(1000000))
+    
+    # ✅ Good: Proper resource management
+    async def good_resource_management():
+        async with database_connection("db://localhost") as db:
+            return await db.execute_query("SELECT 1")
+    
+    # ✅ Good: Batch operations with gather
+    async def good_batch_operations():
+        tasks = [io_bound_task(0.1) for _ in range(10)]
+        return await asyncio.gather(*tasks, return_exceptions=True)
+    
+    print("Best practices demonstrated in code above:")
+    print("  ✅ Use async for I/O-bound operations")
+    print("  ✅ Use asyncio.to_thread for CPU-bound work")
+    print("  ✅ Use async context managers for resources")
+    print("  ✅ Batch operations with gather()")
+    print("  ✅ Handle exceptions appropriately")
+    print("  ✅ Use semaphores to limit concurrency")
+
+asyncio.run(best_practices_demo())
+```
+
+## Self-Review Questions
+
+### Knowledge Check
+
+1. **What's the difference between `await` and regular function calls?**
+2. **When should you use async programming vs threading?**
+3. **What's the purpose of `asyncio.gather()` vs `asyncio.wait()`?**
+4. **How do you handle exceptions in concurrent async operations?**
+5. **What are the performance implications of mixing CPU and I/O bound tasks?**
+
+### Coding Challenges
+
+1. **Build an async web crawler with rate limiting**
+2. **Create an async chat server using websockets**
+3. **Implement async file processing with progress tracking**
+4. **Design an async task queue with priority handling**
+
+### Answers
+
+1. `await` pauses execution until async operation completes; regular calls block
+2. Async for I/O-bound; threading for CPU-bound or mixed workloads
+3. `gather()` runs all tasks; `wait()` allows partial completion handling
+4. Use `return_exceptions=True` in gather() or try/except around individual tasks
+5. CPU tasks block event loop; use `asyncio.to_thread()` for CPU work
+
+## Common Pitfalls
+
+1. **Using async for CPU-bound operations** - blocks the event loop
+2. **Forgetting to await** - returns coroutine object instead of result
+3. **Not handling exceptions** in concurrent operations
+4. **Resource leaks** - not properly closing connections/files
+5. **Mixing sync and async code** incorrectly
+
+## Next Steps
+
+Excellent! You now understand asynchronous programming in Python. Next, we'll explore [Multiprocessing](11-multiprocessing.qmd) for true parallelism and CPU-bound task optimization.
+
+## Resources
+
+- [Python Asyncio Documentation](https://docs.python.org/3/library/asyncio.html)
+- [Real Python: Async IO](https://realpython.com/async-io-python/)
+- [aiohttp Documentation](https://docs.aiohttp.org/)
+- [AsyncIO Cheat Sheet](https://cheat.readthedocs.io/en/latest/python/asyncio.html)
