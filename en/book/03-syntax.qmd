@@ -1,0 +1,421 @@
+# Python Syntax and Basics
+
+Python's clean, readable syntax makes it perfect for beginners while remaining powerful for experts.
+
+## Your First Python Program
+
+```{python}
+print("Hello, Python!")
+```
+
+This simple line demonstrates Python's philosophy: code should be readable and straightforward.
+
+## Python Philosophy - The Zen of Python
+
+```{python}
+import this
+```
+
+## Variables and Assignment
+
+Python uses **dynamic typing** - you don't need to declare variable types:
+
+```{python}
+# Different data types
+name = "Alice"          # String
+age = 25               # Integer
+height = 5.6           # Float
+is_student = True      # Boolean
+
+print(f"Name: {name}")
+print(f"Age: {age}")
+print(f"Height: {height}")
+print(f"Student: {is_student}")
+```
+
+### Variable Naming Rules
+
+```{python}
+# Valid variable names
+first_name = "John"
+last_name = "Doe"
+age_2024 = 30
+_private_var = "hidden"
+
+# Invalid names (would cause errors):
+# 2name = "invalid"     # Can't start with number
+# first-name = "invalid" # Can't use hyphens
+# class = "invalid"     # Can't use keywords
+
+print(f"Full name: {first_name} {last_name}")
+```
+
+## Comments
+
+Comments make your code readable:
+
+```{python}
+# This is a single-line comment
+print("Hello")  # Comment at end of line
+
+"""
+This is a multi-line comment
+or docstring. Use for longer
+explanations.
+"""
+
+def greet(name):
+    """
+    This is a docstring for the function.
+    It explains what the function does.
+    """
+    return f"Hello, {name}!"
+
+print(greet("Python"))
+```
+
+## Basic Data Types
+
+### Numbers
+
+```{python}
+# Integers
+count = 42
+negative = -17
+
+# Floats
+price = 19.99
+scientific = 1.5e-4  # 0.00015
+
+# Complex numbers
+complex_num = 3 + 4j
+
+print(f"Integer: {count}")
+print(f"Float: {price}")
+print(f"Scientific: {scientific}")
+print(f"Complex: {complex_num}")
+```
+
+### Strings
+
+```{python}
+# Different ways to create strings
+single_quotes = 'Hello'
+double_quotes = "World"
+triple_quotes = """This is a
+multi-line string"""
+
+# String concatenation
+greeting = single_quotes + " " + double_quotes
+print(greeting)
+
+# String formatting
+name = "Python"
+version = 3.12
+
+# f-strings (recommended)
+message = f"Welcome to {name} {version}!"
+print(message)
+
+# format() method
+message2 = "Welcome to {} {}!".format(name, version)
+print(message2)
+
+# % formatting (older style)
+message3 = "Welcome to %s %.1f!" % (name, version)
+print(message3)
+```
+
+### String Operations
+
+```{python}
+text = "Python Programming"
+
+# Length
+print(f"Length: {len(text)}")
+
+# Case methods
+print(f"Upper: {text.upper()}")
+print(f"Lower: {text.lower()}")
+print(f"Title: {text.title()}")
+
+# String methods
+print(f"Starts with 'Python': {text.startswith('Python')}")
+print(f"Contains 'gram': {'gram' in text}")
+print(f"Replace: {text.replace('Python', 'Java')}")
+
+# Slicing
+print(f"First 6 chars: {text[:6]}")
+print(f"Last 11 chars: {text[7:]}")
+print(f"Every 2nd char: {text[::2]}")
+```
+
+### Booleans
+
+```{python}
+# Boolean values
+is_python_fun = True
+is_difficult = False
+
+# Boolean operations
+print(f"AND: {is_python_fun and is_difficult}")
+print(f"OR: {is_python_fun or is_difficult}")
+print(f"NOT: {not is_difficult}")
+
+# Truthiness - what counts as True/False
+print(f"Empty string: {bool('')}")        # False
+print(f"Non-empty string: {bool('hello')}") # True
+print(f"Zero: {bool(0)}")                  # False
+print(f"Non-zero: {bool(42)}")             # True
+print(f"Empty list: {bool([])}")           # False
+print(f"Non-empty list: {bool([1, 2])}")   # True
+```
+
+## Operators
+
+### Arithmetic Operators
+
+```{python}
+a, b = 10, 3
+
+print(f"Addition: {a} + {b} = {a + b}")
+print(f"Subtraction: {a} - {b} = {a - b}")
+print(f"Multiplication: {a} * {b} = {a * b}")
+print(f"Division: {a} / {b} = {a / b}")
+print(f"Floor division: {a} // {b} = {a // b}")
+print(f"Modulus: {a} % {b} = {a % b}")
+print(f"Exponentiation: {a} ** {b} = {a ** b}")
+```
+
+### Comparison Operators
+
+```{python}
+x, y = 5, 10
+
+print(f"{x} == {y}: {x == y}")   # Equal
+print(f"{x} != {y}: {x != y}")   # Not equal
+print(f"{x} < {y}: {x < y}")     # Less than
+print(f"{x} > {y}: {x > y}")     # Greater than
+print(f"{x} <= {y}: {x <= y}")   # Less than or equal
+print(f"{x} >= {y}: {x >= y}")   # Greater than or equal
+```
+
+### Assignment Operators
+
+```{python}
+num = 10
+print(f"Initial: {num}")
+
+num += 5    # num = num + 5
+print(f"After +=5: {num}")
+
+num -= 3    # num = num - 3
+print(f"After -=3: {num}")
+
+num *= 2    # num = num * 2
+print(f"After *=2: {num}")
+
+num //= 3   # num = num // 3
+print(f"After //=3: {num}")
+```
+
+## Input and Output
+
+### Getting User Input
+
+```{python}
+# Note: input() always returns a string
+# name = input("What's your name? ")
+# print(f"Hello, {name}!")
+
+# For numbers, convert the input
+# age_str = input("How old are you? ")
+# age = int(age_str)
+# print(f"You are {age} years old")
+
+# Or in one line:
+# age = int(input("How old are you? "))
+
+# For demonstration, we'll simulate input:
+name = "Alice"  # Simulating user input
+age = 25       # Simulating user input
+
+print(f"Hello, {name}!")
+print(f"You are {age} years old")
+```
+
+### Output Formatting
+
+```{python}
+import math
+
+# Basic print
+print("Simple output")
+
+# Multiple values
+print("Multiple", "values", "in", "one", "print")
+
+# Custom separator and end
+print("A", "B", "C", sep="-")
+print("No newline", end=" ")
+print("continues here")
+
+# Formatting numbers
+pi = math.pi
+print(f"Pi: {pi}")
+print(f"Pi (2 decimals): {pi:.2f}")
+print(f"Pi (scientific): {pi:.2e}")
+
+# Formatting with padding
+number = 42
+print(f"Right aligned: {number:>10}")
+print(f"Left aligned: {number:<10}")
+print(f"Center aligned: {number:^10}")
+print(f"Zero padded: {number:05}")
+```
+
+## Indentation and Code Structure
+
+Python uses **indentation** to define code blocks:
+
+```{python}
+# Correct indentation
+age = 18
+if age >= 18:
+    print("You are an adult")
+    print("You can vote")
+else:
+    print("You are a minor")
+    print("You cannot vote yet")
+
+print("This is outside the if statement")
+```
+
+### Common Indentation Mistakes
+
+```python
+# Wrong - inconsistent indentation (would cause IndentationError)
+if True:
+    print("This is indented with 4 spaces")
+        print("This is indented with 8 spaces")  # Error!
+
+# Wrong - missing indentation (would cause IndentationError)
+if True:
+print("This should be indented")  # Error!
+
+# Right - consistent indentation
+if True:
+    print("This is correctly indented")
+    print("This too")
+```
+
+## Exercises
+
+### Exercise 1: Variables and Strings
+Create variables for your personal information and display them nicely:
+
+```{python}
+# Your solution here
+first_name = "John"
+last_name = "Doe"
+age = 30
+city = "New York"
+hobby = "programming"
+
+# Display information
+print("=== Personal Information ===")
+print(f"Name: {first_name} {last_name}")
+print(f"Age: {age} years old")
+print(f"City: {city}")
+print(f"Hobby: {hobby}")
+print("="*30)
+```
+
+### Exercise 2: Calculator
+Create a simple calculator:
+
+```{python}
+# Calculator exercise
+num1 = 15
+num2 = 4
+
+print(f"Number 1: {num1}")
+print(f"Number 2: {num2}")
+print("-" * 20)
+print(f"Addition: {num1} + {num2} = {num1 + num2}")
+print(f"Subtraction: {num1} - {num2} = {num1 - num2}")
+print(f"Multiplication: {num1} × {num2} = {num1 * num2}")
+print(f"Division: {num1} ÷ {num2} = {num1 / num2:.2f}")
+print(f"Power: {num1}^{num2} = {num1 ** num2}")
+```
+
+### Exercise 3: String Manipulation
+Work with string methods:
+
+```{python}
+# String manipulation exercise
+sentence = "python is an amazing programming language"
+
+print(f"Original: {sentence}")
+print(f"Length: {len(sentence)} characters")
+print(f"Words: {sentence.count(' ') + 1}")
+print(f"Title case: {sentence.title()}")
+print(f"Upper case: {sentence.upper()}")
+print(f"Capitalize: {sentence.capitalize()}")
+print(f"Replace 'python' with 'Python': {sentence.replace('python', 'Python')}")
+```
+
+## Common Pitfalls
+
+1. **Indentation errors** - Use consistent spaces (4 spaces recommended)
+2. **Variable naming** - Use descriptive names, follow conventions
+3. **String vs numbers** - Remember input() returns strings
+4. **Case sensitivity** - `Name` and `name` are different variables
+
+## Best Practices
+
+1. **Use descriptive variable names**:
+   ```python
+   # Bad
+   x = 25
+   
+   # Good
+   student_age = 25
+   ```
+
+2. **Follow PEP 8 naming conventions**:
+   ```python
+   # Variables and functions: snake_case
+   user_name = "Alice"
+   
+   # Constants: UPPER_CASE
+   MAX_ATTEMPTS = 3
+   
+   # Classes: PascalCase (we'll learn later)
+   # UserAccount
+   ```
+
+3. **Use f-strings for formatting** (Python 3.6+)
+4. **Add comments for complex logic**
+5. **Keep lines under 80 characters when possible**
+
+## Quiz
+
+Test your understanding:
+
+1. What will `print(type(5))` output?
+2. What's the difference between `'hello'` and `"hello"`?
+3. What happens if you add a string and a number?
+4. How do you create a multi-line string?
+5. What's the result of `10 // 3`?
+
+### Answers
+1. `<class 'int'>`
+2. No difference - both create strings
+3. TypeError - you need to convert one to match the other
+4. Use triple quotes: `"""` or `'''`
+5. `3` (floor division)
+
+## Next Steps
+
+Great! You've learned Python basics. Next, we'll explore [Data Types and Collections](04-data-types.qmd) to handle more complex data.

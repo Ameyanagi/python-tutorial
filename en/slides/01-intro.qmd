@@ -1,0 +1,319 @@
+---
+title: "Python Tutorial"
+subtitle: "Introduction and Setup"
+format: 
+  revealjs:
+    theme: dark
+    transition: slide
+    background-transition: fade
+    highlight-style: github
+    code-fold: false
+---
+
+# Welcome to Python! {background-color="#2E86AB"}
+
+## What is Python? {.smaller}
+
+::: {.incremental}
+- **Simple and readable** syntax
+- **Versatile** - web, data science, automation, AI
+- **Huge ecosystem** of libraries
+- **Community-driven** development
+- **Cross-platform** compatibility
+:::
+
+## Why Learn Python? {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+**Popular Fields:**
+- Data Science & AI
+- Web Development
+- Automation & Scripting
+- Scientific Computing
+- Game Development
+:::
+
+::: {.column width="50%"}
+**Benefits:**
+- Easy to learn
+- High demand in job market
+- Active community
+- Extensive documentation
+:::
+:::
+
+## The Zen of Python {background-color="#A23B72"}
+
+> Beautiful is better than ugly.
+> 
+> Explicit is better than implicit.
+> 
+> Simple is better than complex.
+> 
+> Readability counts.
+
+---
+
+```python
+import this
+```
+
+## Environment Setup {background-color="#F18F01"}
+
+## Python Installation
+
+::: {.panel-tabset}
+
+### Windows
+```bash
+# Using winget
+winget install Python.Python.3.12
+
+# Using Microsoft Store
+# Search for "Python 3.12"
+```
+
+### macOS
+```bash
+# Using Homebrew
+brew install python@3.12
+
+# Using pyenv
+pyenv install 3.12.8
+```
+
+### Linux
+```bash
+# Ubuntu/Debian
+sudo apt install python3.12
+
+# Fedora/Arch
+sudo dnf install python3.12
+sudo pacman -S python
+```
+
+:::
+
+## Environment Managers
+
+### uv (Recommended) ⚡
+
+```bash
+# Install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Create project
+uv init my-project
+cd my-project
+
+# Add packages
+uv add pandas requests
+
+# Run code
+uv run python script.py
+```
+
+## VS Code Setup 🛠️
+
+**Essential Extensions:**
+- Python
+- Ruff (linting & formatting)
+- Pyright (type checking)
+- Error Lens (debugging)
+- Quarto (for this tutorial!)
+
+## Git and GitHub {background-color="#C73E1D"}
+
+## Why Git?
+
+::: {.incremental}
+- **Track changes** in your code
+- **Collaborate** with others
+- **Backup** your work
+- **Version history** - never lose code
+- **Industry standard** for development
+:::
+
+## Basic Git Workflow
+
+```bash
+# Initialize repository
+git init
+
+# Check status
+git status
+
+# Add files
+git add filename.py
+git add .  # Add all files
+
+# Commit changes
+git commit -m "Add new feature"
+
+# View history
+git log --oneline
+```
+
+## GitHub Integration
+
+```bash
+# Connect to GitHub
+git remote add origin https://github.com/user/repo.git
+
+# Push to GitHub
+git push -u origin main
+
+# Pull changes
+git pull origin main
+```
+
+## Python Basics {background-color="#2E86AB"}
+
+## Your First Program
+
+```python
+print("Hello, Python!")
+```
+
+::: {.fragment}
+**Output:**
+```
+Hello, Python!
+```
+:::
+
+::: {.fragment}
+That's it! No compilation, no complex setup.
+:::
+
+## Variables & Types
+
+```python
+# Python uses dynamic typing
+name = "Alice"          # String
+age = 25               # Integer
+height = 5.6           # Float
+is_student = True      # Boolean
+
+print(f"Name: {name}")
+print(f"Age: {age}")
+print(f"Height: {height}")
+print(f"Student: {is_student}")
+```
+
+## String Magic
+
+```python
+text = "Python Programming"
+
+# Methods
+print(text.upper())         # PYTHON PROGRAMMING
+print(text.lower())         # python programming
+print(len(text))            # 18
+
+# Slicing
+print(text[:6])            # Python
+print(text[7:])            # Programming
+print(text[::-1])          # gnimmargorP nohtyP
+```
+
+## Math Operations
+
+```python
+a, b = 10, 3
+
+print(f"{a} + {b} = {a + b}")    # 13
+print(f"{a} - {b} = {a - b}")    # 7
+print(f"{a} * {b} = {a * b}")    # 30
+print(f"{a} / {b} = {a / b}")    # 3.33
+print(f"{a} // {b} = {a // b}")  # 3 (floor division)
+print(f"{a} % {b} = {a % b}")    # 1 (modulus)
+print(f"{a} ** {b} = {a ** b}")  # 1000 (power)
+```
+
+## F-String Formatting 🎨
+
+```python
+name = "Python"
+version = 3.12
+popularity = 95.5
+
+# Modern f-string formatting
+message = f"Welcome to {name} {version}!"
+print(message)
+
+# With formatting
+print(f"Popularity: {popularity:.1f}%")
+print(f"Padded: {42:05d}")       # 00042
+print(f"Aligned: {name:>10}")    # "    Python"
+```
+
+## Practice Time! {background-color="#F18F01"}
+
+## Exercise: Personal Info
+
+Create variables for your information:
+
+```python
+first_name = "Your Name"
+last_name = "Your Last Name"
+age = 25
+city = "Your City"
+hobby = "Your Hobby"
+
+# Display nicely formatted
+print("=== Personal Information ===")
+print(f"Name: {first_name} {last_name}")
+print(f"Age: {age} years old")
+print(f"City: {city}")
+print(f"Hobby: {hobby}")
+```
+
+## Exercise: Calculator
+
+```python
+num1 = 15
+num2 = 4
+
+print(f"Number 1: {num1}")
+print(f"Number 2: {num2}")
+print("-" * 20)
+print(f"Addition: {num1} + {num2} = {num1 + num2}")
+print(f"Subtraction: {num1} - {num2} = {num1 - num2}")
+print(f"Multiplication: {num1} × {num2} = {num1 * num2}")
+print(f"Division: {num1} ÷ {num2} = {num1 / num2:.2f}")
+```
+
+## Key Takeaways {background-color="#A23B72"}
+
+::: {.incremental}
+1. **Python is readable** - code should be clear
+2. **Dynamic typing** - no need to declare types
+3. **F-strings** are the best way to format text
+4. **Indentation matters** - defines code structure
+5. **Git early, Git often** - version control is essential
+:::
+
+## What's Next?
+
+::: {.incremental}
+- **Data Types & Collections** (lists, dictionaries)
+- **Control Flow** (if statements, loops)
+- **Functions** (organizing your code)
+- **Object-Oriented Programming**
+- **Real-world applications**
+:::
+
+## Thank You! {background-color="#C73E1D"}
+
+### Questions?
+
+Ready to continue with [Data Types](../book/04-data-types.html)?
+
+---
+
+**Resources:**
+- [Python.org](https://python.org)
+- [Real Python](https://realpython.com)
+- [Python Tutor](http://pythontutor.com)

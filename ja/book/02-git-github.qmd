@@ -1,0 +1,326 @@
+# Git と GitHub
+
+Git はコードの変更を追跡し、他の人と協力するために不可欠です。このチュートリアル全体で Git を使用します。
+
+## Git とは？
+
+Git は以下の機能を持つ**分散バージョン管理システム**です：
+- コードの変更を追跡
+- 以前のバージョンに戻すことが可能
+- 他の開発者との協力を支援
+- プロジェクトの完全な履歴を保持
+
+## Git のインストール
+
+### Windows
+```bash
+# winget を使用
+winget install Git.Git
+
+# chocolatey を使用
+choco install git
+```
+
+### macOS
+```bash
+# Homebrew を使用
+brew install git
+
+# Xcode Command Line Tools を使用
+xcode-select --install
+```
+
+### Linux
+```bash
+# Ubuntu/Debian
+sudo apt install git
+
+# Fedora
+sudo dnf install git
+
+# Arch Linux
+sudo pacman -S git
+```
+
+## 基本的な Git 設定
+
+身元を設定します：
+
+```bash
+git config --global user.name "あなたの名前"
+git config --global user.email "your.email@example.com"
+git config --global init.defaultBranch main
+```
+
+## 必須の Git コマンド
+
+### リポジトリの初期化
+```bash
+# 新しいリポジトリを作成
+git init
+
+# 既存のリポジトリをクローン
+git clone https://github.com/user/repo.git
+```
+
+### 基本的なワークフロー
+```bash
+# ステータスを確認
+git status
+
+# ファイルをステージングに追加
+git add filename.py
+git add .  # すべてのファイルを追加
+
+# 変更をコミット
+git commit -m "新機能を追加"
+
+# 履歴を表示
+git log --oneline
+```
+
+### ブランチング
+```bash
+# 新しいブランチを作成
+git branch feature-name
+git checkout feature-name
+# または一つのコマンドで：
+git checkout -b feature-name
+
+# ブランチを切り替え
+git checkout main
+
+# ブランチをマージ
+git checkout main
+git merge feature-name
+
+# ブランチを削除
+git branch -d feature-name
+```
+
+## GitHub の基本
+
+GitHub は Git リポジトリをクラウドでホストし、コラボレーション機能を追加します。
+
+### リポジトリの作成
+
+1. [github.com](https://github.com) にアクセス
+2. "New repository" をクリック
+3. リポジトリ名を選択
+4. 説明を追加
+5. パブリック/プライベートを選択
+6. README、.gitignore、ライセンスを追加
+
+### ローカルをリモートに接続
+
+```bash
+# リモート origin を追加
+git remote add origin https://github.com/username/repo.git
+
+# GitHub にプッシュ
+git push -u origin main
+
+# 変更をプル
+git pull origin main
+```
+
+### GitHub ワークフロー
+
+```bash
+# 1. 機能ブランチを作成
+git checkout -b feature/new-functionality
+
+# 2. 変更を加えてコミット
+git add .
+git commit -m "feat: 新機能を追加"
+
+# 3. ブランチをプッシュ
+git push origin feature/new-functionality
+
+# 4. GitHub でプルリクエストを作成
+# 5. レビューしてマージ
+# 6. 機能ブランチを削除
+git checkout main
+git pull origin main
+git branch -d feature/new-functionality
+```
+
+## Python 固有の Git 実践
+
+### Python 用 .gitignore
+
+`.gitignore` ファイルを作成：
+```gitignore
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+.ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# プロジェクト固有
+docs/
+.pytest_cache/
+```
+
+### コミットメッセージの規約
+
+明確で説明的なコミットメッセージを使用：
+
+```bash
+# 良い例
+git commit -m "feat: ユーザー認証システムを追加"
+git commit -m "fix: ログイン検証バグを解決"
+git commit -m "docs: API ドキュメントを更新"
+
+# 悪い例
+git commit -m "色々更新"
+git commit -m "バグ修正"
+git commit -m "変更"
+```
+
+### 一般的なプレフィックス：
+- `feat:` - 新機能
+- `fix:` - バグ修正
+- `docs:` - ドキュメント
+- `style:` - コード整形
+- `refactor:` - コード再構築
+- `test:` - テスト追加
+- `chore:` - メンテナンス作業
+
+## 実践演習
+
+実際の Python プロジェクトで練習しましょう：
+
+```python
+# シンプルな計算機を作成
+# ファイル: calculator.py
+
+def add(a: float, b: float) -> float:
+    """二つの数を足す。"""
+    return a + b
+
+def subtract(a: float, b: float) -> float:
+    """a から b を引く。"""
+    return a - b
+
+def multiply(a: float, b: float) -> float:
+    """二つの数を掛ける。"""
+    return a * b
+
+def divide(a: float, b: float) -> float:
+    """a を b で割る。"""
+    if b == 0:
+        raise ValueError("ゼロで割ることはできません")
+    return a / b
+
+if __name__ == "__main__":
+    print("計算機デモ")
+    print(f"5 + 3 = {add(5, 3)}")
+    print(f"5 - 3 = {subtract(5, 3)}")
+    print(f"5 * 3 = {multiply(5, 3)}")
+    print(f"5 / 3 = {divide(5, 3):.2f}")
+```
+
+### 演習手順
+
+1. **リポジトリを初期化**：
+   ```bash
+   mkdir python-calculator
+   cd python-calculator
+   git init
+   ```
+
+2. **calculator.py を作成** 上記のコードを使用
+
+3. **追加してコミット**：
+   ```bash
+   git add calculator.py
+   git commit -m "feat: 基本的な計算機能能を追加"
+   ```
+
+4. **GitHub リポジトリを作成**してプッシュ：
+   ```bash
+   git remote add origin https://github.com/yourusername/python-calculator.git
+   git push -u origin main
+   ```
+
+5. **機能を追加**（新しいブランチを作成）：
+   ```bash
+   git checkout -b feature/power-function
+   ```
+
+6. **べき乗関数を追加** calculator.py に：
+   ```python
+   def power(a: float, b: float) -> float:
+       """a を b 乗する。"""
+       return a ** b
+   ```
+
+7. **コミットしてプッシュ**：
+   ```bash
+   git add calculator.py
+   git commit -m "feat: べき乗関数を追加"
+   git push origin feature/power-function
+   ```
+
+8. **GitHub でプルリクエストを作成**
+
+## Git のベストプラクティス
+
+1. **頻繁にコミット** - 小さく論理的なコミット
+2. **明確なメッセージを書く** - 何をなぜ説明
+3. **ブランチを使用** - main ブランチを安定に保つ
+4. **マージ前にレビュー** - プルリクエストを使用
+5. **履歴をきれいに保つ** - 不要なマージコミットを避ける
+6. **定期的にバックアップ** - リモートに頻繁にプッシュ
+
+## よくある問題のトラブルシューティング
+
+### 変更を元に戻す
+```bash
+# ステージングされていない変更を元に戻す
+git checkout -- filename.py
+
+# ステージングされた変更を元に戻す
+git reset HEAD filename.py
+
+# 最後のコミットを元に戻す（変更を保持）
+git reset --soft HEAD~1
+
+# 最後のコミットを元に戻す（変更を破棄）
+git reset --hard HEAD~1
+```
+
+### コンフリクトの解決
+Git が自動的にマージできない場合：
+
+1. コンフリクトしたファイルを開く
+2. コンフリクトマーカーを探す： `<<<<<<<`、`=======`、`>>>>>>>`
+3. コンフリクトを解決するために編集
+4. コンフリクトマーカーを削除
+5. 解決したファイルを追加してコミット
+
+## 次のステップ
+
+Git と GitHub を理解したので、[Python 構文](03-syntax.qmd)に進んでコーディングを始めましょう！
+
+## リソース
+
+- [Git ドキュメント](https://git-scm.com/doc)
+- [GitHub ガイド](https://guides.github.com/)
+- [インタラクティブ Git チュートリアル](https://learngitbranching.js.org/)
