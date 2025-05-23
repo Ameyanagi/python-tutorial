@@ -1,0 +1,965 @@
+# Data Science with Python
+
+Python is the leading language for data science, offering powerful libraries for data manipulation, analysis, visualization, and machine learning.
+
+## Core Data Science Libraries
+
+### NumPy - Numerical Computing
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Create arrays and basic operations
+print("=== NumPy Basics ===")
+
+# Create arrays
+arr1 = np.array([1, 2, 3, 4, 5])
+arr2 = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+print(f"1D array: {arr1}")
+print(f"2D array:\n{arr2}")
+print(f"Array shape: {arr2.shape}")
+print(f"Array data type: {arr2.dtype}")
+
+# Array operations
+print(f"\nArray operations:")
+print(f"Sum: {np.sum(arr1)}")
+print(f"Mean: {np.mean(arr1)}")
+print(f"Standard deviation: {np.std(arr1)}")
+print(f"Max value: {np.max(arr1)}")
+
+# Element-wise operations
+squared = arr1 ** 2
+print(f"Squared: {squared}")
+
+# Boolean indexing
+print(f"Values > 3: {arr1[arr1 > 3]}")
+
+# Statistical operations on 2D array
+print(f"\n2D array statistics:")
+print(f"Sum of each column: {np.sum(arr2, axis=0)}")
+print(f"Mean of each row: {np.mean(arr2, axis=1)}")
+```
+
+### Pandas - Data Manipulation
+
+```{python}
+import pandas as pd
+import numpy as np
+
+print("=== Pandas Basics ===")
+
+# Create sample data
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve'],
+    'Age': [25, 30, 35, 28, 32],
+    'City': ['New York', 'London', 'Tokyo', 'Paris', 'Sydney'],
+    'Salary': [70000, 80000, 90000, 65000, 75000],
+    'Department': ['Engineering', 'Marketing', 'Engineering', 'HR', 'Marketing']
+}
+
+# Create DataFrame
+df = pd.DataFrame(data)
+print("Sample DataFrame:")
+print(df)
+
+print(f"\nDataFrame info:")
+print(f"Shape: {df.shape}")
+print(f"Columns: {list(df.columns)}")
+print(f"Data types:\n{df.dtypes}")
+
+# Basic operations
+print(f"\nBasic statistics:")
+print(df.describe())
+
+# Filtering data
+print(f"\nEngineering employees:")
+engineering = df[df['Department'] == 'Engineering']
+print(engineering)
+
+# Grouping and aggregation
+print(f"\nSalary by department:")
+dept_salary = df.groupby('Department')['Salary'].agg(['mean', 'min', 'max'])
+print(dept_salary)
+
+# Adding new columns
+df['Salary_Rank'] = df['Salary'].rank(ascending=False)
+df['Age_Group'] = pd.cut(df['Age'], bins=[0, 30, 40, 100], labels=['Young', 'Mid', 'Senior'])
+
+print(f"\nDataFrame with new columns:")
+print(df[['Name', 'Age', 'Age_Group', 'Salary', 'Salary_Rank']])
+```
+
+### Matplotlib - Data Visualization
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+print("=== Data Visualization Examples ===")
+
+# Generate sample data
+np.random.seed(42)
+dates = pd.date_range('2023-01-01', periods=100, freq='D')
+values = np.cumsum(np.random.randn(100)) + 100
+sales_data = pd.DataFrame({'Date': dates, 'Sales': values})
+
+# Line plot
+plt.figure(figsize=(12, 8))
+
+plt.subplot(2, 2, 1)
+plt.plot(sales_data['Date'], sales_data['Sales'], linewidth=2, color='blue')
+plt.title('Sales Over Time')
+plt.xlabel('Date')
+plt.ylabel('Sales ($)')
+plt.xticks(rotation=45)
+
+# Histogram
+plt.subplot(2, 2, 2)
+plt.hist(sales_data['Sales'], bins=20, alpha=0.7, color='green', edgecolor='black')
+plt.title('Sales Distribution')
+plt.xlabel('Sales ($)')
+plt.ylabel('Frequency')
+
+# Scatter plot with categories
+categories = ['A', 'B', 'C']
+x = np.random.randn(150)
+y = np.random.randn(150)
+colors = np.random.choice(categories, 150)
+
+plt.subplot(2, 2, 3)
+for category in categories:
+    mask = colors == category
+    plt.scatter(x[mask], y[mask], label=f'Category {category}', alpha=0.7)
+plt.title('Scatter Plot by Category')
+plt.xlabel('X Value')
+plt.ylabel('Y Value')
+plt.legend()
+
+# Bar plot
+departments = ['Engineering', 'Marketing', 'HR', 'Sales']
+avg_salaries = [85000, 72000, 65000, 78000]
+
+plt.subplot(2, 2, 4)
+bars = plt.bar(departments, avg_salaries, color=['skyblue', 'lightgreen', 'lightcoral', 'gold'])
+plt.title('Average Salary by Department')
+plt.xlabel('Department')
+plt.ylabel('Average Salary ($)')
+plt.xticks(rotation=45)
+
+# Add value labels on bars
+for bar, salary in zip(bars, avg_salaries):
+    plt.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1000,
+             f'${salary:,}', ha='center', va='bottom')
+
+plt.tight_layout()
+plt.show()
+
+print("Visualization plots created successfully!")
+```
+
+## Real-World Data Science Project
+
+### Project: Sales Data Analysis
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from datetime import datetime, timedelta
+
+class SalesAnalyzer:
+    """Comprehensive sales data analyzer."""
+    
+    def __init__(self):
+        self.data = None
+        self.summary_stats = {}
+    
+    def generate_sample_data(self, num_records: int = 1000) -> pd.DataFrame:
+        """Generate realistic sales data for analysis."""
+        np.random.seed(42)
+        
+        # Date range
+        start_date = datetime(2023, 1, 1)
+        end_date = datetime(2023, 12, 31)
+        dates = pd.date_range(start_date, end_date, freq='D')
+        
+        # Generate data
+        data = []
+        products = ['Laptop', 'Desktop', 'Tablet', 'Phone', 'Monitor', 'Keyboard', 'Mouse']
+        regions = ['North', 'South', 'East', 'West', 'Central']
+        sales_reps = [f'Rep_{i:02d}' for i in range(1, 21)]
+        
+        for _ in range(num_records):
+            date = np.random.choice(dates)
+            product = np.random.choice(products)
+            region = np.random.choice(regions)
+            sales_rep = np.random.choice(sales_reps)
+            
+            # Product-specific pricing
+            base_prices = {
+                'Laptop': 1200, 'Desktop': 800, 'Tablet': 400,
+                'Phone': 600, 'Monitor': 300, 'Keyboard': 80, 'Mouse': 40
+            }
+            
+            base_price = base_prices[product]
+            quantity = np.random.randint(1, 10)
+            
+            # Add some seasonality and randomness
+            month_factor = 1 + 0.2 * np.sin(2 * np.pi * date.month / 12)
+            price = base_price * month_factor * np.random.uniform(0.8, 1.2)
+            revenue = price * quantity
+            
+            # Simulate costs (60-80% of revenue)
+            cost_ratio = np.random.uniform(0.6, 0.8)
+            cost = revenue * cost_ratio
+            profit = revenue - cost
+            
+            data.append({
+                'Date': date,
+                'Product': product,
+                'Region': region,
+                'Sales_Rep': sales_rep,
+                'Quantity': quantity,
+                'Unit_Price': price,
+                'Revenue': revenue,
+                'Cost': cost,
+                'Profit': profit
+            })
+        
+        df = pd.DataFrame(data)
+        df['Date'] = pd.to_datetime(df['Date'])
+        df['Month'] = df['Date'].dt.month
+        df['Quarter'] = df['Date'].dt.quarter
+        df['Day_of_Week'] = df['Date'].dt.day_name()
+        
+        self.data = df
+        print(f"Generated {len(df)} sales records")
+        return df
+    
+    def basic_analysis(self) -> dict:
+        """Perform basic statistical analysis."""
+        if self.data is None:
+            raise ValueError("No data available. Generate data first.")
+        
+        df = self.data
+        
+        analysis = {
+            'total_records': len(df),
+            'date_range': (df['Date'].min(), df['Date'].max()),
+            'total_revenue': df['Revenue'].sum(),
+            'total_profit': df['Profit'].sum(),
+            'avg_order_value': df['Revenue'].mean(),
+            'profit_margin': (df['Profit'].sum() / df['Revenue'].sum()) * 100,
+            'top_product': df.groupby('Product')['Revenue'].sum().idxmax(),
+            'top_region': df.groupby('Region')['Revenue'].sum().idxmax(),
+            'top_sales_rep': df.groupby('Sales_Rep')['Revenue'].sum().idxmax()
+        }
+        
+        self.summary_stats = analysis
+        return analysis
+    
+    def time_series_analysis(self):
+        """Analyze sales trends over time."""
+        if self.data is None:
+            return
+        
+        df = self.data
+        
+        # Monthly analysis
+        monthly_sales = df.groupby(df['Date'].dt.to_period('M')).agg({
+            'Revenue': 'sum',
+            'Profit': 'sum',
+            'Quantity': 'sum'
+        }).reset_index()
+        monthly_sales['Date'] = monthly_sales['Date'].dt.to_timestamp()
+        
+        # Quarterly analysis
+        quarterly_sales = df.groupby('Quarter').agg({
+            'Revenue': 'sum',
+            'Profit': 'sum',
+            'Quantity': 'sum'
+        })
+        
+        # Day of week analysis
+        dow_sales = df.groupby('Day_of_Week').agg({
+            'Revenue': 'mean',
+            'Quantity': 'mean'
+        }).reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+        
+        return {
+            'monthly': monthly_sales,
+            'quarterly': quarterly_sales,
+            'day_of_week': dow_sales
+        }
+    
+    def product_analysis(self):
+        """Analyze product performance."""
+        if self.data is None:
+            return
+        
+        df = self.data
+        
+        product_stats = df.groupby('Product').agg({
+            'Revenue': ['sum', 'mean', 'count'],
+            'Profit': ['sum', 'mean'],
+            'Quantity': 'sum',
+            'Unit_Price': 'mean'
+        }).round(2)
+        
+        # Flatten column names
+        product_stats.columns = ['_'.join(col).strip() for col in product_stats.columns]
+        
+        # Calculate profit margin by product
+        product_stats['Profit_Margin'] = (
+            product_stats['Profit_sum'] / product_stats['Revenue_sum'] * 100
+        ).round(2)
+        
+        return product_stats
+    
+    def regional_analysis(self):
+        """Analyze regional performance."""
+        if self.data is None:
+            return
+        
+        df = self.data
+        
+        regional_stats = df.groupby('Region').agg({
+            'Revenue': ['sum', 'mean'],
+            'Profit': ['sum', 'mean'],
+            'Quantity': 'sum'
+        }).round(2)
+        
+        regional_stats.columns = ['_'.join(col).strip() for col in regional_stats.columns]
+        
+        # Market share by region
+        total_revenue = df['Revenue'].sum()
+        regional_stats['Market_Share'] = (
+            regional_stats['Revenue_sum'] / total_revenue * 100
+        ).round(2)
+        
+        return regional_stats
+    
+    def sales_rep_analysis(self):
+        """Analyze sales representative performance."""
+        if self.data is None:
+            return
+        
+        df = self.data
+        
+        rep_stats = df.groupby('Sales_Rep').agg({
+            'Revenue': ['sum', 'mean', 'count'],
+            'Profit': 'sum'
+        }).round(2)
+        
+        rep_stats.columns = ['_'.join(col).strip() for col in rep_stats.columns]
+        
+        # Rank representatives
+        rep_stats['Revenue_Rank'] = rep_stats['Revenue_sum'].rank(ascending=False)
+        rep_stats['Avg_Deal_Size'] = rep_stats['Revenue_mean']
+        
+        return rep_stats.sort_values('Revenue_sum', ascending=False)
+    
+    def create_visualizations(self):
+        """Create comprehensive visualizations."""
+        if self.data is None:
+            return
+        
+        fig, axes = plt.subplots(2, 3, figsize=(18, 12))
+        fig.suptitle('Sales Data Analysis Dashboard', fontsize=16, fontweight='bold')
+        
+        # 1. Monthly Revenue Trend
+        time_data = self.time_series_analysis()
+        monthly_data = time_data['monthly']
+        
+        axes[0, 0].plot(monthly_data['Date'], monthly_data['Revenue'], 
+                       marker='o', linewidth=2, color='blue')
+        axes[0, 0].set_title('Monthly Revenue Trend')
+        axes[0, 0].set_xlabel('Month')
+        axes[0, 0].set_ylabel('Revenue ($)')
+        axes[0, 0].tick_params(axis='x', rotation=45)
+        
+        # 2. Product Performance
+        product_data = self.product_analysis()
+        axes[0, 1].bar(product_data.index, product_data['Revenue_sum'], 
+                      color='lightgreen', edgecolor='darkgreen')
+        axes[0, 1].set_title('Revenue by Product')
+        axes[0, 1].set_xlabel('Product')
+        axes[0, 1].set_ylabel('Total Revenue ($)')
+        axes[0, 1].tick_params(axis='x', rotation=45)
+        
+        # 3. Regional Market Share
+        regional_data = self.regional_analysis()
+        axes[0, 2].pie(regional_data['Revenue_sum'], labels=regional_data.index, 
+                      autopct='%1.1f%%', startangle=90)
+        axes[0, 2].set_title('Market Share by Region')
+        
+        # 4. Quarterly Profit Trend
+        quarterly_data = time_data['quarterly']
+        axes[1, 0].bar(quarterly_data.index, quarterly_data['Profit'], 
+                      color='orange', alpha=0.7)
+        axes[1, 0].set_title('Quarterly Profit')
+        axes[1, 0].set_xlabel('Quarter')
+        axes[1, 0].set_ylabel('Profit ($)')
+        
+        # 5. Day of Week Analysis
+        dow_data = time_data['day_of_week']
+        axes[1, 1].plot(range(len(dow_data)), dow_data['Revenue'], 
+                       marker='s', linewidth=2, color='red')
+        axes[1, 1].set_title('Average Daily Revenue by Day of Week')
+        axes[1, 1].set_xlabel('Day of Week')
+        axes[1, 1].set_ylabel('Average Revenue ($)')
+        axes[1, 1].set_xticks(range(len(dow_data)))
+        axes[1, 1].set_xticklabels(dow_data.index, rotation=45)
+        
+        # 6. Revenue vs Profit Scatter
+        axes[1, 2].scatter(self.data['Revenue'], self.data['Profit'], 
+                          alpha=0.6, color='purple')
+        axes[1, 2].set_title('Revenue vs Profit Correlation')
+        axes[1, 2].set_xlabel('Revenue ($)')
+        axes[1, 2].set_ylabel('Profit ($)')
+        
+        # Add trend line
+        z = np.polyfit(self.data['Revenue'], self.data['Profit'], 1)
+        p = np.poly1d(z)
+        axes[1, 2].plot(self.data['Revenue'], p(self.data['Revenue']), "r--", alpha=0.8)
+        
+        plt.tight_layout()
+        plt.show()
+    
+    def generate_report(self):
+        """Generate comprehensive analysis report."""
+        if self.data is None:
+            print("No data available. Generate data first.")
+            return
+        
+        basic_stats = self.basic_analysis()
+        
+        print("=" * 60)
+        print("SALES DATA ANALYSIS REPORT")
+        print("=" * 60)
+        
+        print(f"\n📊 OVERVIEW")
+        print(f"   Total Records: {basic_stats['total_records']:,}")
+        print(f"   Date Range: {basic_stats['date_range'][0].strftime('%Y-%m-%d')} to {basic_stats['date_range'][1].strftime('%Y-%m-%d')}")
+        print(f"   Total Revenue: ${basic_stats['total_revenue']:,.2f}")
+        print(f"   Total Profit: ${basic_stats['total_profit']:,.2f}")
+        print(f"   Profit Margin: {basic_stats['profit_margin']:.1f}%")
+        print(f"   Average Order Value: ${basic_stats['avg_order_value']:,.2f}")
+        
+        print(f"\n🏆 TOP PERFORMERS")
+        print(f"   Best Product: {basic_stats['top_product']}")
+        print(f"   Best Region: {basic_stats['top_region']}")
+        print(f"   Best Sales Rep: {basic_stats['top_sales_rep']}")
+        
+        # Product analysis
+        print(f"\n📦 PRODUCT ANALYSIS")
+        product_stats = self.product_analysis()
+        print(product_stats.sort_values('Revenue_sum', ascending=False).head())
+        
+        # Regional analysis
+        print(f"\n🌍 REGIONAL ANALYSIS")
+        regional_stats = self.regional_analysis()
+        print(regional_stats.sort_values('Revenue_sum', ascending=False))
+        
+        # Sales rep performance
+        print(f"\n👥 TOP SALES REPRESENTATIVES")
+        rep_stats = self.sales_rep_analysis()
+        print(rep_stats.head(10))
+
+# Demonstrate the sales analyzer
+analyzer = SalesAnalyzer()
+analyzer.generate_sample_data(1500)
+analyzer.generate_report()
+analyzer.create_visualizations()
+```
+
+## Machine Learning Basics
+
+### Scikit-learn Introduction
+
+```{python}
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import mean_squared_error, accuracy_score, classification_report
+from sklearn.preprocessing import StandardScaler
+import pandas as pd
+import numpy as np
+
+print("=== Machine Learning with Scikit-learn ===")
+
+def regression_example():
+    """Demonstrate linear regression."""
+    print("\n1. Linear Regression Example")
+    
+    # Generate sample data
+    np.random.seed(42)
+    n_samples = 200
+    X = np.random.randn(n_samples, 3)  # 3 features
+    true_coefficients = [2, -1, 0.5]
+    y = X.dot(true_coefficients) + np.random.randn(n_samples) * 0.1
+    
+    # Create feature names
+    feature_names = ['Feature_1', 'Feature_2', 'Feature_3']
+    X_df = pd.DataFrame(X, columns=feature_names)
+    
+    # Split data
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_df, y, test_size=0.3, random_state=42
+    )
+    
+    # Train model
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    
+    # Make predictions
+    y_pred = model.predict(X_test)
+    
+    # Evaluate
+    mse = mean_squared_error(y_test, y_pred)
+    r2_score = model.score(X_test, y_test)
+    
+    print(f"   Model Coefficients: {model.coef_}")
+    print(f"   True Coefficients: {true_coefficients}")
+    print(f"   Mean Squared Error: {mse:.4f}")
+    print(f"   R² Score: {r2_score:.4f}")
+    
+    return model, X_test, y_test, y_pred
+
+def classification_example():
+    """Demonstrate classification."""
+    print("\n2. Classification Example")
+    
+    # Generate sample data
+    from sklearn.datasets import make_classification
+    
+    X, y = make_classification(
+        n_samples=1000, n_features=10, n_informative=5,
+        n_redundant=2, n_classes=3, random_state=42
+    )
+    
+    feature_names = [f'Feature_{i+1}' for i in range(X.shape[1])]
+    X_df = pd.DataFrame(X, columns=feature_names)
+    
+    # Split data
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_df, y, test_size=0.3, random_state=42, stratify=y
+    )
+    
+    # Scale features
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+    
+    # Train models
+    models = {
+        'Logistic Regression': LogisticRegression(random_state=42),
+        'Random Forest': RandomForestClassifier(n_estimators=100, random_state=42)
+    }
+    
+    results = {}
+    for name, model in models.items():
+        # Train
+        model.fit(X_train_scaled, y_train)
+        
+        # Predict
+        y_pred = model.predict(X_test_scaled)
+        
+        # Evaluate
+        accuracy = accuracy_score(y_test, y_pred)
+        results[name] = {
+            'model': model,
+            'accuracy': accuracy,
+            'predictions': y_pred
+        }
+        
+        print(f"\n   {name}:")
+        print(f"     Accuracy: {accuracy:.3f}")
+    
+    return results, X_test_scaled, y_test
+
+# Run examples
+regression_model, X_reg_test, y_reg_test, y_reg_pred = regression_example()
+classification_results, X_clf_test, y_clf_test = classification_example()
+
+# Feature importance for Random Forest
+rf_model = classification_results['Random Forest']['model']
+feature_importance = pd.DataFrame({
+    'Feature': [f'Feature_{i+1}' for i in range(len(rf_model.feature_importances_))],
+    'Importance': rf_model.feature_importances_
+}).sort_values('Importance', ascending=False)
+
+print(f"\n   Random Forest Feature Importance:")
+print(feature_importance.head())
+```
+
+## Data Science Workflow
+
+### End-to-End Data Science Project
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, confusion_matrix
+import seaborn as sns
+
+class DataScienceProject:
+    """End-to-end data science project workflow."""
+    
+    def __init__(self, project_name: str):
+        self.project_name = project_name
+        self.data = None
+        self.processed_data = None
+        self.model = None
+        self.scaler = None
+        self.label_encoder = None
+        
+    def load_and_explore_data(self):
+        """Step 1: Load and explore the dataset."""
+        print(f"=== {self.project_name}: Data Exploration ===")
+        
+        # Generate a realistic customer dataset
+        np.random.seed(42)
+        n_customers = 2000
+        
+        # Customer demographics
+        ages = np.random.normal(40, 12, n_customers).astype(int)
+        ages = np.clip(ages, 18, 80)
+        
+        incomes = np.random.lognormal(10.5, 0.5, n_customers)
+        
+        # Education levels
+        education_levels = np.random.choice(
+            ['High School', 'Bachelor', 'Master', 'PhD'],
+            n_customers, p=[0.4, 0.35, 0.2, 0.05]
+        )
+        
+        # Spending behavior (influenced by income and age)
+        base_spending = incomes * 0.1 + ages * 50
+        spending = base_spending + np.random.normal(0, 500, n_customers)
+        spending = np.clip(spending, 0, None)
+        
+        # Customer segment (target variable)
+        segments = []
+        for i in range(n_customers):
+            if spending[i] > 8000:
+                segment = 'Premium'
+            elif spending[i] > 4000:
+                segment = 'Standard'
+            else:
+                segment = 'Basic'
+            segments.append(segment)
+        
+        # Create DataFrame
+        self.data = pd.DataFrame({
+            'Age': ages,
+            'Income': incomes,
+            'Education': education_levels,
+            'Annual_Spending': spending,
+            'Segment': segments
+        })
+        
+        print(f"Dataset shape: {self.data.shape}")
+        print(f"\nFirst 5 rows:")
+        print(self.data.head())
+        
+        print(f"\nDataset info:")
+        print(self.data.info())
+        
+        print(f"\nBasic statistics:")
+        print(self.data.describe())
+        
+        print(f"\nSegment distribution:")
+        print(self.data['Segment'].value_counts())
+        
+        return self.data
+    
+    def data_preprocessing(self):
+        """Step 2: Clean and preprocess the data."""
+        print(f"\n=== Data Preprocessing ===")
+        
+        if self.data is None:
+            raise ValueError("Load data first")
+        
+        # Check for missing values
+        print(f"Missing values:")
+        print(self.data.isnull().sum())
+        
+        # Encode categorical variables
+        self.label_encoder = LabelEncoder()
+        
+        processed_data = self.data.copy()
+        processed_data['Education_Encoded'] = self.label_encoder.fit_transform(
+            processed_data['Education']
+        )
+        
+        # Create additional features
+        processed_data['Income_to_Age_Ratio'] = processed_data['Income'] / processed_data['Age']
+        processed_data['Spending_to_Income_Ratio'] = processed_data['Annual_Spending'] / processed_data['Income']
+        
+        # Feature selection for modeling
+        feature_columns = ['Age', 'Income', 'Education_Encoded', 'Annual_Spending', 
+                          'Income_to_Age_Ratio', 'Spending_to_Income_Ratio']
+        
+        self.processed_data = {
+            'features': processed_data[feature_columns],
+            'target': processed_data['Segment'],
+            'full_data': processed_data
+        }
+        
+        print(f"Features selected: {feature_columns}")
+        print(f"Target variable: Segment")
+        print(f"Processed data shape: {self.processed_data['features'].shape}")
+        
+        return self.processed_data
+    
+    def exploratory_data_analysis(self):
+        """Step 3: Perform exploratory data analysis."""
+        print(f"\n=== Exploratory Data Analysis ===")
+        
+        if self.processed_data is None:
+            self.data_preprocessing()
+        
+        fig, axes = plt.subplots(2, 3, figsize=(18, 12))
+        fig.suptitle(f'{self.project_name}: Exploratory Data Analysis', fontsize=16)
+        
+        full_data = self.processed_data['full_data']
+        
+        # 1. Age distribution by segment
+        for segment in full_data['Segment'].unique():
+            segment_data = full_data[full_data['Segment'] == segment]
+            axes[0, 0].hist(segment_data['Age'], alpha=0.7, label=segment, bins=20)
+        axes[0, 0].set_title('Age Distribution by Segment')
+        axes[0, 0].set_xlabel('Age')
+        axes[0, 0].set_ylabel('Frequency')
+        axes[0, 0].legend()
+        
+        # 2. Income vs Spending
+        segments = full_data['Segment'].unique()
+        colors = ['red', 'green', 'blue']
+        for segment, color in zip(segments, colors):
+            segment_data = full_data[full_data['Segment'] == segment]
+            axes[0, 1].scatter(segment_data['Income'], segment_data['Annual_Spending'], 
+                             alpha=0.6, label=segment, color=color)
+        axes[0, 1].set_title('Income vs Annual Spending')
+        axes[0, 1].set_xlabel('Income ($)')
+        axes[0, 1].set_ylabel('Annual Spending ($)')
+        axes[0, 1].legend()
+        
+        # 3. Education distribution
+        education_counts = full_data['Education'].value_counts()
+        axes[0, 2].pie(education_counts.values, labels=education_counts.index, autopct='%1.1f%%')
+        axes[0, 2].set_title('Education Distribution')
+        
+        # 4. Segment distribution
+        segment_counts = full_data['Segment'].value_counts()
+        axes[1, 0].bar(segment_counts.index, segment_counts.values, 
+                      color=['lightcoral', 'lightgreen', 'lightblue'])
+        axes[1, 0].set_title('Customer Segment Distribution')
+        axes[1, 0].set_xlabel('Segment')
+        axes[1, 0].set_ylabel('Count')
+        
+        # 5. Correlation heatmap
+        correlation_data = full_data[['Age', 'Income', 'Annual_Spending', 'Education_Encoded']].corr()
+        im = axes[1, 1].imshow(correlation_data.values, cmap='coolwarm', aspect='auto')
+        axes[1, 1].set_title('Feature Correlation Heatmap')
+        axes[1, 1].set_xticks(range(len(correlation_data.columns)))
+        axes[1, 1].set_yticks(range(len(correlation_data.columns)))
+        axes[1, 1].set_xticklabels(correlation_data.columns, rotation=45)
+        axes[1, 1].set_yticklabels(correlation_data.columns)
+        
+        # Add correlation values
+        for i in range(len(correlation_data.columns)):
+            for j in range(len(correlation_data.columns)):
+                axes[1, 1].text(j, i, f'{correlation_data.iloc[i, j]:.2f}', 
+                               ha='center', va='center')
+        
+        # 6. Spending distribution by segment
+        for segment in segments:
+            segment_data = full_data[full_data['Segment'] == segment]
+            axes[1, 2].hist(segment_data['Annual_Spending'], alpha=0.7, label=segment, bins=20)
+        axes[1, 2].set_title('Spending Distribution by Segment')
+        axes[1, 2].set_xlabel('Annual Spending ($)')
+        axes[1, 2].set_ylabel('Frequency')
+        axes[1, 2].legend()
+        
+        plt.tight_layout()
+        plt.show()
+    
+    def train_model(self):
+        """Step 4: Train machine learning model."""
+        print(f"\n=== Model Training ===")
+        
+        if self.processed_data is None:
+            self.data_preprocessing()
+        
+        X = self.processed_data['features']
+        y = self.processed_data['target']
+        
+        # Split data
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.3, random_state=42, stratify=y
+        )
+        
+        # Scale features
+        self.scaler = StandardScaler()
+        X_train_scaled = self.scaler.fit_transform(X_train)
+        X_test_scaled = self.scaler.transform(X_test)
+        
+        # Train Random Forest model
+        self.model = RandomForestClassifier(
+            n_estimators=100, 
+            random_state=42,
+            max_depth=10,
+            min_samples_split=5
+        )
+        
+        self.model.fit(X_train_scaled, y_train)
+        
+        # Cross-validation
+        cv_scores = cross_val_score(
+            self.model, X_train_scaled, y_train, cv=5, scoring='accuracy'
+        )
+        
+        print(f"Cross-validation scores: {cv_scores}")
+        print(f"Mean CV accuracy: {cv_scores.mean():.3f} (+/- {cv_scores.std() * 2:.3f})")
+        
+        # Test set evaluation
+        y_pred = self.model.predict(X_test_scaled)
+        test_accuracy = (y_pred == y_test).mean()
+        
+        print(f"Test set accuracy: {test_accuracy:.3f}")
+        
+        # Feature importance
+        feature_importance = pd.DataFrame({
+            'Feature': X.columns,
+            'Importance': self.model.feature_importances_
+        }).sort_values('Importance', ascending=False)
+        
+        print(f"\nFeature Importance:")
+        print(feature_importance)
+        
+        # Detailed classification report
+        print(f"\nClassification Report:")
+        print(classification_report(y_test, y_pred))
+        
+        return {
+            'model': self.model,
+            'test_accuracy': test_accuracy,
+            'cv_scores': cv_scores,
+            'feature_importance': feature_importance,
+            'predictions': y_pred,
+            'true_labels': y_test
+        }
+    
+    def model_evaluation(self, results):
+        """Step 5: Evaluate model performance."""
+        print(f"\n=== Model Evaluation ===")
+        
+        y_true = results['true_labels']
+        y_pred = results['predictions']
+        
+        # Confusion matrix
+        cm = confusion_matrix(y_true, y_pred)
+        
+        plt.figure(figsize=(12, 5))
+        
+        # Plot confusion matrix
+        plt.subplot(1, 2, 1)
+        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
+                   xticklabels=self.model.classes_,
+                   yticklabels=self.model.classes_)
+        plt.title('Confusion Matrix')
+        plt.xlabel('Predicted')
+        plt.ylabel('Actual')
+        
+        # Plot feature importance
+        plt.subplot(1, 2, 2)
+        feature_imp = results['feature_importance'].head(6)
+        plt.barh(feature_imp['Feature'], feature_imp['Importance'])
+        plt.title('Top Feature Importance')
+        plt.xlabel('Importance')
+        
+        plt.tight_layout()
+        plt.show()
+    
+    def run_complete_project(self):
+        """Run the complete data science project."""
+        print(f"🚀 Starting {self.project_name}")
+        
+        # Step 1: Load and explore data
+        self.load_and_explore_data()
+        
+        # Step 2: Preprocess data
+        self.data_preprocessing()
+        
+        # Step 3: EDA
+        self.exploratory_data_analysis()
+        
+        # Step 4: Train model
+        results = self.train_model()
+        
+        # Step 5: Evaluate model
+        self.model_evaluation(results)
+        
+        print(f"\n✅ {self.project_name} completed successfully!")
+        return results
+
+# Run the complete data science project
+project = DataScienceProject("Customer Segmentation Analysis")
+results = project.run_complete_project()
+```
+
+## Self-Review Questions
+
+### Knowledge Check
+
+1. **What are the core libraries in the Python data science ecosystem?**
+2. **When would you use NumPy vs Pandas?**
+3. **What's the difference between supervised and unsupervised learning?**
+4. **How do you handle missing data in a dataset?**
+5. **What metrics would you use to evaluate a classification model?**
+
+### Practical Exercises
+
+1. **Data Cleaning Challenge**: Clean a messy dataset with missing values and outliers
+2. **Visualization Project**: Create an interactive dashboard for sales data
+3. **Prediction Model**: Build a model to predict house prices
+4. **Time Series Analysis**: Analyze stock price trends and patterns
+
+### Answers
+
+1. NumPy (arrays), Pandas (dataframes), Matplotlib/Seaborn (visualization), Scikit-learn (ML)
+2. NumPy for numerical computations; Pandas for data manipulation and analysis
+3. Supervised has labeled data; unsupervised finds patterns in unlabeled data
+4. Remove, impute with mean/median/mode, or use advanced imputation techniques
+5. Accuracy, precision, recall, F1-score, ROC-AUC for classification
+
+## Best Practices
+
+1. **Start with data exploration** - understand your data before modeling
+2. **Clean data thoroughly** - garbage in, garbage out
+3. **Feature engineering** - create meaningful features from raw data
+4. **Cross-validation** - properly evaluate model performance
+5. **Document everything** - reproducible analysis is crucial
+6. **Version control** - track data, code, and model versions
+
+## Next Steps
+
+Excellent! You now have a solid foundation in data science with Python. Next, we'll explore [Web Development](13-web-development.qmd) to learn how to build web applications with Streamlit and FastAPI.
+
+## Resources
+
+- [Pandas Documentation](https://pandas.pydata.org/docs/)
+- [NumPy Documentation](https://numpy.org/doc/)
+- [Matplotlib Documentation](https://matplotlib.org/stable/contents.html)
+- [Scikit-learn Documentation](https://scikit-learn.org/stable/)
+- [Kaggle Learn](https://www.kaggle.com/learn) - Free micro-courses
+- [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)

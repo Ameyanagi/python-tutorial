@@ -34,17 +34,36 @@ jobs:
         run: |
           uv sync
 
-      - name: Render English content
+      - name: Render main landing page
         run: |
-          uv run quarto render en/
+          uv run quarto render index.qmd --to html --output-dir docs
 
-      - name: Render Japanese content  
+      - name: Render English book
         run: |
-          uv run quarto render ja/
+          cd en && uv run quarto render --to html --output-dir ../docs/en
 
-      - name: Render main site
+      - name: Render English slides
         run: |
-          uv run quarto render
+          cd en && uv run quarto render slides/ --to revealjs --output-dir ../docs/en/slides
+
+      - name: Render Japanese book
+        run: |
+          cd ja && uv run quarto render --to html --output-dir ../docs/ja
+
+      - name: Copy shared assets
+        run: |
+          mkdir -p docs/en/shared docs/ja/shared
+          if [ -d "en/shared" ]; then
+            cp -r en/shared/* docs/en/shared/
+          fi
+          if [ -d "ja/shared" ]; then
+            cp -r ja/shared/* docs/ja/shared/
+          fi
+          # Copy root shared assets to both language directories
+          if [ -d "shared" ]; then
+            cp -r shared/* docs/en/shared/ 2>/dev/null || true
+            cp -r shared/* docs/ja/shared/ 2>/dev/null || true
+          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v3

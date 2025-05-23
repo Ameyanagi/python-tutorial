@@ -5,7 +5,7 @@ project:
 book:
   title: "Python Tutorial"
   subtitle: "From Basics to Advanced Applications"
-  author: "Python Tutorial Team"
+  author: "Ameyanagi"
   date: today
   language: en
   
@@ -21,22 +21,19 @@ book:
         - book/04-data-types.qmd
         - book/05-control-flow.qmd
         - book/06-functions.qmd
+        - book/self-review-1.qmd
     - part: "Object-Oriented Programming"
       chapters:
         - book/07-classes.qmd
         - book/08-inheritance.qmd
-        - book/09-advanced-oop.qmd
     - part: "Advanced Topics"
       chapters:
-        - book/10-type-hints.qmd
-        - book/11-async.qmd
-        - book/12-multiprocessing.qmd
+        - book/09-type-hints.qmd
+        - book/10-async.qmd
+        - book/11-multiprocessing.qmd
     - part: "Applications"
       chapters:
-        - book/13-data-science.qmd
-        - book/14-automation.qmd
-        - book/15-general-programming.qmd
-        - book/16-web-development.qmd
+        - book/12-data-science.qmd
 
 format:
   html:

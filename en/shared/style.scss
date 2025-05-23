@@ -1,0 +1,153 @@
+/* Custom styles for RevealJS slides */
+
+/* Slide theme customizations */
+.reveal .slides section {
+  text-align: left;
+}
+
+.reveal .slides section h1,
+.reveal .slides section h2,
+.reveal .slides section h3 {
+  text-align: center;
+}
+
+/* Code block styling */
+.reveal pre code {
+  font-size: 0.8em;
+  line-height: 1.4;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* Fragment styling */
+.reveal .fragment.highlight-current-blue {
+  opacity: 1;
+}
+
+.reveal .fragment.highlight-current-blue.current-fragment {
+  background: #1b91ff;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+/* Exercise box styling */
+.exercise-box {
+  background: #f8f9fa;
+  border: 3px solid #28a745;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+}
+
+.exercise-box h4 {
+  color: #28a745;
+  margin-bottom: 1rem;
+}
+
+/* Two-column layout */
+.reveal .slides section .columns {
+  display: flex;
+  gap: 2rem;
+}
+
+.reveal .slides section .column {
+  flex: 1;
+}
+
+/* Button styling for slides */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem;
+  text-decoration: none;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+  text-decoration: none;
+  color: white;
+}
+
+/* Grid layout for slides */
+.grid {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.g-col-12 { grid-column: span 12; }
+.g-col-md-6 { grid-column: span 6; }
+.g-col-lg-4 { grid-column: span 4; }
+
+/* Incremental list styling */
+.reveal .slides section .incremental > * {
+  color: #666;
+}
+
+.reveal .slides section .incremental > *.current-fragment {
+  color: inherit;
+}
+
+/* Progress bar */
+.reveal .progress {
+  height: 4px;
+  background-color: #007bff;
+}
+
+/* Custom colors for different elements */
+.text-primary { color: #007bff !important; }
+.text-success { color: #28a745 !important; }
+.text-warning { color: #ffc107 !important; }
+.text-danger { color: #dc3545 !important; }
+.text-info { color: #17a2b8 !important; }
+
+/* Highlight boxes */
+.highlight-box {
+  background: #e7f3ff;
+  border-left: 4px solid #007bff;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.warning-box {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.success-box {
+  background: #d4edda;
+  border-left: 4px solid #28a745;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+/* Code output styling */
+.code-output {
+  background: #2d3748;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  margin-top: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .reveal .slides section .columns {
+    flex-direction: column;
+  }
+  
+  .grid .g-col-md-6,
+  .grid .g-col-lg-4 {
+    grid-column: span 12;
+  }
+}

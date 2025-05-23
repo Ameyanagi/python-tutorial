@@ -1,35 +1,176 @@
-# Python Tutorial
+# Python Tutorial {.unnumbered}
 
-Welcome to our comprehensive Python tutorial! This tutorial is available in multiple formats and languages.
+Welcome to the comprehensive Python programming tutorial by **Ameyanagi**. This tutorial covers Python from basics to advanced applications, with support for multiple languages and formats.
 
-## Available Versions
+## 🚀 Tutorial Features
 
-### 📖 Book Format
-- **[English Version](en/index.html)** - Complete interactive book
-- **[日本語版](ja/index.html)** - 完全なインタラクティブ書籍
+- **Multi-format Learning**: Books, slides, and interactive content
+- **Bilingual Support**: English and Japanese versions
+- **Comprehensive Coverage**: From Python basics to data science
+- **Modern Development**: Using uv, VS Code, and best practices
+- **Real-world Applications**: Practical projects and examples
 
-### 🎯 Presentation Slides
-- **[English Slides](en/slides/)** - Chapter-by-chapter presentations
-- **[日本語スライド](ja/slides/)** - 章ごとのプレゼンテーション
+## 📚 Available Formats
 
-### 📄 PDF Downloads
-- **[English PDF](en/Python-Tutorial.pdf)** - Printable version
-- **[日本語 PDF](ja/Python-Tutorial.pdf)** - 印刷可能版
+### 📖 Books (Comprehensive Guides)
 
-## What You'll Learn
+<div class="grid">
+<div class="g-col-12 g-col-md-6">
 
-This tutorial covers Python from basics to advanced applications:
+#### 🇺🇸 English Version
+**Complete Python tutorial with 12 chapters covering:**
+- Environment setup and Git integration
+- Python syntax and data structures  
+- Functions and error handling
+- Object-oriented programming
+- Advanced topics (async, type hints)
+- Real-world applications (data science, web development)
 
-1. **Foundation** - Environment setup, Git/GitHub
-2. **Python Basics** - Syntax, data types, functions
-3. **Object-Oriented Programming** - Classes, inheritance, advanced OOP
-4. **Advanced Topics** - Type hints, async programming, multiprocessing
-5. **Applications** - Data science, automation, web development
+[**📖 Read English Book →**](en/index.html){.btn .btn-primary .btn-lg}
 
-## Getting Started
+</div>
+<div class="g-col-12 g-col-md-6">
 
-Choose your preferred language and format above to begin your Python journey!
+#### 🇯🇵 Japanese Version (日本語版)
+**Python完全ガイド - 12章で構成:**
+- 環境設定とGit統合
+- Python構文とデータ構造
+- 関数とエラー処理  
+- オブジェクト指向プログラミング
+- 高度なトピック（非同期、型ヒント）
+- 実世界のアプリケーション（データサイエンス、Web開発）
 
-## Repository
+[**📖 日本語版を読む →**](ja/index.html){.btn .btn-primary .btn-lg}
 
-This tutorial is open source and available on [GitHub](https://github.com/your-username/python-tutorial). Contributions welcome!
+</div>
+</div>
+
+### 🎯 Slides (Interactive Presentations)
+
+**Perfect for lectures, workshops, and quick learning sessions:**
+
+<div class="grid">
+<div class="g-col-12 g-col-md-6 g-col-lg-4">
+
+#### Core Concepts
+- [📊 Data Types & Collections](en/slides/02-data-types.html)
+- [🔄 Control Flow](en/slides/03-control-flow.html) 
+- [⚙️ Functions](en/slides/04-functions.html)
+- [🛡️ Error Handling](en/slides/05-error-handling.html)
+
+</div>
+<div class="g-col-12 g-col-md-6 g-col-lg-4">
+
+#### Code Organization
+- [📦 Modules & Packages](en/slides/06-modules.html)
+- [🏗️ Classes & Objects](en/slides/07-classes.html)
+- [🔄 Inheritance](en/slides/08-inheritance.html)
+
+</div>
+<div class="g-col-12 g-col-md-6 g-col-lg-4">
+
+#### Advanced Topics
+- [🏷️ Type Hints](en/slides/09-type-hints.html)
+- [📊 Data Science](en/slides/12-data-science.html)
+
+</div>
+</div>
+
+## 🛠️ Development Environment
+
+This tutorial teaches modern Python development using:
+
+- **uv**: Modern Python package manager
+- **VS Code**: Integrated development environment
+- **ruff**: Fast Python linter and formatter
+- **pyright**: Static type checker
+- **Git**: Version control integration
+- **Quarto**: Multi-format publishing
+
+## 📋 Learning Path
+
+### 👶 Beginners
+1. Start with [Environment Setup](en/book/01-setup.html)
+2. Learn [Git & GitHub](en/book/02-git-github.html)
+3. Master [Python Syntax](en/book/03-syntax.html)
+4. Practice with [Data Types](en/book/04-data-types.html)
+
+### 🎓 Intermediate
+1. Understand [Control Flow](en/book/05-control-flow.html)
+2. Learn [Functions](en/book/06-functions.html)
+3. Complete [Self-Review](en/book/self-review-1.html)
+4. Explore [Object-Oriented Programming](en/book/07-classes.html)
+
+### 🚀 Advanced
+1. Master [Inheritance](en/book/08-inheritance.html)
+2. Use [Type Hints](en/book/09-type-hints.html)
+3. Learn [Async Programming](en/book/10-async.html)
+4. Apply [Data Science](en/book/12-data-science.html)
+
+## 🎯 Quick Start
+
+### For Self-Study
+- Choose your preferred language (English/Japanese)
+- Follow the learning path sequentially
+- Complete exercises in each chapter
+- Build the capstone projects
+
+### For Instructors
+- Use slides for classroom presentations
+- Assign book chapters for reading
+- Leverage built-in exercises and self-review sections
+- Adapt content for your curriculum
+
+### For Developers
+- Jump to specific topics you need
+- Use as a reference guide
+- Follow best practices demonstrated
+- Integrate modern tooling into your workflow
+
+## 💻 Code Examples
+
+All code examples are:
+- ✅ **Tested and verified**
+- ✅ **Copy-paste ready**
+- ✅ **Following best practices**
+- ✅ **Progressively complex**
+
+## 🤝 Contributing
+
+This tutorial is open source and welcomes contributions:
+
+- 🐛 Report issues
+- 💡 Suggest improvements  
+- 🌍 Help with translations
+- 📝 Add examples and exercises
+
+[**Contribute on GitHub →**](https://github.com/ameyanagi/python-tutorial){.btn .btn-outline-primary}
+
+## 📱 Responsive Design
+
+This tutorial works perfectly on:
+- 💻 Desktop computers
+- 📱 Mobile devices
+- 📓 Tablets
+- 📊 Projectors (for slides)
+
+## 🆕 Latest Updates
+
+- ✨ **Comprehensive slide presentations** for interactive learning
+- 🇯🇵 **Japanese translations** for key chapters
+- 🔬 **Data science applications** with real-world examples
+- ⚡ **Modern tooling integration** (uv, ruff, pyright)
+- 🎯 **Type hints coverage** for robust code development
+
+---
+
+<div class="text-center">
+<h3>Ready to start your Python journey?</h3>
+<p class="lead">Choose your learning format and begin today!</p>
+
+[**📖 Start with Books**](#-books-comprehensive-guides){.btn .btn-success .btn-lg .me-3}
+[**🎯 View Slides**](#-slides-interactive-presentations){.btn .btn-info .btn-lg}
+
+</div>
+
+*Built with ❤️ by Ameyanagi using Quarto, Python, and modern development tools.*

@@ -1,0 +1,422 @@
+# Python 構文と基本
+
+Python の清潔で読みやすい構文は、初心者にとって完璧でありながら、専門家にとって強力なままです。
+
+## 初めての Python プログラム
+
+```{python}
+print("Hello, Python!")
+```
+
+この単純な行は Python の哲学を実証しています：コードは読みやすく、わかりやすくあるべきです。
+
+## Python の哲学 - Python の禅
+
+```{python}
+import this
+```
+
+## 変数と代入
+
+Python は**動的型付け**を使用 - 変数の型を宣言する必要がありません：
+
+```{python}
+# 異なるデータ型
+name = "Alice"          # 文字列
+age = 25               # 整数
+height = 5.6           # 浮動小数点数
+is_student = True      # ブール値
+
+print(f"名前: {name}")
+print(f"年齢: {age}")
+print(f"身長: {height}")
+print(f"学生: {is_student}")
+```
+
+### 変数命名規則
+
+```{python}
+# 有効な変数名
+first_name = "John"
+last_name = "Doe"
+age_2024 = 30
+_private_var = "hidden"
+
+# 無効な名前（エラーの原因）:
+# 2name = "invalid"     # 数字で始められない
+# first-name = "invalid" # ハイフンは使用できない
+# class = "invalid"     # キーワードは使用できない
+
+print(f"フルネーム: {first_name} {last_name}")
+```
+
+## コメント
+
+コメントはコードを読みやすくします：
+
+```{python}
+# これは一行コメントです
+print("Hello")  # 行末のコメント
+
+"""
+これは複数行コメント
+またはドキュメント文字列です。長い
+説明に使用します。
+"""
+
+def greet(name):
+    """
+    これは関数のドキュメント文字列です。
+    関数が何をするかを説明します。
+    """
+    return f"Hello, {name}!"
+
+print(greet("Python"))
+```
+
+## 基本データ型
+
+### 数値
+
+```{python}
+# 整数
+count = 42
+negative = -17
+
+# 浮動小数点数
+price = 19.99
+scientific = 1.5e-4  # 0.00015
+
+# 複素数
+complex_num = 3 + 4j
+
+print(f"整数: {count}")
+print(f"浮動小数点数: {price}")
+print(f"科学記法: {scientific}")
+print(f"複素数: {complex_num}")
+```
+
+### 文字列
+
+```{python}
+# 文字列を作成する様々な方法
+single_quotes = 'Hello'
+double_quotes = "World"
+triple_quotes = """これは
+複数行文字列です"""
+
+# 文字列の連結
+greeting = single_quotes + " " + double_quotes
+print(greeting)
+
+# 文字列フォーマット
+name = "Python"
+version = 3.12
+
+# f-strings（推奨）
+message = f"Welcome to {name} {version}!"
+print(message)
+
+# format() メソッド
+message2 = "Welcome to {} {}!".format(name, version)
+print(message2)
+
+# % フォーマット（古いスタイル）
+message3 = "Welcome to %s %.1f!" % (name, version)
+print(message3)
+```
+
+### 文字列操作
+
+```{python}
+text = "Python Programming"
+
+# 長さ
+print(f"長さ: {len(text)}")
+
+# 大文字小文字メソッド
+print(f"大文字: {text.upper()}")
+print(f"小文字: {text.lower()}")
+print(f"タイトルケース: {text.title()}")
+
+# 文字列メソッド
+print(f"'Python'で始まる: {text.startswith('Python')}")
+print(f"'gram'を含む: {'gram' in text}")
+print(f"置換: {text.replace('Python', 'Java')}")
+
+# スライシング
+print(f"最初の6文字: {text[:6]}")
+print(f"最後の11文字: {text[7:]}")
+print(f"2文字おき: {text[::2]}")
+```
+
+### ブール値
+
+```{python}
+# ブール値
+is_python_fun = True
+is_difficult = False
+
+# ブール演算
+print(f"AND: {is_python_fun and is_difficult}")
+print(f"OR: {is_python_fun or is_difficult}")
+print(f"NOT: {not is_difficult}")
+
+# 真偽値性 - True/False として扱われるもの
+print(f"空文字列: {bool('')}")        # False
+print(f"非空文字列: {bool('hello')}") # True
+print(f"ゼロ: {bool(0)}")                  # False
+print(f"非ゼロ: {bool(42)}")             # True
+print(f"空リスト: {bool([])}")           # False
+print(f"非空リスト: {bool([1, 2])}")   # True
+```
+
+## 演算子
+
+### 算術演算子
+
+```{python}
+a, b = 10, 3
+
+print(f"加算: {a} + {b} = {a + b}")
+print(f"減算: {a} - {b} = {a - b}")
+print(f"乗算: {a} * {b} = {a * b}")
+print(f"除算: {a} / {b} = {a / b}")
+print(f"切り捨て除算: {a} // {b} = {a // b}")
+print(f"剰余: {a} % {b} = {a % b}")
+print(f"べき乗: {a} ** {b} = {a ** b}")
+```
+
+### 比較演算子
+
+```{python}
+x, y = 5, 10
+
+print(f"{x} == {y}: {x == y}")   # 等しい
+print(f"{x} != {y}: {x != y}")   # 等しくない
+print(f"{x} < {y}: {x < y}")     # より小さい
+print(f"{x} > {y}: {x > y}")     # より大きい
+print(f"{x} <= {y}: {x <= y}")   # 以下
+print(f"{x} >= {y}: {x >= y}")   # 以上
+```
+
+### 代入演算子
+
+```{python}
+num = 10
+print(f"初期値: {num}")
+
+num += 5    # num = num + 5
+print(f"+=5 後: {num}")
+
+num -= 3    # num = num - 3
+print(f"-=3 後: {num}")
+
+num *= 2    # num = num * 2
+print(f"*=2 後: {num}")
+
+num //= 3   # num = num // 3
+print(f"//=3 後: {num}")
+```
+
+## 入力と出力
+
+### ユーザー入力の取得
+
+```{python}
+# 注意: input() は常に文字列を返します
+# name = input("お名前は？ ")
+# print(f"こんにちは、{name}!")
+
+# 数値の場合、入力を変換します
+# age_str = input("何歳ですか？ ")
+# age = int(age_str)
+# print(f"あなたは{age}歳です")
+
+# または一行で：
+# age = int(input("何歳ですか？ "))
+
+# デモンストレーション用に入力をシミュレート：
+name = "Alice"  # ユーザー入力をシミュレート
+age = 25       # ユーザー入力をシミュレート
+
+print(f"こんにちは、{name}!")
+print(f"あなたは{age}歳です")
+```
+
+### 出力フォーマット
+
+```{python}
+import math
+
+# 基本的な print
+print("単純な出力")
+
+# 複数の値
+print("複数の", "値を", "一つの", "printで")
+
+# カスタム区切り文字と終端
+print("A", "B", "C", sep="-")
+print("改行なし", end=" ")
+print("ここで続く")
+
+# 数値のフォーマット
+pi = math.pi
+print(f"円周率: {pi}")
+print(f"円周率（小数点2桁）: {pi:.2f}")
+print(f"円周率（科学記法）: {pi:.2e}")
+
+# パディングを使ったフォーマット
+number = 42
+print(f"右寄せ: {number:>10}")
+print(f"左寄せ: {number:<10}")
+print(f"中央寄せ: {number:^10}")
+print(f"ゼロパディング: {number:05}")
+```
+
+## インデントとコード構造
+
+Python はコードブロックを定義するために**インデント**を使用します：
+
+```{python}
+# 正しいインデント
+age = 18
+if age >= 18:
+    print("あなたは成人です")
+    print("投票できます")
+else:
+    print("あなたは未成年です")
+    print("まだ投票できません")
+
+print("これはif文の外側です")
+```
+
+### よくあるインデントの間違い
+
+```python
+# 間違い - 一貫性のないインデント（IndentationErrorの原因）
+if True:
+    print("これは4スペースでインデント")
+        print("これは8スペースでインデント")  # エラー！
+
+# 間違い - インデントがない（IndentationErrorの原因）
+if True:
+print("これはインデントされるべき")  # エラー！
+
+# 正しい - 一貫性のあるインデント
+if True:
+    print("これは正しくインデントされています")
+    print("これも同様")
+```
+
+## 演習
+
+### 演習1: 変数と文字列
+個人情報の変数を作成し、きれいに表示してください：
+
+```{python}
+# あなたの解答をここに
+first_name = "John"
+last_name = "Doe"
+age = 30
+city = "New York"
+hobby = "programming"
+
+# 情報を表示
+print("=== 個人情報 ===")
+print(f"名前: {first_name} {last_name}")
+print(f"年齢: {age}歳")
+print(f"都市: {city}")
+print(f"趣味: {hobby}")
+print("="*30)
+```
+
+### 演習2: 計算機
+簡単な計算機を作成してください：
+
+```{python}
+# 計算機演習
+num1 = 15
+num2 = 4
+
+print(f"数値1: {num1}")
+print(f"数値2: {num2}")
+print("-" * 20)
+print(f"加算: {num1} + {num2} = {num1 + num2}")
+print(f"減算: {num1} - {num2} = {num1 - num2}")
+print(f"乗算: {num1} × {num2} = {num1 * num2}")
+print(f"除算: {num1} ÷ {num2} = {num1 / num2:.2f}")
+print(f"べき乗: {num1}^{num2} = {num1 ** num2}")
+```
+
+### 演習3: 文字列操作
+文字列メソッドを使って作業してください：
+
+```{python}
+# 文字列操作演習
+sentence = "python is an amazing programming language"
+
+print(f"元の文字列: {sentence}")
+print(f"長さ: {len(sentence)} 文字")
+print(f"単語数: {sentence.count(' ') + 1}")
+print(f"タイトルケース: {sentence.title()}")
+print(f"大文字: {sentence.upper()}")
+print(f"先頭大文字: {sentence.capitalize()}")
+print(f"'python'を'Python'に置換: {sentence.replace('python', 'Python')}")
+```
+
+## よくある落とし穴
+
+1. **インデントエラー** - 一貫性のあるスペースを使用（4スペース推奨）
+2. **変数命名** - 説明的な名前を使用し、規約に従う
+3. **文字列 vs 数値** - input()は文字列を返すことを覚えておく
+4. **大文字小文字の区別** - `Name`と`name`は異なる変数
+5. **日本語でのコメント** - Unicode対応なのでコメントに日本語使用可能
+
+## ベストプラクティス
+
+1. **説明的な変数名を使用**:
+   ```python
+   # 悪い例
+   x = 25
+   
+   # 良い例
+   student_age = 25
+   ```
+
+2. **PEP 8 命名規約に従う**:
+   ```python
+   # 変数と関数: snake_case
+   user_name = "Alice"
+   
+   # 定数: UPPER_CASE
+   MAX_ATTEMPTS = 3
+   
+   # クラス: PascalCase（後で学習）
+   # UserAccount
+   ```
+
+3. **フォーマットにはf-stringsを使用**（Python 3.6+）
+4. **複雑なロジックにはコメントを追加**
+5. **可能な限り行を80文字以下に保つ**
+
+## クイズ
+
+理解度をテストしてください：
+
+1. `print(type(5))` の出力は何ですか？
+2. `'hello'` と `"hello"` の違いは何ですか？
+3. 文字列と数値を足すとどうなりますか？
+4. 複数行文字列はどのように作成しますか？
+5. `10 // 3` の結果は何ですか？
+
+### 回答
+1. `<class 'int'>`
+2. 違いはない - どちらも文字列を作成
+3. TypeError - 一方を他方に合わせて変換する必要がある
+4. 三重引用符を使用: `"""` または `'''`
+5. `3`（切り捨て除算）
+
+## 次のステップ
+
+素晴らしい！Python の基本を学びました。次は [データ型とコレクション](04-data-types.qmd) を探索して、より複雑なデータを扱う方法を学びましょう。

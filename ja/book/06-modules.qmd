@@ -1,0 +1,531 @@
+# モジュールとパッケージ {#modules}
+
+モジュールは、インポートして使用できるPythonコードを含むファイルです。コードを論理的な単位に整理し、再利用性と保守性を向上させます。
+
+## 学習目標 {.unnumbered}
+
+この章では以下を学習します：
+
+- モジュールとパッケージの概念
+- 組み込みモジュールの使用
+- カスタムモジュールの作成
+- パッケージの構造と作成
+- インポート文の様々な形式
+
+## モジュールとは
+
+モジュールは、Pythonコードを含む`.py`ファイルで、関数、クラス、変数を含むことができます。モジュールを使用することで：
+
+- **コードの組織化**：関連する機能をグループ化
+- **再利用性**：複数のプログラムでコードを使用
+- **名前空間管理**：名前の衝突を回避
+- **保守性**：更新とデバッグが容易
+- **コラボレーション**：チームメンバーが異なるモジュールで作業可能
+
+```python
+# math_utils.py（モジュール）
+def add(a, b):
+    return a + b
+
+def multiply(a, b):
+    return a * b
+
+PI = 3.14159
+```
+
+## モジュールのインポート
+
+### モジュール全体をインポート
+
+```python
+import math
+
+result = math.sqrt(16)  # 4.0
+print(math.pi)          # 3.141592653589793
+```
+
+### 特定の関数をインポート
+
+```python
+from math import sqrt, pi
+
+result = sqrt(16)  # math.sqrtは不要
+print(pi)          # math.piは不要
+```
+
+### エイリアスを使用したインポート
+
+```python
+import math as m
+import numpy as np  # 一般的な慣例
+
+result = m.sqrt(16)
+array = np.array([1, 2, 3])
+```
+
+## 異なるインポートスタイル
+
+### すべてをインポート（注意して使用）
+
+```python
+from math import *
+
+result = sqrt(16)  # すべての関数が直接利用可能
+# 名前空間の汚染を引き起こす可能性！
+```
+
+### カスタム名でのインポート
+
+```python
+from math import sqrt as square_root
+from math import pi as PI_VALUE
+
+result = square_root(16)
+print(PI_VALUE)
+```
+
+### 条件付きインポート
+
+```python
+try:
+    import numpy as np
+    HAS_NUMPY = True
+except ImportError:
+    HAS_NUMPY = False
+    print("NumPyが利用できません")
+```
+
+## 組み込みモジュール
+
+### 一般的な組み込みモジュール
+
+```python
+import os        # オペレーティングシステムインターフェース
+import sys       # システム固有のパラメータ
+import datetime  # 日付と時刻の処理
+import random    # 乱数生成
+import json      # JSONエンコーダー/デコーダー
+import re        # 正規表現
+import collections  # 特殊化されたコンテナデータ型
+```
+
+### 使用例
+
+```python
+import os
+print(os.getcwd())  # 現在の作業ディレクトリ
+
+import datetime
+now = datetime.datetime.now()
+print(now.strftime("%Y-%m-%d %H:%M:%S"))
+
+import random
+number = random.randint(1, 100)
+```
+
+## カスタムモジュールの作成
+
+### モジュールファイルの作成：`calculator.py`
+
+```python
+"""シンプルな電卓モジュール。"""
+
+def add(a, b):
+    """二つの数を足します。"""
+    return a + b
+
+def subtract(a, b):
+    """第二の数を第一の数から引きます。"""
+    return a - b
+
+def multiply(a, b):
+    """二つの数を掛けます。"""
+    return a * b
+
+def divide(a, b):
+    """第一の数を第二の数で割ります。"""
+    if b != 0:
+        return a / b
+    else:
+        raise ValueError("ゼロで割ることはできません！")
+
+# モジュールレベル変数
+VERSION = "1.0.0"
+```
+
+## カスタムモジュールの使用
+
+### 別のファイル：`main.py`
+
+```python
+import calculator
+
+# 関数を使用
+result1 = calculator.add(10, 5)
+result2 = calculator.subtract(10, 5)
+
+print(f"加算: {result1}")
+print(f"減算: {result2}")
+print(f"電卓バージョン: {calculator.VERSION}")
+```
+
+### または特定の関数をインポート
+
+```python
+from calculator import add, multiply, VERSION
+
+result = add(10, 5)
+product = multiply(3, 4)
+print(f"バージョン: {VERSION}")
+```
+
+## モジュール検索パス
+
+Pythonは以下の順序でモジュールを検索します：
+
+```python
+import sys
+print(sys.path)
+```
+
+1. 現在のディレクトリ
+2. PYTHONPATH環境変数のディレクトリ
+3. 標準ライブラリディレクトリ
+4. site-packagesディレクトリ（サードパーティパッケージ）
+
+### カスタムパスの追加
+
+```python
+import sys
+sys.path.append('/path/to/my/modules')
+
+# これで、そのディレクトリのモジュールが見つかります
+import my_custom_module
+```
+
+## パッケージ
+
+**パッケージ**は複数のモジュールを含むディレクトリです：
+
+```
+my_package/
+├── __init__.py      # パッケージにする
+├── module1.py
+├── module2.py
+└── subpackage/
+    ├── __init__.py
+    └── module3.py
+```
+
+### `__init__.py`ファイル
+
+- ディレクトリをPythonパッケージにする
+- 空でも初期化コードを含んでも良い
+- `from package import *`でインポートされるものを制御
+
+## パッケージの作成
+
+### ディレクトリ構造
+
+```
+math_tools/
+├── __init__.py
+├── basic.py
+└── advanced.py
+```
+
+### `math_tools/__init__.py`
+
+```python
+"""数学ツールパッケージ。"""
+from .basic import add, subtract
+from .advanced import fibonacci, factorial
+
+__version__ = "1.0.0"
+__all__ = ['add', 'subtract', 'fibonacci', 'factorial']
+```
+
+### `math_tools/basic.py`
+
+```python
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    return a - b
+```
+
+## パッケージの使用
+
+```python
+# パッケージ全体をインポート
+import math_tools
+result = math_tools.add(5, 3)
+
+# 特定のモジュールをインポート
+from math_tools import basic
+result = basic.add(5, 3)
+
+# 特定の関数をインポート
+from math_tools.basic import add
+result = add(5, 3)
+
+# パッケージルートからインポート（__init__.pyで定義されている場合）
+from math_tools import add
+result = add(5, 3)
+```
+
+## 相対インポートと絶対インポート
+
+### 絶対インポート（プロジェクトルートから）
+
+```python
+from math_tools.basic import add
+from math_tools.advanced import fibonacci
+```
+
+### 相対インポート（パッケージ内）
+
+```python
+# math_tools/advanced.py内
+from .basic import add        # 同じパッケージ
+from ..other_package import something  # 親パッケージ
+
+# math_tools/__init__.py内
+from .basic import add, subtract
+from .advanced import fibonacci
+```
+
+## `__name__`変数
+
+すべてのモジュールには`__name__`属性があります：
+
+```python
+# calculator.py内
+print(f"モジュール名: {__name__}")
+
+def add(a, b):
+    return a + b
+
+# ファイルが直接実行された場合のみ実行
+if __name__ == "__main__":
+    print("電卓モジュールが直接実行されています")
+    print(f"2 + 3 = {add(2, 3)}")
+```
+
+- **インポートされた場合：** `__name__`はモジュール名
+- **直接実行された場合：** `__name__`は`"__main__"`
+
+## サードパーティパッケージ
+
+### pipでのパッケージインストール
+
+```bash
+pip install requests
+pip install numpy
+pip install pandas
+```
+
+### サードパーティパッケージの使用
+
+```python
+import requests
+import numpy as np
+import pandas as pd
+
+# HTTPリクエストを行う
+response = requests.get('https://api.github.com')
+
+# 配列を作成
+array = np.array([1, 2, 3, 4, 5])
+
+# データを扱う
+df = pd.DataFrame({'A': [1, 2, 3], 'B': [4, 5, 6]})
+```
+
+## 仮想環境
+
+### なぜ仮想環境を使用するのか？
+
+- プロジェクトの依存関係を分離
+- バージョンの衝突を回避
+- グローバルPythonを清潔に保つ
+
+### 仮想環境の作成と使用
+
+```bash
+# 仮想環境を作成
+python -m venv myenv
+
+# アクティベート（Windows）
+myenv\Scripts\activate
+
+# アクティベート（macOS/Linux）
+source myenv/bin/activate
+
+# パッケージをインストール
+pip install requests numpy
+
+# 非アクティベート
+deactivate
+```
+
+## パッケージ管理
+
+### 要件ファイル
+
+```bash
+# requirements.txtを作成
+pip freeze > requirements.txt
+
+# 要件からインストール
+pip install -r requirements.txt
+```
+
+### `requirements.txt`の例
+
+```
+requests==2.28.1
+numpy==1.21.0
+pandas>=1.3.0
+matplotlib~=3.5.0
+```
+
+## 実用例：ファイルユーティリティパッケージ
+
+### パッケージ構造
+
+```
+file_utils/
+├── __init__.py
+├── readers.py
+└── writers.py
+```
+
+### `file_utils/readers.py`
+
+```python
+def read_text_file(filename):
+    """テキストファイル全体を読み込みます。"""
+    with open(filename, 'r', encoding='utf-8') as file:
+        return file.read()
+
+def read_lines(filename):
+    """ファイルの行をリストとして読み込みます。"""
+    with open(filename, 'r', encoding='utf-8') as file:
+        return [line.strip() for line in file]
+```
+
+## 演習問題 {.unnumbered}
+
+### 演習 1：文字列ユーティリティモジュール
+
+```python
+# string_utils.pyを作成し、以下の関数を実装してください：
+
+def reverse_string(text):
+    # 文字列を逆にして返す
+    pass
+
+def count_words(text):
+    # 単語数を返す
+    pass
+
+def title_case(text):
+    # タイトルケースに変換
+    pass
+```
+
+### 演習 2：シンプルなパッケージの作成
+
+```
+helpers/
+├── __init__.py
+├── math_helpers.py
+└── string_helpers.py
+```
+
+## 解答例 {.unnumbered}
+
+### 文字列ユーティリティモジュール
+
+```python
+def reverse_string(text):
+    return text[::-1]
+
+def count_words(text):
+    return len(text.split())
+
+def title_case(text):
+    return ' '.join(word.capitalize() for word in text.split())
+```
+
+### パッケージの`__init__.py`
+
+```python
+from .math_helpers import add, multiply
+from .string_helpers import reverse_string, count_words
+
+__version__ = "1.0.0"
+```
+
+## ベストプラクティス
+
+1. **わかりやすいモジュール名を使用**: `database_utils`、`db_stuff`ではない
+2. **モジュールを焦点を絞る**: モジュールごとに一つの明確な目的
+3. **モジュールを文書化**: ドキュメント文字列と例を含める
+4. **`__init__.py`を使用**: パッケージのインポートを制御
+5. **循環インポートを避ける**: 明確な依存関係階層を設計
+6. **仮想環境を使用**: プロジェクトの依存関係を分離
+7. **パッケージバージョンを固定**: 本番環境では特定のバージョンを使用
+
+## よくある落とし穴
+
+### 1. 循環インポート
+
+```python
+# module_a.py
+from module_b import function_b
+
+# module_b.py
+from module_a import function_a  # 循環インポート！
+```
+
+### 2. sys.pathの不適切な変更
+
+```python
+# 悪い例
+sys.path.insert(0, '/some/absolute/path')
+
+# より良い例
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'modules'))
+```
+
+### 3. `from module import *`の使用
+
+```python
+# これは避ける - 名前空間の汚染を引き起こす可能性
+from math import *
+from numpy import *  # math関数を上書きする可能性！
+```
+
+## まとめ
+
+- モジュールはコードを再利用可能なファイルに整理する
+- パッケージは関連するモジュールをグループ化する
+- Pythonには一般的なタスク用の多くの組み込みモジュールがある
+- `import`文を使用してモジュール機能にアクセス
+- プロジェクト分離のために仮想環境を使用
+- 綺麗で保守可能なコード組織のためのベストプラクティスに従う
+
+## 次のステップ
+
+次章では、オブジェクト指向プログラミングの概念について学習し、クラスと継承を使用してより複雑なプログラムを作成する方法を学びます。
+
+## 自己確認 {.unnumbered}
+
+1. モジュールとパッケージの違いは何ですか？
+2. `__init__.py`ファイルの目的は何ですか？
+3. 相対インポートと絶対インポートの違いは何ですか？
+4. 仮想環境を使用する利点は何ですか？
+5. `__name__ == "__main__"`の意味と用途は何ですか？

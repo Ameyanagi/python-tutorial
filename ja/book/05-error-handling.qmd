@@ -1,0 +1,489 @@
+# エラー処理 {#error-handling}
+
+エラーはプログラム実行中に発生する問題です。適切にエラーを処理することで、プログラムをより堅牢で使いやすくできます。
+
+## 学習目標 {.unnumbered}
+
+この章では以下を学習します：
+
+- エラーと例外の種類
+- try-except文を使用したエラー処理
+- finally句とelse句の使用
+- カスタム例外の作成
+- デバッグ技術
+
+## エラーとは
+
+エラーは、プログラム実行中に発生する問題で、適切に処理されないとプログラムが停止します。Pythonはエラーを優雅に捕捉し処理するメカニズムを提供しています。
+
+```python
+# これはエラーを引き起こします！
+number = int("hello")  # ValueError: invalid literal
+```
+
+## エラーの種類
+
+### 構文エラー
+
+```python
+# コロンの欠落
+if x > 5
+    print("5より大きい")
+
+# 括弧の不一致
+print("Hello"
+```
+
+### 実行時エラー（例外）
+
+```python
+# ゼロ除算
+result = 10 / 0
+
+# 存在しないインデックスへのアクセス
+numbers = [1, 2, 3]
+print(numbers[5])
+
+# 間違ったデータ型
+int("hello")
+```
+
+## 一般的な例外の種類
+
+```python
+# ValueError: データ型に対して間違った値
+int("abc")
+float("hello")
+
+# TypeError: 間違ったデータ型
+"hello" + 5
+len(42)
+
+# IndexError: リストのインデックスが範囲外
+my_list = [1, 2, 3]
+my_list[10]
+
+# KeyError: 辞書のキーが存在しない
+my_dict = {"name": "太郎"}
+my_dict["age"]
+
+# FileNotFoundError: ファイルが存在しない
+open("nonexistent.txt")
+```
+
+## try-except文
+
+### 基本構文
+
+```python
+try:
+    # エラーが発生する可能性のあるコード
+    risky_code()
+except ExceptionType:
+    # エラーを処理するコード
+    handle_error()
+```
+
+### 簡単な例
+
+```python
+try:
+    number = int(input("数字を入力してください: "))
+    result = 10 / number
+    print(f"結果: {result}")
+except ValueError:
+    print("有効な数字を入力してください！")
+except ZeroDivisionError:
+    print("ゼロで割ることはできません！")
+```
+
+## 複数の例外の処理
+
+### 複数のexcept文
+
+```python
+try:
+    age = int(input("年齢を入力してください: "))
+    category = determine_category(age)
+    print(f"あなたは{category}カテゴリです")
+except ValueError:
+    print("年齢は数字で入力してください！")
+except TypeError:
+    print("無効な年齢フォーマットです！")
+except Exception as e:
+    print(f"予期しないエラーが発生しました: {e}")
+```
+
+### 複数の例外を一緒に処理
+
+```python
+try:
+    # 何らかのリスクのある操作
+    process_data()
+except (ValueError, TypeError, IndexError):
+    print("データ処理エラーが発生しました！")
+```
+
+## else句とfinally句
+
+### else句：例外が発生しなかった場合に実行
+
+```python
+try:
+    number = int(input("数字を入力してください: "))
+except ValueError:
+    print("無効な入力です！")
+else:
+    print(f"入力した数字: {number}")
+    # これは例外が発生しなかった場合のみ実行される
+```
+
+### finally句：常に実行される（クリーンアップコード）
+
+```python
+try:
+    file = open("data.txt", "r")
+    content = file.read()
+except FileNotFoundError:
+    print("ファイルが見つかりません！")
+finally:
+    # これは常に実行される - クリーンアップに適している
+    if 'file' in locals():
+        file.close()
+```
+
+## 例外情報の取得
+
+### 例外の詳細を捕捉
+
+```python
+try:
+    result = 10 / 0
+except ZeroDivisionError as e:
+    print(f"エラータイプ: {type(e).__name__}")
+    print(f"エラーメッセージ: {e}")
+    print("ゼロで割ることはできません！")
+```
+
+### 一般的な例外ハンドラー
+
+```python
+try:
+    # 失敗する可能性のある操作
+    risky_operation()
+except Exception as e:
+    print(f"何かが間違いました: {e}")
+    # デバッグ用にエラーをログに記録
+    import traceback
+    traceback.print_exc()
+```
+
+## カスタム例外の発生
+
+### raise文の使用
+
+```python
+def validate_age(age):
+    if age < 0:
+        raise ValueError("年齢は負の値にできません！")
+    if age > 150:
+        raise ValueError("年齢が非現実的です！")
+    return True
+
+try:
+    age = -5
+    validate_age(age)
+except ValueError as e:
+    print(f"検証エラー: {e}")
+```
+
+### 例外の再発生
+
+```python
+try:
+    process_data()
+except ValueError:
+    print("エラーをログに記録中...")
+    raise  # 同じ例外を再発生
+```
+
+## カスタム例外クラス
+
+### 独自の例外タイプの作成
+
+```python
+class InvalidEmailError(Exception):
+    """無効なメールアドレスが提供された場合に発生"""
+    pass
+
+class PasswordTooWeakError(Exception):
+    """パスワードが要件を満たさない場合に発生"""
+    def __init__(self, message, min_length=8):
+        self.message = message
+        self.min_length = min_length
+        super().__init__(self.message)
+
+def validate_password(password):
+    if len(password) < 8:
+        raise PasswordTooWeakError(
+            "パスワードが短すぎます", 
+            min_length=8
+        )
+```
+
+## ファイル処理でのエラー管理
+
+### 安全なファイル操作
+
+```python
+def read_file_safely(filename):
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            return file.read()
+    except FileNotFoundError:
+        print(f"ファイル'{filename}'が見つかりません！")
+        return None
+    except PermissionError:
+        print(f"ファイル'{filename}'を読む権限がありません！")
+        return None
+    except Exception as e:
+        print(f"ファイル読み込みエラー: {e}")
+        return None
+
+content = read_file_safely("data.txt")
+if content:
+    print("ファイルの読み込みに成功しました！")
+```
+
+## ユーザー入力の検証
+
+### 堅牢な入力処理
+
+```python
+def get_integer_input(prompt, min_val=None, max_val=None):
+    while True:
+        try:
+            value = int(input(prompt))
+            
+            if min_val is not None and value < min_val:
+                print(f"値は最低{min_val}である必要があります")
+                continue
+                
+            if max_val is not None and value > max_val:
+                print(f"値は最大{max_val}である必要があります")
+                continue
+                
+            return value
+            
+        except ValueError:
+            print("有効な整数を入力してください！")
+        except KeyboardInterrupt:
+            print("\nユーザーによって操作がキャンセルされました。")
+            return None
+
+age = get_integer_input("年齢を入力してください (0-120): ", 0, 120)
+```
+
+## デバッグ技術
+
+### print文を使用したデバッグ
+
+```python
+def calculate_average(numbers):
+    print(f"デバッグ: 入力数値 = {numbers}")  # デバッグ情報
+    
+    if not numbers:
+        print("デバッグ: 空のリストが検出されました")     # デバッグ情報
+        return 0
+    
+    total = sum(numbers)
+    count = len(numbers)
+    average = total / count
+    
+    print(f"デバッグ: total={total}, count={count}")  # デバッグ情報
+    return average
+```
+
+### assert文の使用
+
+```python
+def divide_numbers(a, b):
+    assert b != 0, "ゼロ除算は許可されていません"
+    assert isinstance(a, (int, float)), "第一引数は数値である必要があります"
+    assert isinstance(b, (int, float)), "第二引数は数値である必要があります"
+    
+    return a / b
+```
+
+## 実用例：安全な電卓
+
+```python
+class Calculator:
+    def safe_divide(self, a, b):
+        try:
+            # 入力の検証
+            if not isinstance(a, (int, float)):
+                raise TypeError("第一引数は数値である必要があります")
+            if not isinstance(b, (int, float)):
+                raise TypeError("第二引数は数値である必要があります")
+            if b == 0:
+                raise ZeroDivisionError("ゼロで割ることはできません")
+            
+            result = a / b
+            return {"success": True, "result": result}
+            
+        except (TypeError, ZeroDivisionError) as e:
+            return {"success": False, "error": str(e)}
+        except Exception as e:
+            return {"success": False, "error": f"予期しないエラー: {e}"}
+
+# 使用方法
+calc = Calculator()
+result = calc.safe_divide(10, 2)
+if result["success"]:
+    print(f"結果: {result['result']}")
+else:
+    print(f"エラー: {result['error']}")
+```
+
+## 演習問題 {.unnumbered}
+
+### 演習 1：安全な数値変換器
+
+```python
+def safe_int_convert(value):
+    """
+    値を整数に安全に変換します。
+    戻り値: (success: bool, result: int または error_message: str)
+    """
+    # ここにコードを書いてください
+    pass
+
+# テストケース
+print(safe_int_convert("123"))      # 動作するはず
+print(safe_int_convert("12.34"))    # 浮動小数点文字列を処理
+print(safe_int_convert("hello"))    # 無効な入力を処理
+```
+
+### 演習 2：リストの安全なアクセス
+
+```python
+def safe_list_access(my_list, index):
+    """
+    インデックスでリスト要素に安全にアクセスします。
+    要素またはインデックスが無効な場合はデフォルトメッセージを返します。
+    """
+    # ここにコードを書いてください
+    pass
+```
+
+## 解答例 {.unnumbered}
+
+### 演習 1の解答
+
+```python
+def safe_int_convert(value):
+    try:
+        # 直接変換を最初に試す
+        return True, int(value)
+    except ValueError:
+        try:
+            # 浮動小数点文字列から整数への変換を試す
+            return True, int(float(value))
+        except ValueError:
+            return False, f"'{value}'を整数に変換できません"
+    except Exception as e:
+        return False, f"予期しないエラー: {e}"
+```
+
+### 演習 2の解答
+
+```python
+def safe_list_access(my_list, index):
+    try:
+        return my_list[index]
+    except IndexError:
+        return f"インデックス {index} は範囲外です"
+    except TypeError:
+        return "無効なインデックスタイプです"
+```
+
+## ベストプラクティス
+
+1. **具体的に**: `Exception`だけでなく、特定の例外を捕捉する
+2. **エラーを無視しない**: 例外を適切に処理する
+3. **意味のあるエラーメッセージ**: ユーザーが何が間違ったかを理解できるように
+4. **エラーをログに記録**: デバッグのためにエラーを追跡
+5. **優雅に失敗**: 可能であればフォールバックオプションを提供
+6. **リソースをクリーンアップ**: `finally`または`with`文を使用
+7. **捕捉して無視しない**: 例外を捕捉したら、何かをする
+
+## 高度なトピック：コンテキストマネージャー
+
+### `with`文による自動クリーンアップ
+
+```python
+# コンテキストマネージャーなし
+try:
+    file = open("data.txt", "r")
+    content = file.read()
+    # コンテンツを処理
+except FileNotFoundError:
+    print("ファイルが見つかりません！")
+finally:
+    file.close()  # 閉じることを覚えておく必要がある
+
+# コンテキストマネージャーあり（より良い！）
+try:
+    with open("data.txt", "r") as file:
+        content = file.read()
+        # 'with'ブロックを離れるときにファイルが自動的に閉じられる
+except FileNotFoundError:
+    print("ファイルが見つかりません！")
+```
+
+## 一般的なアンチパターン
+
+### やってはいけないこと
+
+```python
+# 悪い例: 処理せずにすべての例外を捕捉
+try:
+    risky_operation()
+except:
+    pass  # エラーを静かに無視
+
+# 悪い例: 過度に広い例外処理
+try:
+    specific_operation()
+except Exception:
+    print("何かが間違いました")  # 役に立たない
+
+# 悪い例: 制御フローに例外を使用
+try:
+    value = my_dict["key"]
+except KeyError:
+    value = "default"  # 代わりに.get()を使用
+```
+
+## まとめ
+
+- エラーはプログラミングにおいて避けられない - 優雅に処理する
+- `try-except`ブロックを使用して例外を捕捉し処理する
+- 捕捉する例外について具体的にする
+- 常に実行されるクリーンアップコードには`finally`を使用
+- ユーザーを助けるために意味のあるエラーメッセージを提供
+- リソース管理にはコンテキストマネージャーの使用を検討
+- print文とロギングを使用して体系的にデバッグ
+
+## 次のステップ
+
+次章では、モジュールとパッケージについて学習し、コードをより良く整理し再利用する方法を学びます。
+
+## 自己確認 {.unnumbered}
+
+1. 構文エラーと実行時エラーの違いは何ですか？
+2. `finally`句はいつ使用しますか？
+3. カスタム例外を作成する利点は何ですか？
+4. `with`文を使用する理由は何ですか？
+5. 効果的なエラー処理のベストプラクティスを3つ挙げてください。

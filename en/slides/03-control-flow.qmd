@@ -1,0 +1,456 @@
+---
+title: "Control Flow"
+subtitle: "Making Decisions and Repeating Actions"
+format: 
+  revealjs:
+    theme: dark
+    transition: slide
+    background-transition: fade
+    highlight-style: github
+    code-fold: false
+---
+
+# Control Flow {background-color="#2E86AB"}
+
+## Programming Logic
+
+::: {.incremental}
+- **Conditional Statements** - Making decisions
+- **Loops** - Repeating actions
+- **Control Statements** - Managing flow
+- **Logical Operators** - Combining conditions
+:::
+
+## if Statements - Making Decisions {.smaller}
+
+```python
+age = 18
+
+if age >= 18:
+    print("You are an adult")
+    print("You can vote")
+else:
+    print("You are a minor")
+    print("You cannot vote yet")
+
+print("This always runs")
+```
+
+::: {.fragment}
+**Key Point:** Indentation defines code blocks in Python!
+:::
+
+## if-elif-else Chains
+
+```python
+score = 85
+
+if score >= 90:
+    grade = "A"
+    message = "Excellent!"
+elif score >= 80:
+    grade = "B" 
+    message = "Good job!"
+elif score >= 70:
+    grade = "C"
+    message = "Keep working!"
+elif score >= 60:
+    grade = "D"
+    message = "Need improvement"
+else:
+    grade = "F"
+    message = "Must retake"
+
+print(f"Score: {score}, Grade: {grade}")
+```
+
+## Comparison Operators
+
+| Operator | Meaning | Example |
+|----------|---------|---------|
+| `==` | Equal to | `x == 5` |
+| `!=` | Not equal | `x != 5` |
+| `<` | Less than | `x < 10` |
+| `>` | Greater than | `x > 10` |
+| `<=` | Less than or equal | `x <= 10` |
+| `>=` | Greater than or equal | `x >= 10` |
+
+```python
+a, b = 10, 5
+print(f"{a} > {b}: {a > b}")     # True
+print(f"{a} == {b}: {a == b}")   # False
+```
+
+## Logical Operators {.smaller}
+
+```python
+age = 25
+has_license = True
+has_car = False
+
+# AND operator - both conditions must be True
+can_drive = age >= 18 and has_license
+print(f"Can drive: {can_drive}")  # True
+
+# OR operator - at least one condition must be True  
+can_travel = has_car or age >= 18
+print(f"Can travel: {can_travel}")  # True
+
+# NOT operator - reverses the boolean value
+needs_license = not has_license
+print(f"Needs license: {needs_license}")  # False
+
+# Complex conditions
+can_rent_car = age >= 21 and has_license and not has_car
+```
+
+## Membership & Identity Operators
+
+```python
+fruits = ["apple", "banana", "cherry"]
+my_fruit = "apple"
+
+# Membership operators
+if my_fruit in fruits:
+    print(f"{my_fruit} is available!")
+
+if "grape" not in fruits:
+    print("We don't have grapes")
+
+# Identity operators (be careful!)
+list1 = [1, 2, 3]
+list2 = [1, 2, 3]  
+list3 = list1
+
+print(list1 == list2)  # True (same content)
+print(list1 is list2)  # False (different objects)  
+print(list1 is list3)  # True (same object)
+```
+
+## for Loops - Iterating Collections {.smaller}
+
+```python
+# Loop over a list
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(f"I like {fruit}")
+
+# Loop over a string
+for letter in "Python":
+    print(letter)
+
+# Loop with enumerate (get index + value)
+for index, fruit in enumerate(fruits):
+    print(f"{index + 1}. {fruit}")
+
+# Loop over dictionary
+student = {"name": "Alice", "age": 20, "major": "CS"}
+for key, value in student.items():
+    print(f"{key}: {value}")
+```
+
+## range() - Generating Number Sequences
+
+```python
+# Basic range - numbers 0 to 4
+for i in range(5):
+    print(i)  # 0, 1, 2, 3, 4
+
+# Range with start and stop
+for i in range(1, 6):
+    print(i)  # 1, 2, 3, 4, 5
+
+# Range with step
+for i in range(0, 11, 2):
+    print(i)  # 0, 2, 4, 6, 8, 10
+
+# Countdown
+for i in range(5, 0, -1):
+    print(i)  # 5, 4, 3, 2, 1
+```
+
+## while Loops - Condition-Based Repetition {.smaller}
+
+```python
+# Basic while loop
+count = 0
+while count < 5:
+    print(f"Count: {count}")
+    count += 1
+
+# Input validation loop
+while True:
+    user_input = input("Enter 'quit' to exit: ")
+    if user_input.lower() == 'quit':
+        break
+    print(f"You entered: {user_input}")
+
+# Number guessing game
+import random
+secret = random.randint(1, 10)
+guess = 0
+attempts = 0
+
+while guess != secret:
+    guess = int(input("Guess a number (1-10): "))
+    attempts += 1
+    if guess < secret:
+        print("Too low!")
+    elif guess > secret:
+        print("Too high!")
+
+print(f"Correct! It took {attempts} attempts.")
+```
+
+## Loop Control - break, continue, pass
+
+```python
+# break - exit loop immediately
+for i in range(10):
+    if i == 5:
+        break  # Stop loop when i is 5
+    print(i)  # Prints: 0, 1, 2, 3, 4
+
+# continue - skip to next iteration
+for i in range(5):
+    if i == 2:
+        continue  # Skip when i is 2
+    print(i)  # Prints: 0, 1, 3, 4
+
+# pass - do nothing (placeholder)
+for i in range(3):
+    if i == 1:
+        pass  # TODO: implement this later
+    else:
+        print(f"Processing item {i}")
+```
+
+## Nested Loops {.smaller}
+
+```python
+# Multiplication table
+print("Multiplication Table:")
+for i in range(1, 4):
+    for j in range(1, 4):
+        result = i * j
+        print(f"{i} × {j} = {result}")
+    print()  # Empty line after each row
+
+# Creating a grid pattern
+for row in range(3):
+    for col in range(3):
+        print(f"({row},{col})", end=" ")
+    print()  # New line after each row
+
+# Output:
+# (0,0) (0,1) (0,2) 
+# (1,0) (1,1) (1,2) 
+# (2,0) (2,1) (2,2)
+```
+
+## Real-World Example: Grade Calculator {.smaller}
+
+```python
+def calculate_grade(scores):
+    if not scores:  # Check if list is empty
+        return "No scores provided"
+    
+    average = sum(scores) / len(scores)
+    
+    # Determine letter grade
+    if average >= 90:
+        letter = "A"
+        message = "Excellent work!"
+    elif average >= 80:
+        letter = "B"
+        message = "Good job!"
+    elif average >= 70:
+        letter = "C"
+        message = "Keep working!"
+    elif average >= 60:
+        letter = "D"
+        message = "Need improvement"
+    else:
+        letter = "F"
+        message = "Must retake"
+    
+    return f"Average: {average:.1f}, Grade: {letter} - {message}"
+
+# Test the function
+student_scores = [85, 92, 78, 96, 88]
+result = calculate_grade(student_scores)
+print(result)
+```
+
+## Pattern Printing Challenge {.smaller}
+
+```python
+# Print a triangle pattern
+def print_triangle(height):
+    for i in range(1, height + 1):
+        # Print spaces for centering
+        spaces = " " * (height - i)
+        # Print stars
+        stars = "*" * (2 * i - 1)
+        print(spaces + stars)
+
+print_triangle(5)
+```
+
+Output:
+```
+    *
+   ***
+  *****
+ *******
+*********
+```
+
+## FizzBuzz - Classic Programming Challenge
+
+```python
+# Print numbers 1-30, but:
+# - "Fizz" for multiples of 3
+# - "Buzz" for multiples of 5  
+# - "FizzBuzz" for multiples of both
+
+for i in range(1, 31):
+    if i % 15 == 0:        # Divisible by both 3 and 5
+        print("FizzBuzz")
+    elif i % 3 == 0:       # Divisible by 3
+        print("Fizz")
+    elif i % 5 == 0:       # Divisible by 5
+        print("Buzz")
+    else:
+        print(i)
+```
+
+## Prime Number Finder {.smaller}
+
+```python
+def is_prime(n):
+    """Check if a number is prime."""
+    if n < 2:
+        return False
+    
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    
+    return True
+
+# Find all prime numbers up to 30
+print("Prime numbers up to 30:")
+primes = []
+for num in range(2, 31):
+    if is_prime(num):
+        primes.append(num)
+
+print(primes)  # [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+```
+
+## List Comprehensions - Pythonic Loops
+
+```python
+# Traditional loop approach
+squares = []
+for x in range(1, 6):
+    squares.append(x**2)
+
+# List comprehension - more Pythonic!
+squares = [x**2 for x in range(1, 6)]
+
+# With conditions
+even_numbers = [x for x in range(20) if x % 2 == 0]
+words = ["hello", "world", "python", "code"]
+long_words = [word for word in words if len(word) > 4]
+
+# Nested comprehensions
+matrix = [[i*j for j in range(1, 4)] for i in range(1, 4)]
+# Result: [[1, 2, 3], [2, 4, 6], [3, 6, 9]]
+```
+
+## Error Handling with try-except {.smaller}
+
+```python
+# Handle potential errors gracefully
+while True:
+    try:
+        user_input = input("Enter a number (or 'quit'): ")
+        
+        if user_input.lower() == 'quit':
+            break
+            
+        number = int(user_input)  # This might raise ValueError
+        result = 100 / number     # This might raise ZeroDivisionError
+        
+        print(f"100 divided by {number} = {result}")
+        
+    except ValueError:
+        print("Please enter a valid number!")
+    except ZeroDivisionError:
+        print("Cannot divide by zero!")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+```
+
+## Best Practices & Tips
+
+::: {.incremental}
+1. **Use descriptive condition names** - `if is_valid_age:` vs `if x > 0:`
+2. **Avoid deeply nested conditions** - use early returns
+3. **Use `elif` for mutually exclusive conditions**
+4. **Be careful with infinite loops** in while statements
+5. **Use `for` loops for known iterations, `while` for conditional**
+6. **List comprehensions** for simple transformations
+:::
+
+## Common Pitfalls
+
+::: {.incremental}
+- **Assignment vs Comparison**: `=` vs `==`
+- **Indentation errors** - Python is strict about indentation
+- **Infinite loops** - always ensure loop conditions can become False
+- **Off-by-one errors** - remember ranges are exclusive of end
+- **Modifying lists while iterating** - can cause unexpected behavior
+:::
+
+## Practice Exercises {background-color="#F18F01"}
+
+1. **Number Classifier**: Categorize numbers as positive, negative, or zero
+2. **Password Validator**: Check if password meets security requirements
+3. **Simple Calculator**: Use if-elif for different operations
+4. **Pattern Generator**: Create different ASCII patterns with loops
+5. **Word Game**: Build a simple word guessing game
+
+## Summary {background-color="#A23B72"}
+
+::: {.incremental}
+1. **Conditionals**: `if`, `elif`, `else` for decision making
+2. **Loops**: `for` for iterations, `while` for conditions
+3. **Control**: `break`, `continue`, `pass` for flow control
+4. **Operators**: Comparison, logical, membership for conditions
+5. **Patterns**: List comprehensions and nested structures
+:::
+
+## What's Next?
+
+::: {.incremental}
+- **Functions** - Organizing code into reusable blocks
+- **Scope and Variables** - Understanding variable lifetime
+- **Advanced Patterns** - Decorators and functional programming
+- **Real Projects** - Building complete applications
+:::
+
+## Thank You! {background-color="#C73E1D"}
+
+### Questions?
+
+Ready to continue with [Functions](../book/06-functions.html)?
+
+---
+
+**Keep practicing:**
+- Solve coding challenges on HackerRank
+- Build a simple text-based game
+- Create a calculator program

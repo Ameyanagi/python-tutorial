@@ -1,0 +1,553 @@
+---
+title: "Error Handling"
+subtitle: "Managing Exceptions and Debugging"
+format:
+  revealjs:
+    theme: [default, ../shared/style.scss]
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    logo: ../shared/python-logo.svg
+    footer: "Python Tutorial - Error Handling"
+---
+
+## What are Errors?
+
+::: {.incremental}
+- **Errors** are problems that occur during program execution
+- They can crash your program if not handled properly
+- Python provides mechanisms to catch and handle errors gracefully
+- Good error handling makes programs more robust and user-friendly
+:::
+
+::: {.fragment}
+```python
+# This will cause an error!
+number = int("hello")  # ValueError: invalid literal
+```
+:::
+
+## Types of Errors
+
+::: {.columns}
+::: {.column width="50%"}
+**Syntax Errors:**
+```python
+# Missing colon
+if x > 5
+    print("Greater than 5")
+
+# Mismatched parentheses
+print("Hello"
+```
+:::
+
+::: {.column width="50%"}
+**Runtime Errors (Exceptions):**
+```python
+# Division by zero
+result = 10 / 0
+
+# Accessing non-existent index
+numbers = [1, 2, 3]
+print(numbers[5])
+
+# Wrong data type
+int("hello")
+```
+:::
+:::
+
+## Common Exception Types
+
+::: {.fragment}
+```python
+# ValueError: Wrong value for the data type
+int("abc")
+float("hello")
+
+# TypeError: Wrong data type
+"hello" + 5
+len(42)
+
+# IndexError: List index out of range
+my_list = [1, 2, 3]
+my_list[10]
+
+# KeyError: Dictionary key doesn't exist
+my_dict = {"name": "Alice"}
+my_dict["age"]
+
+# FileNotFoundError: File doesn't exist
+open("nonexistent.txt")
+```
+:::
+
+## The try-except Block
+
+::: {.fragment}
+**Basic syntax:**
+```python
+try:
+    # Code that might cause an error
+    risky_code()
+except ExceptionType:
+    # Code to handle the error
+    handle_error()
+```
+:::
+
+::: {.fragment}
+**Simple example:**
+```python
+try:
+    number = int(input("Enter a number: "))
+    result = 10 / number
+    print(f"Result: {result}")
+except ValueError:
+    print("Please enter a valid number!")
+except ZeroDivisionError:
+    print("Cannot divide by zero!")
+```
+:::
+
+## Catching Multiple Exceptions
+
+::: {.fragment}
+**Multiple except blocks:**
+```python
+try:
+    age = int(input("Enter your age: "))
+    category = determine_category(age)
+    print(f"You are in the {category} category")
+except ValueError:
+    print("Age must be a number!")
+except TypeError:
+    print("Invalid age format!")
+except Exception as e:
+    print(f"An unexpected error occurred: {e}")
+```
+:::
+
+::: {.fragment}
+**Catching multiple exceptions together:**
+```python
+try:
+    # Some risky operation
+    process_data()
+except (ValueError, TypeError, IndexError):
+    print("Data processing error occurred!")
+```
+:::
+
+## The else and finally Clauses
+
+::: {.fragment}
+**else: Runs when no exception occurs**
+```python
+try:
+    number = int(input("Enter a number: "))
+except ValueError:
+    print("Invalid input!")
+else:
+    print(f"You entered: {number}")
+    # This runs only if no exception occurred
+```
+:::
+
+::: {.fragment}
+**finally: Always runs (cleanup code)**
+```python
+try:
+    file = open("data.txt", "r")
+    content = file.read()
+except FileNotFoundError:
+    print("File not found!")
+finally:
+    # This always runs - good for cleanup
+    if 'file' in locals():
+        file.close()
+```
+:::
+
+## Getting Exception Information
+
+::: {.fragment}
+**Capture exception details:**
+```python
+try:
+    result = 10 / 0
+except ZeroDivisionError as e:
+    print(f"Error type: {type(e).__name__}")
+    print(f"Error message: {e}")
+    print("Cannot divide by zero!")
+```
+:::
+
+::: {.fragment}
+**General exception handler:**
+```python
+try:
+    # Some operation that might fail
+    risky_operation()
+except Exception as e:
+    print(f"Something went wrong: {e}")
+    # Log the error for debugging
+    import traceback
+    traceback.print_exc()
+```
+:::
+
+## Raising Custom Exceptions
+
+::: {.fragment}
+**Using the raise statement:**
+```python
+def validate_age(age):
+    if age < 0:
+        raise ValueError("Age cannot be negative!")
+    if age > 150:
+        raise ValueError("Age seems unrealistic!")
+    return True
+
+try:
+    age = -5
+    validate_age(age)
+except ValueError as e:
+    print(f"Validation error: {e}")
+```
+:::
+
+::: {.fragment}
+**Re-raising exceptions:**
+```python
+try:
+    process_data()
+except ValueError:
+    print("Logging the error...")
+    raise  # Re-raise the same exception
+```
+:::
+
+## Custom Exception Classes
+
+::: {.fragment}
+**Creating your own exception types:**
+```python
+class InvalidEmailError(Exception):
+    """Raised when an invalid email address is provided"""
+    pass
+
+class PasswordTooWeakError(Exception):
+    """Raised when password doesn't meet requirements"""
+    def __init__(self, message, min_length=8):
+        self.message = message
+        self.min_length = min_length
+        super().__init__(self.message)
+
+def validate_password(password):
+    if len(password) < 8:
+        raise PasswordTooWeakError(
+            "Password too short", 
+            min_length=8
+        )
+```
+:::
+
+## File Handling with Error Management
+
+::: {.fragment}
+**Safe file operations:**
+```python
+def read_file_safely(filename):
+    try:
+        with open(filename, 'r') as file:
+            return file.read()
+    except FileNotFoundError:
+        print(f"File '{filename}' not found!")
+        return None
+    except PermissionError:
+        print(f"No permission to read '{filename}'!")
+        return None
+    except Exception as e:
+        print(f"Error reading file: {e}")
+        return None
+
+content = read_file_safely("data.txt")
+if content:
+    print("File read successfully!")
+```
+:::
+
+## User Input Validation
+
+::: {.fragment}
+**Robust input handling:**
+```python
+def get_integer_input(prompt, min_val=None, max_val=None):
+    while True:
+        try:
+            value = int(input(prompt))
+            
+            if min_val is not None and value < min_val:
+                print(f"Value must be at least {min_val}")
+                continue
+                
+            if max_val is not None and value > max_val:
+                print(f"Value must be at most {max_val}")
+                continue
+                
+            return value
+            
+        except ValueError:
+            print("Please enter a valid integer!")
+        except KeyboardInterrupt:
+            print("\nOperation cancelled by user.")
+            return None
+
+age = get_integer_input("Enter your age (0-120): ", 0, 120)
+```
+:::
+
+## Debugging Techniques
+
+::: {.fragment}
+**Using print statements for debugging:**
+```python
+def calculate_average(numbers):
+    print(f"Debug: Input numbers = {numbers}")  # Debug info
+    
+    if not numbers:
+        print("Debug: Empty list detected")     # Debug info
+        return 0
+    
+    total = sum(numbers)
+    count = len(numbers)
+    average = total / count
+    
+    print(f"Debug: total={total}, count={count}")  # Debug info
+    return average
+```
+:::
+
+::: {.fragment}
+**Using assert statements:**
+```python
+def divide_numbers(a, b):
+    assert b != 0, "Division by zero is not allowed"
+    assert isinstance(a, (int, float)), "First argument must be a number"
+    assert isinstance(b, (int, float)), "Second argument must be a number"
+    
+    return a / b
+```
+:::
+
+## Best Practices
+
+::: {.incremental}
+- **Be specific**: Catch specific exceptions, not just `Exception`
+- **Don't ignore errors**: Always handle exceptions appropriately
+- **Use meaningful error messages**: Help users understand what went wrong
+- **Log errors**: Keep track of errors for debugging
+- **Fail gracefully**: Provide fallback options when possible
+- **Clean up resources**: Use `finally` or `with` statements
+- **Don't catch and ignore**: If you catch an exception, do something with it
+:::
+
+## Practical Example: Safe Calculator
+
+```python
+class Calculator:
+    def safe_divide(self, a, b):
+        try:
+            # Validate inputs
+            if not isinstance(a, (int, float)):
+                raise TypeError("First argument must be a number")
+            if not isinstance(b, (int, float)):
+                raise TypeError("Second argument must be a number")
+            if b == 0:
+                raise ZeroDivisionError("Cannot divide by zero")
+            
+            result = a / b
+            return {"success": True, "result": result}
+            
+        except (TypeError, ZeroDivisionError) as e:
+            return {"success": False, "error": str(e)}
+        except Exception as e:
+            return {"success": False, "error": f"Unexpected error: {e}"}
+
+# Usage
+calc = Calculator()
+result = calc.safe_divide(10, 2)
+if result["success"]:
+    print(f"Result: {result['result']}")
+else:
+    print(f"Error: {result['error']}")
+```
+
+## Exercise Time! 🚀
+
+::: {.fragment}
+**Challenge 1: Safe Number Converter**
+```python
+def safe_int_convert(value):
+    """
+    Convert a value to integer safely.
+    Return (success: bool, result: int or error_message: str)
+    """
+    # Your code here
+    pass
+
+# Test cases
+print(safe_int_convert("123"))      # Should work
+print(safe_int_convert("12.34"))    # Should handle float strings
+print(safe_int_convert("hello"))    # Should handle invalid input
+```
+:::
+
+::: {.fragment}
+**Challenge 2: List Safe Access**
+```python
+def safe_list_access(my_list, index):
+    """
+    Safely access list element by index.
+    Return the element or a default message if index is invalid.
+    """
+    # Your code here
+    pass
+```
+:::
+
+## Exercise Solutions
+
+::: {.fragment}
+**Safe Number Converter:**
+```python
+def safe_int_convert(value):
+    try:
+        # Try direct conversion first
+        return True, int(value)
+    except ValueError:
+        try:
+            # Try converting float string to int
+            return True, int(float(value))
+        except ValueError:
+            return False, f"Cannot convert '{value}' to integer"
+    except Exception as e:
+        return False, f"Unexpected error: {e}"
+```
+:::
+
+::: {.fragment}
+**List Safe Access:**
+```python
+def safe_list_access(my_list, index):
+    try:
+        return my_list[index]
+    except IndexError:
+        return f"Index {index} is out of range"
+    except TypeError:
+        return "Invalid index type"
+```
+:::
+
+## Advanced: Context Managers
+
+::: {.fragment}
+**The `with` statement for automatic cleanup:**
+```python
+# Without context manager
+try:
+    file = open("data.txt", "r")
+    content = file.read()
+    # Process content
+except FileNotFoundError:
+    print("File not found!")
+finally:
+    file.close()  # Must remember to close
+
+# With context manager (better!)
+try:
+    with open("data.txt", "r") as file:
+        content = file.read()
+        # File automatically closed when leaving 'with' block
+except FileNotFoundError:
+    print("File not found!")
+```
+:::
+
+## Creating Custom Context Managers
+
+::: {.fragment}
+```python
+class DatabaseConnection:
+    def __enter__(self):
+        print("Connecting to database...")
+        self.connection = "database_connection"
+        return self.connection
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print("Closing database connection...")
+        if exc_type:
+            print(f"An error occurred: {exc_val}")
+        return False  # Don't suppress exceptions
+
+# Usage
+with DatabaseConnection() as db:
+    print("Working with database...")
+    # Connection automatically closed when done
+```
+:::
+
+## Common Anti-Patterns
+
+::: {.fragment}
+**Don't do this:**
+```python
+# Bad: Catching all exceptions without handling
+try:
+    risky_operation()
+except:
+    pass  # Silently ignoring errors
+
+# Bad: Too broad exception handling
+try:
+    specific_operation()
+except Exception:
+    print("Something went wrong")  # Not helpful
+
+# Bad: Using exceptions for control flow
+try:
+    value = my_dict["key"]
+except KeyError:
+    value = "default"  # Use .get() instead
+```
+:::
+
+## Summary
+
+::: {.incremental}
+- Errors are inevitable in programming - handle them gracefully
+- Use `try-except` blocks to catch and handle exceptions
+- Be specific about which exceptions you catch
+- Use `finally` for cleanup code that must always run
+- Provide meaningful error messages to help users
+- Consider using context managers for resource management
+- Debug systematically using print statements and logging
+:::
+
+## Next Steps
+
+::: {.fragment}
+**Coming up next:**
+- Working with modules and packages
+- Object-oriented programming concepts
+- File I/O and data persistence
+:::
+
+::: {.fragment}
+**Practice more:**
+- Build a robust file processor with error handling
+- Create a user input validator for a registration form
+- Implement a safe calculator with comprehensive error handling
+:::

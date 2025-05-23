@@ -1,0 +1,537 @@
+# クラスとオブジェクト {#classes}
+
+オブジェクト指向プログラミング（OOP）は、関数ではなくオブジェクトを中心にコードを整理するプログラミングパラダイムです。
+
+## 学習目標 {.unnumbered}
+
+この章では以下を学習します：
+
+- オブジェクト指向プログラミングの基本概念
+- クラスとオブジェクトの定義と使用
+- インスタンス属性とメソッド
+- クラス属性とメソッド
+- カプセル化とプロパティ
+
+## オブジェクト指向プログラミングとは
+
+オブジェクト指向プログラミング（OOP）は、データ（属性）と動作（メソッド）の両方を含む**オブジェクト**を中心にコードを整理します。
+
+**現実世界の例：**
+- **車**には属性（色、モデル、年式）と動作（開始、停止、加速）があります
+- 各具体的な車は、Carクラスの**インスタンス**です
+
+### OOPの利点
+
+- **モジュール性**：コードをより良く整理
+- **再利用性**：同じコードを何度も使用可能
+- **保守性**：変更が容易
+- **現実世界のモデリング**：実体をコードで表現しやすい
+
+## クラスとオブジェクト
+
+### クラス
+- 設計図またはテンプレート
+- 構造と動作を定義
+- 家の設計図のような存在
+
+### オブジェクト
+- クラスのインスタンス
+- 実際の値を持つ
+- 実際の家のような存在
+
+```python
+# クラス定義
+class Car:
+    def __init__(self, make, model):
+        self.make = make
+        self.model = model
+    
+    def start(self):
+        return f"{self.make} {self.model}が始動しています"
+
+# オブジェクト（インスタンス）の作成
+car1 = Car("トヨタ", "カムリ")
+car2 = Car("ホンダ", "シビック")
+```
+
+## 最初のクラスを作成
+
+```python
+class Dog:
+    def __init__(self, name, breed):
+        self.name = name
+        self.breed = breed
+    
+    def bark(self):
+        return f"{self.name}がワンワン！"
+    
+    def info(self):
+        return f"{self.name}は{self.breed}です"
+
+# インスタンスの作成
+my_dog = Dog("ポチ", "ゴールデンレトリバー")
+print(my_dog.bark())  # ポチがワンワン！
+print(my_dog.info())  # ポチはゴールデンレトリバーです
+```
+
+## `__init__`メソッド
+
+**コンストラクタメソッド：**
+- オブジェクト作成時に自動的に呼び出される
+- オブジェクトの初期状態を設定
+- `self`は作成されるインスタンスを参照
+
+```python
+class Person:
+    def __init__(self, name, age, email):
+        self.name = name        # インスタンス属性
+        self.age = age          # インスタンス属性
+        self.email = email      # インスタンス属性
+        self.friends = []       # デフォルト属性
+
+# インスタンスの作成
+person1 = Person("太郎", 25, "taro@email.com")
+person2 = Person("花子", 30, "hanako@email.com")
+
+print(person1.name)  # 太郎
+print(person2.age)   # 30
+```
+
+## インスタンス属性とメソッド
+
+### 属性はデータを格納
+
+```python
+class BankAccount:
+    def __init__(self, account_number, balance=0):
+        self.account_number = account_number
+        self.balance = balance
+        self.transaction_history = []
+```
+
+### メソッドは動作を定義
+
+```python
+    def deposit(self, amount):
+        if amount > 0:
+            self.balance += amount
+            self.transaction_history.append(f"{amount}円を入金")
+            return True
+        return False
+    
+    def withdraw(self, amount):
+        if 0 < amount <= self.balance:
+            self.balance -= amount
+            self.transaction_history.append(f"{amount}円を出金")
+            return True
+        return False
+```
+
+## BankAccountクラスの使用
+
+```python
+# アカウントを作成
+account = BankAccount("123456789", 100000)
+
+# メソッドを使用
+account.deposit(50000)
+account.withdraw(20000)
+
+# 属性にアクセス
+print(f"口座: {account.account_number}")
+print(f"残高: {account.balance}円")
+print("履歴:", account.transaction_history)
+```
+
+**出力:**
+```
+口座: 123456789
+残高: 130000円
+履歴: ['50000円を入金', '20000円を出金']
+```
+
+## クラス属性
+
+**クラス属性**はすべてのインスタンスで共有されます：
+
+```python
+class Dog:
+    species = "Canis lupus"  # クラス属性
+    total_dogs = 0           # クラス属性
+    
+    def __init__(self, name, breed):
+        self.name = name     # インスタンス属性
+        self.breed = breed   # インスタンス属性
+        Dog.total_dogs += 1  # クラス属性を増加
+    
+    @classmethod
+    def get_total_dogs(cls):
+        return cls.total_dogs
+
+# 使用方法
+dog1 = Dog("ポチ", "ゴールデンレトリバー")
+dog2 = Dog("マックス", "ジャーマンシェパード")
+
+print(Dog.species)           # Canis lupus
+print(Dog.get_total_dogs())  # 2
+```
+
+## インスタンス属性とクラス属性
+
+```python
+class Counter:
+    count = 0  # クラス属性
+    
+    def __init__(self, name):
+        self.name = name      # インスタンス属性
+        Counter.count += 1    # クラス属性を変更
+        self.instance_count = 1  # インスタンス属性
+
+counter1 = Counter("1番目")
+counter2 = Counter("2番目")
+
+print(f"総カウンタ数: {Counter.count}")      # 2
+print(f"カウンタ1の名前: {counter1.name}")     # 1番目
+print(f"カウンタ2の名前: {counter2.name}")     # 2番目
+```
+
+## 文字列表現
+
+**オブジェクトを印刷可能にする：**
+
+```python
+class Book:
+    def __init__(self, title, author, pages):
+        self.title = title
+        self.author = author
+        self.pages = pages
+    
+    def __str__(self):
+        return f"『{self.title}』 著者: {self.author}"
+    
+    def __repr__(self):
+        return f"Book('{self.title}', '{self.author}', {self.pages})"
+
+book = Book("1984", "ジョージ・オーウェル", 328)
+print(str(book))   # 『1984』 著者: ジョージ・オーウェル
+print(repr(book))  # Book('1984', 'ジョージ・オーウェル', 328)
+print(book)        # __str__メソッドを使用
+```
+
+## プロパティデコレータ
+
+**属性へのアクセスを制御：**
+
+```python
+class Circle:
+    def __init__(self, radius):
+        self._radius = radius  # "プライベート"属性
+    
+    @property
+    def radius(self):
+        return self._radius
+    
+    @radius.setter
+    def radius(self, value):
+        if value < 0:
+            raise ValueError("半径は負の値にできません")
+        self._radius = value
+    
+    @property
+    def area(self):
+        return 3.14159 * self._radius ** 2
+
+circle = Circle(5)
+print(circle.area)     # 78.53975
+circle.radius = 10     # セッターを使用
+print(circle.area)     # 314.159
+```
+
+## プライベート属性
+
+**Pythonの"プライベート"属性の規則：**
+
+```python
+class BankAccount:
+    def __init__(self, balance):
+        self.public_attr = "誰でもアクセス可能"
+        self._protected_attr = "直接アクセスすべきでない"
+        self.__private_attr = "プライバシーのために名前が変換される"
+    
+    def get_private(self):
+        return self.__private_attr
+
+account = BankAccount(100000)
+print(account.public_attr)      # OK
+print(account._protected_attr)  # 動作するが推奨されない
+# print(account.__private_attr) # AttributeError
+print(account.get_private())    # メソッド経由でアクセス
+```
+
+**注意：** Pythonには真のプライベート属性はなく、規則のみです
+
+## クラスメソッドと静的メソッド
+
+### クラスメソッド
+
+**クラスメソッド**はインスタンスではなくクラスと連携します：
+
+```python
+class Person:
+    population = 0
+    
+    def __init__(self, name):
+        self.name = name
+        Person.population += 1
+    
+    @classmethod
+    def get_population(cls):
+        return cls.population
+    
+    @classmethod
+    def create_anonymous(cls):
+        return cls("匿名")
+
+print(Person.get_population())  # 0
+person1 = Person("太郎")
+anonymous = Person.create_anonymous()
+print(Person.get_population())  # 2
+```
+
+### 静的メソッド
+
+**静的メソッド**は`self`や`cls`を使用しません：
+
+```python
+class MathUtils:
+    @staticmethod
+    def add(a, b):
+        return a + b
+    
+    @staticmethod
+    def is_even(number):
+        return number % 2 == 0
+    
+    @staticmethod
+    def factorial(n):
+        if n <= 1:
+            return 1
+        return n * MathUtils.factorial(n - 1)
+
+# インスタンスを作成せずに呼び出し可能
+print(MathUtils.add(5, 3))      # 8
+print(MathUtils.is_even(4))     # True
+print(MathUtils.factorial(5))   # 120
+```
+
+## 実用例：学生管理
+
+```python
+class Student:
+    total_students = 0
+    
+    def __init__(self, name, student_id, email):
+        self.name = name
+        self.student_id = student_id
+        self.email = email
+        self.grades = {}
+        self.enrolled_courses = []
+        Student.total_students += 1
+    
+    def enroll_course(self, course):
+        if course not in self.enrolled_courses:
+            self.enrolled_courses.append(course)
+            self.grades[course] = []
+    
+    def add_grade(self, course, grade):
+        if course in self.grades:
+            self.grades[course].append(grade)
+    
+    def get_average(self, course):
+        if course in self.grades and self.grades[course]:
+            return sum(self.grades[course]) / len(self.grades[course])
+        return 0
+    
+    def __str__(self):
+        return f"学生: {self.name} (ID: {self.student_id})"
+```
+
+## Studentクラスの使用
+
+```python
+# 学生を作成
+alice = Student("田中太郎", "S001", "tanaka@school.edu")
+bob = Student("佐藤花子", "S002", "sato@school.edu")
+
+# コースに登録
+alice.enroll_course("数学")
+alice.enroll_course("理科")
+bob.enroll_course("数学")
+
+# 成績を追加
+alice.add_grade("数学", 85)
+alice.add_grade("数学", 92)
+alice.add_grade("理科", 78)
+
+# 結果を確認
+print(alice)                               # 学生: 田中太郎 (ID: S001)
+print(f"数学の平均: {alice.get_average('数学')}")  # 88.5
+print(f"総学生数: {Student.total_students}")    # 2
+```
+
+## 演習問題 {.unnumbered}
+
+### 演習 1：Rectangleクラス
+
+```python
+class Rectangle:
+    def __init__(self, width, height):
+        # ここにコードを書いてください
+        pass
+    
+    def area(self):
+        # 面積を返す
+        pass
+    
+    def perimeter(self):
+        # 周囲を返す
+        pass
+    
+    def __str__(self):
+        # 文字列表現を返す
+        pass
+```
+
+### 演習 2：図書館の本システム
+
+```python
+class LibraryBook:
+    def __init__(self, title, author, isbn):
+        # 本を初期化
+        pass
+    
+    def check_out(self):
+        # 貸出済みとしてマーク
+        pass
+    
+    def return_book(self):
+        # 返却済みとしてマーク
+        pass
+```
+
+## 解答例 {.unnumbered}
+
+### Rectangleクラス
+
+```python
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+    
+    def area(self):
+        return self.width * self.height
+    
+    def perimeter(self):
+        return 2 * (self.width + self.height)
+    
+    def __str__(self):
+        return f"Rectangle({self.width}x{self.height})"
+```
+
+### 図書館の本システム
+
+```python
+class LibraryBook:
+    def __init__(self, title, author, isbn):
+        self.title = title
+        self.author = author
+        self.isbn = isbn
+        self.is_checked_out = False
+    
+    def check_out(self):
+        if not self.is_checked_out:
+            self.is_checked_out = True
+            return True
+        return False
+    
+    def return_book(self):
+        if self.is_checked_out:
+            self.is_checked_out = False
+            return True
+        return False
+```
+
+## ベストプラクティス
+
+1. **明確で説明的なクラス名を使用**: `BankAccount`、`BA`ではない
+2. **単一責任の原則に従う**: 一つのクラス、一つの目的
+3. **初期化に`__init__`を使用**: オブジェクトの状態を適切に設定
+4. **文字列表現を提供**: `__str__`と`__repr__`を実装
+5. **検証にプロパティを使用**: 属性アクセスを制御
+6. **クラスを文書化**: ドキュメント文字列を含める
+7. **メソッドを焦点を絞る**: 各メソッドは一つのことを上手く行う
+
+## よくある間違い
+
+### 1. `self`を忘れる
+
+```python
+class Counter:
+    def __init__(self, start=0):
+        count = start  # 間違い！ self.count = start であるべき
+    
+    def increment(self):
+        count += 1     # 間違い！ self.count += 1 であるべき
+```
+
+### 2. 可変なデフォルト引数
+
+```python
+# 悪い例
+class Student:
+    def __init__(self, name, courses=[]):
+        self.courses = courses  # インスタンス間で共有される！
+
+# 良い例
+class Student:
+    def __init__(self, name, courses=None):
+        self.courses = courses if courses is not None else []
+```
+
+## クラスを使用するタイミング
+
+### クラスに適している候補
+
+- データと動作の両方を持つエンティティ
+- 維持する必要がある複雑な状態
+- 複数のインスタンスが必要な場合
+- 継承が有益な場合
+
+### 代替案を検討
+
+- 単純なデータ保存 → 辞書やnamedtupleを使用
+- 純粋な関数 → クラスは不要
+- 一回限りの使用 → 関数の方が簡単
+
+## まとめ
+
+- クラスはオブジェクトを作成するための設計図
+- オブジェクトはデータ（属性）と動作（メソッド）を組み合わせる
+- `__init__`メソッドは新しいインスタンスを初期化
+- `self`を使用して現在のインスタンスを参照
+- クラス属性は共有、インスタンス属性は一意
+- プロパティは属性への制御されたアクセスを提供
+- 良いクラス設計はコードをより整理され再利用可能にする
+
+## 次のステップ
+
+次章では、継承とポリモーフィズムについて学習し、より複雑で柔軟なオブジェクト指向プログラムの作成方法を学びます。
+
+## 自己確認 {.unnumbered}
+
+1. クラスとオブジェクトの違いは何ですか？
+2. `__init__`メソッドの目的は何ですか？
+3. インスタンス属性とクラス属性の違いは何ですか？
+4. プロパティデコレータを使用する理由は何ですか？
+5. 良いクラス設計のベストプラクティスを3つ挙げてください。

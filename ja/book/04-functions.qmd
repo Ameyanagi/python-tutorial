@@ -1,0 +1,388 @@
+# 関数 {#functions}
+
+関数は、特定のタスクを実行する再利用可能なコードブロックです。プログラムを整理し、コードの重複を避けるのに役立ちます。
+
+## 学習目標 {.unnumbered}
+
+この章では以下を学習します：
+
+- 関数の定義と呼び出し
+- パラメータと戻り値の使用
+- デフォルトパラメータとキーワード引数
+- スコープと変数の有効範囲
+- 関数のベストプラクティス
+
+## 関数とは
+
+関数は特定のタスクを実行するコードブロックで、プログラム内で何度でも呼び出すことができます。関数を使用することで：
+
+- **コードの再利用性**：一度書けば何度でも使用可能
+- **組織化**：複雑な問題を小さな部分に分割
+- **保守性**：一箇所の変更が全ての使用箇所に反映
+- **テスト性**：個別の部分をテストしやすい
+
+```python
+# 基本的な関数の例
+def greet(name):
+    return f"こんにちは、{name}さん！"
+
+message = greet("太郎")
+print(message)  # 出力: こんにちは、太郎さん！
+```
+
+## 関数の構文
+
+```python
+def 関数名(パラメータ):
+    """オプションのドキュメント文字列"""
+    # 関数本体
+    return 値  # オプション
+```
+
+主要な構成要素：
+
+- `def`キーワードで関数定義を開始
+- `関数名`はPythonの命名規則に従う
+- `パラメータ`は入力値（オプション）
+- `:`は関数本体の開始を示す
+- インデントされたコードが関数本体
+- `return`文で出力値を返す（オプション）
+
+## 基本的な関数
+
+### パラメータなしの関数
+
+```python
+def say_hello():
+    print("Hello, World!")
+
+say_hello()  # 関数の呼び出し
+```
+
+### 値を返す関数
+
+```python
+def get_pi():
+    return 3.14159
+
+pi_value = get_pi()
+print(f"円周率は約{pi_value}です")
+```
+
+## パラメータを持つ関数
+
+### 単一パラメータ
+
+```python
+def square(number):
+    return number * number
+
+result = square(5)
+print(result)  # 出力: 25
+```
+
+### 複数パラメータ
+
+```python
+def add_numbers(a, b):
+    return a + b
+
+sum_result = add_numbers(10, 20)
+print(sum_result)  # 出力: 30
+```
+
+## デフォルトパラメータ
+
+パラメータにデフォルト値を設定できます：
+
+```python
+def greet(name, greeting="こんにちは"):
+    return f"{greeting}、{name}さん！"
+
+print(greet("太郎"))           # こんにちは、太郎さん！
+print(greet("花子", "おはよう"))  # おはよう、花子さん！
+```
+
+デフォルト値を持つパラメータは、持たないパラメータの後に配置する必要があります：
+
+```python
+def create_profile(name, age=25, city="不明"):
+    return f"{name}、{age}歳、{city}出身"
+
+print(create_profile("太郎"))
+print(create_profile("花子", 30))
+print(create_profile("次郎", 28, "東京"))
+```
+
+## キーワード引数
+
+パラメータ名を指定して関数を呼び出すことができます：
+
+```python
+def describe_pet(name, animal_type, age):
+    return f"{name}は{age}歳の{animal_type}です"
+
+# 位置引数
+print(describe_pet("ポチ", "犬", 3))
+
+# キーワード引数
+print(describe_pet(name="ミケ", animal_type="猫", age=2))
+print(describe_pet(age=1, name="金魚", animal_type="魚"))
+```
+
+## 可変長引数
+
+### *args：可変個の位置引数
+
+```python
+def sum_all(*numbers):
+    total = 0
+    for num in numbers:
+        total += num
+    return total
+
+print(sum_all(1, 2, 3))        # 6
+print(sum_all(1, 2, 3, 4, 5))  # 15
+```
+
+### **kwargs：可変個のキーワード引数
+
+```python
+def create_student(**info):
+    for key, value in info.items():
+        print(f"{key}: {value}")
+
+create_student(name="太郎", age=20, major="コンピュータサイエンス")
+```
+
+## ローカルスコープとグローバルスコープ
+
+### ローカル変数
+
+関数内で定義された変数は、その関数内でのみ使用できます：
+
+```python
+x = 10  # グローバル変数
+
+def test_scope():
+    x = 20  # ローカル変数
+    print(f"関数内: {x}")
+
+test_scope()           # 関数内: 20
+print(f"関数外: {x}")   # 関数外: 10
+```
+
+### globalキーワード
+
+```python
+counter = 0  # グローバル変数
+
+def increment():
+    global counter
+    counter += 1
+
+increment()
+print(counter)  # 出力: 1
+```
+
+## return文
+
+関数は任意のデータ型を返すことができます：
+
+```python
+def get_name_length(name):
+    return len(name)
+
+def get_user_info():
+    return "太郎", 25, "エンジニア"  # タプルを返す
+
+def is_even(number):
+    return number % 2 == 0  # ブール値を返す
+
+name, age, job = get_user_info()
+```
+
+条件によって早期リターンを行うことも可能です：
+
+```python
+def calculate_grade(score):
+    if score >= 90:
+        return "優"
+    elif score >= 80:
+        return "良"
+    elif score >= 70:
+        return "可"
+    else:
+        return "不可"
+```
+
+## ドキュメント文字列
+
+関数の動作を説明するドキュメントを追加できます：
+
+```python
+def calculate_area(length, width):
+    """
+    長方形の面積を計算します。
+    
+    Args:
+        length (float): 長方形の長さ
+        width (float): 長方形の幅
+    
+    Returns:
+        float: 長方形の面積
+    """
+    return length * width
+
+# ドキュメント文字列へのアクセス
+print(calculate_area.__doc__)
+```
+
+## 実用例：電卓
+
+```python
+def add(a, b):
+    """二つの数を足します。"""
+    return a + b
+
+def subtract(a, b):
+    """第一の数から第二の数を引きます。"""
+    return a - b
+
+def multiply(a, b):
+    """二つの数を掛けます。"""
+    return a * b
+
+def divide(a, b):
+    """第一の数を第二の数で割ります。"""
+    if b != 0:
+        return a / b
+    else:
+        return "エラー: ゼロ除算です！"
+
+# 電卓の使用
+result1 = add(10, 5)      # 15
+result2 = subtract(10, 5) # 5
+result3 = multiply(10, 5) # 50
+result4 = divide(10, 5)   # 2.0
+```
+
+## 演習問題 {.unnumbered}
+
+### 演習 1：温度変換器
+
+摂氏と華氏の温度変換を行う関数を作成してください：
+
+```python
+def celsius_to_fahrenheit(celsius):
+    # ここにコードを書いてください
+    pass
+
+def fahrenheit_to_celsius(fahrenheit):
+    # ここにコードを書いてください
+    pass
+
+# テスト
+print(celsius_to_fahrenheit(0))   # 32になるはず
+print(fahrenheit_to_celsius(32))  # 0になるはず
+```
+
+### 演習 2：パスワード検証器
+
+パスワードが有効かどうかを判定する関数を作成してください：
+
+```python
+def is_valid_password(password):
+    # パスワードが8文字以上で、
+    # 文字と数字の両方を含むかチェック
+    pass
+
+# テスト
+print(is_valid_password("abc123"))      # False (短すぎる)
+print(is_valid_password("abcdefgh"))    # False (数字がない)
+print(is_valid_password("abc12345"))    # True
+```
+
+### 演習 3：リスト操作
+
+リストの統計情報を計算する関数を作成してください：
+
+```python
+def calculate_stats(numbers):
+    # 最小値、最大値、平均値を計算して辞書で返す
+    pass
+
+# テスト
+stats = calculate_stats([1, 2, 3, 4, 5])
+print(stats)  # {'min': 1, 'max': 5, 'average': 3.0}
+```
+
+## 解答例 {.unnumbered}
+
+### 演習 1の解答
+
+```python
+def celsius_to_fahrenheit(celsius):
+    return (celsius * 9/5) + 32
+
+def fahrenheit_to_celsius(fahrenheit):
+    return (fahrenheit - 32) * 5/9
+```
+
+### 演習 2の解答
+
+```python
+def is_valid_password(password):
+    if len(password) < 8:
+        return False
+    
+    has_letter = any(char.isalpha() for char in password)
+    has_number = any(char.isdigit() for char in password)
+    
+    return has_letter and has_number
+```
+
+### 演習 3の解答
+
+```python
+def calculate_stats(numbers):
+    if not numbers:
+        return None
+    
+    return {
+        'min': min(numbers),
+        'max': max(numbers),
+        'average': sum(numbers) / len(numbers)
+    }
+```
+
+## ベストプラクティス
+
+1. **わかりやすい名前を使用**: `calculate_tax()`は`calc()`より良い
+2. **関数は一つの責任を持つ**: 一つの関数、一つの役割
+3. **ドキュメント文字列を使用**: 関数の動作を文書化
+4. **副作用を避ける**: 関数は予測可能であるべき
+5. **早期リターンを使用**: より綺麗なコードのため
+6. **関数をテストする**: 様々なシナリオでテストケースを作成
+
+## まとめ
+
+- 関数は再利用可能なコードブロックでプログラムを整理する
+- パラメータを受け取り、値を返すことができる
+- デフォルトパラメータで柔軟性を提供
+- 可変長引数で未知の数の引数を処理
+- スコープは変数がアクセスできる場所を決定
+- ドキュメント文字列で関数を文書化
+- ベストプラクティスに従って綺麗で保守可能なコードを作成
+
+## 次のステップ
+
+次章では、エラー処理と例外について学習し、より堅牢なプログラムの作成方法を学びます。
+
+## 自己確認 {.unnumbered}
+
+1. 関数を使用する主な利点は何ですか？
+2. デフォルトパラメータとキーワード引数の違いは何ですか？
+3. `*args`と`**kwargs`の用途は何ですか？
+4. ローカルスコープとグローバルスコープの違いを説明してください。
+5. 良い関数を作成するためのベストプラクティスを3つ挙げてください。

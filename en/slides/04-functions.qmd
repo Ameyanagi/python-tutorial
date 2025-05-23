@@ -1,0 +1,465 @@
+---
+title: "Functions"
+subtitle: "Organizing Code into Reusable Blocks"
+format:
+  revealjs:
+    theme: [default, ../shared/style.scss]
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    logo: ../shared/python-logo.svg
+    footer: "Python Tutorial - Functions"
+---
+
+## What are Functions?
+
+::: {.incremental}
+- **Functions** are reusable blocks of code that perform specific tasks
+- They help organize code and avoid repetition
+- Functions take inputs (parameters) and return outputs
+- Think of them as "mini-programs" within your program
+:::
+
+::: {.fragment}
+```python
+def greet(name):
+    return f"Hello, {name}!"
+
+message = greet("Alice")
+print(message)  # Output: Hello, Alice!
+```
+:::
+
+## Why Use Functions?
+
+::: {.columns}
+::: {.column width="50%"}
+**Benefits:**
+
+::: {.incremental}
+- **Code Reusability**: Write once, use many times
+- **Organization**: Break complex problems into smaller parts
+- **Maintainability**: Changes in one place affect all uses
+- **Testing**: Easier to test individual pieces
+:::
+:::
+
+::: {.column width="50%"}
+**Example:**
+```python
+# Without functions (repetitive)
+print("Welcome to our store!")
+print("Thank you for shopping!")
+print("Welcome to our store!")
+print("Thank you for shopping!")
+
+# With functions (clean)
+def welcome_message():
+    print("Welcome to our store!")
+    print("Thank you for shopping!")
+
+welcome_message()
+welcome_message()
+```
+:::
+:::
+
+## Function Syntax
+
+```python
+def function_name(parameters):
+    """Optional docstring"""
+    # Function body
+    return value  # Optional
+```
+
+::: {.fragment}
+**Key Components:**
+:::
+
+::: {.incremental}
+- `def` keyword starts the function definition
+- `function_name` follows Python naming conventions
+- `parameters` are inputs (optional)
+- `:` indicates the start of the function body
+- Indented code forms the function body
+- `return` statement provides output (optional)
+:::
+
+## Simple Functions
+
+::: {.fragment}
+**Function with no parameters:**
+```python
+def say_hello():
+    print("Hello, World!")
+
+say_hello()  # Calling the function
+```
+:::
+
+::: {.fragment}
+**Function that returns a value:**
+```python
+def get_pi():
+    return 3.14159
+
+pi_value = get_pi()
+print(f"Pi is approximately {pi_value}")
+```
+:::
+
+## Functions with Parameters
+
+::: {.fragment}
+**Single parameter:**
+```python
+def square(number):
+    return number * number
+
+result = square(5)
+print(result)  # Output: 25
+```
+:::
+
+::: {.fragment}
+**Multiple parameters:**
+```python
+def add_numbers(a, b):
+    return a + b
+
+sum_result = add_numbers(10, 20)
+print(sum_result)  # Output: 30
+```
+:::
+
+## Default Parameters
+
+::: {.fragment}
+**Parameters can have default values:**
+```python
+def greet(name, greeting="Hello"):
+    return f"{greeting}, {name}!"
+
+print(greet("Alice"))              # Hello, Alice!
+print(greet("Bob", "Hi"))          # Hi, Bob!
+print(greet("Charlie", "Hey"))     # Hey, Charlie!
+```
+:::
+
+::: {.fragment}
+**Order matters with defaults:**
+```python
+def create_profile(name, age=25, city="Unknown"):
+    return f"{name}, {age} years old, from {city}"
+
+print(create_profile("Alice"))
+print(create_profile("Bob", 30))
+print(create_profile("Charlie", 28, "Tokyo"))
+```
+:::
+
+## Keyword Arguments
+
+::: {.fragment}
+**Call functions using parameter names:**
+```python
+def describe_pet(name, animal_type, age):
+    return f"{name} is a {age}-year-old {animal_type}"
+
+# Positional arguments
+print(describe_pet("Buddy", "dog", 3))
+
+# Keyword arguments
+print(describe_pet(name="Whiskers", animal_type="cat", age=2))
+print(describe_pet(age=1, name="Goldie", animal_type="fish"))
+```
+:::
+
+## Variable-Length Arguments
+
+::: {.fragment}
+**`*args` for variable positional arguments:**
+```python
+def sum_all(*numbers):
+    total = 0
+    for num in numbers:
+        total += num
+    return total
+
+print(sum_all(1, 2, 3))        # 6
+print(sum_all(1, 2, 3, 4, 5))  # 15
+```
+:::
+
+::: {.fragment}
+**`**kwargs` for variable keyword arguments:**
+```python
+def create_student(**info):
+    for key, value in info.items():
+        print(f"{key}: {value}")
+
+create_student(name="Alice", age=20, major="Computer Science")
+```
+:::
+
+## Local vs Global Scope
+
+::: {.fragment}
+**Variables inside functions are local:**
+```python
+x = 10  # Global variable
+
+def test_scope():
+    x = 20  # Local variable
+    print(f"Inside function: {x}")
+
+test_scope()           # Inside function: 20
+print(f"Outside: {x}") # Outside: 10
+```
+:::
+
+::: {.fragment}
+**The `global` keyword:**
+```python
+counter = 0  # Global variable
+
+def increment():
+    global counter
+    counter += 1
+
+increment()
+print(counter)  # Output: 1
+```
+:::
+
+## Return Statement
+
+::: {.fragment}
+**Functions can return any data type:**
+```python
+def get_name_length(name):
+    return len(name)
+
+def get_user_info():
+    return "Alice", 25, "Engineer"  # Returns a tuple
+
+def is_even(number):
+    return number % 2 == 0  # Returns boolean
+
+name, age, job = get_user_info()
+```
+:::
+
+::: {.fragment}
+**Early returns for different conditions:**
+```python
+def calculate_grade(score):
+    if score >= 90:
+        return "A"
+    elif score >= 80:
+        return "B"
+    elif score >= 70:
+        return "C"
+    else:
+        return "F"
+```
+:::
+
+## Docstrings
+
+::: {.fragment}
+**Document your functions:**
+```python
+def calculate_area(length, width):
+    """
+    Calculate the area of a rectangle.
+    
+    Args:
+        length (float): The length of the rectangle
+        width (float): The width of the rectangle
+    
+    Returns:
+        float: The area of the rectangle
+    """
+    return length * width
+
+# Access docstring
+print(calculate_area.__doc__)
+```
+:::
+
+## Practical Example: Calculator
+
+```python
+def add(a, b):
+    """Add two numbers."""
+    return a + b
+
+def subtract(a, b):
+    """Subtract second number from first."""
+    return a - b
+
+def multiply(a, b):
+    """Multiply two numbers."""
+    return a * b
+
+def divide(a, b):
+    """Divide first number by second."""
+    if b != 0:
+        return a / b
+    else:
+        return "Error: Division by zero!"
+
+# Using the calculator
+result1 = add(10, 5)      # 15
+result2 = subtract(10, 5) # 5
+result3 = multiply(10, 5) # 50
+result4 = divide(10, 5)   # 2.0
+```
+
+## Exercise Time! 🚀
+
+::: {.fragment}
+**Challenge 1: Temperature Converter**
+```python
+def celsius_to_fahrenheit(celsius):
+    # Your code here
+    pass
+
+def fahrenheit_to_celsius(fahrenheit):
+    # Your code here
+    pass
+
+# Test your functions
+print(celsius_to_fahrenheit(0))   # Should be 32
+print(fahrenheit_to_celsius(32))  # Should be 0
+```
+:::
+
+::: {.fragment}
+**Challenge 2: Password Validator**
+```python
+def is_valid_password(password):
+    # Check if password is at least 8 characters
+    # and contains both letters and numbers
+    pass
+```
+:::
+
+## Exercise Solutions
+
+::: {.fragment}
+**Temperature Converter:**
+```python
+def celsius_to_fahrenheit(celsius):
+    return (celsius * 9/5) + 32
+
+def fahrenheit_to_celsius(fahrenheit):
+    return (fahrenheit - 32) * 5/9
+```
+:::
+
+::: {.fragment}
+**Password Validator:**
+```python
+def is_valid_password(password):
+    if len(password) < 8:
+        return False
+    
+    has_letter = any(char.isalpha() for char in password)
+    has_number = any(char.isdigit() for char in password)
+    
+    return has_letter and has_number
+```
+:::
+
+## Best Practices
+
+::: {.incremental}
+- **Use descriptive names**: `calculate_tax()` not `calc()`
+- **Keep functions focused**: One function, one responsibility
+- **Use docstrings**: Document what your function does
+- **Avoid side effects**: Functions should be predictable
+- **Return early**: Use early returns for cleaner code
+- **Test your functions**: Write test cases for different scenarios
+:::
+
+## Common Mistakes
+
+::: {.fragment}
+**1. Modifying mutable defaults:**
+```python
+# Bad
+def add_item(item, items=[]):
+    items.append(item)
+    return items
+
+# Good
+def add_item(item, items=None):
+    if items is None:
+        items = []
+    items.append(item)
+    return items
+```
+:::
+
+::: {.fragment}
+**2. Too many parameters:**
+```python
+# Bad
+def create_user(name, email, age, city, country, phone, job):
+    pass
+
+# Good
+def create_user(user_data):
+    pass
+```
+:::
+
+## Advanced: Lambda Functions
+
+::: {.fragment}
+**Short, anonymous functions:**
+```python
+# Regular function
+def square(x):
+    return x * x
+
+# Lambda equivalent
+square = lambda x: x * x
+
+# Common use with built-in functions
+numbers = [1, 2, 3, 4, 5]
+squared = list(map(lambda x: x * x, numbers))
+even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+```
+:::
+
+## Summary
+
+::: {.incremental}
+- Functions organize code into reusable blocks
+- They can accept parameters and return values
+- Use default parameters for flexibility
+- Variable-length arguments handle unknown quantities
+- Scope determines where variables can be accessed
+- Document functions with docstrings
+- Follow best practices for clean, maintainable code
+:::
+
+## Next Steps
+
+::: {.fragment}
+**Coming up next:**
+- Error handling and exceptions
+- Working with modules and packages
+- Object-oriented programming
+:::
+
+::: {.fragment}
+**Practice more:**
+- Create a simple menu system using functions
+- Build a text-based game with multiple functions
+- Write functions for common mathematical operations
+:::
