@@ -1,0 +1,657 @@
+# Functions - Organizing and Reusing Code
+
+Functions are the building blocks of well-organized Python programs. They help you avoid repetition and make your code more readable and maintainable.
+
+## Why Functions Matter
+
+```{python}
+# Without functions - repetitive code
+name1 = "Alice"
+print(f"Hello, {name1}!")
+print(f"Welcome to Python, {name1}!")
+
+name2 = "Bob"
+print(f"Hello, {name2}!")
+print(f"Welcome to Python, {name2}!")
+
+# With functions - clean and reusable
+def greet_user(name):
+    print(f"Hello, {name}!")
+    print(f"Welcome to Python, {name}!")
+
+greet_user("Alice")
+greet_user("Bob")
+```
+
+## Defining Functions
+
+### Basic Function Definition
+
+```{python}
+def say_hello():
+    """A simple function that prints a greeting."""
+    print("Hello from Python!")
+    print("Functions make code organized!")
+
+# Call the function
+say_hello()
+```
+
+### Functions with Parameters
+
+```{python}
+def greet(name, language="English"):
+    """Greet someone in different languages."""
+    if language == "English":
+        print(f"Hello, {name}!")
+    elif language == "Spanish":
+        print(f"¡Hola, {name}!")
+    elif language == "French":
+        print(f"Bonjour, {name}!")
+    elif language == "Japanese":
+        print(f"こんにちは, {name}!")
+    else:
+        print(f"Hello, {name}! (default)")
+
+# Call with different parameters
+greet("Alice")
+greet("Carlos", "Spanish")
+greet("Marie", "French")
+greet("Hiroshi", "Japanese")
+```
+
+### Functions with Return Values
+
+```{python}
+def add_numbers(a, b):
+    """Add two numbers and return the result."""
+    return a + b
+
+def multiply_numbers(a, b):
+    """Multiply two numbers and return the result."""
+    result = a * b
+    return result
+
+def get_full_name(first, last):
+    """Combine first and last name."""
+    full_name = f"{first} {last}"
+    return full_name
+
+# Using return values
+sum_result = add_numbers(5, 3)
+print(f"5 + 3 = {sum_result}")
+
+product = multiply_numbers(4, 7)
+print(f"4 × 7 = {product}")
+
+name = get_full_name("John", "Doe")
+print(f"Full name: {name}")
+```
+
+## Function Parameters and Arguments
+
+### Positional Arguments
+
+```{python}
+def describe_pet(animal_type, pet_name, age):
+    """Describe a pet with given information."""
+    print(f"I have a {animal_type} named {pet_name}")
+    print(f"{pet_name} is {age} years old")
+
+# Positional arguments - order matters
+describe_pet("dog", "Buddy", 3)
+describe_pet("cat", "Whiskers", 2)
+```
+
+### Keyword Arguments
+
+```{python}
+def create_profile(name, age, city, profession):
+    """Create a user profile."""
+    profile = {
+        "name": name,
+        "age": age,
+        "city": city,
+        "profession": profession
+    }
+    return profile
+
+# Keyword arguments - order doesn't matter
+profile1 = create_profile(name="Alice", profession="Engineer", city="Seattle", age=28)
+profile2 = create_profile(age=35, name="Bob", city="Portland", profession="Teacher")
+
+print("Profile 1:", profile1)
+print("Profile 2:", profile2)
+```
+
+### Default Parameters
+
+```{python}
+def make_pizza(size, *toppings, crust="thin", sauce="tomato"):
+    """Make a pizza with given specifications."""
+    print(f"Making a {size} pizza with {crust} crust and {sauce} sauce")
+    
+    if toppings:
+        print("Toppings:")
+        for topping in toppings:
+            print(f"  - {topping}")
+    else:
+        print("No toppings (plain pizza)")
+    print()
+
+# Using default parameters
+make_pizza("medium")
+make_pizza("large", "pepperoni", "mushrooms")
+make_pizza("small", "cheese", crust="thick")
+make_pizza("large", "pepperoni", "sausage", sauce="bbq", crust="stuffed")
+```
+
+### Variable-Length Arguments
+
+```{python}
+def sum_all(*numbers):
+    """Sum any number of arguments."""
+    total = 0
+    for num in numbers:
+        total += num
+    return total
+
+def print_info(**kwargs):
+    """Print information from keyword arguments."""
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
+
+# Variable positional arguments
+print(f"Sum of 1, 2, 3: {sum_all(1, 2, 3)}")
+print(f"Sum of 1, 2, 3, 4, 5: {sum_all(1, 2, 3, 4, 5)}")
+
+# Variable keyword arguments
+print("\nUser information:")
+print_info(name="Alice", age=25, city="Boston", job="Developer")
+```
+
+## Scope and Local vs Global Variables
+
+### Local Scope
+
+```{python}
+def calculate_area(length, width):
+    """Calculate area - variables are local to function."""
+    area = length * width  # Local variable
+    print(f"Calculating area inside function: {area}")
+    return area
+
+# area variable only exists inside the function
+result = calculate_area(5, 3)
+print(f"Returned area: {result}")
+
+# This would cause an error:
+# print(area)  # NameError: name 'area' is not defined
+```
+
+### Global Scope
+
+```{python}
+# Global variable
+total_calculations = 0
+
+def add_numbers_with_count(a, b):
+    """Add numbers and increment global counter."""
+    global total_calculations
+    total_calculations += 1
+    result = a + b
+    print(f"Calculation #{total_calculations}: {a} + {b} = {result}")
+    return result
+
+# Functions can access and modify global variables
+add_numbers_with_count(5, 3)
+add_numbers_with_count(10, 7)
+print(f"Total calculations performed: {total_calculations}")
+```
+
+## Advanced Function Concepts
+
+### Functions as First-Class Objects
+
+```{python}
+def square(x):
+    return x ** 2
+
+def cube(x):
+    return x ** 3
+
+def apply_operation(func, number):
+    """Apply a function to a number."""
+    return func(number)
+
+# Functions can be passed as arguments
+result1 = apply_operation(square, 5)
+result2 = apply_operation(cube, 3)
+
+print(f"Square of 5: {result1}")
+print(f"Cube of 3: {result2}")
+
+# Functions can be stored in variables
+operations = [square, cube]
+for op in operations:
+    print(f"{op.__name__}(4) = {op(4)}")
+```
+
+### Lambda Functions (Anonymous Functions)
+
+```{python}
+# Lambda functions for simple operations
+square = lambda x: x ** 2
+add = lambda x, y: x + y
+is_even = lambda x: x % 2 == 0
+
+print(f"Square of 6: {square(6)}")
+print(f"Add 3 + 7: {add(3, 7)}")
+print(f"Is 8 even? {is_even(8)}")
+
+# Using lambda with built-in functions
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Filter even numbers
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+print(f"Even numbers: {evens}")
+
+# Square all numbers
+squares = list(map(lambda x: x ** 2, numbers))
+print(f"Squares: {squares}")
+
+# Sort by custom criteria
+words = ["python", "java", "c", "javascript", "go"]
+sorted_by_length = sorted(words, key=lambda word: len(word))
+print(f"Sorted by length: {sorted_by_length}")
+```
+
+### Nested Functions and Closures
+
+```{python}
+def create_multiplier(factor):
+    """Create a function that multiplies by a specific factor."""
+    def multiplier(number):
+        return number * factor
+    
+    return multiplier
+
+# Create specific multiplier functions
+double = create_multiplier(2)
+triple = create_multiplier(3)
+
+print(f"Double 5: {double(5)}")
+print(f"Triple 4: {triple(4)}")
+
+# Another closure example
+def create_counter(start=0):
+    """Create a counter function."""
+    count = start
+    
+    def counter():
+        nonlocal count
+        count += 1
+        return count
+    
+    return counter
+
+# Create independent counters
+counter1 = create_counter(0)
+counter2 = create_counter(100)
+
+print(f"Counter 1: {counter1()}, {counter1()}, {counter1()}")
+print(f"Counter 2: {counter2()}, {counter2()}")
+```
+
+## Practical Examples
+
+### Example 1: Text Processing Functions
+
+```{python}
+def word_count(text):
+    """Count words in text."""
+    words = text.split()
+    return len(words)
+
+def char_count(text, exclude_spaces=True):
+    """Count characters in text."""
+    if exclude_spaces:
+        return len(text.replace(" ", ""))
+    return len(text)
+
+def title_case(text):
+    """Convert text to title case."""
+    return " ".join(word.capitalize() for word in text.split())
+
+def analyze_text(text):
+    """Comprehensive text analysis."""
+    return {
+        "original": text,
+        "word_count": word_count(text),
+        "char_count": char_count(text),
+        "char_count_with_spaces": char_count(text, exclude_spaces=False),
+        "title_case": title_case(text)
+    }
+
+# Test the functions
+sample_text = "python is an amazing programming language"
+analysis = analyze_text(sample_text)
+
+for key, value in analysis.items():
+    print(f"{key}: {value}")
+```
+
+### Example 2: Mathematical Functions
+
+```{python}
+def factorial(n):
+    """Calculate factorial of n."""
+    if n == 0 or n == 1:
+        return 1
+    result = 1
+    for i in range(2, n + 1):
+        result *= i
+    return result
+
+def fibonacci(n):
+    """Generate first n fibonacci numbers."""
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [0]
+    elif n == 2:
+        return [0, 1]
+    
+    fib_sequence = [0, 1]
+    for i in range(2, n):
+        next_fib = fib_sequence[i-1] + fib_sequence[i-2]
+        fib_sequence.append(next_fib)
+    
+    return fib_sequence
+
+def is_prime(n):
+    """Check if number is prime."""
+    if n < 2:
+        return False
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def prime_factors(n):
+    """Find prime factors of n."""
+    factors = []
+    d = 2
+    while d * d <= n:
+        while n % d == 0:
+            factors.append(d)
+            n //= d
+        d += 1
+    if n > 1:
+        factors.append(n)
+    return factors
+
+# Test mathematical functions
+print(f"Factorial of 5: {factorial(5)}")
+print(f"First 10 Fibonacci numbers: {fibonacci(10)}")
+print(f"Is 17 prime? {is_prime(17)}")
+print(f"Prime factors of 60: {prime_factors(60)}")
+```
+
+### Example 3: Data Processing Functions
+
+```{python}
+def filter_students_by_grade(students, min_grade):
+    """Filter students by minimum grade."""
+    return [student for student in students if student['grade'] >= min_grade]
+
+def calculate_class_stats(students):
+    """Calculate class statistics."""
+    if not students:
+        return {}
+    
+    grades = [student['grade'] for student in students]
+    return {
+        "count": len(students),
+        "average": sum(grades) / len(grades),
+        "highest": max(grades),
+        "lowest": min(grades),
+        "passing": len([g for g in grades if g >= 60])
+    }
+
+def format_student_report(student):
+    """Format a student report."""
+    grade = student['grade']
+    status = "Pass" if grade >= 60 else "Fail"
+    
+    return f"""
+Student Report
+--------------
+Name: {student['name']}
+Grade: {grade}
+Status: {status}
+"""
+
+# Sample data
+students_data = [
+    {"name": "Alice", "grade": 85},
+    {"name": "Bob", "grade": 92},
+    {"name": "Charlie", "grade": 78},
+    {"name": "Diana", "grade": 55},
+    {"name": "Eve", "grade": 96}
+]
+
+# Use the functions
+high_performers = filter_students_by_grade(students_data, 80)
+print("High performers (80+):")
+for student in high_performers:
+    print(f"  {student['name']}: {student['grade']}")
+
+stats = calculate_class_stats(students_data)
+print(f"\nClass Statistics:")
+for key, value in stats.items():
+    if isinstance(value, float):
+        print(f"  {key}: {value:.1f}")
+    else:
+        print(f"  {key}: {value}")
+```
+
+## Exercises
+
+### Exercise 1: Temperature Converter
+
+```{python}
+def celsius_to_fahrenheit(celsius):
+    """Convert Celsius to Fahrenheit."""
+    return (celsius * 9/5) + 32
+
+def fahrenheit_to_celsius(fahrenheit):
+    """Convert Fahrenheit to Celsius."""
+    return (fahrenheit - 32) * 5/9
+
+def kelvin_to_celsius(kelvin):
+    """Convert Kelvin to Celsius."""
+    return kelvin - 273.15
+
+def celsius_to_kelvin(celsius):
+    """Convert Celsius to Kelvin."""
+    return celsius + 273.15
+
+def temperature_converter(temp, from_unit, to_unit):
+    """Universal temperature converter."""
+    # First convert to Celsius
+    if from_unit.lower() == "fahrenheit":
+        temp_celsius = fahrenheit_to_celsius(temp)
+    elif from_unit.lower() == "kelvin":
+        temp_celsius = kelvin_to_celsius(temp)
+    else:  # Assume Celsius
+        temp_celsius = temp
+    
+    # Then convert to target unit
+    if to_unit.lower() == "fahrenheit":
+        return celsius_to_fahrenheit(temp_celsius)
+    elif to_unit.lower() == "kelvin":
+        return celsius_to_kelvin(temp_celsius)
+    else:  # Assume Celsius
+        return temp_celsius
+
+# Test the converter
+print("Temperature Conversions:")
+print(f"25°C = {celsius_to_fahrenheit(25):.1f}°F")
+print(f"77°F = {fahrenheit_to_celsius(77):.1f}°C")
+print(f"100°C = {temperature_converter(100, 'celsius', 'kelvin'):.1f}K")
+```
+
+### Exercise 2: List Processing Functions
+
+```{python}
+def find_max(numbers):
+    """Find maximum number in list."""
+    if not numbers:
+        return None
+    max_num = numbers[0]
+    for num in numbers:
+        if num > max_num:
+            max_num = num
+    return max_num
+
+def remove_duplicates(items):
+    """Remove duplicates while preserving order."""
+    seen = set()
+    result = []
+    for item in items:
+        if item not in seen:
+            seen.add(item)
+            result.append(item)
+    return result
+
+def reverse_string(text):
+    """Reverse a string using iteration."""
+    reversed_text = ""
+    for char in text:
+        reversed_text = char + reversed_text
+    return reversed_text
+
+def count_vowels(text):
+    """Count vowels in text."""
+    vowels = "aeiouAEIOU"
+    count = 0
+    for char in text:
+        if char in vowels:
+            count += 1
+    return count
+
+# Test the functions
+test_numbers = [3, 7, 2, 9, 1, 8, 4]
+test_list = [1, 2, 2, 3, 3, 3, 4, 5, 5]
+test_string = "Hello World"
+
+print(f"Max of {test_numbers}: {find_max(test_numbers)}")
+print(f"Remove duplicates from {test_list}: {remove_duplicates(test_list)}")
+print(f"Reverse '{test_string}': {reverse_string(test_string)}")
+print(f"Vowels in '{test_string}': {count_vowels(test_string)}")
+```
+
+## Self-Review Questions
+
+### Knowledge Check
+
+1. **What's the difference between parameters and arguments?**
+2. **What does a function return if there's no explicit return statement?**
+3. **What's the purpose of the `global` keyword?**
+4. **When would you use a lambda function instead of a regular function?**
+5. **What's the difference between `*args` and `**kwargs`?**
+
+### Coding Challenges
+
+1. **Write a function that calculates compound interest**
+2. **Create a function that validates email addresses**
+3. **Implement a function that sorts a list without using built-in sort**
+4. **Write a recursive function to calculate fibonacci numbers**
+
+### Answers
+
+1. Parameters are variables in function definition; arguments are actual values passed when calling
+2. `None`
+3. To modify global variables inside a function
+4. For simple, one-line operations used with map, filter, or sort
+5. `*args` collects positional arguments; `**kwargs` collects keyword arguments
+
+## Best Practices
+
+### Function Design Principles
+
+1. **Single Responsibility** - Each function should do one thing well
+2. **Descriptive Names** - Function names should clearly indicate purpose
+3. **Avoid Side Effects** - Functions should be predictable
+4. **Use Docstrings** - Document what the function does
+5. **Keep It Simple** - Break complex functions into smaller ones
+
+```{python}
+# Good function design
+def calculate_bmi(weight_kg, height_m):
+    """
+    Calculate Body Mass Index.
+    
+    Args:
+        weight_kg (float): Weight in kilograms
+        height_m (float): Height in meters
+    
+    Returns:
+        float: BMI value
+    """
+    if height_m <= 0:
+        raise ValueError("Height must be positive")
+    
+    return weight_kg / (height_m ** 2)
+
+def get_bmi_category(bmi):
+    """Get BMI category based on WHO standards."""
+    if bmi < 18.5:
+        return "Underweight"
+    elif bmi < 25:
+        return "Normal weight"
+    elif bmi < 30:
+        return "Overweight"
+    else:
+        return "Obese"
+
+# Usage
+weight = 70  # kg
+height = 1.75  # m
+bmi = calculate_bmi(weight, height)
+category = get_bmi_category(bmi)
+
+print(f"BMI: {bmi:.1f} ({category})")
+```
+
+## Common Pitfalls
+
+1. **Mutable Default Arguments**
+```python
+# Wrong
+def add_item(item, target_list=[]):
+    target_list.append(item)
+    return target_list
+
+# Right
+def add_item(item, target_list=None):
+    if target_list is None:
+        target_list = []
+    target_list.append(item)
+    return target_list
+```
+
+2. **Modifying Global State Unnecessarily**
+3. **Functions That Are Too Long**
+4. **Not Handling Edge Cases**
+
+## Next Steps
+
+Excellent! You now understand how to create and use functions effectively. Next, we'll dive into [Object-Oriented Programming](07-classes.qmd) to learn how to organize code with classes and objects.
+
+## Resources
+
+- [Python Functions Documentation](https://docs.python.org/3/tutorial/controlflow.html#defining-functions)
+- [Real Python: Python Functions](https://realpython.com/defining-your-own-python-function/)
+- [PEP 257: Docstring Conventions](https://www.python.org/dev/peps/pep-0257/)

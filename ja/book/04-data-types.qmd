@@ -1,0 +1,442 @@
+# データ型とコレクション
+
+Python は、データを効率的に整理・操作するための強力な組み込みデータ構造を提供しています。
+
+## リスト - 順序付きコレクション
+
+リストは異なるデータ型を保持できる**可変**シーケンスです：
+
+```{python}
+# リストの作成
+fruits = ["apple", "banana", "cherry"]
+numbers = [1, 2, 3, 4, 5]
+mixed = ["hello", 42, 3.14, True]
+
+print("果物:", fruits)
+print("数字:", numbers)
+print("混合型:", mixed)
+```
+
+### リストの操作
+
+```{python}
+colors = ["red", "green", "blue"]
+
+# 要素へのアクセス（0から始まるインデックス）
+print(f"最初の色: {colors[0]}")
+print(f"最後の色: {colors[-1]}")
+
+# 要素の追加
+colors.append("yellow")           # 末尾に追加
+colors.insert(1, "purple")        # 指定位置に挿入
+print(f"追加後: {colors}")
+
+# 要素の削除
+colors.remove("purple")           # 値で削除
+last_color = colors.pop()         # 最後を削除して返す
+print(f"削除後: {colors}")
+print(f"削除した色: {last_color}")
+```
+
+### リストのメソッドとプロパティ
+
+```{python}
+numbers = [3, 1, 4, 1, 5, 9, 2, 6]
+
+print(f"元のリスト: {numbers}")
+print(f"長さ: {len(numbers)}")
+print(f"1の個数: {numbers.count(1)}")
+print(f"4のインデックス: {numbers.index(4)}")
+
+# ソート
+numbers.sort()
+print(f"ソート後: {numbers}")
+
+# 逆順
+numbers.reverse()
+print(f"逆順: {numbers}")
+
+# リスト内包表記（プレビュー）
+squares = [x**2 for x in range(1, 6)]
+print(f"平方数: {squares}")
+```
+
+### リストのスライシング
+
+```{python}
+letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+
+print(f"元のリスト: {letters}")
+print(f"最初の3つ: {letters[:3]}")
+print(f"最後の3つ: {letters[-3:]}")
+print(f"中間: {letters[2:5]}")
+print(f"2つおき: {letters[::2]}")
+print(f"逆順: {letters[::-1]}")
+```
+
+## タプル - 不変シーケンス
+
+タプルは**不変**シーケンスで、固定データに最適です：
+
+```{python}
+# タプルの作成
+point = (10, 20)
+rgb_color = (255, 128, 0)
+person = ("Alice", 25, "Engineer")
+
+print(f"座標: {point}")
+print(f"RGB色: {rgb_color}")
+print(f"人物情報: {person}")
+
+# 要素へのアクセス
+print(f"X座標: {point[0]}")
+print(f"Y座標: {point[1]}")
+
+# タプルのアンパック
+name, age, job = person
+print(f"名前: {name}, 年齢: {age}, 職業: {job}")
+```
+
+### タプルのメソッド
+
+```{python}
+grades = (85, 92, 78, 92, 88, 92)
+
+print(f"成績: {grades}")
+print(f"92の個数: {grades.count(92)}")
+print(f"78のインデックス: {grades.index(78)}")
+print(f"長さ: {len(grades)}")
+
+# リストとタプルの変換
+grades_list = list(grades)
+print(f"リストとして: {grades_list}")
+
+new_tuple = tuple([1, 2, 3, 4])
+print(f"リストから: {new_tuple}")
+```
+
+## 辞書 - キー-値ペア
+
+辞書はキー-値ペアとしてデータを格納します：
+
+```{python}
+# 辞書の作成
+student = {
+    "name": "Alice",
+    "age": 20,
+    "major": "Computer Science",
+    "gpa": 3.8
+}
+
+print("学生情報:", student)
+
+# 値へのアクセス
+print(f"名前: {student['name']}")
+print(f"GPA: {student.get('gpa', '見つかりません')}")
+
+# 値の追加/更新
+student["graduation_year"] = 2025
+student["age"] = 21
+print("更新後:", student)
+```
+
+### 辞書のメソッド
+
+```{python}
+inventory = {
+    "apples": 50,
+    "bananas": 30,
+    "oranges": 25
+}
+
+print("在庫:", inventory)
+
+# 辞書のメソッド
+print("キー:", list(inventory.keys()))
+print("値:", list(inventory.values()))
+print("アイテム:", list(inventory.items()))
+
+# 存在確認
+print("りんごあり:", "apples" in inventory)
+print("ぶどうあり:", "grapes" in inventory)
+
+# 安全な削除
+removed = inventory.pop("bananas", 0)
+print(f"バナナを{removed}個削除")
+print("削除後:", inventory)
+```
+
+### 辞書の反復処理
+
+```{python}
+scores = {"Alice": 95, "Bob": 87, "Charlie": 92}
+
+# キーの反復処理
+print("学生:")
+for name in scores:
+    print(f"  {name}")
+
+# 値の反復処理
+print("スコア:")
+for score in scores.values():
+    print(f"  {score}")
+
+# キー-値ペアの反復処理
+print("学生スコア:")
+for name, score in scores.items():
+    print(f"  {name}: {score}")
+```
+
+## セット - 一意なコレクション
+
+セットは一意な要素を格納し、数学的操作をサポートします：
+
+```{python}
+# セットの作成
+fruits = {"apple", "banana", "cherry"}
+numbers = {1, 2, 3, 4, 5}
+mixed_set = {1, "hello", 3.14}
+
+print("果物セット:", fruits)
+print("数字セット:", numbers)
+
+# 要素の追加
+fruits.add("orange")
+print("オレンジ追加後:", fruits)
+
+# 要素の削除
+fruits.discard("banana")  # 安全な削除
+print("バナナ削除後:", fruits)
+```
+
+### セット演算
+
+```{python}
+set_a = {1, 2, 3, 4, 5}
+set_b = {4, 5, 6, 7, 8}
+
+print(f"セットA: {set_a}")
+print(f"セットB: {set_b}")
+
+# 数学的演算
+print(f"和集合 (A ∪ B): {set_a | set_b}")
+print(f"積集合 (A ∩ B): {set_a & set_b}")
+print(f"差集合 (A - B): {set_a - set_b}")
+print(f"対称差集合: {set_a ^ set_b}")
+
+# 包含テスト
+print(f"3 は A に含まれる: {3 in set_a}")
+print(f"A は B の部分集合: {set_a.issubset(set_b)}")
+```
+
+## 適切なデータ構造の選択
+
+| データ構造 | 使用場面 | 例 |
+|-----------|---------|---|
+| **リスト** | 順序付き、可変コレクション | 買い物リスト、スコア |
+| **タプル** | 順序付き、不変コレクション | 座標、RGB値 |
+| **辞書** | キー-値マッピング | 学生記録、在庫 |
+| **セット** | 一意な要素、高速検索 | タグ、一意ID |
+
+```{python}
+# 実用的な例
+shopping_list = ["milk", "bread", "eggs"]        # リスト: 変更可能
+coordinates = (40.7128, -74.0060)                # タプル: 固定点
+student_grades = {"math": 95, "science": 87}     # 辞書: 科目で検索
+unique_visitors = {"alice", "bob", "charlie"}     # セット: 重複なし
+```
+
+## 一般的なパターンと操作
+
+### リスト内包表記
+
+```{python}
+# 従来の方法
+squares = []
+for x in range(1, 6):
+    squares.append(x**2)
+print("従来型:", squares)
+
+# リスト内包表記
+squares = [x**2 for x in range(1, 6)]
+print("内包表記:", squares)
+
+# 条件付き
+even_squares = [x**2 for x in range(1, 11) if x % 2 == 0]
+print("偶数の平方:", even_squares)
+
+# 文字列の処理
+words = ["hello", "world", "python"]
+uppercase = [word.upper() for word in words]
+print("大文字:", uppercase)
+```
+
+### 辞書内包表記
+
+```{python}
+# リストから辞書を作成
+names = ["Alice", "Bob", "Charlie"]
+ages = [25, 30, 35]
+people = {name: age for name, age in zip(names, ages)}
+print("人々:", people)
+
+# 平方数
+squares_dict = {x: x**2 for x in range(1, 6)}
+print("平方数辞書:", squares_dict)
+
+# 辞書のフィルタリング
+high_scores = {name: score for name, score in scores.items() if score > 90}
+print("高得点:", high_scores)
+```
+
+## 演習
+
+### 演習1: 学生管理システム
+
+```{python}
+# 学生管理システムを作成
+students = []
+
+# 学生を追加
+def add_student(name, age, grades):
+    student = {
+        "name": name,
+        "age": age,
+        "grades": grades,
+        "average": sum(grades) / len(grades)
+    }
+    students.append(student)
+
+# 学生を追加
+add_student("Alice", 20, [95, 87, 92])
+add_student("Bob", 19, [78, 84, 88])
+add_student("Charlie", 21, [92, 96, 89])
+
+# 学生を表示
+print("=== 学生記録 ===")
+for student in students:
+    print(f"名前: {student['name']}")
+    print(f"年齢: {student['age']}")
+    print(f"成績: {student['grades']}")
+    print(f"平均: {student['average']:.1f}")
+    print("-" * 20)
+```
+
+### 演習2: 単語頻度カウンター
+
+```{python}
+# テキスト内の単語頻度をカウント
+text = "python is great python is powerful python is fun"
+words = text.split()
+
+# 方法1: 辞書を使用
+word_count = {}
+for word in words:
+    word_count[word] = word_count.get(word, 0) + 1
+
+print("単語の頻度:")
+for word, count in word_count.items():
+    print(f"{word}: {count}")
+
+# 方法2: Counter を使用（collections から）
+from collections import Counter
+word_count_2 = Counter(words)
+print("\nCounter使用:", dict(word_count_2))
+```
+
+### 演習3: データでのセット演算
+
+```{python}
+# 学生の履修科目
+math_students = {"Alice", "Bob", "Charlie", "David"}
+science_students = {"Bob", "Charlie", "Eve", "Frank"}
+english_students = {"Alice", "Charlie", "Eve", "Grace"}
+
+print("数学受講生:", math_students)
+print("理科受講生:", science_students)
+print("英語受講生:", english_students)
+
+# 分析
+both_math_science = math_students & science_students
+print("数学と理科の両方:", both_math_science)
+
+all_students = math_students | science_students | english_students
+print("全学生:", all_students)
+
+only_math = math_students - science_students - english_students
+print("数学のみ:", only_math)
+```
+
+## 自己確認問題
+
+### 知識チェック
+
+1. **リストとタプルの違いは何ですか？**
+2. **リストの代わりに辞書を使うのはいつですか？**
+3. **セットに重複を追加しようとするとどうなりますか？**
+4. **リストの最後の要素にアクセスするにはどうしますか？**
+5. **リストの`remove()`と`pop()`の違いは何ですか？**
+
+### コーディングチャレンジ
+
+1. **2つのリストの共通要素を見つける関数を作成**
+2. **2つの辞書をマージするプログラムを作成**
+3. **リスト内包表記を使ってリストから偶数をフィルタリング**
+4. **リスト内で最も頻繁に現れる要素を返す関数を作成**
+
+### 回答
+
+1. リストは可変で順序付き；タプルは不変で順序付き
+2. キー-値の関連付けやキーによる高速検索が必要な時
+3. 何も起こらない - セットは自動的に重複を処理
+4. `my_list[-1]` または `my_list[len(my_list)-1]`
+5. `remove()`は値で削除；`pop()`はインデックスで削除して値を返す
+
+## ベストプラクティス
+
+1. **用途に適したデータ構造を選択**する
+2. **簡単な変換にはリスト内包表記を使用**する
+3. **辞書の安全なアクセスには`get()`メソッドを使用**する
+4. **包含テストと重複除去にはセットを使用**する
+5. **複数の代入にはタプルアンパックを使用**する
+
+## よくある落とし穴
+
+1. **反復処理中にリストを変更** - 最初にコピーを作成
+2. **関数パラメータで可変なデフォルトを使用**
+3. **比較で`is`と`==`を混同**
+4. **辞書が挿入順序を保持することを忘れる**（Python 3.7+）
+
+## パフォーマンスのヒント
+
+```{python}
+import time
+
+# 包含テストでのリスト vs セット
+large_list = list(range(10000))
+large_set = set(range(10000))
+
+# リストの検索時間
+start = time.time()
+9999 in large_list
+list_time = time.time() - start
+
+# セットの検索時間
+start = time.time()
+9999 in large_set
+set_time = time.time() - start
+
+print(f"リスト検索: {list_time:.6f} 秒")
+print(f"セット検索: {set_time:.6f} 秒")
+print(f"包含テストでセットは{list_time/set_time:.1f}倍高速")
+```
+
+## 次のステップ
+
+素晴らしい！Python の核となるデータ構造を理解しました。次は [制御フロー](05-control-flow.qmd) について学び、プログラムで判断を下し、アクションを繰り返す方法を学びましょう。
+
+## リソース
+
+- [Python データ構造ドキュメント](https://docs.python.org/3/tutorial/datastructures.html)
+- [Real Python: Python データ構造](https://realpython.com/python-data-structures/)
+- [Collections モジュール](https://docs.python.org/3/library/collections.html)

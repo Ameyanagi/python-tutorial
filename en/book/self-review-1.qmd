@@ -1,0 +1,569 @@
+# Self-Review: Python Fundamentals
+
+Test your understanding of Python basics with this comprehensive review section.
+
+## 📝 Knowledge Assessment
+
+### Section 1: Variables and Data Types
+
+**Question 1:** What will be the output of the following code?
+```python
+x = 5
+y = "5"
+print(x + y)
+```
+
+**Answer:** This will raise a `TypeError` because you cannot add an integer and a string directly.
+
+**Question 2:** Which of these variable names are valid in Python?
+- `2name` ❌
+- `first_name` ✅
+- `first-name` ❌
+- `_private` ✅
+- `class` ❌ (reserved keyword)
+
+**Question 3:** What's the difference between these string formatting methods?
+```python
+name = "Alice"
+age = 25
+
+# Method 1
+print("Name: %s, Age: %d" % (name, age))
+
+# Method 2
+print("Name: {}, Age: {}".format(name, age))
+
+# Method 3
+print(f"Name: {name}, Age: {age}")
+```
+
+**Answer:** All produce the same output, but f-strings (Method 3) are the most modern and efficient approach.
+
+### Section 2: Data Collections
+
+**Question 4:** What's the output of this code?
+```python
+my_list = [1, 2, 3]
+my_tuple = (1, 2, 3)
+my_set = {1, 2, 3, 2, 1}
+
+print(len(my_list), len(my_tuple), len(my_set))
+```
+
+**Answer:** `3 3 3` - Sets automatically remove duplicates.
+
+**Question 5:** How do you safely access a dictionary key that might not exist?
+```python
+student = {"name": "Alice", "age": 20}
+
+# Option A (may cause KeyError)
+grade = student["grade"]
+
+# Option B (safe access)
+grade = student.get("grade", "Not found")
+```
+
+**Answer:** Option B is safer - `get()` returns a default value if the key doesn't exist.
+
+### Section 3: Control Flow
+
+**Question 6:** What does this FizzBuzz implementation output for n=15?
+```python
+n = 15
+if n % 15 == 0:
+    print("FizzBuzz")
+elif n % 3 == 0:
+    print("Fizz")
+elif n % 5 == 0:
+    print("Buzz")
+else:
+    print(n)
+```
+
+**Answer:** "FizzBuzz" - because 15 is divisible by both 3 and 5.
+
+**Question 7:** How many times will this loop execute?
+```python
+count = 0
+while count < 5:
+    print(count)
+    count += 2
+```
+
+**Answer:** 3 times, printing 0, 2, 4.
+
+### Section 4: Functions
+
+**Question 8:** What will this function return?
+```python
+def mystery_function(x, y=10):
+    if x > y:
+        return x
+    return y
+
+result = mystery_function(5)
+```
+
+**Answer:** `10` - because `y` defaults to 10, and 5 is not greater than 10.
+
+**Question 9:** What's wrong with this function?
+```python
+def add_to_list(item, my_list=[]):
+    my_list.append(item)
+    return my_list
+```
+
+**Answer:** Mutable default argument! The same list is reused across function calls, causing unexpected behavior.
+
+## 💻 Coding Challenges
+
+### Challenge 1: Data Analysis
+Write a program that analyzes a list of student grades:
+
+```{python}
+def analyze_grades(grades):
+    """
+    Analyze a list of student grades.
+    
+    Returns a dictionary with statistics.
+    """
+    if not grades:
+        return {"error": "No grades provided"}
+    
+    total = sum(grades)
+    count = len(grades)
+    average = total / count
+    
+    passing_grades = [g for g in grades if g >= 60]
+    passing_rate = len(passing_grades) / count * 100
+    
+    return {
+        "total_students": count,
+        "average": round(average, 2),
+        "highest": max(grades),
+        "lowest": min(grades),
+        "passing_rate": round(passing_rate, 2)
+    }
+
+# Test the function
+test_grades = [85, 92, 78, 65, 88, 76, 95, 58, 82, 90]
+stats = analyze_grades(test_grades)
+
+print("Grade Analysis:")
+for key, value in stats.items():
+    print(f"  {key.replace('_', ' ').title()}: {value}")
+```
+
+### Challenge 2: Text Processing
+Create a word frequency analyzer:
+
+```{python}
+def word_frequency(text):
+    """
+    Count frequency of words in text.
+    
+    Returns dictionary with word counts.
+    """
+    # Convert to lowercase and split into words
+    words = text.lower().replace(",", "").replace(".", "").split()
+    
+    frequency = {}
+    for word in words:
+        frequency[word] = frequency.get(word, 0) + 1
+    
+    return frequency
+
+def most_common_words(text, n=3):
+    """Find the n most common words."""
+    freq = word_frequency(text)
+    
+    # Sort by frequency (descending)
+    sorted_words = sorted(freq.items(), key=lambda x: x[1], reverse=True)
+    
+    return sorted_words[:n]
+
+# Test the functions
+sample_text = "Python is great. Python is powerful. Python is fun and Python is easy to learn."
+
+print("Word Frequencies:")
+frequencies = word_frequency(sample_text)
+for word, count in frequencies.items():
+    print(f"  {word}: {count}")
+
+print(f"\nTop 3 most common words:")
+top_words = most_common_words(sample_text, 3)
+for word, count in top_words:
+    print(f"  {word}: {count} times")
+```
+
+### Challenge 3: Number Games
+Implement a guessing game:
+
+```{python}
+import random
+
+def number_guessing_game(secret_number=None, max_attempts=6):
+    """
+    Number guessing game simulation.
+    """
+    if secret_number is None:
+        secret_number = random.randint(1, 100)
+    
+    print("Welcome to the Number Guessing Game!")
+    print("I'm thinking of a number between 1 and 100.")
+    print(f"You have {max_attempts} attempts.")
+    
+    # Simulate some guesses for demonstration
+    demo_guesses = [50, 25, 75, secret_number]
+    
+    for attempt in range(1, max_attempts + 1):
+        if attempt <= len(demo_guesses):
+            guess = demo_guesses[attempt - 1]
+        else:
+            guess = secret_number  # Auto-win if demo runs out
+        
+        print(f"\nAttempt {attempt}: Guess = {guess}")
+        
+        if guess == secret_number:
+            print(f"🎉 Congratulations! You guessed it in {attempt} attempts!")
+            return True
+        elif guess < secret_number:
+            print("Too low! Try a higher number.")
+        else:
+            print("Too high! Try a lower number.")
+    
+    print(f"\n😞 Game over! The number was {secret_number}")
+    return False
+
+# Play the game
+number_guessing_game(secret_number=67)
+```
+
+### Challenge 4: Data Structures Practice
+Build a simple contact book:
+
+```{python}
+class ContactBook:
+    """Simple contact book implementation."""
+    
+    def __init__(self):
+        self.contacts = {}
+    
+    def add_contact(self, name, phone, email=None):
+        """Add a new contact."""
+        self.contacts[name] = {
+            "phone": phone,
+            "email": email
+        }
+        print(f"Added contact: {name}")
+    
+    def find_contact(self, name):
+        """Find a contact by name."""
+        if name in self.contacts:
+            return self.contacts[name]
+        return None
+    
+    def list_contacts(self):
+        """List all contacts."""
+        if not self.contacts:
+            print("No contacts found.")
+            return
+        
+        print("Contact List:")
+        for name, info in self.contacts.items():
+            phone = info["phone"]
+            email = info.get("email", "No email")
+            print(f"  {name}: {phone} | {email}")
+    
+    def remove_contact(self, name):
+        """Remove a contact."""
+        if name in self.contacts:
+            del self.contacts[name]
+            print(f"Removed contact: {name}")
+        else:
+            print(f"Contact '{name}' not found.")
+
+# Demonstrate the contact book
+book = ContactBook()
+
+# Add some contacts
+book.add_contact("Alice Johnson", "555-0123", "alice@email.com")
+book.add_contact("Bob Smith", "555-0456")
+book.add_contact("Charlie Brown", "555-0789", "charlie@email.com")
+
+# List all contacts
+book.list_contacts()
+
+# Find a specific contact
+contact = book.find_contact("Alice Johnson")
+if contact:
+    print(f"\nFound Alice: {contact}")
+
+# Remove a contact
+book.remove_contact("Bob Smith")
+print("\nAfter removal:")
+book.list_contacts()
+```
+
+## 🧩 Logic Puzzles
+
+### Puzzle 1: Pattern Recognition
+What comes next in this sequence?
+```python
+sequence = [1, 1, 2, 3, 5, 8, 13, ?, ?]
+```
+
+**Answer:** 21, 34 (Fibonacci sequence)
+
+### Puzzle 2: String Manipulation
+Write a function to check if a string is a palindrome:
+
+```{python}
+def is_palindrome(text):
+    """Check if text reads the same forwards and backwards."""
+    # Remove spaces and convert to lowercase
+    cleaned = text.replace(" ", "").lower()
+    
+    # Compare with its reverse
+    return cleaned == cleaned[::-1]
+
+# Test cases
+test_cases = ["racecar", "A man a plan a canal Panama", "hello", "Madam"]
+
+for test in test_cases:
+    result = is_palindrome(test)
+    print(f"'{test}' is palindrome: {result}")
+```
+
+### Puzzle 3: Mathematical Challenge
+Find all perfect numbers up to 1000:
+
+```{python}
+def is_perfect_number(n):
+    """Check if n is a perfect number (equals sum of its proper divisors)."""
+    if n <= 1:
+        return False
+    
+    divisor_sum = 1  # 1 is always a proper divisor
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            divisor_sum += i
+            if i != n // i:  # Avoid counting the square root twice
+                divisor_sum += n // i
+    
+    return divisor_sum == n
+
+def find_perfect_numbers(limit):
+    """Find all perfect numbers up to limit."""
+    perfect_numbers = []
+    for num in range(1, limit + 1):
+        if is_perfect_number(num):
+            perfect_numbers.append(num)
+    return perfect_numbers
+
+# Find perfect numbers
+perfect_nums = find_perfect_numbers(1000)
+print(f"Perfect numbers up to 1000: {perfect_nums}")
+
+# Show why 6 is perfect
+if 6 in perfect_nums:
+    divisors = [1, 2, 3]  # Proper divisors of 6
+    print(f"6 is perfect because: {' + '.join(map(str, divisors))} = {sum(divisors)}")
+```
+
+## 📊 Performance Challenges
+
+### Time Complexity Practice
+
+Compare different approaches to find duplicates in a list:
+
+```{python}
+import time
+
+def find_duplicates_nested(lst):
+    """O(n²) approach using nested loops."""
+    duplicates = []
+    for i in range(len(lst)):
+        for j in range(i + 1, len(lst)):
+            if lst[i] == lst[j] and lst[i] not in duplicates:
+                duplicates.append(lst[i])
+    return duplicates
+
+def find_duplicates_set(lst):
+    """O(n) approach using set."""
+    seen = set()
+    duplicates = set()
+    
+    for item in lst:
+        if item in seen:
+            duplicates.add(item)
+        else:
+            seen.add(item)
+    
+    return list(duplicates)
+
+# Test with a larger dataset
+test_data = [1, 2, 3, 4, 5, 2, 6, 7, 8, 9, 3, 10] * 100
+
+# Time the nested approach
+start = time.time()
+dups1 = find_duplicates_nested(test_data[:50])  # Smaller dataset for nested
+time_nested = time.time() - start
+
+# Time the set approach
+start = time.time()
+dups2 = find_duplicates_set(test_data)
+time_set = time.time() - start
+
+print(f"Nested loops (50 items): {time_nested:.6f} seconds")
+print(f"Set approach (1200 items): {time_set:.6f} seconds")
+print(f"Set approach is much faster for large datasets!")
+```
+
+## 🏆 Final Assessment
+
+### Comprehensive Project: Student Grade Manager
+
+```{python}
+class Student:
+    """Represent a student with grades."""
+    
+    def __init__(self, name, student_id):
+        self.name = name
+        self.student_id = student_id
+        self.grades = []
+    
+    def add_grade(self, grade):
+        """Add a grade (0-100)."""
+        if 0 <= grade <= 100:
+            self.grades.append(grade)
+        else:
+            print(f"Invalid grade: {grade}. Must be 0-100.")
+    
+    def get_average(self):
+        """Calculate average grade."""
+        if not self.grades:
+            return 0
+        return sum(self.grades) / len(self.grades)
+    
+    def get_letter_grade(self):
+        """Get letter grade based on average."""
+        avg = self.get_average()
+        if avg >= 90:
+            return "A"
+        elif avg >= 80:
+            return "B"
+        elif avg >= 70:
+            return "C"
+        elif avg >= 60:
+            return "D"
+        else:
+            return "F"
+    
+    def __str__(self):
+        avg = self.get_average()
+        letter = self.get_letter_grade()
+        return f"{self.name} (ID: {self.student_id}): {avg:.1f} ({letter})"
+
+class GradeBook:
+    """Manage multiple students and their grades."""
+    
+    def __init__(self):
+        self.students = {}
+    
+    def add_student(self, name, student_id):
+        """Add a new student."""
+        if student_id not in self.students:
+            self.students[student_id] = Student(name, student_id)
+            print(f"Added student: {name}")
+        else:
+            print(f"Student ID {student_id} already exists.")
+    
+    def add_grade(self, student_id, grade):
+        """Add grade to a student."""
+        if student_id in self.students:
+            self.students[student_id].add_grade(grade)
+        else:
+            print(f"Student ID {student_id} not found.")
+    
+    def get_class_average(self):
+        """Calculate class average."""
+        if not self.students:
+            return 0
+        
+        total_avg = sum(student.get_average() for student in self.students.values())
+        return total_avg / len(self.students)
+    
+    def get_honor_roll(self, min_average=85):
+        """Get students on honor roll."""
+        return [student for student in self.students.values() 
+                if student.get_average() >= min_average]
+    
+    def print_report(self):
+        """Print comprehensive class report."""
+        print("=" * 50)
+        print("GRADE BOOK REPORT")
+        print("=" * 50)
+        
+        for student in self.students.values():
+            print(student)
+        
+        print(f"\nClass Average: {self.get_class_average():.1f}")
+        
+        honor_students = self.get_honor_roll()
+        if honor_students:
+            print(f"\nHonor Roll ({len(honor_students)} students):")
+            for student in honor_students:
+                print(f"  {student.name}: {student.get_average():.1f}")
+
+# Demonstrate the grade book system
+gradebook = GradeBook()
+
+# Add students
+gradebook.add_student("Alice Johnson", "001")
+gradebook.add_student("Bob Smith", "002")
+gradebook.add_student("Charlie Brown", "003")
+
+# Add grades
+gradebook.add_grade("001", 95)
+gradebook.add_grade("001", 87)
+gradebook.add_grade("001", 92)
+
+gradebook.add_grade("002", 78)
+gradebook.add_grade("002", 82)
+gradebook.add_grade("002", 85)
+
+gradebook.add_grade("003", 88)
+gradebook.add_grade("003", 91)
+gradebook.add_grade("003", 89)
+
+# Generate report
+gradebook.print_report()
+```
+
+## 🎯 Review Summary
+
+### Key Concepts Mastered
+- ✅ Variables and data types
+- ✅ Data structures (lists, tuples, dictionaries, sets)
+- ✅ Control flow (if/else, loops)
+- ✅ Functions and scope
+- ✅ Error handling basics
+- ✅ Code organization and best practices
+
+### Areas for Continued Practice
+1. **Algorithm efficiency** - Understanding time/space complexity
+2. **Error handling** - More robust exception handling
+3. **File I/O** - Reading and writing files
+4. **Object-oriented programming** - Classes and inheritance
+5. **External libraries** - Using pip packages
+
+### Next Learning Path
+Ready to advance? Here's your roadmap:
+1. **Object-Oriented Programming** - Classes, inheritance, polymorphism
+2. **File Handling** - Working with files and data persistence
+3. **Error Handling** - Exception handling and debugging
+4. **Libraries and Modules** - Using and creating Python packages
+5. **Real-world Projects** - Building complete applications
+
+Congratulations on completing the Python fundamentals! You now have a solid foundation to build upon. Keep practicing and experimenting with code - that's the best way to become a proficient programmer! 🐍✨

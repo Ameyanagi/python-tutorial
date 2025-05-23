@@ -1,0 +1,574 @@
+# Control Flow - Making Decisions and Loops
+
+Control flow statements allow your programs to make decisions and repeat actions based on conditions.
+
+## Conditional Statements - if, elif, else
+
+### Basic if Statement
+
+```{python}
+age = 18
+
+if age >= 18:
+    print("You are an adult")
+    print("You can vote")
+
+print("This always runs")
+```
+
+### if-else Statement
+
+```{python}
+temperature = 25
+
+if temperature > 30:
+    print("It's hot outside!")
+    print("Stay hydrated")
+else:
+    print("It's not too hot")
+    print("Perfect weather")
+
+print(f"Current temperature: {temperature}°C")
+```
+
+### if-elif-else Chain
+
+```{python}
+score = 85
+
+if score >= 90:
+    grade = "A"
+    message = "Excellent!"
+elif score >= 80:
+    grade = "B"
+    message = "Good job!"
+elif score >= 70:
+    grade = "C"
+    message = "Keep working!"
+elif score >= 60:
+    grade = "D"
+    message = "Need improvement"
+else:
+    grade = "F"
+    message = "Must retake"
+
+print(f"Score: {score}")
+print(f"Grade: {grade}")
+print(f"Message: {message}")
+```
+
+### Nested Conditions
+
+```{python}
+weather = "sunny"
+temperature = 22
+
+if weather == "sunny":
+    if temperature > 25:
+        activity = "Go to the beach"
+    elif temperature > 15:
+        activity = "Go for a walk"
+    else:
+        activity = "Stay inside but open windows"
+else:
+    if temperature > 20:
+        activity = "Indoor sports"
+    else:
+        activity = "Read a book"
+
+print(f"Weather: {weather}, Temperature: {temperature}°C")
+print(f"Recommended activity: {activity}")
+```
+
+## Comparison and Logical Operators
+
+### Comparison Operators
+
+```{python}
+a, b = 10, 5
+
+print(f"a = {a}, b = {b}")
+print(f"a == b: {a == b}")   # Equal
+print(f"a != b: {a != b}")   # Not equal
+print(f"a > b: {a > b}")     # Greater than
+print(f"a < b: {a < b}")     # Less than
+print(f"a >= b: {a >= b}")   # Greater than or equal
+print(f"a <= b: {a <= b}")   # Less than or equal
+```
+
+### Logical Operators
+
+```{python}
+age = 25
+has_license = True
+has_car = False
+
+# AND operator
+can_drive = age >= 18 and has_license
+print(f"Can drive: {can_drive}")
+
+# OR operator
+can_travel = has_car or age >= 18
+print(f"Can travel: {can_travel}")
+
+# NOT operator
+needs_license = not has_license
+print(f"Needs license: {needs_license}")
+
+# Complex condition
+can_rent_car = age >= 21 and has_license and not has_car
+print(f"Can rent car: {can_rent_car}")
+```
+
+### Membership and Identity Operators
+
+```{python}
+fruits = ["apple", "banana", "cherry"]
+my_fruit = "apple"
+another_fruit = "grape"
+
+# Membership operators
+print(f"'{my_fruit}' in fruits: {my_fruit in fruits}")
+print(f"'{another_fruit}' not in fruits: {another_fruit not in fruits}")
+
+# Identity operators
+list1 = [1, 2, 3]
+list2 = [1, 2, 3]
+list3 = list1
+
+print(f"list1 == list2: {list1 == list2}")  # Same content
+print(f"list1 is list2: {list1 is list2}")  # Same object
+print(f"list1 is list3: {list1 is list3}")  # Same object
+```
+
+## Loops - Repeating Actions
+
+### for Loop - Iterating Over Sequences
+
+```{python}
+# Loop over a list
+fruits = ["apple", "banana", "cherry"]
+
+print("My favorite fruits:")
+for fruit in fruits:
+    print(f"- {fruit}")
+
+# Loop over a string
+word = "Python"
+print(f"\nLetters in '{word}':")
+for letter in word:
+    print(letter)
+
+# Loop with enumerate (get index and value)
+print("\nNumbered list:")
+for index, fruit in enumerate(fruits, 1):
+    print(f"{index}. {fruit}")
+```
+
+### range() Function
+
+```{python}
+# Basic range
+print("Numbers 0 to 4:")
+for i in range(5):
+    print(i)
+
+# Range with start and stop
+print("\nNumbers 1 to 5:")
+for i in range(1, 6):
+    print(i)
+
+# Range with step
+print("\nEven numbers 0 to 10:")
+for i in range(0, 11, 2):
+    print(i)
+
+# Countdown
+print("\nCountdown:")
+for i in range(5, 0, -1):
+    print(i)
+print("Blast off!")
+```
+
+### Nested Loops
+
+```{python}
+# Multiplication table
+print("Multiplication Table:")
+for i in range(1, 4):
+    for j in range(1, 4):
+        result = i * j
+        print(f"{i} × {j} = {result}")
+    print()  # Empty line after each row
+```
+
+### while Loop - Repeating Until Condition is False
+
+```{python}
+# Basic while loop
+count = 0
+print("Counting to 5:")
+while count < 5:
+    print(f"Count: {count}")
+    count += 1
+print("Done!")
+
+# User input simulation (using predetermined values)
+guesses = [7, 3, 5]  # Simulating user inputs
+secret_number = 5
+attempts = 0
+
+print("\nGuessing game:")
+while attempts < len(guesses):
+    guess = guesses[attempts]
+    attempts += 1
+    
+    print(f"Guess #{attempts}: {guess}")
+    
+    if guess == secret_number:
+        print(f"Correct! You guessed it in {attempts} attempts!")
+        break
+    elif guess < secret_number:
+        print("Too low!")
+    else:
+        print("Too high!")
+```
+
+## Loop Control - break, continue, pass
+
+### break Statement
+
+```{python}
+# Finding first even number
+numbers = [1, 3, 7, 8, 9, 12, 15]
+
+print("Looking for first even number:")
+for num in numbers:
+    if num % 2 == 0:
+        print(f"Found first even number: {num}")
+        break
+    print(f"{num} is odd")
+```
+
+### continue Statement
+
+```{python}
+# Skip negative numbers
+numbers = [1, -2, 3, -4, 5, -6, 7]
+
+print("Positive numbers only:")
+for num in numbers:
+    if num < 0:
+        continue  # Skip the rest of this iteration
+    print(num)
+```
+
+### pass Statement
+
+```{python}
+# Placeholder for future implementation
+def process_data(data):
+    if data is None:
+        pass  # TODO: Handle None case later
+    else:
+        print(f"Processing: {data}")
+
+# Using pass in loops
+for i in range(5):
+    if i == 2:
+        pass  # Placeholder - do nothing for now
+    else:
+        print(f"Processing item {i}")
+```
+
+## Practical Examples
+
+### Example 1: Grade Calculator
+
+```{python}
+def calculate_grade(scores):
+    """Calculate letter grade from list of scores."""
+    if not scores:
+        return "No scores provided"
+    
+    average = sum(scores) / len(scores)
+    
+    if average >= 90:
+        letter = "A"
+    elif average >= 80:
+        letter = "B"
+    elif average >= 70:
+        letter = "C"
+    elif average >= 60:
+        letter = "D"
+    else:
+        letter = "F"
+    
+    return f"Average: {average:.1f}, Grade: {letter}"
+
+# Test the function
+student_scores = [85, 92, 78, 96, 88]
+print("Student scores:", student_scores)
+print(calculate_grade(student_scores))
+```
+
+### Example 2: Number Classifier
+
+```{python}
+def classify_numbers(numbers):
+    """Classify numbers as positive, negative, or zero."""
+    positive = []
+    negative = []
+    zeros = []
+    
+    for num in numbers:
+        if num > 0:
+            positive.append(num)
+        elif num < 0:
+            negative.append(num)
+        else:
+            zeros.append(num)
+    
+    return positive, negative, zeros
+
+# Test the function
+test_numbers = [5, -3, 0, 12, -7, 0, 8]
+pos, neg, zero = classify_numbers(test_numbers)
+
+print(f"Original: {test_numbers}")
+print(f"Positive: {pos}")
+print(f"Negative: {neg}")
+print(f"Zeros: {zero}")
+```
+
+### Example 3: Password Validator
+
+```{python}
+def validate_password(password):
+    """Validate password strength."""
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters"
+    
+    has_upper = False
+    has_lower = False
+    has_digit = False
+    has_special = False
+    special_chars = "!@#$%^&*"
+    
+    for char in password:
+        if char.isupper():
+            has_upper = True
+        elif char.islower():
+            has_lower = True
+        elif char.isdigit():
+            has_digit = True
+        elif char in special_chars:
+            has_special = True
+    
+    requirements = []
+    if not has_upper:
+        requirements.append("uppercase letter")
+    if not has_lower:
+        requirements.append("lowercase letter")
+    if not has_digit:
+        requirements.append("digit")
+    if not has_special:
+        requirements.append("special character")
+    
+    if requirements:
+        return False, f"Missing: {', '.join(requirements)}"
+    else:
+        return True, "Strong password!"
+
+# Test passwords
+test_passwords = ["weak", "StrongPass1!", "NoSpecial123", "short"]
+
+for pwd in test_passwords:
+    is_valid, message = validate_password(pwd)
+    status = "✓" if is_valid else "✗"
+    print(f"{status} '{pwd}': {message}")
+```
+
+## Exercises
+
+### Exercise 1: FizzBuzz
+
+```{python}
+# Classic FizzBuzz problem
+print("FizzBuzz (1-30):")
+for i in range(1, 31):
+    if i % 15 == 0:  # Divisible by both 3 and 5
+        print("FizzBuzz")
+    elif i % 3 == 0:
+        print("Fizz")
+    elif i % 5 == 0:
+        print("Buzz")
+    else:
+        print(i)
+```
+
+### Exercise 2: Prime Number Checker
+
+```{python}
+def is_prime(n):
+    """Check if a number is prime."""
+    if n < 2:
+        return False
+    
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    
+    return True
+
+# Find prime numbers up to 30
+print("Prime numbers up to 30:")
+primes = []
+for num in range(2, 31):
+    if is_prime(num):
+        primes.append(num)
+
+print(primes)
+```
+
+### Exercise 3: Pattern Printing
+
+```{python}
+# Print a triangle pattern
+def print_triangle(height):
+    """Print a triangle of stars."""
+    for i in range(1, height + 1):
+        # Print spaces for centering
+        spaces = " " * (height - i)
+        # Print stars
+        stars = "*" * (2 * i - 1)
+        print(spaces + stars)
+
+print("Triangle pattern:")
+print_triangle(5)
+
+# Print a number pyramid
+print("\nNumber pyramid:")
+for i in range(1, 6):
+    # Print leading spaces
+    print(" " * (5 - i), end="")
+    # Print ascending numbers
+    for j in range(1, i + 1):
+        print(j, end="")
+    # Print descending numbers
+    for j in range(i - 1, 0, -1):
+        print(j, end="")
+    print()  # New line
+```
+
+## Self-Review Questions
+
+### Knowledge Check
+
+1. **What's the difference between `if`, `elif`, and `else`?**
+2. **When would you use a `while` loop instead of a `for` loop?**
+3. **What does the `break` statement do?**
+4. **What's the difference between `==` and `is`?**
+5. **How do you iterate over both index and value in a list?**
+
+### Coding Challenges
+
+1. **Write a function that finds the largest number in a list**
+2. **Create a program that counts vowels in a string**
+3. **Implement a simple calculator using if-elif statements**
+4. **Write a function that reverses a string using a loop**
+
+### Answers
+
+1. `if` checks first condition; `elif` checks additional conditions; `else` runs when no conditions are true
+2. When you don't know how many iterations you need, or when repeating until a condition changes
+3. `break` exits the current loop immediately
+4. `==` compares values; `is` compares object identity
+5. Use `enumerate()`: `for index, value in enumerate(my_list):`
+
+## Best Practices
+
+1. **Use clear, descriptive condition names**
+2. **Avoid deeply nested conditions** - use early returns or helper functions
+3. **Use `elif` instead of multiple `if` statements** when conditions are mutually exclusive
+4. **Be careful with infinite loops** in `while` statements
+5. **Use `for` loops for known iterations, `while` for conditional repetition**
+
+## Common Patterns
+
+### Guard Clauses
+
+```{python}
+def process_user(user):
+    # Early returns for invalid cases
+    if user is None:
+        return "No user provided"
+    
+    if not user.get("name"):
+        return "User must have a name"
+    
+    if user.get("age", 0) < 0:
+        return "Invalid age"
+    
+    # Main processing logic
+    return f"Processing user: {user['name']}"
+
+# Test
+test_user = {"name": "Alice", "age": 25}
+print(process_user(test_user))
+```
+
+### Loop with else
+
+```{python}
+# The else clause runs if the loop completes normally (no break)
+def find_number(numbers, target):
+    for num in numbers:
+        if num == target:
+            print(f"Found {target}!")
+            break
+    else:
+        print(f"{target} not found in the list")
+
+numbers = [1, 2, 3, 4, 5]
+find_number(numbers, 3)  # Found
+find_number(numbers, 7)  # Not found
+```
+
+## Performance Tips
+
+```{python}
+# Use membership testing for large collections
+large_list = list(range(10000))
+large_set = set(range(10000))
+
+# Slow: checking membership in list
+# if 9999 in large_list:  # O(n) operation
+
+# Fast: checking membership in set
+if 9999 in large_set:  # O(1) operation
+    print("Found in set (much faster!)")
+
+# Use list comprehensions for simple filtering
+numbers = range(100)
+
+# Traditional loop
+evens = []
+for num in numbers:
+    if num % 2 == 0:
+        evens.append(num)
+
+# List comprehension (faster and more readable)
+evens = [num for num in numbers if num % 2 == 0]
+print(f"First 10 evens: {evens[:10]}")
+```
+
+## Next Steps
+
+Great work! You now understand how to control program flow with conditions and loops. Next, we'll learn about [Functions](06-functions.qmd) to organize and reuse your code effectively.
+
+## Resources
+
+- [Python Control Flow Documentation](https://docs.python.org/3/tutorial/controlflow.html)
+- [Real Python: Python Conditional Statements](https://realpython.com/python-conditional-statements/)
+- [Real Python: Python While Loops](https://realpython.com/python-while-loop/)

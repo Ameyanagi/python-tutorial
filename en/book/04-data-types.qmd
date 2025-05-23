@@ -1,0 +1,442 @@
+# Data Types and Collections
+
+Python provides powerful built-in data structures to organize and manipulate data efficiently.
+
+## Lists - Ordered Collections
+
+Lists are **mutable** sequences that can hold different data types:
+
+```{python}
+# Creating lists
+fruits = ["apple", "banana", "cherry"]
+numbers = [1, 2, 3, 4, 5]
+mixed = ["hello", 42, 3.14, True]
+
+print("Fruits:", fruits)
+print("Numbers:", numbers)
+print("Mixed types:", mixed)
+```
+
+### List Operations
+
+```{python}
+colors = ["red", "green", "blue"]
+
+# Accessing elements (0-indexed)
+print(f"First color: {colors[0]}")
+print(f"Last color: {colors[-1]}")
+
+# Adding elements
+colors.append("yellow")           # Add to end
+colors.insert(1, "purple")        # Insert at position
+print(f"After adding: {colors}")
+
+# Removing elements
+colors.remove("purple")           # Remove by value
+last_color = colors.pop()         # Remove and return last
+print(f"After removing: {colors}")
+print(f"Removed color: {last_color}")
+```
+
+### List Methods and Properties
+
+```{python}
+numbers = [3, 1, 4, 1, 5, 9, 2, 6]
+
+print(f"Original: {numbers}")
+print(f"Length: {len(numbers)}")
+print(f"Count of 1: {numbers.count(1)}")
+print(f"Index of 4: {numbers.index(4)}")
+
+# Sorting
+numbers.sort()
+print(f"Sorted: {numbers}")
+
+# Reversing
+numbers.reverse()
+print(f"Reversed: {numbers}")
+
+# List comprehension (preview)
+squares = [x**2 for x in range(1, 6)]
+print(f"Squares: {squares}")
+```
+
+### List Slicing
+
+```{python}
+letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+
+print(f"Original: {letters}")
+print(f"First 3: {letters[:3]}")
+print(f"Last 3: {letters[-3:]}")
+print(f"Middle: {letters[2:5]}")
+print(f"Every 2nd: {letters[::2]}")
+print(f"Reverse: {letters[::-1]}")
+```
+
+## Tuples - Immutable Sequences
+
+Tuples are **immutable** sequences, perfect for fixed data:
+
+```{python}
+# Creating tuples
+point = (10, 20)
+rgb_color = (255, 128, 0)
+person = ("Alice", 25, "Engineer")
+
+print(f"Point coordinates: {point}")
+print(f"RGB color: {rgb_color}")
+print(f"Person info: {person}")
+
+# Accessing elements
+print(f"X coordinate: {point[0]}")
+print(f"Y coordinate: {point[1]}")
+
+# Tuple unpacking
+name, age, job = person
+print(f"Name: {name}, Age: {age}, Job: {job}")
+```
+
+### Tuple Methods
+
+```{python}
+grades = (85, 92, 78, 92, 88, 92)
+
+print(f"Grades: {grades}")
+print(f"Count of 92: {grades.count(92)}")
+print(f"Index of 78: {grades.index(78)}")
+print(f"Length: {len(grades)}")
+
+# Converting between lists and tuples
+grades_list = list(grades)
+print(f"As list: {grades_list}")
+
+new_tuple = tuple([1, 2, 3, 4])
+print(f"From list: {new_tuple}")
+```
+
+## Dictionaries - Key-Value Pairs
+
+Dictionaries store data as key-value pairs:
+
+```{python}
+# Creating dictionaries
+student = {
+    "name": "Alice",
+    "age": 20,
+    "major": "Computer Science",
+    "gpa": 3.8
+}
+
+print("Student info:", student)
+
+# Accessing values
+print(f"Name: {student['name']}")
+print(f"GPA: {student.get('gpa', 'Not found')}")
+
+# Adding/updating values
+student["graduation_year"] = 2025
+student["age"] = 21
+print("Updated:", student)
+```
+
+### Dictionary Methods
+
+```{python}
+inventory = {
+    "apples": 50,
+    "bananas": 30,
+    "oranges": 25
+}
+
+print("Inventory:", inventory)
+
+# Dictionary methods
+print("Keys:", list(inventory.keys()))
+print("Values:", list(inventory.values()))
+print("Items:", list(inventory.items()))
+
+# Checking existence
+print("Has apples:", "apples" in inventory)
+print("Has grapes:", "grapes" in inventory)
+
+# Safe removal
+removed = inventory.pop("bananas", 0)
+print(f"Removed {removed} bananas")
+print("After removal:", inventory)
+```
+
+### Dictionary Iteration
+
+```{python}
+scores = {"Alice": 95, "Bob": 87, "Charlie": 92}
+
+# Iterate over keys
+print("Students:")
+for name in scores:
+    print(f"  {name}")
+
+# Iterate over values
+print("Scores:")
+for score in scores.values():
+    print(f"  {score}")
+
+# Iterate over key-value pairs
+print("Student scores:")
+for name, score in scores.items():
+    print(f"  {name}: {score}")
+```
+
+## Sets - Unique Collections
+
+Sets store unique elements and support mathematical operations:
+
+```{python}
+# Creating sets
+fruits = {"apple", "banana", "cherry"}
+numbers = {1, 2, 3, 4, 5}
+mixed_set = {1, "hello", 3.14}
+
+print("Fruits set:", fruits)
+print("Numbers set:", numbers)
+
+# Adding elements
+fruits.add("orange")
+print("After adding orange:", fruits)
+
+# Removing elements
+fruits.discard("banana")  # Safe removal
+print("After removing banana:", fruits)
+```
+
+### Set Operations
+
+```{python}
+set_a = {1, 2, 3, 4, 5}
+set_b = {4, 5, 6, 7, 8}
+
+print(f"Set A: {set_a}")
+print(f"Set B: {set_b}")
+
+# Mathematical operations
+print(f"Union (A ∪ B): {set_a | set_b}")
+print(f"Intersection (A ∩ B): {set_a & set_b}")
+print(f"Difference (A - B): {set_a - set_b}")
+print(f"Symmetric difference: {set_a ^ set_b}")
+
+# Membership testing
+print(f"3 in A: {3 in set_a}")
+print(f"Is A subset of B: {set_a.issubset(set_b)}")
+```
+
+## Choosing the Right Data Structure
+
+| Data Structure | Use When | Example |
+|---------------|----------|---------|
+| **List** | Ordered, mutable collection | Shopping list, scores |
+| **Tuple** | Ordered, immutable collection | Coordinates, RGB values |
+| **Dictionary** | Key-value mapping | Student records, inventory |
+| **Set** | Unique elements, fast lookup | Tags, unique IDs |
+
+```{python}
+# Practical examples
+shopping_list = ["milk", "bread", "eggs"]        # List: can modify
+coordinates = (40.7128, -74.0060)                # Tuple: fixed point
+student_grades = {"math": 95, "science": 87}     # Dict: lookup by subject
+unique_visitors = {"alice", "bob", "charlie"}     # Set: no duplicates
+```
+
+## Common Patterns and Operations
+
+### List Comprehensions
+
+```{python}
+# Traditional way
+squares = []
+for x in range(1, 6):
+    squares.append(x**2)
+print("Traditional:", squares)
+
+# List comprehension
+squares = [x**2 for x in range(1, 6)]
+print("Comprehension:", squares)
+
+# With condition
+even_squares = [x**2 for x in range(1, 11) if x % 2 == 0]
+print("Even squares:", even_squares)
+
+# Working with strings
+words = ["hello", "world", "python"]
+uppercase = [word.upper() for word in words]
+print("Uppercase:", uppercase)
+```
+
+### Dictionary Comprehensions
+
+```{python}
+# Create dictionary from lists
+names = ["Alice", "Bob", "Charlie"]
+ages = [25, 30, 35]
+people = {name: age for name, age in zip(names, ages)}
+print("People:", people)
+
+# Square numbers
+squares_dict = {x: x**2 for x in range(1, 6)}
+print("Squares dict:", squares_dict)
+
+# Filter dictionary
+high_scores = {name: score for name, score in scores.items() if score > 90}
+print("High scores:", high_scores)
+```
+
+## Exercises
+
+### Exercise 1: Student Management System
+
+```{python}
+# Create a student management system
+students = []
+
+# Add students
+def add_student(name, age, grades):
+    student = {
+        "name": name,
+        "age": age,
+        "grades": grades,
+        "average": sum(grades) / len(grades)
+    }
+    students.append(student)
+
+# Add some students
+add_student("Alice", 20, [95, 87, 92])
+add_student("Bob", 19, [78, 84, 88])
+add_student("Charlie", 21, [92, 96, 89])
+
+# Display students
+print("=== Student Records ===")
+for student in students:
+    print(f"Name: {student['name']}")
+    print(f"Age: {student['age']}")
+    print(f"Grades: {student['grades']}")
+    print(f"Average: {student['average']:.1f}")
+    print("-" * 20)
+```
+
+### Exercise 2: Word Frequency Counter
+
+```{python}
+# Count word frequency in a text
+text = "python is great python is powerful python is fun"
+words = text.split()
+
+# Method 1: Using dictionary
+word_count = {}
+for word in words:
+    word_count[word] = word_count.get(word, 0) + 1
+
+print("Word frequencies:")
+for word, count in word_count.items():
+    print(f"{word}: {count}")
+
+# Method 2: Using Counter (from collections)
+from collections import Counter
+word_count_2 = Counter(words)
+print("\nUsing Counter:", dict(word_count_2))
+```
+
+### Exercise 3: Set Operations with Data
+
+```{python}
+# Student course enrollment
+math_students = {"Alice", "Bob", "Charlie", "David"}
+science_students = {"Bob", "Charlie", "Eve", "Frank"}
+english_students = {"Alice", "Charlie", "Eve", "Grace"}
+
+print("Math students:", math_students)
+print("Science students:", science_students)
+print("English students:", english_students)
+
+# Analysis
+both_math_science = math_students & science_students
+print("Taking both Math and Science:", both_math_science)
+
+all_students = math_students | science_students | english_students
+print("All students:", all_students)
+
+only_math = math_students - science_students - english_students
+print("Only taking Math:", only_math)
+```
+
+## Self-Review Questions
+
+### Knowledge Check
+
+1. **What's the difference between a list and a tuple?**
+2. **When would you use a dictionary instead of a list?**
+3. **What happens if you try to add a duplicate to a set?**
+4. **How do you access the last element of a list?**
+5. **What's the difference between `remove()` and `pop()` for lists?**
+
+### Coding Challenges
+
+1. **Create a function that finds common elements between two lists**
+2. **Write a program to merge two dictionaries**
+3. **Use list comprehension to filter even numbers from a list**
+4. **Create a function that returns the most frequent element in a list**
+
+### Answers
+
+1. Lists are mutable and ordered; tuples are immutable and ordered
+2. When you need key-value associations or fast lookups by key
+3. Nothing - sets automatically handle duplicates
+4. `my_list[-1]` or `my_list[len(my_list)-1]`
+5. `remove()` removes by value; `pop()` removes by index and returns the value
+
+## Best Practices
+
+1. **Choose the right data structure** for your use case
+2. **Use list comprehensions** for simple transformations
+3. **Use `get()` method** for safe dictionary access
+4. **Use sets** for membership testing and eliminating duplicates
+5. **Use tuple unpacking** for multiple assignments
+
+## Common Pitfalls
+
+1. **Modifying lists while iterating** - create a copy first
+2. **Using mutable defaults** in function parameters
+3. **Confusing `is` and `==`** for comparisons
+4. **Forgetting that dictionaries maintain insertion order** (Python 3.7+)
+
+## Performance Tips
+
+```{python}
+import time
+
+# List vs Set for membership testing
+large_list = list(range(10000))
+large_set = set(range(10000))
+
+# Time list lookup
+start = time.time()
+9999 in large_list
+list_time = time.time() - start
+
+# Time set lookup
+start = time.time()
+9999 in large_set
+set_time = time.time() - start
+
+print(f"List lookup: {list_time:.6f} seconds")
+print(f"Set lookup: {set_time:.6f} seconds")
+print(f"Set is {list_time/set_time:.1f}x faster for membership testing")
+```
+
+## Next Steps
+
+Excellent! You now understand Python's core data structures. Next, we'll learn about [Control Flow](05-control-flow.qmd) to make decisions and repeat actions in your programs.
+
+## Resources
+
+- [Python Data Structures Documentation](https://docs.python.org/3/tutorial/datastructures.html)
+- [Real Python: Python Data Structures](https://realpython.com/python-data-structures/)
+- [Collections Module](https://docs.python.org/3/library/collections.html)
