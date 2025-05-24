@@ -1,4 +1,6 @@
 /* Additional styles for enhanced presentation */
+/* Scope these styles to book content only, not RevealJS slides */
+body:not(.reveal) {
 
 /* Hero section styling */
 .hero-section {
@@ -350,3 +352,5 @@ button:focus {
     color: #F18F01;
   }
 }
+
+} /* End of body:not(.reveal) scope */
