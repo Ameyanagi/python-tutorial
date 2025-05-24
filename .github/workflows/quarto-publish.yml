@@ -70,6 +70,8 @@ jobs:
       - name: Render English slides (isolated)
         run: |
           cd en/slides
+          quarto add --no-prompt r-wasm/quarto-live
+          quarto add --no-prompt r-wasm/quarto-drop
           uv run quarto render
           echo "English slides rendered with isolated configuration"
 
@@ -80,6 +82,8 @@ jobs:
       - name: Render Japanese slides (isolated)
         run: |
           cd ja/slides
+          quarto add --no-prompt r-wasm/quarto-live
+          quarto add --no-prompt r-wasm/quarto-drop
           uv run quarto render
           echo "Japanese slides rendered with isolated configuration"
 
