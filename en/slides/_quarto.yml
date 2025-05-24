@@ -6,7 +6,7 @@ project:
 
 format:
   revealjs:
-    theme: default
+    theme: moon
     transition: slide
     background-transition: fade
     highlight-style: github
