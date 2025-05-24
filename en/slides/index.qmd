@@ -1,0 +1,149 @@
+---
+title: "Python Tutorial - RevealJS Slides"
+format: html
+---
+
+# 🎬 Python Tutorial - Interactive Slides
+
+Welcome to the Python Tutorial slide collection! These are professional RevealJS presentations with full interactive navigation.
+
+## 🎮 How to Use the Slides
+
+### **Navigation Controls:**
+- **Arrow Keys**: `←` `→` to navigate between slides
+- **Mouse**: Click arrow buttons or use scroll wheel
+- **Touch**: Swipe left/right on mobile devices
+
+### **Keyboard Shortcuts:**
+- `ESC` - Overview mode (see all slides)
+- `F` - Fullscreen presentation
+- `S` - Speaker view with notes
+- `B` - Toggle chalkboard for drawing
+- `?` - Show help menu
+- `HOME` - Go to first slide
+- `END` - Go to last slide
+
+### **Interactive Features:**
+- **Progress Bar** - Shows presentation progress
+- **Slide Numbers** - Current/total slide display
+- **Menu** - Navigate to any slide instantly
+- **Chalkboard** - Draw and annotate slides
+- **Zoom** - Alt+click to zoom in/out
+
+---
+
+## 📚 Available Presentations
+
+### **Core Python Concepts**
+
+#### [🚀 Introduction & Setup](01-intro.html)
+*Get started with Python and modern development tools*
+- What is Python and why learn it?
+- Installing Python with uv (modern approach)
+- Development environment setup
+- First Python programs
+
+#### [📊 Data Types & Collections](02-data-types.html)
+*Master Python's built-in data structures*
+- Numbers, strings, booleans
+- Lists, dictionaries, tuples, sets
+- Data manipulation and methods
+- Practical examples and exercises
+
+#### [🔀 Control Flow](03-control-flow.html)
+*Learn decision making and repetition*
+- If/elif/else statements
+- For and while loops
+- Loop control (break, continue)
+- Logical operators and conditions
+
+#### [⚙️ Functions](04-functions.html)
+*Create reusable code blocks*
+- Function definition and calling
+- Parameters and return values
+- Scope and local/global variables
+- Lambda functions and best practices
+
+#### [🚨 Error Handling](05-error-handling.html)
+*Handle errors gracefully*
+- Try/except/finally blocks
+- Exception types and handling
+- Debugging techniques
+- Writing robust code
+
+---
+
+### **Code Organization**
+
+#### [📦 Modules & Packages](06-modules.html)
+*Organize code for larger projects*
+- Creating and importing modules
+- Package structure
+- Standard library overview
+- Third-party packages with pip/uv
+
+#### [🏗️ Classes & Objects](07-classes.html)
+*Object-oriented programming fundamentals*
+- Class definition and instantiation
+- Attributes and methods
+- Constructor methods
+- Encapsulation principles
+
+#### [🔗 Inheritance](08-inheritance.html)
+*Advanced object-oriented concepts*
+- Class inheritance
+- Method overriding
+- Multiple inheritance
+- Polymorphism
+
+#### [🏷️ Type Hints](09-type-hints.html)
+*Modern Python with static typing*
+- Variable and function annotations
+- Generic types and collections
+- Optional and Union types
+- Type checking tools
+
+---
+
+### **Advanced Applications**
+
+#### [📈 Data Science](12-data-science.html)
+*Python for data analysis and machine learning*
+- NumPy for numerical computing
+- Pandas for data manipulation
+- Matplotlib/Seaborn for visualization
+- Scikit-learn for machine learning
+
+#### [🌐 IoT Connectivity](14-iot-connectivity.html)
+*Connect Python to the physical world*
+- Serial communication with devices
+- Modbus industrial protocols
+- InfluxDB time-series databases
+- Real-world IoT system examples
+
+---
+
+## 🌍 Language Options
+
+- 🇺🇸 **English**: You are here!
+- 🇯🇵 **Japanese**: [日本語スライド](../ja/slides/)
+
+---
+
+## 📖 Additional Resources
+
+- [📚 **Book Format**](../book/) - Detailed chapters with exercises
+- [🏠 **Main Site**](../) - Tutorial overview and navigation
+- [💻 **GitHub Repository**](https://github.com/Ameyanagi/python-tutorial) - Source code and issues
+
+---
+
+## ⚡ Pro Tips
+
+1. **Fullscreen Mode**: Press `F` for distraction-free viewing
+2. **Speaker View**: Press `S` to see notes and upcoming slides
+3. **Overview Mode**: Press `ESC` to see all slides at once
+4. **Direct Links**: Each slide has a unique URL for easy sharing
+5. **Mobile Friendly**: All slides work great on phones and tablets
+
+**Happy Learning!** 🐍✨

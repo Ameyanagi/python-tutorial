@@ -37,21 +37,31 @@ This tutorial is designed for mixed skill levels and covers:
 
 Ready to start your Python journey? Let's begin with [Environment Setup](book/01-setup.qmd)!
 
-## 🎬 Presentation Slides
+## 🎬 Interactive RevealJS Slides
 
-Interactive slides for classroom or self-study:
+Professional presentation slides with full navigation controls:
 
-- [Introduction & Setup](slides/01-intro.html) - Get started with Python and uv
-- [Data Types & Collections](slides/02-data-types.html) - Lists, dicts, sets
-- [Control Flow](slides/03-control-flow.html) - If/else, loops, logic
-- [Functions](slides/04-functions.html) - Reusable code blocks
-- [Error Handling](slides/05-error-handling.html) - Try/except patterns
-- [Modules & Packages](slides/06-modules.html) - Code organization
-- [Classes & Objects](slides/07-classes.html) - Object-oriented programming
-- [Inheritance](slides/08-inheritance.html) - Advanced OOP concepts
-- [Type Hints](slides/09-type-hints.html) - Modern Python typing
-- [Data Science](slides/12-data-science.html) - NumPy, Pandas, ML
-- [IoT Connectivity](slides/14-iot-connectivity.html) - Serial, Modbus, InfluxDB
+### **Core Python Concepts**
+- [🚀 Introduction & Setup](slides/01-intro.html) - Get started with Python and uv
+- [📊 Data Types & Collections](slides/02-data-types.html) - Lists, dictionaries, sets
+- [🔀 Control Flow](slides/03-control-flow.html) - If/else statements, loops
+- [⚙️ Functions](slides/04-functions.html) - Reusable code blocks
+- [🚨 Error Handling](slides/05-error-handling.html) - Try/except patterns
+
+### **Code Organization**  
+- [📦 Modules & Packages](slides/06-modules.html) - Code organization
+- [🏗️ Classes & Objects](slides/07-classes.html) - Object-oriented programming
+- [🔗 Inheritance](slides/08-inheritance.html) - Advanced OOP concepts
+- [🏷️ Type Hints](slides/09-type-hints.html) - Modern Python typing
+
+### **Advanced Applications**
+- [📈 Data Science](slides/12-data-science.html) - NumPy, Pandas, Machine Learning
+- [🌐 IoT Connectivity](slides/14-iot-connectivity.html) - Serial, Modbus, InfluxDB
+
+### **🎮 RevealJS Features:**
+- **Navigation**: Arrow keys, mouse clicks, touch gestures
+- **Shortcuts**: `ESC` (overview), `F` (fullscreen), `S` (speaker view)
+- **Interactive**: Chalkboard (`B` key), Menu, Progress bar
 
 ---
 
