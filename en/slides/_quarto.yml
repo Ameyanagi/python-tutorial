@@ -22,7 +22,24 @@ format:
     progress: true
     slideNumber: true
     chalkboard: true
-    menu: true
+    menu:
+      side: left
+      width: normal
+      numbers: false
+      titleSelector: h1, h2, h3, h4, h5, h6
+      useTextContentForMissingTitles: false
+      hideMissingTitles: false
+      markers: true
+      custom:
+        - title: "📚 Navigation"
+          icon: '<i class="fas fa-bars"></i>'
+          content: |
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li style="margin: 8px 0;"><a href="index.html" style="color: #bd93f9; text-decoration: none;">🏠 Slides Home</a></li>
+              <li style="margin: 8px 0;"><a href="../book/index.html" style="color: #bd93f9; text-decoration: none;">📖 Book</a></li>
+              <li style="margin: 8px 0;"><a href="../../index.html" style="color: #bd93f9; text-decoration: none;">🏠 Main Site</a></li>
+              <li style="margin: 8px 0;"><a href="https://github.com/ameyanagi/python-tutorial" style="color: #bd93f9; text-decoration: none;">💻 GitHub</a></li>
+            </ul>
     keyboard: true
     overview: true
     touch: true

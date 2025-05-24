@@ -1,41 +1,6 @@
 ---
 title: "Classes and Objects"
 subtitle: "Introduction to Object-Oriented Programming"
-format:
-  revealjs:
-    theme: default
-    transition: slide
-    background-transition: fade
-    highlight-style: github
-    code-fold: false
-    controls: true
-    controlsLayout: edges
-    controlsTutorial: true
-    progress: true
-    slideNumber: true
-    chalkboard: true
-    menu: true
-    keyboard: true
-    overview: true
-    touch: true
-    hash: true
-    history: true
-    previewLinks: auto
-    
-    footer: "Python Tutorial - Classes and Objects"
-    width: 1050
-    height: 700
-    margin: 0.1
-    center: false
-    navigationMode: linear
-    loop: false
-    rtl: false
-    # Mobile-specific optimizations
-    mobileViewDistance: 2
-    embedded: false
-    minScale: 0.2
-    maxScale: 2.0
-    disableLayout: false
 ---
 
 ## What is Object-Oriented Programming?
