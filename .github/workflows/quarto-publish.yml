@@ -35,49 +35,12 @@ jobs:
         run: |
           uv sync
 
-      - name: Render main landing page
+      - name: Setup output directories and copy shared assets
         run: |
-          uv run quarto render index.qmd --to html --output-dir docs
-
-      - name: Render English book
-        run: |
-          cd en && uv run quarto render --to html --output-dir ../docs/en
-
-      - name: Render English slides
-        run: |
-          mkdir -p docs/en/slides
-          cd en/slides
-          for slide in *.qmd; do
-            echo "Rendering $slide..."
-            uv run quarto render "$slide" --to revealjs
-            # Move rendered file to correct location
-            filename="${slide%.qmd}.html"
-            if [ -f "$filename" ]; then
-              mv "$filename" "../../docs/en/slides/"
-            fi
-          done
-
-      - name: Render Japanese slides
-        run: |
-          mkdir -p docs/ja/slides
-          cd ja/slides
-          for slide in *.qmd; do
-            echo "Rendering $slide..."
-            uv run quarto render "$slide" --to revealjs
-            # Move rendered file to correct location
-            filename="${slide%.qmd}.html"
-            if [ -f "$filename" ]; then
-              mv "$filename" "../../docs/ja/slides/"
-            fi
-          done
-
-      - name: Render Japanese book
-        run: |
-          cd ja && uv run quarto render --to html --output-dir ../docs/ja
-
-      - name: Copy shared assets
-        run: |
-          mkdir -p docs/en/shared docs/ja/shared
+          # Create all necessary directories
+          mkdir -p docs/en/slides docs/ja/slides docs/en/shared docs/ja/shared
+          
+          # Copy shared assets first (needed during rendering)
           if [ -d "en/shared" ]; then
             cp -r en/shared/* docs/en/shared/
           fi
@@ -89,6 +52,44 @@ jobs:
             cp -r shared/* docs/en/shared/ 2>/dev/null || true
             cp -r shared/* docs/ja/shared/ 2>/dev/null || true
           fi
+
+      - name: Render main landing page
+        run: |
+          uv run quarto render index.qmd --to html --output-dir docs
+
+      - name: Render English book
+        run: |
+          cd en && uv run quarto render --to html --output-dir ../docs/en
+
+      - name: Render English slides
+        run: |
+          cd en/slides
+          for slide in *.qmd; do
+            echo "Rendering $slide..."
+            uv run quarto render "$slide" --to revealjs
+            # Move rendered file to correct location
+            filename="${slide%.qmd}.html"
+            if [ -f "$filename" ]; then
+              mv "$filename" "../../docs/en/slides/"
+            fi
+          done
+
+      - name: Render Japanese book
+        run: |
+          cd ja && uv run quarto render --to html --output-dir ../docs/ja
+
+      - name: Render Japanese slides
+        run: |
+          cd ja/slides
+          for slide in *.qmd; do
+            echo "Rendering $slide..."
+            uv run quarto render "$slide" --to revealjs
+            # Move rendered file to correct location
+            filename="${slide%.qmd}.html"
+            if [ -f "$filename" ]; then
+              mv "$filename" "../../docs/ja/slides/"
+            fi
+          done
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
