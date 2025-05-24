@@ -47,34 +47,67 @@ Welcome to the comprehensive Python programming tutorial by **Ameyanagi**. This 
 
 ### 🎯 Slides (Interactive Presentations)
 
-**Perfect for lectures, workshops, and quick learning sessions:**
+**Perfect for lectures, workshops, and quick learning sessions. Available in English and Japanese with mobile-optimized RevealJS:**
 
 <div class="grid">
-<div class="g-col-12 g-col-md-6 g-col-lg-4">
+<div class="g-col-12 g-col-md-6">
 
-#### Core Concepts
+#### 🇺🇸 English Slides
+**Complete presentation series:**
+
+[**🎯 View All English Slides →**](en/slides/index.html){.btn .btn-info .btn-lg}
+
+**Core Topics:**
+- [🚀 Introduction & Setup](en/slides/01-intro.html)
 - [📊 Data Types & Collections](en/slides/02-data-types.html)
 - [🔄 Control Flow](en/slides/03-control-flow.html) 
 - [⚙️ Functions](en/slides/04-functions.html)
 - [🛡️ Error Handling](en/slides/05-error-handling.html)
 
-</div>
-<div class="g-col-12 g-col-md-6 g-col-lg-4">
-
-#### Code Organization
+**Code Organization:**
 - [📦 Modules & Packages](en/slides/06-modules.html)
 - [🏗️ Classes & Objects](en/slides/07-classes.html)
-- [🔄 Inheritance](en/slides/08-inheritance.html)
+- [🔄 Inheritance & Polymorphism](en/slides/08-inheritance.html)
 
-</div>
-<div class="g-col-12 g-col-md-6 g-col-lg-4">
-
-#### Advanced Topics
+**Advanced Topics:**
 - [🏷️ Type Hints](en/slides/09-type-hints.html)
 - [📊 Data Science](en/slides/12-data-science.html)
+- [🌐 IoT Connectivity](en/slides/14-iot-connectivity.html)
+
+</div>
+<div class="g-col-12 g-col-md-6">
+
+#### 🇯🇵 Japanese Slides (日本語スライド)
+**完全なプレゼンテーションシリーズ:**
+
+[**🎯 日本語スライド一覧 →**](ja/slides/index.html){.btn .btn-info .btn-lg}
+
+**基本トピック:**
+- [🚀 導入とセットアップ](ja/slides/01-intro.html)
+- [📊 データ型とコレクション](ja/slides/02-data-types.html)
+- [🔄 制御フロー](ja/slides/03-control-flow.html)
+- [⚙️ 関数](ja/slides/04-functions.html)
+- [🛡️ エラーハンドリング](ja/slides/05-error-handling.html)
+
+**コード整理:**
+- [📦 モジュールとパッケージ](ja/slides/06-modules.html)
+- [🏗️ クラスとオブジェクト](ja/slides/07-classes.html)
+- [🔄 継承と多態性](ja/slides/08-inheritance.html)
+
+**高度なトピック:**
+- [🏷️ 型ヒント](ja/slides/09-type-hints.html)
+- [📊 データサイエンス](ja/slides/12-data-science.html)
+- [🌐 IoT接続](ja/slides/14-iot-connectivity.html)
 
 </div>
 </div>
+
+#### 📱 Mobile-Optimized Slides
+All slides are optimized for:
+- **iPhone/Android** - Touch navigation, responsive scaling
+- **Tablets** - Perfect presentation mode
+- **Desktop** - Full-featured experience with keyboard shortcuts
+- **Projectors** - High-resolution output for classrooms
 
 ## 🛠️ Development Environment
 

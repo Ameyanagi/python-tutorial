@@ -39,30 +39,46 @@ Python の旅を始める準備はできましたか？[環境構築](book/01-se
 
 ## 🎬 インタラクティブ RevealJS スライド
 
-完全なナビゲーション機能付きプロフェッショナルプレゼンテーション：
+完全なナビゲーション機能とモバイル最適化付きプロフェッショナルプレゼンテーション：
 
-### **利用可能なスライド**
+[**🎯 スライドコレクションを見る →**](slides/){.btn .btn-primary .btn-lg}
+
+### **日本語スライド (利用可能)**
 - [🚀 導入とセットアップ](slides/01-intro.html) - Python と uv を始める
 - [📊 データ型とコレクション](slides/02-data-types.html) - リスト、辞書、セット
 - [⚙️ 関数](slides/04-functions.html) - 再利用可能なコードブロック
 - [🌐 IoT 接続と産業プロトコル](slides/14-iot-connectivity.html) - シリアル、Modbus、InfluxDB
 
+### **English スライド (完全版利用可能)**
+**コア Python 概念:**
+- [🚀 Introduction & Setup](../en/slides/01-intro.html) - Python と uv を始める
+- [📊 Data Types & Collections](../en/slides/02-data-types.html) - リスト、辞書、セット
+- [🔀 Control Flow](../en/slides/03-control-flow.html) - If/else文、ループ
+- [⚙️ Functions](../en/slides/04-functions.html) - 再利用可能なコードブロック
+- [🚨 Error Handling](../en/slides/05-error-handling.html) - Try/except パターン
+
+**コード組織:**
+- [📦 Modules & Packages](../en/slides/06-modules.html) - コード組織
+- [🏗️ Classes & Objects](../en/slides/07-classes.html) - オブジェクト指向プログラミング
+- [🔗 Inheritance](../en/slides/08-inheritance.html) - 高度な OOP 概念
+- [🏷️ Type Hints](../en/slides/09-type-hints.html) - 現代的な Python 型システム
+
+**高度な応用:**
+- [📈 Data Science](../en/slides/12-data-science.html) - NumPy、Pandas、機械学習
+- [🌐 IoT Connectivity](../en/slides/14-iot-connectivity.html) - Serial、Modbus、InfluxDB
+
 ### **🎮 RevealJS 機能:**
-- **ナビゲーション**: 矢印キー、マウスクリック、タッチジェスチャー
+- **ナビゲーション**: 矢印キー、マウスクリック、タッチジェスチャー (iPhone 対応)
 - **ショートカット**: `ESC` (概要表示), `F` (フルスクリーン), `S` (発表者モード)
 - **インタラクティブ**: チョークボード (`B` キー)、メニュー、プログレスバー
+- **モバイル**: スマートフォンを含むすべてのデバイスに最適化
 
-### **📝 その他のスライド準備中:**
-- 制御フロー (if/else、ループ)
-- エラーハンドリング  
-- モジュールとパッケージ
-- クラスとオブジェクト
-- 継承
-- 型ヒント
-- データサイエンス
+## 🌐 言語ナビゲーション
 
-*英語版では全スライドが利用可能です*
+- 🇯🇵 **日本語** (現在) - 日本語版を表示中
+- 🇺🇸 **English版** - [英語版に切り替え](../en/index.html)
+- 🏠 **メインランディング** - [ホームページに戻る](../index.html)
 
 ---
 
-🇺🇸 **Looking for the English version?** [Access the English version here](../en/index.html)
+**Python を学習する準備はできましたか？** [環境構築](book/01-setup.qmd)から始めるか、上記の[インタラクティブスライド](slides/)を探索してください！

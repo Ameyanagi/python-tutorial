@@ -39,11 +39,13 @@ Ready to start your Python journey? Let's begin with [Environment Setup](book/01
 
 ## 🎬 Interactive RevealJS Slides
 
-Professional presentation slides with full navigation controls:
+Professional presentation slides with full navigation controls and mobile optimization:
+
+[**🎯 View All Slides Collection →**](slides/){.btn .btn-primary .btn-lg}
 
 ### **Core Python Concepts**
 - [🚀 Introduction & Setup](slides/01-intro.html) - Get started with Python and uv
-- [📊 Data Types & Collections](slides/02-data-types.html) - Lists, dictionaries, sets
+- [📊 Data Types & Collections](slides/02-data-types.html) - Lists, dictionaries, sets  
 - [🔀 Control Flow](slides/03-control-flow.html) - If/else statements, loops
 - [⚙️ Functions](slides/04-functions.html) - Reusable code blocks
 - [🚨 Error Handling](slides/05-error-handling.html) - Try/except patterns
@@ -59,10 +61,17 @@ Professional presentation slides with full navigation controls:
 - [🌐 IoT Connectivity](slides/14-iot-connectivity.html) - Serial, Modbus, InfluxDB
 
 ### **🎮 RevealJS Features:**
-- **Navigation**: Arrow keys, mouse clicks, touch gestures
-- **Shortcuts**: `ESC` (overview), `F` (fullscreen), `S` (speaker view)
+- **Navigation**: Arrow keys, mouse clicks, touch gestures (iPhone compatible)
+- **Shortcuts**: `ESC` (overview), `F` (fullscreen), `S` (speaker view)  
 - **Interactive**: Chalkboard (`B` key), Menu, Progress bar
+- **Mobile**: Optimized for all devices including smartphones
+
+## 🌐 Language Navigation
+
+- 🇺🇸 **English** (Current) - You're viewing the English version
+- 🇯🇵 **日本語版** - [Switch to Japanese version](../ja/index.html)
+- 🏠 **Main Landing** - [Back to homepage](../index.html)
 
 ---
 
-🎌 **日本語版をお探しですか？** [こちらから日本語版にアクセスできます](../ja/index.html)
+**Ready to learn Python?** Start with [Environment Setup](book/01-setup.qmd) or explore the [interactive slides](slides/) above!
