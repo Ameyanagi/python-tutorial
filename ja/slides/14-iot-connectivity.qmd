@@ -1,0 +1,530 @@
+---
+title: "IoT 接続と産業プロトコル"
+subtitle: "シリアル通信、Modbus、InfluxDB によるデバイス通信"
+format: 
+  revealjs:
+    theme: dark
+    transition: slide
+    background-transition: fade
+    highlight-style: github
+    code-fold: false
+---
+
+# IoT と産業通信 {background-color="#2E86AB"}
+
+## IoT 通信とは？ {.smaller}
+
+::: {.incremental}
+- **ハードウェア直接通信** - センサーやデバイスとの接続
+- **産業プロトコル** - PLC や自動化システム用
+- **時系列データ保存** - 監視と分析のため
+- **リアルタイム制御** - フィードバックシステム
+- **スケーラブル構成** - 数千台のデバイス対応
+:::
+
+## なぜ Python が IoT に適しているか？ {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+**利点:**
+- 豊富なライブラリエコシステム
+- 簡単なハードウェアインターフェース
+- 強力なデータ処理能力
+- クロスプラットフォーム対応
+- 迅速なプロトタイピング
+:::
+
+::: {.column width="50%"}
+**人気ライブラリ:**
+- `pyserial` - シリアル通信
+- `pymodbus` - 産業プロトコル
+- `influxdb-client` - 時系列DB
+- `paho-mqtt` - IoT メッセージング
+- `asyncio` - 並行I/O
+:::
+:::
+
+# シリアル通信 {background-color="#A23B72"}
+
+## PySerial 基本 {.smaller}
+
+```python
+import serial
+import time
+
+# デバイスに接続
+ser = serial.Serial('/dev/ttyUSB0', baudrate=9600, timeout=1)
+
+# コマンド送信
+ser.write(b'READ_SENSORS\n')
+
+# レスポンス受信
+response = ser.readline()
+data = response.decode('utf-8').strip()
+
+# データ解析
+if ':' in data:
+    temp, humidity = data.split(',')
+    temp_value = float(temp.split(':')[1])
+    humidity_value = float(humidity.split(':')[1])
+
+ser.close()
+```
+
+## Arduino 通信 {.smaller}
+
+```python
+class ArduinoInterface:
+    def __init__(self, port='/dev/ttyACM0'):
+        self.ser = serial.Serial(port, 9600, timeout=2)
+        time.sleep(2)  # Arduino リセット待機
+    
+    def read_sensors(self):
+        self.ser.write(b'GET_DATA\n')
+        response = self.ser.readline()
+        
+        try:
+            data = json.loads(response.decode())
+            return {
+                'temperature': data['temp'],
+                'humidity': data['hum'],
+                'timestamp': datetime.now()
+            }
+        except:
+            return None
+    
+    def control_led(self, pin, state):
+        command = f"LED,{pin},{'ON' if state else 'OFF'}\n"
+        self.ser.write(command.encode())
+```
+
+## シリアル通信のベストプラクティス {.smaller}
+
+::: {.panel-tabset}
+
+### エラーハンドリング
+```python
+def safe_serial_read(ser, timeout=5):
+    try:
+        ser.timeout = timeout
+        data = ser.readline()
+        if data:
+            return data.decode('utf-8').strip()
+    except serial.SerialException as e:
+        logger.error(f"シリアルエラー: {e}")
+    except UnicodeDecodeError:
+        logger.warning("無効なデータを受信")
+    return None
+```
+
+### 自動再接続
+```python
+def reconnect_serial(port, baudrate, max_attempts=5):
+    for attempt in range(max_attempts):
+        try:
+            ser = serial.Serial(port, baudrate, timeout=1)
+            return ser
+        except serial.SerialException:
+            time.sleep(2 ** attempt)  # 指数バックオフ
+    raise ConnectionError("再接続に失敗")
+```
+
+:::
+
+# Modbus プロトコル {background-color="#F18F01"}
+
+## Modbus 概要 {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+**Modbus とは？**
+- 産業通信プロトコル
+- マスター・スレーブ構成
+- TCP/IP とシリアル方式
+- PLC とセンサーの標準
+:::
+
+::: {.column width="50%"}
+**データ型:**
+- **コイル** - デジタル出力 (R/W)
+- **ディスクリート入力** - デジタル入力 (RO)
+- **入力レジスタ** - アナログ入力 (RO)
+- **保持レジスタ** - アナログ値 (R/W)
+:::
+:::
+
+## PyModbus 実装 {.smaller}
+
+```python
+from pymodbus.client.sync import ModbusTcpClient
+
+class ModbusController:
+    def __init__(self, host='192.168.1.100', port=502):
+        self.client = ModbusTcpClient(host, port=port)
+        self.connected = self.client.connect()
+    
+    def read_sensors(self):
+        # 保持レジスタ読取り（温度、圧力、流量）
+        result = self.client.read_holding_registers(0, 3, unit=1)
+        
+        if result.isError():
+            return None
+            
+        return {
+            'temperature': result.registers[0] / 100.0,  # °C
+            'pressure': result.registers[1] / 10.0,     # bar
+            'flow_rate': result.registers[2]            # L/min
+        }
+    
+    def control_pump(self, pump_id, state):
+        # コイル書込みでポンプ制御
+        self.client.write_coil(pump_id, state, unit=1)
+```
+
+## 産業制御例 {.smaller}
+
+```python
+class IndustrialSystem:
+    def __init__(self):
+        self.plc = ModbusController('192.168.1.100')
+        self.setpoints = {'temperature': 25.0, 'pressure': 2.5}
+    
+    def monitor_process(self):
+        sensors = self.plc.read_sensors()
+        
+        # 温度制御
+        if sensors['temperature'] > self.setpoints['temperature'] + 2:
+            self.plc.control_pump(0, False)  # 加熱停止
+        elif sensors['temperature'] < self.setpoints['temperature'] - 2:
+            self.plc.control_pump(0, True)   # 加熱開始
+        
+        # 圧力安全
+        if sensors['pressure'] > 3.0:
+            self.plc.control_pump(1, False)  # 緊急停止
+            self.send_alert("高圧検出！")
+        
+        return sensors
+```
+
+# InfluxDB 連携 {background-color="#C73E1D"}
+
+## 時系列データベース {.smaller}
+
+::: {.incremental}
+- **時刻印データに最適化** - センサー読取値、メトリクス
+- **高速書込性能** - 毎秒数百万ポイント
+- **強力なクエリ言語** - 分析用 Flux
+- **組込み保持ポリシー** - 自動データクリーンアップ
+- **Grafana 連携** - 美しいダッシュボード
+:::
+
+## InfluxDB クライアント設定 {.smaller}
+
+```python
+from influxdb_client import InfluxDBClient, Point
+from influxdb_client.client.write_api import SYNCHRONOUS
+
+class IoTDataManager:
+    def __init__(self, url, token, org, bucket):
+        self.client = InfluxDBClient(url=url, token=token, org=org)
+        self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
+        self.query_api = self.client.query_api()
+        self.bucket = bucket
+        self.org = org
+    
+    def write_sensor_data(self, device_id, location, measurements):
+        points = []
+        for field, value in measurements.items():
+            point = Point("sensors") \
+                .tag("device_id", device_id) \
+                .tag("location", location) \
+                .field(field, value)
+            points.append(point)
+        
+        self.write_api.write(bucket=self.bucket, org=self.org, record=points)
+```
+
+## データクエリと分析 {.smaller}
+
+```python
+def get_device_stats(self, device_id, hours=24):
+    query = f'''
+    from(bucket: "{self.bucket}")
+      |> range(start: -{hours}h)
+      |> filter(fn: (r) => r.device_id == "{device_id}")
+      |> group(columns: ["_field"])
+      |> aggregateWindow(every: 1h, fn: mean, createEmpty: false)
+      |> yield(name: "hourly_average")
+    '''
+    
+    result = self.query_api.query(org=self.org, query=query)
+    
+    stats = {}
+    for table in result:
+        for record in table.records:
+            field = record.get_field()
+            value = record.get_value()
+            time = record.get_time()
+            
+            if field not in stats:
+                stats[field] = []
+            stats[field].append({'time': time, 'value': value})
+    
+    return stats
+```
+
+# 完全な IoT システム {background-color="#2E86AB"}
+
+## システム構成 {.smaller}
+
+```python
+class IoTMonitoringSystem:
+    def __init__(self):
+        self.devices = {}
+        self.data_queue = queue.Queue()
+        self.influx_client = IoTDataManager(...)
+        self.running = False
+    
+    def add_device(self, device_id, device_type, **config):
+        if device_type == 'serial':
+            device = ArduinoInterface(config['port'])
+        elif device_type == 'modbus':
+            device = ModbusController(config['host'])
+        
+        self.devices[device_id] = {
+            'interface': device,
+            'config': config,
+            'last_reading': None
+        }
+    
+    def collect_data(self):
+        while self.running:
+            for device_id, device_info in self.devices.items():
+                try:
+                    data = device_info['interface'].read_sensors()
+                    if data:
+                        self.data_queue.put((device_id, data))
+                except Exception as e:
+                    logger.error(f"{device_id} 読取りエラー: {e}")
+            
+            time.sleep(5)  # 5秒ごとに読取り
+```
+
+## データ処理パイプライン {.smaller}
+
+```python
+def process_data(self):
+    while self.running:
+        try:
+            device_id, data = self.data_queue.get(timeout=1)
+            
+            # メタデータ追加
+            data['device_id'] = device_id
+            data['timestamp'] = datetime.now()
+            
+            # データ検証
+            if self.validate_data(data):
+                # InfluxDB に保存
+                self.influx_client.write_sensor_data(
+                    device_id=device_id,
+                    location=self.devices[device_id]['config']['location'],
+                    measurements=data
+                )
+                
+                # アラート確認
+                self.check_alerts(device_id, data)
+            
+            self.data_queue.task_done()
+            
+        except queue.Empty:
+            continue
+        except Exception as e:
+            logger.error(f"データ処理エラー: {e}")
+```
+
+# 実践例 {background-color="#A23B72"}
+
+## スマート温室 {.smaller}
+
+```python
+class SmartGreenhouse:
+    def __init__(self):
+        self.arduino = ArduinoInterface('/dev/ttyACM0')
+        self.data_manager = IoTDataManager(...)
+        self.optimal_conditions = {
+            'temperature': (20, 28),  # 最小, 最大
+            'humidity': (60, 80),
+            'soil_moisture': (30, 70)
+        }
+    
+    def monitor_and_control(self):
+        # センサー読取り
+        sensors = self.arduino.read_sensors()
+        
+        # データログ
+        self.data_manager.write_sensor_data(
+            'greenhouse_001', 'facility_a', sensors
+        )
+        
+        # 自動制御
+        if sensors['temperature'] > 28:
+            self.arduino.control_fan(True)
+        
+        if sensors['soil_moisture'] < 30:
+            self.arduino.control_irrigation(True)
+        
+        return sensors
+```
+
+## 工場監視 {.smaller}
+
+```python
+class FactoryMonitoring:
+    def __init__(self):
+        self.plc = ModbusController('192.168.1.100')
+        self.data_manager = IoTDataManager(...)
+        self.production_line = {
+            'target_rate': 1000,  # 個/時
+            'efficiency_threshold': 0.85
+        }
+    
+    def monitor_production(self):
+        # 生産データ読取り
+        data = self.plc.read_production_counters()
+        
+        # 効率計算
+        current_rate = data['units_produced'] / data['runtime_hours']
+        efficiency = current_rate / self.production_line['target_rate']
+        
+        # メトリクス保存
+        metrics = {
+            'production_rate': current_rate,
+            'efficiency': efficiency,
+            'downtime': data['downtime_minutes'],
+            'quality_score': data['quality_percentage']
+        }
+        
+        self.data_manager.write_equipment_status('line_001', metrics)
+        
+        # アラート
+        if efficiency < 0.85:
+            self.send_alert(f"効率低下: {efficiency:.2%}")
+```
+
+# ベストプラクティス {background-color="#F18F01"}
+
+## エラーハンドリングと回復力 {.smaller}
+
+::: {.panel-tabset}
+
+### リトライロジック
+```python
+def retry_on_failure(max_retries=3, delay=1.0):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            for attempt in range(max_retries):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    if attempt == max_retries - 1:
+                        raise e
+                    time.sleep(delay)
+            return wrapper
+        return decorator
+
+@retry_on_failure(max_retries=5, delay=2.0)
+def read_device_data(device):
+    return device.read_sensors()
+```
+
+### サーキットブレーカー
+```python
+class CircuitBreaker:
+    def __init__(self, failure_threshold=5, timeout=60):
+        self.failure_threshold = failure_threshold
+        self.timeout = timeout
+        self.failure_count = 0
+        self.last_failure_time = None
+        self.state = 'CLOSED'  # CLOSED, OPEN, HALF_OPEN
+    
+    def call(self, func, *args, **kwargs):
+        if self.state == 'OPEN':
+            if time.time() - self.last_failure_time > self.timeout:
+                self.state = 'HALF_OPEN'
+            else:
+                raise Exception("サーキットブレーカーが開いています")
+        
+        try:
+            result = func(*args, **kwargs)
+            self.on_success()
+            return result
+        except Exception as e:
+            self.on_failure()
+            raise e
+```
+
+:::
+
+## セキュリティ考慮事項 {.smaller}
+
+::: {.incremental}
+- **通信暗号化** - Modbus TCP の TLS
+- **デバイス認証** - API キー、証明書
+- **ネットワーク分離** - IoT 専用ネットワーク
+- **入力検証** - すべてのセンサーデータを検証
+- **定期更新** - ライブラリとファームウェアの最新化
+- **監視** - すべての通信とアクセスをログ
+:::
+
+# まとめ {background-color="#2E86AB"}
+
+## 学習内容 {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+**核心技術:**
+- PySerial でのシリアル通信
+- Modbus 産業プロトコル
+- InfluxDB 時系列ストレージ
+- 非同期 I/O パターン
+- エラーハンドリング戦略
+:::
+
+::: {.column width="50%"}
+**実践スキル:**
+- デバイスインターフェース
+- リアルタイム監視
+- データロギングと分析
+- アラートシステム
+- パフォーマンス最適化
+:::
+:::
+
+## 産業応用 {.smaller}
+
+::: {.incremental}
+- **製造業** - 生産監視、品質管理
+- **農業** - スマート農業、温室自動化
+- **エネルギー** - スマートグリッド、再生可能エネルギー監視
+- **ビル自動化** - HVAC、セキュリティ、エネルギー管理
+- **ヘルスケア** - 患者監視、医療機器連携
+- **交通** - フリート管理、車両診断
+:::
+
+## 次のステップ {.smaller}
+
+1. **実際のハードウェア設定** - Arduino、Raspberry Pi、PLC
+2. **ダッシュボード実装** - Grafana、カスタム Web インターフェース
+3. **機械学習追加** - 予知保全、異常検知
+4. **エッジコンピューティング** - ローカル処理、低遅延
+5. **追加プロトコル学習** - MQTT、OPC-UA、CAN バス
+6. **本番システム構築** - スケーラビリティ、信頼性、セキュリティ
+
+---
+
+## ありがとうございました！ {.center}
+
+Python で物理世界とデジタル世界を繋ぐ準備完了！
+
+次：これらのスキルを実際の IoT プロジェクトに応用！ 🌐🔧

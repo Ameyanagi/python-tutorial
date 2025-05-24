@@ -3,11 +3,25 @@ title: "Python Tutorial"
 subtitle: "Introduction and Setup"
 format: 
   revealjs:
-    theme: dark
-    transition: slide
-    background-transition: fade
+    theme: [default, ../shared/style.scss]
+    transition: none
+    background-transition: none
     highlight-style: github
     code-fold: false
+    slideNumber: true
+    chalkboard: true
+    previewLinks: auto
+    logo: ../shared/python-logo.svg
+    footer: "Python Tutorial - Introduction"
+    width: 1050
+    height: 700
+    margin: 0.1
+    center: false
+    navigationMode: linear
+    controlsLayout: edges
+    controlsTutorial: false
+    hash: true
+    history: true
 ---
 
 # Welcome to Python! {background-color="#2E86AB"}
@@ -61,41 +75,48 @@ import this
 
 ## Environment Setup {background-color="#F18F01"}
 
-## Python Installation
+## Modern Python Setup with uv
+
+**Recommended: Use uv - it handles everything!**
 
 ::: {.panel-tabset}
 
 ### Windows
 ```bash
-# Using winget
-winget install Python.Python.3.12
+# Install uv (handles Python + environments)
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
-# Using Microsoft Store
-# Search for "Python 3.12"
+# uv automatically installs Python when needed
+uv python install 3.12
 ```
 
 ### macOS
 ```bash
-# Using Homebrew
-brew install python@3.12
+# Install uv 
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Using pyenv
-pyenv install 3.12.8
+# uv automatically manages Python versions
+uv python install 3.12
 ```
 
 ### Linux
 ```bash
-# Ubuntu/Debian
-sudo apt install python3.12
+# Install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Fedora/Arch
-sudo dnf install python3.12
-sudo pacman -S python
+# uv automatically manages Python versions
+uv python install 3.12
 ```
 
 :::
 
-## Environment Managers
+## Why uv? {.smaller}
+
+✅ **All-in-one solution**: Python + packages + environments  
+✅ **10-100x faster** than pip  
+✅ **Cross-platform** - works everywhere  
+✅ **No manual Python installation** needed  
+✅ **Industry standard** for modern Python development
 
 ### uv (Recommended) ⚡
 

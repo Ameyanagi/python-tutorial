@@ -1,0 +1,1027 @@
+# IoT Connectivity and Industrial Protocols
+
+Python is a powerful language for IoT (Internet of Things) applications and industrial automation. This chapter covers essential connectivity protocols and tools for communicating with IoT devices, sensors, and industrial equipment.
+
+## Serial Communication
+
+Serial communication is fundamental for connecting to microcontrollers, sensors, and industrial devices.
+
+### PySerial Basics
+
+```{python}
+# Note: This demonstrates PySerial concepts
+# To use with real hardware: uv add pyserial
+
+import sys
+from datetime import datetime
+import time
+
+# Simulate serial communication concepts
+class MockSerial:
+    """Mock serial port for demonstration"""
+    
+    def __init__(self, port, baudrate=9600, timeout=1):
+        self.port = port
+        self.baudrate = baudrate
+        self.timeout = timeout
+        self.is_open = False
+        self.buffer = []
+        
+        print(f"Mock Serial initialized: {port} @ {baudrate} baud")
+    
+    def open(self):
+        self.is_open = True
+        print(f"Opened connection to {self.port}")
+    
+    def close(self):
+        self.is_open = False
+        print(f"Closed connection to {self.port}")
+    
+    def write(self, data):
+        if isinstance(data, str):
+            data = data.encode('utf-8')
+        print(f"Sent: {data}")
+        return len(data)
+    
+    def read(self, size=1):
+        # Simulate reading sensor data
+        mock_data = b"25.3"  # Temperature reading
+        print(f"Received: {mock_data}")
+        return mock_data
+    
+    def readline(self):
+        # Simulate reading a line of data
+        mock_line = b"TEMP:25.3,HUMID:65.2\\n"
+        print(f"Read line: {mock_line}")
+        return mock_line
+
+# Demonstrate serial communication
+def demo_serial_communication():
+    """Demonstrate basic serial communication patterns"""
+    
+    # Initialize serial connection
+    ser = MockSerial('/dev/ttyUSB0', baudrate=9600, timeout=1)
+    ser.open()
+    
+    try:
+        # Send command to device
+        command = "READ_SENSORS\\n"
+        ser.write(command)
+        
+        # Read response
+        response = ser.readline()
+        
+        # Parse sensor data
+        data_str = response.decode('utf-8').strip()
+        print(f"Raw data: {data_str}")
+        
+        # Parse comma-separated values
+        if ':' in data_str:
+            sensors = {}
+            for pair in data_str.split(','):
+                if ':' in pair:
+                    key, value = pair.split(':')
+                    sensors[key] = float(value)
+            
+            print(f"Parsed sensors: {sensors}")
+            return sensors
+    
+    finally:
+        ser.close()
+
+# Run the demo
+sensors = demo_serial_communication()
+print(f"Final sensor data: {sensors}")
+```
+
+### Arduino Communication Example
+
+```{python}
+import time
+import json
+from datetime import datetime
+
+class ArduinoInterface:
+    """Interface for communicating with Arduino devices"""
+    
+    def __init__(self, port='/dev/ttyACM0', baudrate=9600):
+        self.port = port
+        self.baudrate = baudrate
+        self.connection = None
+        self.data_buffer = []
+    
+    def connect(self):
+        """Establish connection to Arduino"""
+        print(f"Connecting to Arduino on {self.port}")
+        # In real implementation: self.connection = serial.Serial(self.port, self.baudrate)
+        self.connection = MockSerial(self.port, self.baudrate)
+        self.connection.open()
+        time.sleep(2)  # Arduino reset delay
+        print("Connected to Arduino")
+    
+    def disconnect(self):
+        """Close connection to Arduino"""
+        if self.connection:
+            self.connection.close()
+            print("Disconnected from Arduino")
+    
+    def send_command(self, command):
+        """Send command to Arduino"""
+        if not self.connection:
+            raise Exception("Not connected to Arduino")
+        
+        command_line = f"{command}\\n"
+        self.connection.write(command_line.encode())
+        print(f"Sent command: {command}")
+    
+    def read_sensor_data(self):
+        """Read and parse sensor data from Arduino"""
+        if not self.connection:
+            raise Exception("Not connected to Arduino")
+        
+        # Simulate reading JSON data from Arduino
+        mock_data = '{"temperature": 23.5, "humidity": 58.2, "light": 340}'
+        print(f"Received: {mock_data}")
+        
+        try:
+            data = json.loads(mock_data)
+            data['timestamp'] = datetime.now().isoformat()
+            return data
+        except json.JSONDecodeError as e:
+            print(f"JSON parsing error: {e}")
+            return None
+    
+    def control_led(self, pin, state):
+        """Control LED on Arduino"""
+        command = f"LED,{pin},{'ON' if state else 'OFF'}"
+        self.send_command(command)
+    
+    def read_analog(self, pin):
+        """Read analog value from Arduino pin"""
+        self.send_command(f"ANALOG_READ,{pin}")
+        # Simulate analog reading (0-1023)
+        value = 512  # Mock value
+        print(f"Analog pin {pin}: {value}")
+        return value
+
+# Demonstrate Arduino communication
+arduino = ArduinoInterface()
+
+try:
+    arduino.connect()
+    
+    # Read sensor data
+    sensor_data = arduino.read_sensor_data()
+    print(f"Sensor readings: {sensor_data}")
+    
+    # Control outputs
+    arduino.control_led(13, True)  # Turn on LED on pin 13
+    
+    # Read analog inputs
+    light_level = arduino.read_analog(0)  # Read light sensor on A0
+    
+    print(f"Light level: {light_level}")
+    
+finally:
+    arduino.disconnect()
+```
+
+## Modbus Communication
+
+Modbus is a widely used industrial communication protocol for connecting PLCs, sensors, and other industrial devices.
+
+### Modbus TCP/RTU with pymodbus
+
+```{python}
+# Note: For real implementation: uv add pymodbus
+
+import struct
+import time
+from typing import List, Dict, Optional
+
+class MockModbusClient:
+    """Mock Modbus client for demonstration"""
+    
+    def __init__(self, host='192.168.1.100', port=502):
+        self.host = host
+        self.port = port
+        self.connected = False
+        
+        # Mock register data
+        self.holding_registers = {
+            0: 2350,    # Temperature * 100
+            1: 6520,    # Humidity * 100
+            2: 1,       # Pump status
+            3: 750,     # Pressure
+            4: 50       # Flow rate
+        }
+        
+        self.coils = {
+            0: True,    # Pump 1
+            1: False,   # Pump 2
+            2: True,    # Valve 1
+            3: False    # Valve 2
+        }
+    
+    def connect(self):
+        """Connect to Modbus device"""
+        print(f"Connecting to Modbus device at {self.host}:{self.port}")
+        self.connected = True
+        print("Connected to Modbus device")
+        return True
+    
+    def close(self):
+        """Close Modbus connection"""
+        self.connected = False
+        print("Disconnected from Modbus device")
+    
+    def read_holding_registers(self, address, count, unit=1):
+        """Read holding registers"""
+        if not self.connected:
+            raise Exception("Not connected to Modbus device")
+        
+        print(f"Reading {count} holding registers from address {address}")
+        
+        result = []
+        for i in range(count):
+            reg_addr = address + i
+            value = self.holding_registers.get(reg_addr, 0)
+            result.append(value)
+        
+        print(f"Read registers: {result}")
+        return result
+    
+    def write_register(self, address, value, unit=1):
+        """Write single holding register"""
+        if not self.connected:
+            raise Exception("Not connected to Modbus device")
+        
+        print(f"Writing value {value} to register {address}")
+        self.holding_registers[address] = value
+        return True
+    
+    def read_coils(self, address, count, unit=1):
+        """Read coil status"""
+        if not self.connected:
+            raise Exception("Not connected to Modbus device")
+        
+        print(f"Reading {count} coils from address {address}")
+        
+        result = []
+        for i in range(count):
+            coil_addr = address + i
+            value = self.coils.get(coil_addr, False)
+            result.append(value)
+        
+        print(f"Read coils: {result}")
+        return result
+    
+    def write_coil(self, address, value, unit=1):
+        """Write single coil"""
+        if not self.connected:
+            raise Exception("Not connected to Modbus device")
+        
+        print(f"Writing coil {address} = {value}")
+        self.coils[address] = bool(value)
+        return True
+
+class IndustrialController:
+    """High-level interface for industrial Modbus devices"""
+    
+    def __init__(self, host='192.168.1.100', port=502):
+        self.client = MockModbusClient(host, port)
+        self.connected = False
+    
+    def connect(self):
+        """Connect to industrial controller"""
+        self.connected = self.client.connect()
+        return self.connected
+    
+    def disconnect(self):
+        """Disconnect from controller"""
+        self.client.close()
+        self.connected = False
+    
+    def read_sensors(self):
+        """Read all sensor values"""
+        if not self.connected:
+            raise Exception("Not connected to controller")
+        
+        # Read sensor registers
+        registers = self.client.read_holding_registers(0, 5)
+        
+        # Convert raw values to engineering units
+        sensors = {
+            'temperature': registers[0] / 100.0,  # Celsius
+            'humidity': registers[1] / 100.0,     # %RH
+            'pump_status': bool(registers[2]),    # On/Off
+            'pressure': registers[3] / 10.0,      # bar
+            'flow_rate': registers[4]             # L/min
+        }
+        
+        return sensors
+    
+    def control_pump(self, pump_id, state):
+        """Control pump on/off"""
+        if not self.connected:
+            raise Exception("Not connected to controller")
+        
+        self.client.write_coil(pump_id, state)
+        print(f"Pump {pump_id} {'ON' if state else 'OFF'}")
+    
+    def set_setpoint(self, parameter, value):
+        """Set control setpoint"""
+        if not self.connected:
+            raise Exception("Not connected to controller")
+        
+        # Map parameters to register addresses
+        setpoint_registers = {
+            'temperature': 10,
+            'pressure': 11,
+            'flow_rate': 12
+        }
+        
+        if parameter not in setpoint_registers:
+            raise ValueError(f"Unknown parameter: {parameter}")
+        
+        # Convert to raw value
+        if parameter == 'temperature':
+            raw_value = int(value * 100)
+        elif parameter == 'pressure':
+            raw_value = int(value * 10)
+        else:
+            raw_value = int(value)
+        
+        register = setpoint_registers[parameter]
+        self.client.write_register(register, raw_value)
+        print(f"Set {parameter} setpoint to {value}")
+
+# Demonstrate industrial Modbus communication
+controller = IndustrialController('192.168.1.100')
+
+try:
+    # Connect to controller
+    controller.connect()
+    
+    # Read current sensor values
+    sensors = controller.read_sensors()
+    print("Current sensor readings:")
+    for sensor, value in sensors.items():
+        print(f"  {sensor}: {value}")
+    
+    # Control equipment
+    controller.control_pump(0, True)  # Turn on pump 1
+    controller.control_pump(1, False) # Turn off pump 2
+    
+    # Set control parameters
+    controller.set_setpoint('temperature', 25.0)  # 25°C
+    controller.set_setpoint('pressure', 2.5)      # 2.5 bar
+    
+    print("\\nController configuration updated")
+    
+finally:
+    controller.disconnect()
+```
+
+## InfluxDB Integration
+
+InfluxDB is a time-series database perfect for storing IoT sensor data and industrial measurements.
+
+### Time-Series Data Management
+
+```{python}
+# Note: For real implementation: uv add influxdb-client
+
+import json
+from datetime import datetime, timedelta
+from typing import List, Dict, Any
+import random
+
+class MockInfluxDBClient:
+    """Mock InfluxDB client for demonstration"""
+    
+    def __init__(self, url="http://localhost:8086", token="", org="", bucket=""):
+        self.url = url
+        self.token = token
+        self.org = org
+        self.bucket = bucket
+        self.data_points = []  # Mock storage
+        
+        print(f"Mock InfluxDB client initialized")
+        print(f"  URL: {url}")
+        print(f"  Org: {org}")
+        print(f"  Bucket: {bucket}")
+    
+    def write_api(self):
+        """Get write API"""
+        return MockWriteAPI(self.data_points)
+    
+    def query_api(self):
+        """Get query API"""
+        return MockQueryAPI(self.data_points)
+
+class MockWriteAPI:
+    """Mock InfluxDB write API"""
+    
+    def __init__(self, data_store):
+        self.data_store = data_store
+    
+    def write(self, bucket, org, record):
+        """Write data points to InfluxDB"""
+        if isinstance(record, list):
+            for point in record:
+                self._write_point(point)
+        else:
+            self._write_point(record)
+        
+        print(f"Written {len(record) if isinstance(record, list) else 1} points to {bucket}")
+    
+    def _write_point(self, point):
+        """Write a single data point"""
+        self.data_store.append(point)
+        print(f"  Point: {point}")
+
+class MockQueryAPI:
+    """Mock InfluxDB query API"""
+    
+    def __init__(self, data_store):
+        self.data_store = data_store
+    
+    def query(self, flux_query, org):
+        """Execute Flux query"""
+        print(f"Executing query: {flux_query}")
+        
+        # Simulate query results
+        results = []
+        for i, point in enumerate(self.data_store[-10:]):  # Last 10 points
+            results.append({
+                'time': datetime.now() - timedelta(minutes=i),
+                'measurement': 'sensors',
+                'field': 'temperature',
+                'value': 20.0 + random.uniform(-5, 5)
+            })
+        
+        print(f"Query returned {len(results)} results")
+        return results
+
+class IoTDataManager:
+    """High-level IoT data management with InfluxDB"""
+    
+    def __init__(self, url="http://localhost:8086", token="your-token", 
+                 org="your-org", bucket="iot-data"):
+        self.client = MockInfluxDBClient(url, token, org, bucket)
+        self.write_api = self.client.write_api()
+        self.query_api = self.client.query_api()
+        self.bucket = bucket
+        self.org = org
+    
+    def write_sensor_data(self, device_id: str, location: str, 
+                         measurements: Dict[str, float]):
+        """Write sensor measurements to InfluxDB"""
+        
+        timestamp = datetime.now()
+        points = []
+        
+        for field, value in measurements.items():
+            point = {
+                'measurement': 'sensors',
+                'tags': {
+                    'device_id': device_id,
+                    'location': location
+                },
+                'fields': {
+                    field: value
+                },
+                'time': timestamp
+            }
+            points.append(point)
+        
+        self.write_api.write(self.bucket, self.org, points)
+        print(f"Written sensor data for device {device_id}")
+    
+    def write_equipment_status(self, equipment_id: str, status: Dict[str, Any]):
+        """Write equipment status to InfluxDB"""
+        
+        point = {
+            'measurement': 'equipment',
+            'tags': {
+                'equipment_id': equipment_id
+            },
+            'fields': status,
+            'time': datetime.now()
+        }
+        
+        self.write_api.write(self.bucket, self.org, [point])
+        print(f"Written equipment status for {equipment_id}")
+    
+    def get_recent_data(self, measurement: str, hours: int = 24):
+        """Get recent data from InfluxDB"""
+        
+        flux_query = f'''
+        from(bucket: "{self.bucket}")
+          |> range(start: -{hours}h)
+          |> filter(fn: (r) => r._measurement == "{measurement}")
+          |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)
+          |> yield(name: "mean")
+        '''
+        
+        result = self.query_api.query(flux_query, self.org)
+        return result
+    
+    def get_device_summary(self, device_id: str):
+        """Get summary statistics for a device"""
+        
+        flux_query = f'''
+        from(bucket: "{self.bucket}")
+          |> range(start: -24h)
+          |> filter(fn: (r) => r.device_id == "{device_id}")
+          |> group(columns: ["_field"])
+          |> aggregateWindow(every: 24h, fn: mean, createEmpty: false)
+          |> yield(name: "daily_average")
+        '''
+        
+        result = self.query_api.query(flux_query, self.org)
+        
+        # Process results into summary
+        summary = {
+            'device_id': device_id,
+            'period': '24 hours',
+            'measurements': {}
+        }
+        
+        # Simulate summary data
+        summary['measurements'] = {
+            'temperature': {'avg': 23.5, 'min': 20.1, 'max': 26.8},
+            'humidity': {'avg': 62.3, 'min': 55.0, 'max': 70.5},
+            'pressure': {'avg': 1013.2, 'min': 1010.5, 'max': 1015.8}
+        }
+        
+        return summary
+
+# Demonstrate IoT data management
+data_manager = IoTDataManager(
+    url="http://localhost:8086",
+    token="your-influxdb-token",
+    org="your-organization",
+    bucket="iot-sensors"
+)
+
+# Write sensor data
+sensor_data = {
+    'temperature': 23.5,
+    'humidity': 62.3,
+    'pressure': 1013.2,
+    'light_level': 340
+}
+
+data_manager.write_sensor_data(
+    device_id="sensor_001",
+    location="factory_floor",
+    measurements=sensor_data
+)
+
+# Write equipment status
+equipment_status = {
+    'running': True,
+    'rpm': 1450,
+    'temperature': 78.5,
+    'vibration': 0.02
+}
+
+data_manager.write_equipment_status(
+    equipment_id="pump_001",
+    status=equipment_status
+)
+
+# Query recent data
+recent_data = data_manager.get_recent_data("sensors", hours=24)
+print(f"\\nRecent sensor data: {len(recent_data)} points")
+
+# Get device summary
+summary = data_manager.get_device_summary("sensor_001")
+print(f"\\nDevice summary:")
+print(json.dumps(summary, indent=2))
+```
+
+## Complete IoT System Example
+
+Let's build a complete IoT monitoring system that combines all the technologies:
+
+```{python}
+import time
+import json
+from datetime import datetime
+from typing import Dict, List, Optional
+import threading
+import queue
+
+class IoTMonitoringSystem:
+    """Complete IoT monitoring system with multiple protocols"""
+    
+    def __init__(self):
+        self.devices = {}
+        self.data_queue = queue.Queue()
+        self.running = False
+        self.influx_client = IoTDataManager()
+        
+        # Device configurations
+        self.device_configs = {
+            'arduino_001': {
+                'type': 'serial',
+                'port': '/dev/ttyACM0',
+                'baudrate': 9600,
+                'location': 'greenhouse'
+            },
+            'plc_001': {
+                'type': 'modbus',
+                'host': '192.168.1.100',
+                'port': 502,
+                'location': 'production_line'
+            }
+        }
+    
+    def initialize_devices(self):
+        """Initialize all configured devices"""
+        for device_id, config in self.device_configs.items():
+            try:
+                if config['type'] == 'serial':
+                    device = ArduinoInterface(config['port'], config['baudrate'])
+                    device.connect()
+                elif config['type'] == 'modbus':
+                    device = IndustrialController(config['host'], config['port'])
+                    device.connect()
+                
+                self.devices[device_id] = {
+                    'interface': device,
+                    'config': config,
+                    'last_reading': None,
+                    'error_count': 0
+                }
+                
+                print(f"Initialized device: {device_id}")
+                
+            except Exception as e:
+                print(f"Failed to initialize {device_id}: {e}")
+    
+    def read_device_data(self, device_id: str) -> Optional[Dict]:
+        """Read data from a specific device"""
+        if device_id not in self.devices:
+            return None
+        
+        device_info = self.devices[device_id]
+        interface = device_info['interface']
+        config = device_info['config']
+        
+        try:
+            if config['type'] == 'serial':
+                data = interface.read_sensor_data()
+            elif config['type'] == 'modbus':
+                data = interface.read_sensors()
+            
+            if data:
+                data['device_id'] = device_id
+                data['location'] = config['location']
+                data['timestamp'] = datetime.now().isoformat()
+                device_info['last_reading'] = datetime.now()
+                device_info['error_count'] = 0
+                
+            return data
+            
+        except Exception as e:
+            device_info['error_count'] += 1
+            print(f"Error reading from {device_id}: {e}")
+            return None
+    
+    def data_collection_worker(self):
+        """Background worker for continuous data collection"""
+        while self.running:
+            for device_id in self.devices:
+                data = self.read_device_data(device_id)
+                if data:
+                    self.data_queue.put(data)
+            
+            time.sleep(5)  # Read every 5 seconds
+    
+    def data_storage_worker(self):
+        """Background worker for storing data to InfluxDB"""
+        while self.running:
+            try:
+                # Get data from queue with timeout
+                data = self.data_queue.get(timeout=1)
+                
+                # Extract device info
+                device_id = data.pop('device_id')
+                location = data.pop('location')
+                timestamp = data.pop('timestamp')
+                
+                # Store sensor measurements
+                measurements = {k: v for k, v in data.items() 
+                              if isinstance(v, (int, float))}
+                
+                if measurements:
+                    self.influx_client.write_sensor_data(
+                        device_id, location, measurements
+                    )
+                
+                self.data_queue.task_done()
+                
+            except queue.Empty:
+                continue
+            except Exception as e:
+                print(f"Error storing data: {e}")
+    
+    def start_monitoring(self):
+        """Start the monitoring system"""
+        print("Starting IoT monitoring system...")
+        
+        # Initialize devices
+        self.initialize_devices()
+        
+        if not self.devices:
+            print("No devices initialized. Exiting.")
+            return
+        
+        # Start background workers
+        self.running = True
+        
+        collection_thread = threading.Thread(
+            target=self.data_collection_worker,
+            name="DataCollection"
+        )
+        
+        storage_thread = threading.Thread(
+            target=self.data_storage_worker,
+            name="DataStorage"
+        )
+        
+        collection_thread.start()
+        storage_thread.start()
+        
+        print("Monitoring system started successfully")
+        
+        # Main monitoring loop
+        try:
+            while True:
+                self.print_system_status()
+                time.sleep(30)  # Print status every 30 seconds
+                
+        except KeyboardInterrupt:
+            print("\\nShutting down monitoring system...")
+            self.stop_monitoring()
+            
+            collection_thread.join()
+            storage_thread.join()
+    
+    def stop_monitoring(self):
+        """Stop the monitoring system"""
+        self.running = False
+        
+        # Disconnect all devices
+        for device_id, device_info in self.devices.items():
+            try:
+                device_info['interface'].disconnect()
+                print(f"Disconnected from {device_id}")
+            except:
+                pass
+    
+    def print_system_status(self):
+        """Print current system status"""
+        print(f"\\n=== IoT System Status - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ===")
+        print(f"Active devices: {len(self.devices)}")
+        print(f"Queue size: {self.data_queue.qsize()}")
+        
+        for device_id, device_info in self.devices.items():
+            last_reading = device_info['last_reading']
+            error_count = device_info['error_count']
+            
+            if last_reading:
+                age = (datetime.now() - last_reading).seconds
+                status = "OK" if age < 30 and error_count == 0 else "WARNING"
+            else:
+                status = "NO DATA"
+            
+            print(f"  {device_id}: {status} (errors: {error_count})")
+    
+    def get_system_health(self) -> Dict:
+        """Get system health metrics"""
+        health = {
+            'timestamp': datetime.now().isoformat(),
+            'devices_count': len(self.devices),
+            'queue_size': self.data_queue.qsize(),
+            'devices': {}
+        }
+        
+        for device_id, device_info in self.devices.items():
+            last_reading = device_info['last_reading']
+            
+            device_health = {
+                'error_count': device_info['error_count'],
+                'last_reading': last_reading.isoformat() if last_reading else None,
+                'status': 'healthy' if device_info['error_count'] == 0 else 'degraded'
+            }
+            
+            health['devices'][device_id] = device_health
+        
+        return health
+
+# Demonstrate the complete IoT system
+print("IoT Monitoring System Demo")
+print("=" * 40)
+
+# Create and configure the system
+iot_system = IoTMonitoringSystem()
+
+# Simulate running the system for a short time
+print("\\nSimulating system initialization...")
+iot_system.initialize_devices()
+
+# Get system health
+health = iot_system.get_system_health()
+print(f"\\nSystem Health Report:")
+print(json.dumps(health, indent=2))
+
+print("\\n✅ IoT system demonstration complete!")
+print("\\nIn a real implementation, you would:")
+print("1. Install required packages: uv add pyserial pymodbus influxdb-client")
+print("2. Configure actual device connections")
+print("3. Set up InfluxDB with proper authentication")
+print("4. Add error handling and recovery mechanisms")
+print("5. Implement data visualization dashboards")
+```
+
+## Best Practices for IoT Development
+
+### Error Handling and Resilience
+
+```{python}
+import logging
+from typing import Optional, Callable
+import functools
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+
+logger = logging.getLogger(__name__)
+
+def retry_on_failure(max_retries: int = 3, delay: float = 1.0):
+    """Decorator for retrying failed operations"""
+    def decorator(func: Callable):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            last_exception = None
+            
+            for attempt in range(max_retries):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    last_exception = e
+                    logger.warning(f"Attempt {attempt + 1} failed: {e}")
+                    
+                    if attempt < max_retries - 1:
+                        time.sleep(delay)
+                    
+            logger.error(f"All {max_retries} attempts failed")
+            raise last_exception
+        
+        return wrapper
+    return decorator
+
+class ResilientDeviceConnection:
+    """Resilient device connection with automatic reconnection"""
+    
+    def __init__(self, device_config: Dict):
+        self.config = device_config
+        self.connection = None
+        self.connected = False
+        self.reconnect_attempts = 0
+        self.max_reconnect_attempts = 5
+    
+    @retry_on_failure(max_retries=3, delay=2.0)
+    def connect(self):
+        """Connect to device with retry logic"""
+        logger.info(f"Connecting to device: {self.config['device_id']}")
+        
+        if self.config['type'] == 'serial':
+            # In real implementation: self.connection = serial.Serial(...)
+            self.connection = MockSerial(
+                self.config['port'], 
+                self.config['baudrate']
+            )
+        elif self.config['type'] == 'modbus':
+            self.connection = MockModbusClient(
+                self.config['host'], 
+                self.config['port']
+            )
+        
+        self.connection.connect() if hasattr(self.connection, 'connect') else None
+        self.connected = True
+        self.reconnect_attempts = 0
+        
+        logger.info(f"Successfully connected to {self.config['device_id']}")
+    
+    def disconnect(self):
+        """Disconnect from device"""
+        if self.connection:
+            try:
+                if hasattr(self.connection, 'close'):
+                    self.connection.close()
+                elif hasattr(self.connection, 'disconnect'):
+                    self.connection.disconnect()
+            except Exception as e:
+                logger.warning(f"Error during disconnect: {e}")
+            
+            self.connected = False
+            logger.info(f"Disconnected from {self.config['device_id']}")
+    
+    def read_data(self) -> Optional[Dict]:
+        """Read data with automatic reconnection"""
+        if not self.connected:
+            self._attempt_reconnect()
+        
+        try:
+            # Simulate reading data based on device type
+            if self.config['type'] == 'serial':
+                data = {'temperature': 23.5, 'humidity': 65.0}
+            elif self.config['type'] == 'modbus':
+                data = {'pressure': 2.5, 'flow_rate': 150}
+            else:
+                data = {}
+            
+            data['device_id'] = self.config['device_id']
+            data['timestamp'] = datetime.now().isoformat()
+            
+            return data
+            
+        except Exception as e:
+            logger.error(f"Error reading data: {e}")
+            self.connected = False
+            return None
+    
+    def _attempt_reconnect(self):
+        """Attempt to reconnect to device"""
+        if self.reconnect_attempts >= self.max_reconnect_attempts:
+            logger.error(f"Max reconnection attempts reached for {self.config['device_id']}")
+            return
+        
+        try:
+            self.reconnect_attempts += 1
+            logger.info(f"Reconnection attempt {self.reconnect_attempts}")
+            self.connect()
+            
+        except Exception as e:
+            logger.error(f"Reconnection failed: {e}")
+
+# Demonstrate resilient connection
+device_config = {
+    'device_id': 'resilient_sensor_001',
+    'type': 'serial',
+    'port': '/dev/ttyUSB0',
+    'baudrate': 9600
+}
+
+resilient_device = ResilientDeviceConnection(device_config)
+
+try:
+    resilient_device.connect()
+    
+    # Simulate multiple readings
+    for i in range(5):
+        data = resilient_device.read_data()
+        if data:
+            print(f"Reading {i+1}: {data}")
+        time.sleep(1)
+        
+finally:
+    resilient_device.disconnect()
+```
+
+## Summary
+
+This chapter covered essential IoT connectivity technologies:
+
+1. **Serial Communication**: Direct hardware communication with PySerial
+2. **Modbus Protocol**: Industrial device communication (TCP/RTU)
+3. **InfluxDB Integration**: Time-series data storage and analysis
+4. **System Integration**: Complete IoT monitoring solutions
+5. **Best Practices**: Error handling, resilience, and reliability
+
+### Key Takeaways
+
+- **Choose the right protocol** for your application requirements
+- **Implement proper error handling** and reconnection logic
+- **Use time-series databases** for sensor data storage
+- **Design for resilience** in industrial environments
+- **Monitor system health** and device connectivity
+
+### Next Steps
+
+1. Set up real hardware connections with actual devices
+2. Implement data visualization dashboards (Grafana, custom web apps)
+3. Add alerting and notification systems
+4. Explore additional protocols (MQTT, OPC-UA, CAN bus)
+5. Implement edge computing and local data processing
+
+IoT development with Python opens up endless possibilities for automation, monitoring, and data-driven decision making in industrial and consumer applications!

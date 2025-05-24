@@ -1,82 +1,175 @@
 /*-- scss:defaults --*/
 
+// Modern color palette
+$primary-color: #3776ab;      // Python blue
+$secondary-color: #ffd43b;    // Python yellow
+$accent-color: #646cff;       // Modern blue
+$dark-bg: #1a1a1a;          // Dark background
+$light-bg: #ffffff;          // Light background
+$text-dark: #2c3e50;         // Dark text
+$text-light: #ecf0f1;        // Light text
+
+// Typography
+$heading-font: 'Inter', 'Segoe UI', system-ui, sans-serif;
+$body-font: 'Inter', 'Segoe UI', system-ui, sans-serif;
+$code-font: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
 /*-- scss:rules --*/
 
-/* Custom styles for RevealJS slides */
+/* Modern Python-themed RevealJS styles */
 
-/* Slide theme customizations */
+// Import Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Global styling */
+.reveal {
+  font-family: $body-font;
+  color: $text-dark;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Slide styling */
 .reveal .slides section {
   text-align: left;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.reveal .slides section h1,
-.reveal .slides section h2,
-.reveal .slides section h3 {
+/* Headings */
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+  font-family: $heading-font;
+  font-weight: 600;
   text-align: center;
+  margin-bottom: 1rem;
 }
 
-/* Code block styling */
+.reveal h1 {
+  color: $primary-color;
+  font-size: 2.5em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.reveal h2 {
+  color: $primary-color;
+  font-size: 1.8em;
+  border-bottom: 3px solid $secondary-color;
+  padding-bottom: 0.5rem;
+}
+
+.reveal h3 {
+  color: $accent-color;
+  font-size: 1.4em;
+}
+
+/* Code styling */
+.reveal pre {
+  background: $dark-bg;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.reveal code {
+  font-family: $code-font;
+  font-size: 0.85em;
+  color: $text-light;
+  background: $dark-bg;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
 .reveal pre code {
+  color: $text-light;
+  background: transparent;
+  padding: 0;
   font-size: 0.8em;
-  line-height: 1.4;
+  line-height: 1.5;
   max-height: 500px;
   overflow-y: auto;
 }
 
-/* Fragment styling */
-.reveal .fragment.highlight-current-blue {
-  opacity: 1;
-}
-
-.reveal .fragment.highlight-current-blue.current-fragment {
-  background: #1b91ff;
-  color: white;
-  padding: 2px 5px;
-  border-radius: 3px;
-}
-
-/* Exercise box styling */
+/* Modern UI elements */
 .exercise-box {
-  background: #f8f9fa;
-  border: 3px solid #28a745;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+  border-left: 4px solid $primary-color;
+  border-radius: 12px;
   padding: 1.5rem;
   margin: 1rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .exercise-box h4 {
-  color: #28a745;
+  color: $primary-color;
   margin-bottom: 1rem;
+  font-weight: 600;
 }
 
-/* Two-column layout */
+/* Layout improvements */
 .reveal .slides section .columns {
   display: flex;
   gap: 2rem;
+  align-items: flex-start;
 }
 
 .reveal .slides section .column {
   flex: 1;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(55, 118, 171, 0.2);
 }
 
-/* Button styling for slides */
+/* Modern buttons */
 .btn {
   display: inline-block;
-  padding: 0.5rem 1rem;
-  margin: 0.25rem;
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem 0.25rem;
   text-decoration: none;
-  border-radius: 0.375rem;
-  font-weight: 600;
-  background-color: #007bff;
+  border-radius: 8px;
+  font-weight: 500;
+  background: linear-gradient(135deg, $primary-color 0%, $accent-color 100%);
   color: white;
   border: none;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(55, 118, 171, 0.3);
 }
 
 .btn:hover {
-  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(55, 118, 171, 0.4);
   text-decoration: none;
   color: white;
+}
+
+/* Panel tabs styling */
+.panel-tabset {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid rgba(55, 118, 171, 0.2);
+}
+
+.panel-tabset .nav-tabs {
+  border-bottom: 2px solid $secondary-color;
+}
+
+.panel-tabset .nav-link {
+  color: $primary-color;
+  font-weight: 500;
+  border-radius: 8px 8px 0 0;
+}
+
+.panel-tabset .nav-link.active {
+  background: $primary-color;
+  color: white;
+  border-color: $primary-color;
 }
 
 /* Grid layout for slides */

@@ -73,10 +73,14 @@
 ## Implementation Priority
 
 ### HIGH PRIORITY (Immediate)
-1. Fix slides rendering ✅
-2. Add missing Applications chapter
-3. Complete remaining Japanese translations
-4. Add exercises to existing chapters
+1. ✅ Fix slides rendering 
+2. ✅ Add missing Applications chapter
+3. ✅ Add IoT connectivity chapter with serial, modbus, influxdb
+4. ✅ Improve slide design with modern theme
+5. ✅ Fix landing pages with proper slide links  
+6. ✅ Update installation process to emphasize uv
+7. 🔄 Complete remaining Japanese translations
+8. 🔄 Add exercises to existing chapters
 
 ### MEDIUM PRIORITY (Next)
 1. Add Web development chapter

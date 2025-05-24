@@ -45,46 +45,52 @@ format:
 
 # インストール {background-color="#A23B72"}
 
-## Python のインストール {.smaller}
+## uv を使った現代的な Python セットアップ
 
-::: {.columns}
-::: {.column width="33%"}
-**Windows:**
+**推奨：uv - すべてを自動処理！**
+
+::: {.panel-tabset}
+
+### Windows
 ```bash
-# Microsoft Store から
-python
+# uv のインストール（Python + 環境管理）
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
-# または python.org から
-# インストーラーをダウンロード
+# uv が自動的に Python をインストール
+uv python install 3.12
 ```
-:::
 
-::: {.column width="33%"}
-**macOS:**
+### macOS
 ```bash
-# Homebrew を使用
-brew install python
+# uv のインストール
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# または python.org から
-# インストーラーをダウンロード
+# uv が Python バージョンを自動管理
+uv python install 3.12
 ```
-:::
 
-::: {.column width="33%"}
-**Linux:**
+### Linux
 ```bash
-# Ubuntu/Debian
-sudo apt install python3
+# uv のインストール
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Red Hat/CentOS
-sudo dnf install python3
+# uv が Python バージョンを自動管理
+uv python install 3.12
 ```
+
 :::
-:::
+
+## なぜ uv なのか？ {.smaller}
+
+✅ **オールインワン**: Python + パッケージ + 環境管理  
+✅ **10-100倍高速** - pip より圧倒的に早い  
+✅ **クロスプラットフォーム** - どこでも動作  
+✅ **手動 Python インストール不要**  
+✅ **業界標準** - 現代的な Python 開発手法
 
 ## 開発環境のセットアップ {.smaller}
 
-### 推奨：uv（高速な環境マネージャー）
+### uv の基本的な使い方
 
 ```bash
 # uv のインストール
