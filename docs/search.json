@@ -2,102 +2,72 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Python Tutorial",
+    "title": "",
     "section": "",
-    "text": "Python Tutorial\nWelcome to the comprehensive Python programming tutorial by Ameyanagi. This tutorial covers Python from basics to advanced applications, with support for multiple languages and formats.",
-    "crumbs": [
-      "Python Tutorial"
-    ]
+    "text": "Code"
   },
   {
     "objectID": "index.html#tutorial-features",
     "href": "index.html#tutorial-features",
-    "title": "Python Tutorial",
-    "section": "🚀 Tutorial Features",
-    "text": "🚀 Tutorial Features\n\nMulti-format Learning: Books, slides, and interactive content\nBilingual Support: English and Japanese versions\nComprehensive Coverage: From Python basics to data science\nModern Development: Using uv, VS Code, and best practices\nReal-world Applications: Practical projects and examples",
-    "crumbs": [
-      "Python Tutorial"
-    ]
+    "title": "",
+    "section": "0.1 🚀 Tutorial Features",
+    "text": "0.1 🚀 Tutorial Features\n\nMulti-format Learning: Books, slides, and interactive content\nBilingual Support: English and Japanese versions\nComprehensive Coverage: From Python basics to data science\nModern Development: Using uv, VS Code, and best practices\nReal-world Applications: Practical projects and examples\n\n\n\n\n\n\n\n⚡ Interactive Python Learning\n\n\n\nNEW! All tutorials now feature Quarto Live - run and edit Python code directly in your browser without installing anything! Perfect for beginners and experienced developers alike.\nFeatures: - 🚀 Zero Setup - No Python installation required - 🎮 Live Code Editing - Modify examples and see results instantly\n- 📊 Interactive Plots - Create and customize data visualizations - 📁 Drag & Drop Files - Upload CSV, Excel, JSON files for analysis - 🌐 Browser-Based - Works on any device with a web browser"
   },
   {
     "objectID": "index.html#available-formats",
     "href": "index.html#available-formats",
-    "title": "Python Tutorial",
-    "section": "📚 Available Formats",
-    "text": "📚 Available Formats\n\n📖 Books (Comprehensive Guides)\n\n\n🇺🇸 English Version\nComplete Python tutorial with 12 chapters covering: - Environment setup and Git integration - Python syntax and data structures\n- Functions and error handling - Object-oriented programming - Advanced topics (async, type hints) - Real-world applications (data science, web development)\n📖 Read English Book →\n\n\n🇯🇵 Japanese Version (日本語版)\nPython完全ガイド - 12章で構成: - 環境設定とGit統合 - Python構文とデータ構造 - 関数とエラー処理\n- オブジェクト指向プログラミング - 高度なトピック（非同期、型ヒント） - 実世界のアプリケーション（データサイエンス、Web開発）\n📖 日本語版を読む →\n\n\n\n\n🎯 Slides (Interactive Presentations)\nPerfect for lectures, workshops, and quick learning sessions:\n\n\nCore Concepts\n\n📊 Data Types & Collections\n🔄 Control Flow\n⚙️ Functions\n🛡️ Error Handling\n\n\n\nCode Organization\n\n📦 Modules & Packages\n🏗️ Classes & Objects\n🔄 Inheritance\n\n\n\nAdvanced Topics\n\n🏷️ Type Hints\n📊 Data Science",
-    "crumbs": [
-      "Python Tutorial"
-    ]
+    "title": "",
+    "section": "0.2 📚 Available Formats",
+    "text": "0.2 📚 Available Formats\n\n0.2.1 📖 Books (Comprehensive Guides)\n\n\n0.2.1.1 🇺🇸 English Version\nComplete Python tutorial with 12 chapters covering: - Environment setup and Git integration - Python syntax and data structures\n- Functions and error handling - Object-oriented programming - Advanced topics (async, type hints) - Real-world applications (data science, web development)\n📖 Read English Book →\n\n\n0.2.1.2 🇯🇵 Japanese Version (日本語版)\nPython完全ガイド - 12章で構成: - 環境設定とGit統合 - Python構文とデータ構造 - 関数とエラー処理\n- オブジェクト指向プログラミング - 高度なトピック（非同期、型ヒント） - 実世界のアプリケーション（データサイエンス、Web開発）\n📖 日本語版を読む →\n\n\n\n\n0.2.2 🎯 Slides (Interactive Presentations)\nPerfect for lectures, workshops, and quick learning sessions. Available in English and Japanese with mobile-optimized RevealJS:\n\n\n0.2.2.1 🇺🇸 English Slides\nComplete presentation series:\n🎯 View All English Slides →\nCore Topics: - 🚀 Introduction & Setup - 📊 Data Types & Collections - 🔄 Control Flow - ⚙️ Functions - 🛡️ Error Handling\nCode Organization: - 📦 Modules & Packages - 🏗️ Classes & Objects - 🔄 Inheritance & Polymorphism\nAdvanced Topics: - 🏷️ Type Hints - 📊 Data Science - 🌐 IoT Connectivity\n\n\n0.2.2.2 🇯🇵 Japanese Slides (日本語スライド)\n完全なプレゼンテーションシリーズ:\n🎯 日本語スライド一覧 →\n基本トピック: - 🚀 導入とセットアップ - 📊 データ型とコレクション - 🔄 制御フロー - ⚙️ 関数 - 🛡️ エラーハンドリング\nコード整理: - 📦 モジュールとパッケージ - 🏗️ クラスとオブジェクト - 🔄 継承と多態性\n高度なトピック: - 🏷️ 型ヒント - 📊 データサイエンス - 🌐 IoT接続\n\n\n\n0.2.2.3 📱 Mobile-Optimized Slides\nAll slides are optimized for: - iPhone/Android - Touch navigation, responsive scaling - Tablets - Perfect presentation mode - Desktop - Full-featured experience with keyboard shortcuts - Projectors - High-resolution output for classrooms"
   },
   {
     "objectID": "index.html#development-environment",
     "href": "index.html#development-environment",
-    "title": "Python Tutorial",
-    "section": "🛠️ Development Environment",
-    "text": "🛠️ Development Environment\nThis tutorial teaches modern Python development using:\n\nuv: Modern Python package manager\nVS Code: Integrated development environment\nruff: Fast Python linter and formatter\npyright: Static type checker\nGit: Version control integration\nQuarto: Multi-format publishing",
-    "crumbs": [
-      "Python Tutorial"
-    ]
+    "title": "",
+    "section": "0.3 🛠️ Development Environment",
+    "text": "0.3 🛠️ Development Environment\nThis tutorial teaches modern Python development using:\n\nuv: Modern Python package manager\nVS Code: Integrated development environment\nruff: Fast Python linter and formatter\npyright: Static type checker\nGit: Version control integration\nQuarto: Multi-format publishing"
   },
   {
     "objectID": "index.html#learning-path",
     "href": "index.html#learning-path",
-    "title": "Python Tutorial",
-    "section": "📋 Learning Path",
-    "text": "📋 Learning Path\n\n👶 Beginners\n\nStart with Environment Setup\nLearn Git & GitHub\nMaster Python Syntax\nPractice with Data Types\n\n\n\n🎓 Intermediate\n\nUnderstand Control Flow\nLearn Functions\nComplete Self-Review\nExplore Object-Oriented Programming\n\n\n\n🚀 Advanced\n\nMaster Inheritance\nUse Type Hints\nLearn Async Programming\nApply Data Science",
-    "crumbs": [
-      "Python Tutorial"
-    ]
+    "title": "",
+    "section": "0.4 📋 Learning Path",
+    "text": "0.4 📋 Learning Path\n\n0.4.1 👶 Beginners\n\nStart with Environment Setup\nLearn Git & GitHub\nMaster Python Syntax\nPractice with Data Types\n\n\n\n0.4.2 🎓 Intermediate\n\nUnderstand Control Flow\nLearn Functions\nComplete Self-Review\nExplore Object-Oriented Programming\n\n\n\n0.4.3 🚀 Advanced\n\nMaster Inheritance\nUse Type Hints\nLearn Async Programming\nApply Data Science"
   },
   {
     "objectID": "index.html#quick-start",
     "href": "index.html#quick-start",
-    "title": "Python Tutorial",
-    "section": "🎯 Quick Start",
-    "text": "🎯 Quick Start\n\nFor Self-Study\n\nChoose your preferred language (English/Japanese)\nFollow the learning path sequentially\nComplete exercises in each chapter\nBuild the capstone projects\n\n\n\nFor Instructors\n\nUse slides for classroom presentations\nAssign book chapters for reading\nLeverage built-in exercises and self-review sections\nAdapt content for your curriculum\n\n\n\nFor Developers\n\nJump to specific topics you need\nUse as a reference guide\nFollow best practices demonstrated\nIntegrate modern tooling into your workflow",
-    "crumbs": [
-      "Python Tutorial"
-    ]
+    "title": "",
+    "section": "0.5 🎯 Quick Start",
+    "text": "0.5 🎯 Quick Start\n\n0.5.1 For Self-Study\n\nChoose your preferred language (English/Japanese)\nFollow the learning path sequentially\nComplete exercises in each chapter\nBuild the capstone projects\n\n\n\n0.5.2 For Instructors\n\nUse slides for classroom presentations\nAssign book chapters for reading\nLeverage built-in exercises and self-review sections\nAdapt content for your curriculum\n\n\n\n0.5.3 For Developers\n\nJump to specific topics you need\nUse as a reference guide\nFollow best practices demonstrated\nIntegrate modern tooling into your workflow"
   },
   {
     "objectID": "index.html#code-examples",
     "href": "index.html#code-examples",
-    "title": "Python Tutorial",
-    "section": "💻 Code Examples",
-    "text": "💻 Code Examples\nAll code examples are: - ✅ Tested and verified - ✅ Copy-paste ready - ✅ Following best practices - ✅ Progressively complex",
-    "crumbs": [
-      "Python Tutorial"
-    ]
+    "title": "",
+    "section": "0.6 💻 Code Examples",
+    "text": "0.6 💻 Code Examples\nAll code examples are: - ✅ Tested and verified - ✅ Copy-paste ready - ✅ Following best practices - ✅ Progressively complex"
   },
   {
     "objectID": "index.html#contributing",
     "href": "index.html#contributing",
-    "title": "Python Tutorial",
-    "section": "🤝 Contributing",
-    "text": "🤝 Contributing\nThis tutorial is open source and welcomes contributions:\n\n🐛 Report issues\n💡 Suggest improvements\n\n🌍 Help with translations\n📝 Add examples and exercises\n\nContribute on GitHub →",
-    "crumbs": [
-      "Python Tutorial"
-    ]
+    "title": "",
+    "section": "0.7 🤝 Contributing",
+    "text": "0.7 🤝 Contributing\nThis tutorial is open source and welcomes contributions:\n\n🐛 Report issues\n💡 Suggest improvements\n\n🌍 Help with translations\n📝 Add examples and exercises\n\nContribute on GitHub →"
   },
   {
     "objectID": "index.html#responsive-design",
     "href": "index.html#responsive-design",
-    "title": "Python Tutorial",
-    "section": "📱 Responsive Design",
-    "text": "📱 Responsive Design\nThis tutorial works perfectly on: - 💻 Desktop computers - 📱 Mobile devices - 📓 Tablets - 📊 Projectors (for slides)",
-    "crumbs": [
-      "Python Tutorial"
-    ]
+    "title": "",
+    "section": "0.8 📱 Responsive Design",
+    "text": "0.8 📱 Responsive Design\nThis tutorial works perfectly on: - 💻 Desktop computers - 📱 Mobile devices - 📓 Tablets - 📊 Projectors (for slides)"
   },
   {
     "objectID": "index.html#latest-updates",
     "href": "index.html#latest-updates",
-    "title": "Python Tutorial",
-    "section": "🆕 Latest Updates",
-    "text": "🆕 Latest Updates\n\n✨ Comprehensive slide presentations for interactive learning\n🇯🇵 Japanese translations for key chapters\n🔬 Data science applications with real-world examples\n⚡ Modern tooling integration (uv, ruff, pyright)\n🎯 Type hints coverage for robust code development\n\n\n\n\nReady to start your Python journey?\n\n\nChoose your learning format and begin today!\n\n📖 Start with Books 🎯 View Slides\n\nBuilt with ❤️ by Ameyanagi using Quarto, Python, and modern development tools.",
-    "crumbs": [
-      "Python Tutorial"
-    ]
+    "title": "",
+    "section": "0.9 🆕 Latest Updates",
+    "text": "0.9 🆕 Latest Updates\n\n✨ Comprehensive slide presentations for interactive learning\n🇯🇵 Japanese translations for key chapters\n🔬 Data science applications with real-world examples\n⚡ Modern tooling integration (uv, ruff, pyright)\n🎯 Type hints coverage for robust code development\n\n\n\n\nReady to start your Python journey?\n\n\nChoose your learning format and begin today!\n\n📖 Start with Books 🎯 View Slides\n\nBuilt with ❤️ by Ameyanagi using Quarto, Python, and modern development tools."
   },
   {
     "objectID": "en/index.html",
