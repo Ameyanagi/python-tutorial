@@ -544,3 +544,22 @@ battle(warrior, mage)
 - [Python.org - クラス](https://docs.python.org/ja/3/tutorial/classes.html)
 - [Real Python - OOP](https://realpython.com/python3-object-oriented-programming/)
 - [Python Tutor](http://pythontutor.com)
+
+---
+
+## ナビゲーション
+
+::: {.columns}
+::: {.column width="33%"}
+**前へ:**  
+[モジュールとパッケージ](06-modules.html)
+:::
+::: {.column width="33%"}
+**ホーム:**  
+[📚 スライド一覧](index.html) | [📖 ブック](../book/index.html)
+:::
+::: {.column width="33%"}
+**次へ:**  
+[継承](08-inheritance.html)
+:::
+:::

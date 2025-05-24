@@ -147,3 +147,20 @@ Welcome to the Python Tutorial slide collection! These are professional RevealJS
 5. **Mobile Friendly**: All slides work great on phones and tablets
 
 **Happy Learning!** 🐍✨
+
+---
+
+## Navigation
+
+::: {.columns}
+::: {.column width="33%"}
+:::
+::: {.column width="33%"}
+**Home:**  
+[📚 Slides Index](index.html) | [📖 Book](../book/index.html)
+:::
+::: {.column width="33%"}
+**Next:**  
+[Introduction & Setup](01-intro.html)
+:::
+:::

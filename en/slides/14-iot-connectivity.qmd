@@ -708,6 +708,23 @@ class IoTDashboard:
 
 ---
 
+---
+
+## Navigation
+
+::: {.columns}
+::: {.column width="33%"}
+**Previous:**  
+[Data Science](12-data-science.html)
+:::
+::: {.column width="33%"}
+**Home:**  
+[📚 Slides Index](index.html) | [📖 Book](../book/index.html)
+:::
+::: {.column width="33%"}
+:::
+:::
+
 ## Thank You! {.center}
 
 Ready to connect the physical and digital worlds with Python!

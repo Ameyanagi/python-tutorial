@@ -595,6 +595,25 @@ class Student:
 - Design patterns and best practices
 :::
 
+---
+
+## Navigation
+
+::: {.columns}
+::: {.column width="33%"}
+**Previous:**  
+[Modules & Packages](06-modules.html)
+:::
+::: {.column width="33%"}
+**Home:**  
+[📚 Slides Index](index.html) | [📖 Book](../book/index.html)
+:::
+::: {.column width="33%"}
+**Next:**  
+[Inheritance](08-inheritance.html)
+:::
+:::
+
 ::: {.fragment}
 **Practice more:**
 - Model real-world entities as classes

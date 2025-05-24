@@ -449,6 +449,25 @@ even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
 - Object-oriented programming
 :::
 
+---
+
+## Navigation
+
+::: {.columns}
+::: {.column width="33%"}
+**Previous:**  
+[Control Flow](03-control-flow.html)
+:::
+::: {.column width="33%"}
+**Home:**  
+[📚 Slides Index](index.html) | [📖 Book](../book/index.html)
+:::
+::: {.column width="33%"}
+**Next:**  
+[Error Handling](05-error-handling.html)
+:::
+:::
+
 ::: {.fragment}
 **Practice more:**
 - Create a simple menu system using functions

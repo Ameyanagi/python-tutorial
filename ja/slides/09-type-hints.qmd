@@ -613,3 +613,22 @@ if __name__ == "__main__":
 - [Python.org - 型ヒント](https://docs.python.org/ja/3/library/typing.html)
 - [mypy ドキュメント](https://mypy.readthedocs.io/)
 - [Real Python - 型ヒント](https://realpython.com/python-type-checking/)
+
+---
+
+## ナビゲーション
+
+::: {.columns}
+::: {.column width="33%"}
+**前へ:**  
+[継承](08-inheritance.html)
+:::
+::: {.column width="33%"}
+**ホーム:**  
+[📚 スライド一覧](index.html) | [📖 ブック](../book/index.html)
+:::
+::: {.column width="33%"}
+**次へ:**  
+[データサイエンス](12-data-science.html)
+:::
+:::

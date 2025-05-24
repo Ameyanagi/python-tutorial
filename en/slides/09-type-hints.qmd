@@ -588,6 +588,25 @@ def find_user(user_id: int) -> Optional[str]:
 - Performance optimization techniques
 :::
 
+---
+
+## Navigation
+
+::: {.columns}
+::: {.column width="33%"}
+**Previous:**  
+[Inheritance](08-inheritance.html)
+:::
+::: {.column width="33%"}
+**Home:**  
+[📚 Slides Index](index.html) | [📖 Book](../book/index.html)
+:::
+::: {.column width="33%"}
+**Next:**  
+[Data Science](12-data-science.html)
+:::
+:::
+
 ::: {.fragment}
 **Practice more:**
 - Add type hints to existing projects

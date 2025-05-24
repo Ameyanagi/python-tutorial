@@ -435,6 +435,25 @@ while True:
 - **Real Projects** - Building complete applications
 :::
 
+---
+
+## Navigation
+
+::: {.columns}
+::: {.column width="33%"}
+**Previous:**  
+[Data Types & Collections](02-data-types.html)
+:::
+::: {.column width="33%"}
+**Home:**  
+[📚 Slides Index](index.html) | [📖 Book](../book/index.html)
+:::
+::: {.column width="33%"}
+**Next:**  
+[Functions](04-functions.html)
+:::
+:::
+
 ## Thank You! {background-color="#C73E1D"}
 
 ### Questions?

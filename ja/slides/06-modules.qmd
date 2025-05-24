@@ -445,3 +445,22 @@ if __name__ == "__main__":
 - [Python.org - モジュール](https://docs.python.org/ja/3/tutorial/modules.html)
 - [PyPI - Python Package Index](https://pypi.org/)
 - [Real Python - モジュール](https://realpython.com/python-modules-packages/)
+
+---
+
+## ナビゲーション
+
+::: {.columns}
+::: {.column width="33%"}
+**前へ:**  
+[エラーハンドリング](05-error-handling.html)
+:::
+::: {.column width="33%"}
+**ホーム:**  
+[📚 スライド一覧](index.html) | [📖 ブック](../book/index.html)
+:::
+::: {.column width="33%"}
+**次へ:**  
+[クラスとオブジェクト](07-classes.html)
+:::
+:::

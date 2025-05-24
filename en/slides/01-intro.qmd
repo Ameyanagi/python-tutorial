@@ -306,6 +306,25 @@ print(f"Division: {num1} ÷ {num2} = {num1 / num2:.2f}")
 - **Real-world applications**
 :::
 
+---
+
+## Navigation
+
+::: {.columns}
+::: {.column width="33%"}
+**Previous:**  
+[📚 Slides Index](index.html)
+:::
+::: {.column width="33%"}
+**Home:**  
+[📚 Slides Index](index.html) | [📖 Book](../book/index.html)
+:::
+::: {.column width="33%"}
+**Next:**  
+[Data Types & Collections](02-data-types.html)
+:::
+:::
+
 ## Thank You! {background-color="#C73E1D"}
 
 ### Questions?

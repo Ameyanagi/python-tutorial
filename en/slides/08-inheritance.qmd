@@ -603,6 +603,25 @@ class Child(Parent):
 - File I/O and data processing
 :::
 
+---
+
+## Navigation
+
+::: {.columns}
+::: {.column width="33%"}
+**Previous:**  
+[Classes & Objects](07-classes.html)
+:::
+::: {.column width="33%"}
+**Home:**  
+[📚 Slides Index](index.html) | [📖 Book](../book/index.html)
+:::
+::: {.column width="33%"}
+**Next:**  
+[Type Hints](09-type-hints.html)
+:::
+:::
+
 ::: {.fragment}
 **Practice more:**
 - Design a game with character inheritance

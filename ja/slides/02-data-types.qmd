@@ -387,3 +387,22 @@ text = "hello world"
 質問がありましたら、いつでもお気軽にどうぞ！
 
 次回もお楽しみに！ 🐍📊
+
+---
+
+## ナビゲーション
+
+::: {.columns}
+::: {.column width="33%"}
+**前へ:**  
+[入門とセットアップ](01-intro.html)
+:::
+::: {.column width="33%"}
+**ホーム:**  
+[📚 スライド一覧](index.html) | [📖 ブック](../book/index.html)
+:::
+::: {.column width="33%"}
+**次へ:**  
+[制御フロー](03-control-flow.html)
+:::
+:::

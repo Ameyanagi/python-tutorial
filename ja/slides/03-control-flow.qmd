@@ -371,3 +371,22 @@ if attempts == max_attempts:
 - [Python.org](https://python.org)
 - [Real Python](https://realpython.com)
 - [Python Tutor](http://pythontutor.com)
+
+---
+
+## ナビゲーション
+
+::: {.columns}
+::: {.column width="33%"}
+**前へ:**  
+[データ型とコレクション](02-data-types.html)
+:::
+::: {.column width="33%"}
+**ホーム:**  
+[📚 スライド一覧](index.html) | [📖 ブック](../book/index.html)
+:::
+::: {.column width="33%"}
+**次へ:**  
+[関数](04-functions.html)
+:::
+:::

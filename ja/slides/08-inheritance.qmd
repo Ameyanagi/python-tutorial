@@ -594,3 +594,22 @@ zoo.health_check()
 - [Python.org - 継承](https://docs.python.org/ja/3/tutorial/classes.html#inheritance)
 - [Real Python - 継承と合成](https://realpython.com/inheritance-composition-python/)
 - [Python ABC ドキュメント](https://docs.python.org/ja/3/library/abc.html)
+
+---
+
+## ナビゲーション
+
+::: {.columns}
+::: {.column width="33%"}
+**前へ:**  
+[クラスとオブジェクト](07-classes.html)
+:::
+::: {.column width="33%"}
+**ホーム:**  
+[📚 スライド一覧](index.html) | [📖 ブック](../book/index.html)
+:::
+::: {.column width="33%"}
+**次へ:**  
+[型ヒント](09-type-hints.html)
+:::
+:::

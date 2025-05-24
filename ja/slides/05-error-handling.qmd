@@ -437,3 +437,22 @@ if manager.save_data():
 - [Python.org - エラー](https://docs.python.org/ja/3/tutorial/errors.html)
 - [Real Python - 例外処理](https://realpython.com/python-exceptions/)
 - [Python Tutor](http://pythontutor.com)
+
+---
+
+## ナビゲーション
+
+::: {.columns}
+::: {.column width="33%"}
+**前へ:**  
+[関数](04-functions.html)
+:::
+::: {.column width="33%"}
+**ホーム:**  
+[📚 スライド一覧](index.html) | [📖 ブック](../book/index.html)
+:::
+::: {.column width="33%"}
+**次へ:**  
+[モジュールとパッケージ](06-modules.html)
+:::
+:::
