@@ -44,7 +44,7 @@ jobs:
         run: |
           # Clean and create all necessary directories
           rm -rf docs
-          mkdir -p docs/en/slides docs/ja/slides docs/en/shared docs/ja/shared
+          mkdir -p docs/en/book docs/en/slides docs/ja/book docs/ja/slides docs/en/shared docs/ja/shared
           
           # Copy shared assets first (needed during rendering)
           if [ -d "en/shared" ]; then
@@ -65,7 +65,7 @@ jobs:
 
       - name: Render English book
         run: |
-          cd en && uv run quarto render --to html --output-dir ../docs/en
+          cd en && uv run quarto render --to html --output-dir ../docs/en/book
 
       - name: Render English slides (isolated)
         run: |
@@ -79,7 +79,7 @@ jobs:
 
       - name: Render Japanese book
         run: |
-          cd ja && uv run quarto render --to html --output-dir ../docs/ja
+          cd ja && uv run quarto render --to html --output-dir ../docs/ja/book
 
       - name: Render Japanese slides (isolated)
         run: |
@@ -90,6 +90,39 @@ jobs:
           echo "Japanese slides rendered with isolated configuration"
           # Copy rendered slides to docs directory
           cp -r *.html *_files/ ../../docs/ja/slides/ 2>/dev/null || true
+
+      - name: Create language redirect pages
+        run: |
+          # Create redirect pages for /en/ and /ja/ to point to their respective books
+          cat > docs/en/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <title>Redirecting to English Book...</title>
+            <meta http-equiv="refresh" content="0; url=book/">
+            <link rel="canonical" href="book/">
+          </head>
+          <body>
+            <p>Redirecting to <a href="book/">English Book</a>...</p>
+          </body>
+          </html>
+          EOF
+          
+          cat > docs/ja/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <title>日本語ブックにリダイレクト中...</title>
+            <meta http-equiv="refresh" content="0; url=book/">
+            <link rel="canonical" href="book/">
+          </head>
+          <body>
+            <p><a href="book/">日本語ブック</a>にリダイレクト中...</p>
+          </body>
+          </html>
+          EOF
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

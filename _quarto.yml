@@ -39,9 +39,9 @@ website:
   navbar:
     left:
       - text: "English"
-        href: en/index.html
-      - text: "日本語"
-        href: ja/index.html
+        href: en/book/index.html
+      - text: "日本語"  
+        href: ja/book/index.html
     right:
       - icon: github
         href: https://github.com/ameyanagi/python-tutorial
