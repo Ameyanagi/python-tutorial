@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Tutorial - English Slides</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3rem 0; }
+        .slides-nav { background: #f8f9fa; padding: 2rem 0; }
+        .slide-card { transition: transform 0.2s; border-left: 4px solid #007bff; }
+        .slide-card:hover { transform: translateY(-2px); }
+        .available { border-left-color: #28a745; }
+        .coming-soon { border-left-color: #ffc107; }
+    </style>
+</head>
+<body>
+    <div class="hero text-center">
+        <div class="container">
+            <h1 class="display-4 mb-3">🎯 Python Tutorial Slides</h1>
+            <p class="lead">Interactive RevealJS presentations for learning and teaching</p>
+        </div>
+    </div>
+    
+    <div class="slides-nav">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h2>Available Presentations</h2>
+                    <p class="text-muted">Professional slides with navigation, speaker notes, and interactive features</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card slide-card available h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">⚙️ Functions</h5>
+                            <p class="card-text">Organizing code into reusable blocks. Parameters, return values, scope, and best practices.</p>
+                            <a href="04-functions.html" class="btn btn-success">View Slides</a>
+                            <span class="badge bg-success ms-2">Available</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card slide-card available h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">📊 Data Science</h5>
+                            <p class="card-text">NumPy, Pandas, and machine learning fundamentals for data analysis and visualization.</p>
+                            <a href="12-data-science.html" class="btn btn-success">View Slides</a>
+                            <span class="badge bg-success ms-2">Available</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card slide-card available h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">🌐 IoT Connectivity</h5>
+                            <p class="card-text">Serial communication, Modbus protocols, and InfluxDB integration for IoT projects.</p>
+                            <a href="14-iot-connectivity.html" class="btn btn-success">View Slides</a>
+                            <span class="badge bg-success ms-2">Available</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card slide-card coming-soon h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">🚀 More Coming Soon</h5>
+                            <p class="card-text">Additional slides covering Python basics, OOP, type hints, and more advanced topics.</p>
+                            <button class="btn btn-warning" disabled>Coming Soon</button>
+                            <span class="badge bg-warning ms-2">In Progress</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">🎮 Slide Features</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <ul class="list-unstyled">
+                                        <li><strong>Navigation:</strong> Arrow keys, mouse, touch</li>
+                                        <li><strong>Overview:</strong> Press <code>ESC</code></li>
+                                        <li><strong>Fullscreen:</strong> Press <code>F</code></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="list-unstyled">
+                                        <li><strong>Speaker Notes:</strong> Press <code>S</code></li>
+                                        <li><strong>Chalkboard:</strong> Press <code>B</code></li>
+                                        <li><strong>Menu:</strong> Press <code>M</code></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="list-unstyled">
+                                        <li><strong>Mobile:</strong> Touch navigation</li>
+                                        <li><strong>Zoom:</strong> Alt + Click</li>
+                                        <li><strong>Progress:</strong> Bottom progress bar</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">🏠 Navigation</h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                <a href="../../../" class="btn btn-outline-primary btn-sm">🏠 Main Site</a>
+                                <a href="../book/" class="btn btn-outline-primary btn-sm">📖 English Book</a>
+                                <a href="../../ja/book/" class="btn btn-outline-primary btn-sm">📖 日本語ブック</a>
+                                <a href="index.html" class="btn btn-primary btn-sm">🎯 English Slides</a>
+                                <a href="../../ja/slides/" class="btn btn-outline-secondary btn-sm">🎯 日本語スライド</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-light text-center py-3 mt-5">
+        <div class="container">
+            <p class="text-muted mb-0">Built with ❤️ by Ameyanagi using Quarto, Python, and modern development tools.</p>
+        </div>
+    </footer>
+</body>
+</html>
