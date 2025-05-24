@@ -18,6 +18,7 @@ Welcome to the comprehensive Python programming tutorial by **Ameyanagi**. This 
 - 🚀 **Zero Setup** - No Python installation required
 - 🎮 **Live Code Editing** - Modify examples and see results instantly  
 - 📊 **Interactive Plots** - Create and customize data visualizations
+- 📁 **Drag & Drop Files** - Upload CSV, Excel, JSON files for analysis
 - 🌐 **Browser-Based** - Works on any device with a web browser
 :::
 

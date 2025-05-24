@@ -13,6 +13,7 @@ format:
     code-fold: false
     filters:
       - live
+      - drop
     controls: true
     controlsLayout: edges
     controlsTutorial: true

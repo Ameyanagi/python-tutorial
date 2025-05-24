@@ -626,6 +626,40 @@ plt.show()
 ```
 :::
 
+## Upload Your Own Data Files
+
+::: {.fragment}
+**Quarto Drop enables drag-and-drop file uploads:**
+
+```{.python}
+# Drag and drop your CSV file here
+#| label: slide-upload
+#| drop: true
+#| filename: mydata.csv
+
+import pandas as pd
+
+try:
+    df = pd.read_csv('mydata.csv')
+    print(f"📊 Uploaded: {df.shape[0]} rows, {df.shape[1]} columns")
+    print("\nFirst few rows:")
+    print(df.head(3))
+    
+    # Quick visualization if numeric data exists
+    numeric_cols = df.select_dtypes(include=['number']).columns
+    if len(numeric_cols) >= 2:
+        plt.figure(figsize=(8, 5))
+        plt.scatter(df[numeric_cols[0]], df[numeric_cols[1]], alpha=0.6)
+        plt.xlabel(numeric_cols[0])
+        plt.ylabel(numeric_cols[1])
+        plt.title('Your Data Visualization')
+        plt.show()
+        
+except FileNotFoundError:
+    print("📁 Drop a CSV file above to analyze it!")
+```
+:::
+
 ## Best Practices
 
 ::: {.incremental}

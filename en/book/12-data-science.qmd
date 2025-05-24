@@ -91,6 +91,60 @@ print(f"\nDataFrame with new columns:")
 print(df[['Name', 'Age', 'Age_Group', 'Salary', 'Salary_Rank']])
 ```
 
+### Working with Your Own Data Files
+
+::: {.callout-note}
+## 📁 Upload Your Own CSV Files
+With **Quarto Drop**, you can drag and drop your own CSV files directly into the browser! Try uploading a CSV file in the area below and analyze it with Pandas.
+:::
+
+```{.python}
+# Drag and drop your CSV file here to upload it
+#| label: file-upload
+#| drop: true
+#| filename: data.csv
+
+import pandas as pd
+import io
+
+# This will work when you drop a CSV file
+try:
+    # Read the uploaded file
+    df_uploaded = pd.read_csv('data.csv')
+    
+    print("=== Your Uploaded Data ===")
+    print(f"Dataset shape: {df_uploaded.shape}")
+    print(f"Columns: {list(df_uploaded.columns)}")
+    print("\nFirst 5 rows:")
+    print(df_uploaded.head())
+    
+    print("\nBasic statistics:")
+    print(df_uploaded.describe())
+    
+    # Show data types
+    print(f"\nData types:")
+    print(df_uploaded.dtypes)
+    
+except FileNotFoundError:
+    print("📁 No file uploaded yet. Drag and drop a CSV file above to analyze it!")
+    print("You can create a simple CSV file with columns like: Name,Age,City,Salary")
+except Exception as e:
+    print(f"Error reading file: {e}")
+    print("Make sure your file is a valid CSV format.")
+```
+
+::: {.callout-tip}
+## 🎯 Try This
+1. Create a simple CSV file on your computer with data like:
+   ```
+   Name,Age,Department,Salary
+   John,25,Engineering,70000
+   Jane,30,Marketing,65000
+   ```
+2. Drag and drop it into the code area above
+3. The code will automatically analyze your data!
+:::
+
 ### Matplotlib - Data Visualization
 
 ::: {.callout-important}
@@ -181,6 +235,99 @@ plt.tight_layout()
 plt.show()
 
 print("Visualization plots created successfully!")
+```
+
+## Working with Different File Formats
+
+::: {.callout-note}
+## 📊 Upload Excel and Other Data Files  
+Beyond CSV files, you can also upload Excel files (.xlsx), JSON files, and other formats for analysis. Try dropping different file types below!
+:::
+
+```{.python}
+# Drag and drop Excel, JSON, or other data files here
+#| label: multi-file-upload
+#| drop: true
+#| filename: datafile
+
+import pandas as pd
+import json
+import os
+
+def analyze_uploaded_file(filename):
+    """Analyze different types of uploaded files"""
+    try:
+        file_ext = os.path.splitext(filename)[1].lower()
+        
+        if file_ext == '.csv':
+            df = pd.read_csv(filename)
+            print(f"📊 CSV file loaded: {filename}")
+            
+        elif file_ext in ['.xlsx', '.xls']:
+            df = pd.read_excel(filename)
+            print(f"📈 Excel file loaded: {filename}")
+            
+        elif file_ext == '.json':
+            with open(filename, 'r') as f:
+                data = json.load(f)
+            df = pd.json_normalize(data)
+            print(f"🔗 JSON file loaded: {filename}")
+            
+        else:
+            print(f"❌ Unsupported file type: {file_ext}")
+            print("Supported formats: CSV (.csv), Excel (.xlsx, .xls), JSON (.json)")
+            return
+            
+        # Analyze the loaded data
+        print(f"\n=== File Analysis ===")
+        print(f"Shape: {df.shape}")
+        print(f"Columns: {list(df.columns)}")
+        print(f"Memory usage: {df.memory_usage(deep=True).sum() / 1024:.1f} KB")
+        
+        print(f"\n=== First 3 rows ===")
+        print(df.head(3))
+        
+        print(f"\n=== Data types ===")
+        print(df.dtypes)
+        
+        # Check for missing values
+        missing_values = df.isnull().sum()
+        if missing_values.any():
+            print(f"\n=== Missing values ===")
+            print(missing_values[missing_values > 0])
+        else:
+            print("\n✅ No missing values found!")
+            
+        # Quick statistics for numeric columns
+        numeric_cols = df.select_dtypes(include=[np.number]).columns
+        if len(numeric_cols) > 0:
+            print(f"\n=== Statistics for numeric columns ===")
+            print(df[numeric_cols].describe())
+            
+        return df
+        
+    except Exception as e:
+        print(f"❌ Error processing file: {e}")
+        print("Please ensure your file is in a valid format.")
+
+# Check if a file was uploaded
+try:
+    uploaded_files = [f for f in os.listdir('.') if f != 'datafile']
+    if uploaded_files:
+        for file in uploaded_files:
+            if not file.startswith('.'):  # Skip hidden files
+                df_analysis = analyze_uploaded_file(file)
+                break
+    else:
+        print("📁 No file uploaded yet.")
+        print("Supported formats:")
+        print("• CSV files (.csv)")
+        print("• Excel files (.xlsx, .xls)")  
+        print("• JSON files (.json)")
+        print("\nDrag and drop a file above to analyze it!")
+        
+except Exception as e:
+    print("📁 Drag and drop a data file above to get started!")
 ```
 
 ## Real-World Data Science Project

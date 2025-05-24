@@ -49,6 +49,7 @@ format:
     code-tools: true
     filters:
       - live
+      - drop
     
   pdf:
     documentclass: scrreprt

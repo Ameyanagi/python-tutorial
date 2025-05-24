@@ -625,6 +625,109 @@ category = get_bmi_category(bmi)
 print(f"BMI: {bmi:.1f} ({category})")
 ```
 
+## Practical Example: File Processing Function
+
+::: {.callout-note}
+## 📁 Upload and Process Text Files
+Try uploading a text file (.txt) to see this file processing function in action!
+:::
+
+```{.python}
+# Upload a text file to process it
+#| label: text-file-processor
+#| drop: true
+#| filename: textfile.txt
+
+def analyze_text_file(filename):
+    """
+    Analyze a text file and return statistics.
+    
+    Args:
+        filename (str): Path to the text file
+        
+    Returns:
+        dict: Dictionary containing file statistics
+    """
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            content = file.read()
+        
+        # Calculate statistics
+        stats = {
+            'characters': len(content),
+            'characters_no_spaces': len(content.replace(' ', '')),
+            'words': len(content.split()),
+            'lines': len(content.splitlines()),
+            'paragraphs': len([p for p in content.split('\n\n') if p.strip()]),
+            'average_word_length': sum(len(word.strip('.,!?;:"()[]{}')) 
+                                     for word in content.split()) / len(content.split()) if content.split() else 0
+        }
+        
+        return stats
+        
+    except FileNotFoundError:
+        return {'error': 'File not found. Please upload a text file.'}
+    except Exception as e:
+        return {'error': f'Error reading file: {e}'}
+
+def display_text_statistics(stats):
+    """Display text statistics in a formatted way."""
+    if 'error' in stats:
+        print(f"❌ {stats['error']}")
+        return
+    
+    print("📄 Text File Analysis")
+    print("=" * 25)
+    print(f"📝 Characters (total): {stats['characters']:,}")
+    print(f"🔤 Characters (no spaces): {stats['characters_no_spaces']:,}")
+    print(f"💬 Words: {stats['words']:,}")
+    print(f"📃 Lines: {stats['lines']:,}")
+    print(f"📄 Paragraphs: {stats['paragraphs']:,}")
+    print(f"📏 Average word length: {stats['average_word_length']:.1f} characters")
+    
+    # Calculate reading time (average 200 words per minute)
+    reading_time = stats['words'] / 200
+    print(f"⏱️ Estimated reading time: {reading_time:.1f} minutes")
+
+# Try to analyze uploaded file
+try:
+    import os
+    files = [f for f in os.listdir('.') if f.endswith('.txt')]
+    if files:
+        filename = files[0]  # Process the first text file found
+        print(f"Processing file: {filename}")
+        print()
+        
+        result = analyze_text_file(filename)
+        display_text_statistics(result)
+        
+    else:
+        print("📁 No text file uploaded yet.")
+        print("Try uploading a .txt file to see the analysis!")
+        print("\n🎯 Example of what you'll see:")
+        
+        # Demo with sample text
+        sample_stats = {
+            'characters': 150,
+            'characters_no_spaces': 125,
+            'words': 25,
+            'lines': 5,
+            'paragraphs': 2,
+            'average_word_length': 5.2
+        }
+        display_text_statistics(sample_stats)
+        
+except Exception as e:
+    print("📁 Upload a text file above to analyze it!")
+```
+
+::: {.callout-tip}
+## 🎯 Try This
+1. Create a simple text file on your computer
+2. Drag and drop it into the code area above
+3. See the function analyze your text in real-time!
+:::
+
 ## Common Pitfalls
 
 1. **Mutable Default Arguments**

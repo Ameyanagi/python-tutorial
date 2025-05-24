@@ -21,8 +21,8 @@ This tutorial is designed for mixed skill levels and covers:
 - 🌐 **Bilingual** - Available in English and Japanese
 
 ::: {.callout-tip}
-## ⚡ NEW: Live Interactive Python
-This tutorial now features **Quarto Live** - run and modify Python code directly in your browser! No installation required, perfect for immediate hands-on learning.
+## ⚡ NEW: Live Interactive Python + File Uploads
+This tutorial now features **Quarto Live** and **Quarto Drop** - run and modify Python code directly in your browser AND upload your own data files! No installation required, perfect for immediate hands-on learning with real data.
 :::
 
 ## Prerequisites
