@@ -327,6 +327,33 @@ from typing import List, Dict, Callable, Any
 import time
 import functools
 
+# Map-Reduce helper functions (defined at module level to avoid pickling issues)
+def word_count_mapper(text_chunk: str) -> Dict[str, int]:
+    """Map function for word counting."""
+    words = text_chunk.lower().split()
+    word_count = {}
+    for word in words:
+        # Remove punctuation
+        clean_word = ''.join(c for c in word if c.isalnum())
+        if clean_word:
+            word_count[clean_word] = word_count.get(clean_word, 0) + 1
+    return word_count
+
+def word_count_reducer(count1: Dict[str, int], count2: Dict[str, int]) -> Dict[str, int]:
+    """Reduce function for word counting."""
+    result = count1.copy()
+    for word, count in count2.items():
+        result[word] = result.get(word, 0) + count
+    return result
+
+def square_mapper(number: int) -> int:
+    """Map function: square a number."""
+    return number * number
+
+def sum_reducer(a: int, b: int) -> int:
+    """Reduce function: sum two numbers."""
+    return a + b
+
 def map_reduce_framework():
     """Implement a simple map-reduce framework."""
     print("=== Map-Reduce Framework Demo ===")
@@ -362,24 +389,6 @@ def map_reduce_framework():
             return final_result
     
     # Example 1: Word count
-    def word_count_mapper(text_chunk: str) -> Dict[str, int]:
-        """Map function for word counting."""
-        words = text_chunk.lower().split()
-        word_count = {}
-        for word in words:
-            # Remove punctuation
-            clean_word = ''.join(c for c in word if c.isalnum())
-            if clean_word:
-                word_count[clean_word] = word_count.get(clean_word, 0) + 1
-        return word_count
-    
-    def word_count_reducer(count1: Dict[str, int], count2: Dict[str, int]) -> Dict[str, int]:
-        """Reduce function for word counting."""
-        result = count1.copy()
-        for word, count in count2.items():
-            result[word] = result.get(word, 0) + count
-        return result
-    
     # Test data
     text_chunks = [
         "Hello world hello python programming",
@@ -397,14 +406,6 @@ def map_reduce_framework():
         print(f"  {word}: {count}")
     
     # Example 2: Sum of squares
-    def square_mapper(number: int) -> int:
-        """Map function: square a number."""
-        return number * number
-    
-    def sum_reducer(a: int, b: int) -> int:
-        """Reduce function: sum two numbers."""
-        return a + b
-    
     numbers = list(range(1, 101))  # 1 to 100
     sum_of_squares = job.run(numbers, square_mapper, sum_reducer)
     
