@@ -57,7 +57,20 @@ async def run_async_tasks():
 
 # Demonstrate the difference
 sync_results = run_sync_tasks()
-async_results = asyncio.run(run_async_tasks())
+
+# For Jupyter notebooks, we need to use await directly
+print("\n=== Asynchronous Execution ===")
+start_time = time.time()
+
+# Run tasks concurrently
+async_results = await asyncio.gather(
+    async_task("Task 1", 2),
+    async_task("Task 2", 2),
+    async_task("Task 3", 2)
+)
+
+end_time = time.time()
+print(f"Total time: {end_time - start_time:.2f} seconds")
 ```
 
 ## Basic Async/Await Syntax
@@ -126,7 +139,7 @@ async def main():
     return results
 
 # Execute the async main function
-results = asyncio.run(main())
+results = await main()
 ```
 
 ### Concurrent Execution with asyncio.gather()
@@ -155,8 +168,8 @@ async def concurrent_fetch_and_process():
     return results
 
 # Compare sequential vs concurrent
-sequential_results = asyncio.run(main())
-concurrent_results = asyncio.run(concurrent_fetch_and_process())
+sequential_results = await main()
+concurrent_results = await concurrent_fetch_and_process()
 ```
 
 ## Working with asyncio
@@ -210,7 +223,7 @@ async def task_management_demo():
     except Exception as e:
         print(f"Error in remaining tasks: {e}")
 
-asyncio.run(task_management_demo())
+await task_management_demo()
 ```
 
 ### asyncio.wait() and Task Control
@@ -255,7 +268,7 @@ async def wait_demo():
         remaining_results = await asyncio.gather(*pending)
         print(f"All tasks completed. Total results: {len(remaining_results)}")
 
-asyncio.run(wait_demo())
+await wait_demo()
 ```
 
 ## Real-World Examples
@@ -546,7 +559,7 @@ async def producer_consumer_demo():
     system = AsyncProducerConsumer(max_queue_size=5)
     await system.run_system(num_producers=2, num_consumers=3, items_per_producer=4)
 
-asyncio.run(producer_consumer_demo())
+await producer_consumer_demo()
 ```
 
 ### Example 3: Async Context Managers and Resource Management
@@ -716,7 +729,7 @@ async def resource_management_demo():
     successful = sum(1 for r in processor.processed_files if r["status"] == "success")
     print(f"Successful: {successful}, Errors: {len(processor.processed_files) - successful}")
 
-asyncio.run(resource_management_demo())
+await resource_management_demo()
 ```
 
 ## Error Handling in Async Code
@@ -778,7 +791,7 @@ async def error_handling_demo():
     except Exception as e:
         print(f"  ❌ Operation failed: {e}")
 
-asyncio.run(error_handling_demo())
+await error_handling_demo()
 ```
 
 ## Performance and Best Practices
@@ -839,7 +852,7 @@ async def performance_comparison():
     print(f"  Mixed workload: {mixed_time:.2f}s")
     print(f"  Results: {len(results)} tasks completed")
 
-asyncio.run(performance_comparison())
+await performance_comparison()
 
 # Best practices summary
 async def best_practices_demo():
@@ -878,7 +891,7 @@ async def best_practices_demo():
     print("  ✅ Handle exceptions appropriately")
     print("  ✅ Use semaphores to limit concurrency")
 
-asyncio.run(best_practices_demo())
+await best_practices_demo()
 ```
 
 ## Self-Review Questions
