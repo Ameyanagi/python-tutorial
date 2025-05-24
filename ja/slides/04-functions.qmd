@@ -1,0 +1,496 @@
+---
+title: "関数"
+subtitle: "再利用可能なコードブロックの整理"
+format: 
+  revealjs:
+    theme: dark
+    transition: slide
+    background-transition: fade
+    highlight-style: github
+    code-fold: false
+---
+
+# 関数とは？ {background-color="#2E86AB"}
+
+## 関数の概念 {.smaller}
+
+::: {.incremental}
+- **再利用可能な** コードブロック
+- **特定のタスク** を実行
+- **入力（引数）** を受け取る
+- **出力（戻り値）** を返す
+- **コードの整理** と **重複の削除**
+:::
+
+## 関数を使う理由 {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+**メリット:**
+- コードの再利用
+- 保守性の向上
+- 読みやすさの向上
+- テストしやすい
+- バグの削減
+:::
+
+::: {.column width="50%"}
+**例:**
+```python
+# 関数なし（悪い例）
+print("=" * 30)
+print("ようこそ！")
+print("=" * 30)
+
+print("=" * 30)
+print("さようなら！")
+print("=" * 30)
+
+# 関数あり（良い例）
+def print_banner(message):
+    print("=" * 30)
+    print(message)
+    print("=" * 30)
+
+print_banner("ようこそ！")
+print_banner("さようなら！")
+```
+:::
+:::
+
+# 関数の定義 {background-color="#A23B72"}
+
+## 基本的な構文 {.smaller}
+
+```{python}
+# 基本的な関数定義
+def greet():
+    """挨拶を表示する関数"""
+    print("こんにちは！")
+    print("Python の世界へようこそ！")
+
+# 関数の呼び出し
+greet()
+```
+
+## 引数のある関数 {.smaller}
+
+```{python}
+# 引数を受け取る関数
+def greet_person(name):
+    """名前を指定して挨拶する関数"""
+    print(f"こんにちは、{name}さん！")
+
+def greet_with_time(name, time):
+    """名前と時間を指定して挨拶する関数"""
+    print(f"{time}、{name}さん！")
+
+# 関数の呼び出し
+greet_person("太郎")
+greet_with_time("花子", "おはよう")
+```
+
+## 戻り値のある関数 {.smaller}
+
+```{python}
+# 値を返す関数
+def add_numbers(a, b):
+    """2つの数値を足して結果を返す"""
+    result = a + b
+    return result
+
+def calculate_area(width, height):
+    """長方形の面積を計算"""
+    area = width * height
+    return area
+
+# 戻り値の使用
+sum_result = add_numbers(5, 3)
+print(f"5 + 3 = {sum_result}")
+
+room_area = calculate_area(4, 6)
+print(f"部屋の面積: {room_area}平方メートル")
+```
+
+# 高度な引数 {background-color="#F18F01"}
+
+## デフォルト引数 {.smaller}
+
+```{python}
+# デフォルト値を持つ引数
+def introduce(name, age, hobby="読書"):
+    """自己紹介する関数（趣味はデフォルト値あり）"""
+    print(f"私の名前は{name}です。")
+    print(f"年齢は{age}歳で、趣味は{hobby}です。")
+
+# 呼び出し方法
+introduce("太郎", 25)  # デフォルト値を使用
+introduce("花子", 30, "映画鑑賞")  # デフォルト値を上書き
+```
+
+## キーワード引数 {.smaller}
+
+```{python}
+# キーワード引数を使った呼び出し
+def create_profile(name, age, city, profession):
+    """プロフィールを作成"""
+    profile = f"{name}（{age}歳）は{city}在住の{profession}です。"
+    return profile
+
+# 位置引数
+profile1 = create_profile("山田太郎", 28, "東京", "エンジニア")
+
+# キーワード引数（順序を変更可能）
+profile2 = create_profile(
+    profession="デザイナー",
+    name="佐藤花子", 
+    city="大阪",
+    age=32
+)
+
+print(profile1)
+print(profile2)
+```
+
+## 可変長引数 {.smaller}
+
+```{python}
+# *args - 可変長位置引数
+def calculate_average(*numbers):
+    """任意の数の数値の平均を計算"""
+    if not numbers:
+        return 0
+    return sum(numbers) / len(numbers)
+
+print(f"平均: {calculate_average(10, 20, 30)}")
+print(f"平均: {calculate_average(1, 2, 3, 4, 5)}")
+
+# **kwargs - 可変長キーワード引数
+def print_info(**info):
+    """任意のキーワード引数を表示"""
+    for key, value in info.items():
+        print(f"{key}: {value}")
+
+print_info(名前="太郎", 年齢=25, 職業="エンジニア")
+```
+
+# スコープと名前空間 {background-color="#C73E1D"}
+
+## ローカルスコープとグローバルスコープ {.smaller}
+
+```{python}
+# グローバル変数
+global_message = "これはグローバル変数です"
+
+def demo_scope():
+    # ローカル変数
+    local_message = "これはローカル変数です"
+    print(f"関数内から: {global_message}")
+    print(f"関数内から: {local_message}")
+
+def modify_global():
+    global global_message
+    global_message = "グローバル変数が変更されました"
+
+print(f"関数外から: {global_message}")
+demo_scope()
+
+modify_global()
+print(f"変更後: {global_message}")
+```
+
+## 変数の優先順位 {.smaller}
+
+```{python}
+# 変数の優先順位の例
+x = "グローバル"
+
+def outer_function():
+    x = "外側の関数"
+    
+    def inner_function():
+        x = "内側の関数"
+        print(f"内側の関数内: {x}")
+    
+    inner_function()
+    print(f"外側の関数内: {x}")
+
+outer_function()
+print(f"グローバル: {x}")
+```
+
+# ドキュメンテーション {background-color="#2E86AB"}
+
+## ドキュメント文字列（docstring） {.smaller}
+
+```{python}
+def calculate_bmi(weight, height):
+    """
+    BMI（体格指数）を計算する関数
+    
+    Args:
+        weight (float): 体重（kg）
+        height (float): 身長（m）
+    
+    Returns:
+        float: BMI値
+    
+    Example:
+        >>> calculate_bmi(70, 1.75)
+        22.857142857142858
+    """
+    bmi = weight / (height ** 2)
+    return bmi
+
+# ドキュメンテーションの確認
+print(calculate_bmi.__doc__)
+
+# 実際の使用
+result = calculate_bmi(70, 1.75)
+print(f"BMI: {result:.2f}")
+```
+
+## タイプヒント {.smaller}
+
+```{python}
+def greet_user(name: str, age: int) -> str:
+    """
+    ユーザーに挨拶する関数（タイプヒント付き）
+    
+    Args:
+        name: ユーザーの名前
+        age: ユーザーの年齢
+    
+    Returns:
+        挨拶メッセージ
+    """
+    return f"こんにちは、{name}さん（{age}歳）！"
+
+# 使用例
+message = greet_user("太郎", 25)
+print(message)
+```
+
+# 実践的な例 {background-color="#A23B72"}
+
+## 温度変換関数 {.smaller}
+
+```{python}
+def celsius_to_fahrenheit(celsius: float) -> float:
+    """摂氏を華氏に変換"""
+    return (celsius * 9/5) + 32
+
+def fahrenheit_to_celsius(fahrenheit: float) -> float:
+    """華氏を摂氏に変換"""
+    return (fahrenheit - 32) * 5/9
+
+def temperature_converter(temp: float, unit: str) -> dict:
+    """温度変換の統合関数"""
+    if unit.lower() == 'c':
+        fahrenheit = celsius_to_fahrenheit(temp)
+        return {
+            'original': f"{temp}°C",
+            'converted': f"{fahrenheit:.2f}°F"
+        }
+    elif unit.lower() == 'f':
+        celsius = fahrenheit_to_celsius(temp)
+        return {
+            'original': f"{temp}°F", 
+            'converted': f"{celsius:.2f}°C"
+        }
+
+# 使用例
+result = temperature_converter(25, 'C')
+print(f"{result['original']} = {result['converted']}")
+```
+
+## パスワード検証システム {.smaller}
+
+```{python}
+def check_password_strength(password: str) -> dict:
+    """パスワードの強度をチェック"""
+    checks = {
+        'length': len(password) >= 8,
+        'uppercase': any(c.isupper() for c in password),
+        'lowercase': any(c.islower() for c in password),
+        'digit': any(c.isdigit() for c in password),
+        'special': any(c in "!@#$%^&*" for c in password)
+    }
+    
+    score = sum(checks.values())
+    
+    if score >= 4:
+        strength = "強い"
+    elif score >= 3:
+        strength = "普通"
+    else:
+        strength = "弱い"
+    
+    return {
+        'strength': strength,
+        'score': score,
+        'checks': checks
+    }
+
+# テスト
+result = check_password_strength("MyPass123!")
+print(f"パスワード強度: {result['strength']}")
+print(f"スコア: {result['score']}/5")
+```
+
+# ラムダ関数 {background-color="#F18F01"}
+
+## ラムダ関数の基本 {.smaller}
+
+```{python}
+# 通常の関数
+def square(x):
+    return x ** 2
+
+# ラムダ関数（無名関数）
+square_lambda = lambda x: x ** 2
+
+print(f"通常の関数: {square(5)}")
+print(f"ラムダ関数: {square_lambda(5)}")
+
+# ラムダ関数の応用
+numbers = [1, 2, 3, 4, 5]
+
+# map() でラムダ関数を使用
+squared = list(map(lambda x: x ** 2, numbers))
+print(f"二乗: {squared}")
+
+# filter() でラムダ関数を使用
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+print(f"偶数: {evens}")
+```
+
+# 練習問題 {background-color="#C73E1D"}
+
+## 演習 1：計算機関数 {.smaller}
+
+基本的な計算機能を持つ関数を作成してください：
+
+```python
+def calculator(a, b, operation):
+    """
+    基本的な計算を行う関数
+    
+    Args:
+        a, b: 計算する数値
+        operation: 演算子 ('+', '-', '*', '/')
+    
+    Returns:
+        計算結果
+    """
+    # TODO: 実装してください
+    pass
+
+# テスト例
+print(calculator(10, 5, '+'))  # 期待: 15
+print(calculator(10, 5, '*'))  # 期待: 50
+```
+
+## 演習 2：文字列処理関数 {.smaller}
+
+文字列を処理する関数を作成してください：
+
+```python
+def process_text(text, action='upper'):
+    """
+    文字列を指定された方法で処理
+    
+    Args:
+        text: 処理する文字列
+        action: 'upper', 'lower', 'title', 'reverse'
+    
+    Returns:
+        処理された文字列
+    """
+    # TODO: 実装してください
+    pass
+
+# テスト例
+print(process_text("hello world", "title"))  # 期待: "Hello World"
+```
+
+## 演習 3：統計関数 {.smaller}
+
+数値リストの統計を計算する関数を作成してください：
+
+```python
+def calculate_stats(numbers):
+    """
+    数値リストの統計を計算
+    
+    Returns:
+        統計情報の辞書
+    """
+    # TODO: 平均、最大、最小、合計を計算
+    pass
+
+# テスト例
+stats = calculate_stats([1, 2, 3, 4, 5])
+# 期待: {'average': 3.0, 'max': 5, 'min': 1, 'sum': 15}
+```
+
+# まとめ {background-color="#2E86AB"}
+
+## 学習内容の復習 {.smaller}
+
+今日学んだ関数の概念：
+
+::: {.columns}
+::: {.column width="50%"}
+**基本概念:**
+- 関数の定義と呼び出し
+- 引数と戻り値
+- デフォルト引数
+- キーワード引数
+- 可変長引数
+
+**高度な概念:**
+- スコープと名前空間
+- ドキュメント文字列
+- タイプヒント
+:::
+
+::: {.column width="50%"}
+**ベストプラクティス:**
+- 関数は1つのことを行う
+- 説明的な名前を使用
+- ドキュメンテーションを書く
+- 適切な引数を設計
+- 戻り値を明確にする
+
+**応用:**
+- ラムダ関数
+- 関数型プログラミング
+- 実践的な例
+:::
+:::
+
+## 次回の内容 {.smaller}
+
+次回のセッションでは：
+- **クラスとオブジェクト指向プログラミング**
+  - クラスの定義
+  - インスタンスとメソッド
+  - 継承とポリモーフィズム
+
+## 宿題 {.smaller}
+
+今日の復習として：
+1. 練習問題をすべて完成させる
+2. 自分で新しい関数を作成する
+3. ドキュメント文字列を書く練習
+4. ラムダ関数を使った例を試す
+
+---
+
+## お疲れさまでした！ {.center}
+
+関数はプログラミングの基礎です。<br>
+しっかりマスターしましょう！
+
+次回もお楽しみに！ 🐍⚙️

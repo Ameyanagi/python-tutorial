@@ -1,0 +1,237 @@
+---
+title: "Python チュートリアル"
+subtitle: "導入とセットアップ"
+format: 
+  revealjs:
+    theme: dark
+    transition: slide
+    background-transition: fade
+    highlight-style: github
+    code-fold: false
+---
+
+# Python へようこそ！ {background-color="#2E86AB"}
+
+## Python とは？ {.smaller}
+
+::: {.incremental}
+- **シンプルで読みやすい** 構文
+- **多用途** - ウェブ、データサイエンス、自動化、AI
+- **豊富なエコシステム** のライブラリ
+- **コミュニティ駆動** の開発
+- **クロスプラットフォーム** 対応
+:::
+
+## なぜ Python を学ぶのか？ {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+**人気の分野:**
+- データサイエンス & AI
+- ウェブ開発
+- 自動化・スクリプト
+- 科学計算
+- ゲーム開発
+:::
+
+::: {.column width="50%"}
+**メリット:**
+- 学習しやすい
+- 高い需要（就職市場）
+- 大きなコミュニティ
+- 豊富なリソース
+:::
+:::
+
+# インストール {background-color="#A23B72"}
+
+## Python のインストール {.smaller}
+
+::: {.columns}
+::: {.column width="33%"}
+**Windows:**
+```bash
+# Microsoft Store から
+python
+
+# または python.org から
+# インストーラーをダウンロード
+```
+:::
+
+::: {.column width="33%"}
+**macOS:**
+```bash
+# Homebrew を使用
+brew install python
+
+# または python.org から
+# インストーラーをダウンロード
+```
+:::
+
+::: {.column width="33%"}
+**Linux:**
+```bash
+# Ubuntu/Debian
+sudo apt install python3
+
+# Red Hat/CentOS
+sudo dnf install python3
+```
+:::
+:::
+
+## 開発環境のセットアップ {.smaller}
+
+### 推奨：uv（高速な環境マネージャー）
+
+```bash
+# uv のインストール
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# 新しいプロジェクトの作成
+uv init my-project
+cd my-project
+
+# 依存関係の追加
+uv add requests pandas
+```
+
+### VS Code 拡張機能
+- **Python** - Microsoft 公式拡張機能
+- **Pylance** - 高速な言語サーバー
+- **Python Debugger** - デバッグ支援
+
+# Python の基本 {background-color="#F18F01"}
+
+## Hello, World! {.smaller}
+
+```{python}
+# 最初の Python プログラム
+print("Hello, World!")
+print("Python へようこそ！")
+```
+
+::: {.fragment}
+**出力:**
+```
+Hello, World!
+Python へようこそ！
+```
+:::
+
+## 変数と型 {.smaller}
+
+```{python}
+# 基本的な変数
+name = "太郎"
+age = 25
+height = 175.5
+is_student = True
+
+print(f"名前: {name}")
+print(f"年齢: {age}")
+print(f"身長: {height}cm")
+print(f"学生: {is_student}")
+```
+
+## 文字列の操作 {.smaller}
+
+```{python}
+# 文字列の基本操作
+greeting = "こんにちは"
+name = "Python"
+
+# 文字列の結合
+message = greeting + ", " + name + "!"
+print(message)
+
+# f-string（推奨）
+message_f = f"{greeting}, {name}!"
+print(message_f)
+
+# 文字列メソッド
+print(name.upper())    # 大文字
+print(name.lower())    # 小文字
+print(len(message))    # 文字数
+```
+
+# 練習問題 {background-color="#C73E1D"}
+
+## 演習 1：自己紹介プログラム {.smaller}
+
+以下のプログラムを完成させましょう：
+
+```python
+# あなたの情報を変数に格納
+name = "あなたの名前"
+age = 0  # あなたの年齢
+hobby = "あなたの趣味"
+
+# f-string を使って自己紹介を出力
+print(f"こんにちは！私の名前は{name}です。")
+print(f"年齢は{age}歳で、趣味は{hobby}です。")
+```
+
+::: {.fragment}
+**期待される出力例:**
+```
+こんにちは！私の名前は田中太郎です。
+年齢は25歳で、趣味はプログラミングです。
+```
+:::
+
+## 演習 2：計算機 {.smaller}
+
+基本的な計算を行うプログラムを作成しましょう：
+
+```python
+# 2つの数値
+a = 10
+b = 3
+
+# 基本的な演算
+print(f"{a} + {b} = {a + b}")
+print(f"{a} - {b} = {a - b}")
+print(f"{a} * {b} = {a * b}")
+print(f"{a} / {b} = {a / b}")
+print(f"{a} // {b} = {a // b}")  # 整数除算
+print(f"{a} % {b} = {a % b}")    # 剰余
+print(f"{a} ** {b} = {a ** b}")  # べき乗
+```
+
+# 次のステップ {background-color="#2E86AB"}
+
+## 学習内容の復習 {.smaller}
+
+今日学んだこと：
+- Python の特徴と利点
+- インストールとセットアップ
+- 基本的な変数と型
+- 文字列操作
+- 基本的な演算
+
+## 次回の内容 {.smaller}
+
+次回のセッションでは：
+- **データ型とコレクション**
+  - リスト、辞書、タプル、セット
+  - データ構造の操作方法
+  - 実践的な使用例
+
+## 自主学習の提案 {.smaller}
+
+今日の復習として：
+1. 異なる変数で演習問題を再実行
+2. 新しい文字列メソッドを試す
+3. より複雑な f-string 表現を作成
+4. Python 公式ドキュメントを読む
+
+---
+
+## ありがとうございました！ {.center}
+
+質問がありましたら、いつでもお気軽にどうぞ！
+
+次回もお楽しみに！ 🐍✨
