@@ -1,0 +1,561 @@
+---
+title: "Type Hints and Static Typing"
+subtitle: "Making Python Code More Robust"
+---
+
+## What are Type Hints?
+
+::: {.incremental}
+- **Type hints** are annotations that specify the expected types of variables and functions
+- Introduced in Python 3.5, improved in later versions
+- Help catch bugs early and improve code readability
+- Enable better IDE support and static type checking
+- **Optional** - Python ignores them at runtime
+:::
+
+::: {.fragment}
+```python
+# Without type hints
+def greet(name):
+    return f"Hello, {name}!"
+
+# With type hints
+def greet(name: str) -> str:
+    return f"Hello, {name}!"
+```
+:::
+
+## Why Use Type Hints?
+
+::: {.columns}
+::: {.column width="50%"}
+**Benefits:**
+
+::: {.incremental}
+- **Early bug detection**: Catch type errors before runtime
+- **Better documentation**: Code is self-documenting
+- **IDE support**: Better autocomplete and refactoring
+- **Maintainability**: Easier to understand and modify code
+- **Team collaboration**: Clear interfaces between code components
+:::
+:::
+
+::: {.column width="50%"}
+**Example:**
+```python
+def calculate_area(radius: float) -> float:
+    """Calculate area of a circle."""
+    return 3.14159 * radius ** 2
+
+# IDE can warn about this:
+area = calculate_area("5")  # str instead of float
+
+# This is correct:
+area = calculate_area(5.0)
+```
+:::
+:::
+
+## Basic Type Annotations
+
+::: {.fragment}
+**Variable annotations:**
+```python
+name: str = "Alice"
+age: int = 25
+height: float = 5.8
+is_student: bool = True
+```
+:::
+
+::: {.fragment}
+**Function annotations:**
+```python
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+def greet_user(name: str, greeting: str = "Hello") -> str:
+    return f"{greeting}, {name}!"
+
+def print_message(message: str) -> None:  # No return value
+    print(message)
+```
+:::
+
+## Collection Types
+
+::: {.fragment}
+**Using `typing` module for complex types:**
+```python
+from typing import List, Dict, Tuple, Set, Optional
+
+# Lists
+numbers: List[int] = [1, 2, 3, 4, 5]
+names: List[str] = ["Alice", "Bob", "Charlie"]
+
+# Dictionaries
+scores: Dict[str, int] = {"Alice": 95, "Bob": 87}
+config: Dict[str, str] = {"host": "localhost", "port": "8080"}
+
+# Tuples
+coordinates: Tuple[float, float] = (10.5, 20.3)
+rgb_color: Tuple[int, int, int] = (255, 128, 0)
+
+# Sets
+unique_ids: Set[int] = {1, 2, 3, 4, 5}
+```
+:::
+
+## Optional and Union Types
+
+::: {.fragment}
+**Optional types for nullable values:**
+```python
+from typing import Optional, Union
+
+def find_user(user_id: int) -> Optional[str]:
+    """Return username or None if not found."""
+    users = {1: "alice", 2: "bob"}
+    return users.get(user_id)
+
+# Optional[str] is equivalent to Union[str, None]
+def get_config_value(key: str) -> Union[str, None]:
+    return config.get(key)
+```
+:::
+
+::: {.fragment}
+**Union types for multiple possible types:**
+```python
+def process_id(user_id: Union[int, str]) -> str:
+    """Accept either integer or string ID."""
+    return str(user_id).upper()
+
+# Python 3.10+ syntax
+def process_id_new(user_id: int | str) -> str:
+    return str(user_id).upper()
+```
+:::
+
+## Function Type Annotations
+
+::: {.fragment}
+**Callable types:**
+```python
+from typing import Callable
+
+def apply_operation(x: int, y: int, operation: Callable[[int, int], int]) -> int:
+    """Apply an operation function to two integers."""
+    return operation(x, y)
+
+def add(a: int, b: int) -> int:
+    return a + b
+
+def multiply(a: int, b: int) -> int:
+    return a * b
+
+result1 = apply_operation(5, 3, add)      # 8
+result2 = apply_operation(5, 3, multiply) # 15
+```
+:::
+
+## Generic Types
+
+::: {.fragment}
+**Create flexible, reusable type hints:**
+```python
+from typing import TypeVar, Generic, List
+
+T = TypeVar('T')  # Type variable
+
+class Stack(Generic[T]):
+    def __init__(self) -> None:
+        self._items: List[T] = []
+    
+    def push(self, item: T) -> None:
+        self._items.append(item)
+    
+    def pop(self) -> T:
+        return self._items.pop()
+    
+    def is_empty(self) -> bool:
+        return len(self._items) == 0
+
+# Usage with specific types
+int_stack: Stack[int] = Stack()
+str_stack: Stack[str] = Stack()
+
+int_stack.push(42)
+str_stack.push("hello")
+```
+:::
+
+## Class Type Annotations
+
+::: {.fragment}
+**Annotating class attributes and methods:**
+```python
+from typing import List, Optional
+from dataclasses import dataclass
+
+@dataclass
+class Student:
+    name: str
+    age: int
+    grades: List[float]
+    email: Optional[str] = None
+    
+    def add_grade(self, grade: float) -> None:
+        self.grades.append(grade)
+    
+    def get_average(self) -> float:
+        if not self.grades:
+            return 0.0
+        return sum(self.grades) / len(self.grades)
+    
+    def get_letter_grade(self) -> str:
+        avg = self.get_average()
+        if avg >= 90:
+            return "A"
+        elif avg >= 80:
+            return "B"
+        elif avg >= 70:
+            return "C"
+        else:
+            return "F"
+```
+:::
+
+## Protocol and Structural Typing
+
+::: {.fragment}
+**Define interfaces without inheritance:**
+```python
+from typing import Protocol
+
+class Drawable(Protocol):
+    def draw(self) -> None: ...
+
+class Circle:
+    def __init__(self, radius: float) -> None:
+        self.radius = radius
+    
+    def draw(self) -> None:
+        print(f"Drawing circle with radius {self.radius}")
+
+class Rectangle:
+    def __init__(self, width: float, height: float) -> None:
+        self.width = width
+        self.height = height
+    
+    def draw(self) -> None:
+        print(f"Drawing rectangle {self.width}x{self.height}")
+
+def render_shape(shape: Drawable) -> None:
+    shape.draw()  # Works with any object that has draw() method
+
+# Both work due to structural typing
+render_shape(Circle(5))
+render_shape(Rectangle(10, 5))
+```
+:::
+
+## Type Checking with mypy
+
+::: {.fragment}
+**Install and use mypy for static type checking:**
+```bash
+pip install mypy
+```
+:::
+
+::: {.fragment}
+**Example file: `example.py`**
+```python
+def calculate_discount(price: float, discount: float) -> float:
+    return price * (1 - discount)
+
+# Type error: passing string instead of float
+total = calculate_discount("100", 0.1)
+```
+:::
+
+::: {.fragment}
+**Run type checker:**
+```bash
+mypy example.py
+```
+
+**Output:**
+```
+example.py:4: error: Argument 1 to "calculate_discount" has incompatible type "str"; expected "float"
+```
+:::
+
+## Advanced Type Features
+
+::: {.fragment}
+**Literal types for specific values:**
+```python
+from typing import Literal
+
+def set_log_level(level: Literal["DEBUG", "INFO", "WARNING", "ERROR"]) -> None:
+    print(f"Setting log level to {level}")
+
+set_log_level("INFO")     # OK
+set_log_level("INVALID")  # Type error
+```
+:::
+
+::: {.fragment}
+**Final types for constants:**
+```python
+from typing import Final
+
+API_URL: Final[str] = "https://api.example.com"
+MAX_CONNECTIONS: Final[int] = 100
+
+# API_URL = "different_url"  # Type error - cannot reassign Final
+```
+:::
+
+## Type Aliases
+
+::: {.fragment}
+**Create readable aliases for complex types:**
+```python
+from typing import Dict, List, Tuple
+
+# Define type aliases
+UserId = int
+UserName = str
+Coordinates = Tuple[float, float]
+UserData = Dict[UserId, UserName]
+Point = Tuple[float, float]
+Polygon = List[Point]
+
+def get_user_info(user_id: UserId) -> UserName:
+    users: UserData = {1: "alice", 2: "bob"}
+    return users.get(user_id, "unknown")
+
+def calculate_area(polygon: Polygon) -> float:
+    # Complex area calculation
+    return 0.0  # Simplified
+```
+:::
+
+## Practical Example: API Client
+
+```python
+from typing import Optional, Dict, Any, List, Union
+from dataclasses import dataclass
+import requests
+
+@dataclass
+class APIResponse:
+    status_code: int
+    data: Optional[Dict[str, Any]]
+    error: Optional[str] = None
+
+class APIClient:
+    def __init__(self, base_url: str, api_key: str) -> None:
+        self.base_url = base_url
+        self.api_key = api_key
+        self.headers: Dict[str, str] = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        }
+    
+    def get(self, endpoint: str, params: Optional[Dict[str, Union[str, int]]] = None) -> APIResponse:
+        """Make GET request to API endpoint."""
+        url = f"{self.base_url}/{endpoint}"
+        
+        try:
+            response = requests.get(url, headers=self.headers, params=params)
+            return APIResponse(
+                status_code=response.status_code,
+                data=response.json() if response.ok else None,
+                error=None if response.ok else response.text
+            )
+        except Exception as e:
+            return APIResponse(
+                status_code=500,
+                data=None,
+                error=str(e)
+            )
+    
+    def post(self, endpoint: str, data: Dict[str, Any]) -> APIResponse:
+        """Make POST request to API endpoint."""
+        url = f"{self.base_url}/{endpoint}"
+        
+        try:
+            response = requests.post(url, headers=self.headers, json=data)
+            return APIResponse(
+                status_code=response.status_code,
+                data=response.json() if response.ok else None,
+                error=None if response.ok else response.text
+            )
+        except Exception as e:
+            return APIResponse(
+                status_code=500,
+                data=None,
+                error=str(e)
+            )
+```
+
+## Exercise Time! 🚀
+
+::: {.fragment}
+**Challenge 1: Banking System**
+```python
+from typing import Optional, List
+from dataclasses import dataclass
+
+@dataclass
+class Transaction:
+    # Add type hints
+    pass
+
+class BankAccount:
+    def __init__(self, account_number, balance):
+        # Add type hints
+        pass
+    
+    def deposit(self, amount):
+        # Add type hints and implementation
+        pass
+    
+    def withdraw(self, amount):
+        # Add type hints and implementation
+        pass
+    
+    def get_balance(self):
+        # Add type hints
+        pass
+```
+:::
+
+## Exercise Solutions
+
+::: {.fragment}
+**Banking System with Type Hints:**
+```python
+from typing import Optional, List
+from dataclasses import dataclass
+from datetime import datetime
+
+@dataclass
+class Transaction:
+    transaction_type: str
+    amount: float
+    timestamp: datetime
+    description: Optional[str] = None
+
+class BankAccount:
+    def __init__(self, account_number: str, balance: float = 0.0) -> None:
+        self.account_number = account_number
+        self.balance = balance
+        self.transactions: List[Transaction] = []
+    
+    def deposit(self, amount: float, description: Optional[str] = None) -> bool:
+        if amount > 0:
+            self.balance += amount
+            self.transactions.append(
+                Transaction("deposit", amount, datetime.now(), description)
+            )
+            return True
+        return False
+    
+    def withdraw(self, amount: float, description: Optional[str] = None) -> bool:
+        if 0 < amount <= self.balance:
+            self.balance -= amount
+            self.transactions.append(
+                Transaction("withdrawal", amount, datetime.now(), description)
+            )
+            return True
+        return False
+    
+    def get_balance(self) -> float:
+        return self.balance
+```
+:::
+
+## Best Practices
+
+::: {.incremental}
+- **Start gradually**: Add type hints to new code first
+- **Use meaningful names**: Clear type aliases for complex types
+- **Be specific**: Use precise types rather than `Any`
+- **Use Optional**: For values that can be None
+- **Document complex types**: Add comments for complex generic types
+- **Run type checkers**: Use mypy or similar tools regularly
+- **Update as you learn**: Refine type hints as you understand the code better
+:::
+
+## Common Pitfalls
+
+::: {.fragment}
+**1. Overusing `Any`:**
+```python
+# Bad - defeats the purpose
+def process_data(data: Any) -> Any:
+    return data
+
+# Better - be specific
+def process_data(data: Dict[str, Union[str, int]]) -> List[str]:
+    return [str(value) for value in data.values()]
+```
+:::
+
+::: {.fragment}
+**2. Forgetting Optional:**
+```python
+# Bad - might return None but not indicated
+def find_user(user_id: int) -> str:
+    return users.get(user_id)  # Can return None!
+
+# Good - indicates possible None return
+def find_user(user_id: int) -> Optional[str]:
+    return users.get(user_id)
+```
+:::
+
+## Migration Strategy
+
+::: {.fragment}
+**Gradual adoption approach:**
+
+1. **Start with function signatures**: Add type hints to function parameters and return types
+2. **Add variable annotations**: For complex or unclear variables
+3. **Use type checkers**: Run mypy on typed modules
+4. **Refactor gradually**: Improve types as you learn
+5. **Team adoption**: Establish type hint standards for the team
+:::
+
+## Summary
+
+::: {.incremental}
+- Type hints make Python code more robust and self-documenting
+- They enable better IDE support and early bug detection
+- Use basic types for simple cases, complex types for advanced scenarios
+- Optional and Union types handle nullable and multiple-type scenarios
+- Generic types and Protocols provide flexibility
+- Type checkers like mypy catch errors before runtime
+- Adopt gradually and establish team standards
+:::
+
+## Next Steps
+
+::: {.fragment}
+**Coming up next:**
+- Asynchronous programming with asyncio
+- Multiprocessing and concurrency
+- Performance optimization techniques
+:::
+
+::: {.fragment}
+**Practice more:**
+- Add type hints to existing projects
+- Set up mypy in your development workflow
+- Create type-safe APIs and data structures
+:::

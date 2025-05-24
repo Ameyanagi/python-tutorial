@@ -74,6 +74,8 @@ jobs:
           quarto add --no-prompt r-wasm/quarto-drop
           uv run quarto render
           echo "English slides rendered with isolated configuration"
+          # Copy rendered slides to docs directory
+          cp -r *.html *_files/ ../../docs/en/slides/ 2>/dev/null || true
 
       - name: Render Japanese book
         run: |
@@ -86,6 +88,8 @@ jobs:
           quarto add --no-prompt r-wasm/quarto-drop
           uv run quarto render
           echo "Japanese slides rendered with isolated configuration"
+          # Copy rendered slides to docs directory
+          cp -r *.html *_files/ ../../docs/ja/slides/ 2>/dev/null || true
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

@@ -1,0 +1,568 @@
+---
+title: "Classes and Objects"
+subtitle: "Introduction to Object-Oriented Programming"
+---
+
+## What is Object-Oriented Programming?
+
+::: {.incremental}
+- **Object-Oriented Programming (OOP)** is a programming paradigm
+- It organizes code around **objects** rather than functions
+- Objects contain both data (attributes) and behavior (methods)
+- OOP helps model real-world entities in code
+- Makes code more modular, reusable, and maintainable
+:::
+
+::: {.fragment}
+**Real-world analogy:**
+- A **Car** has properties (color, model, year) and behaviors (start, stop, accelerate)
+- Each specific car is an **instance** of the Car class
+:::
+
+## Classes vs Objects
+
+::: {.columns}
+::: {.column width="50%"}
+**Class:**
+- Blueprint or template
+- Defines structure and behavior
+- Like a house blueprint
+
+**Object:**
+- Instance of a class
+- Has actual values
+- Like an actual house
+:::
+
+::: {.column width="50%"}
+```python
+# Class definition
+class Car:
+    def __init__(self, make, model):
+        self.make = make
+        self.model = model
+    
+    def start(self):
+        return f"{self.make} {self.model} is starting"
+
+# Creating objects (instances)
+car1 = Car("Toyota", "Camry")
+car2 = Car("Honda", "Civic")
+```
+:::
+:::
+
+## Creating Your First Class
+
+::: {.fragment}
+**Basic class syntax:**
+```python
+class Dog:
+    def __init__(self, name, breed):
+        self.name = name
+        self.breed = breed
+    
+    def bark(self):
+        return f"{self.name} says Woof!"
+    
+    def info(self):
+        return f"{self.name} is a {self.breed}"
+
+# Creating an instance
+my_dog = Dog("Buddy", "Golden Retriever")
+print(my_dog.bark())  # Buddy says Woof!
+print(my_dog.info())  # Buddy is a Golden Retriever
+```
+:::
+
+## The `__init__` Method
+
+::: {.fragment}
+**Constructor method:**
+- Called automatically when creating an object
+- Sets up initial state of the object
+- `self` refers to the instance being created
+:::
+
+::: {.fragment}
+```python
+class Person:
+    def __init__(self, name, age, email):
+        self.name = name        # Instance attribute
+        self.age = age          # Instance attribute
+        self.email = email      # Instance attribute
+        self.friends = []       # Default attribute
+
+# Creating instances
+person1 = Person("Alice", 25, "alice@email.com")
+person2 = Person("Bob", 30, "bob@email.com")
+
+print(person1.name)  # Alice
+print(person2.age)   # 30
+```
+:::
+
+## Instance Attributes and Methods
+
+::: {.fragment}
+**Attributes** store data:
+```python
+class BankAccount:
+    def __init__(self, account_number, balance=0):
+        self.account_number = account_number
+        self.balance = balance
+        self.transaction_history = []
+```
+:::
+
+::: {.fragment}
+**Methods** define behavior:
+```python
+    def deposit(self, amount):
+        if amount > 0:
+            self.balance += amount
+            self.transaction_history.append(f"Deposited ${amount}")
+            return True
+        return False
+    
+    def withdraw(self, amount):
+        if 0 < amount <= self.balance:
+            self.balance -= amount
+            self.transaction_history.append(f"Withdrew ${amount}")
+            return True
+        return False
+```
+:::
+
+## Using the BankAccount Class
+
+::: {.fragment}
+```python
+# Create account
+account = BankAccount("123456789", 1000)
+
+# Use methods
+account.deposit(500)
+account.withdraw(200)
+
+# Access attributes
+print(f"Account: {account.account_number}")
+print(f"Balance: ${account.balance}")
+print("History:", account.transaction_history)
+```
+
+**Output:**
+```
+Account: 123456789
+Balance: $1300
+History: ['Deposited $500', 'Withdrew $200']
+```
+:::
+
+## Class Attributes
+
+::: {.fragment}
+**Class attributes** are shared by all instances:
+```python
+class Dog:
+    species = "Canis lupus"  # Class attribute
+    total_dogs = 0           # Class attribute
+    
+    def __init__(self, name, breed):
+        self.name = name     # Instance attribute
+        self.breed = breed   # Instance attribute
+        Dog.total_dogs += 1  # Increment class attribute
+    
+    @classmethod
+    def get_total_dogs(cls):
+        return cls.total_dogs
+
+# Usage
+dog1 = Dog("Buddy", "Golden Retriever")
+dog2 = Dog("Max", "German Shepherd")
+
+print(Dog.species)           # Canis lupus
+print(Dog.get_total_dogs())  # 2
+```
+:::
+
+## Instance vs Class Attributes
+
+::: {.fragment}
+```python
+class Counter:
+    count = 0  # Class attribute
+    
+    def __init__(self, name):
+        self.name = name      # Instance attribute
+        Counter.count += 1    # Modify class attribute
+        self.instance_count = 1  # Instance attribute
+
+counter1 = Counter("First")
+counter2 = Counter("Second")
+
+print(f"Total counters: {Counter.count}")      # 2
+print(f"Counter1 name: {counter1.name}")       # First
+print(f"Counter2 name: {counter2.name}")       # Second
+```
+:::
+
+## String Representation
+
+::: {.fragment}
+**Make your objects printable:**
+```python
+class Book:
+    def __init__(self, title, author, pages):
+        self.title = title
+        self.author = author
+        self.pages = pages
+    
+    def __str__(self):
+        return f"'{self.title}' by {self.author}"
+    
+    def __repr__(self):
+        return f"Book('{self.title}', '{self.author}', {self.pages})"
+
+book = Book("1984", "George Orwell", 328)
+print(str(book))   # '1984' by George Orwell
+print(repr(book))  # Book('1984', 'George Orwell', 328)
+print(book)        # Uses __str__ method
+```
+:::
+
+## Property Decorators
+
+::: {.fragment}
+**Control access to attributes:**
+```python
+class Circle:
+    def __init__(self, radius):
+        self._radius = radius  # "Private" attribute
+    
+    @property
+    def radius(self):
+        return self._radius
+    
+    @radius.setter
+    def radius(self, value):
+        if value < 0:
+            raise ValueError("Radius cannot be negative")
+        self._radius = value
+    
+    @property
+    def area(self):
+        return 3.14159 * self._radius ** 2
+
+circle = Circle(5)
+print(circle.area)     # 78.53975
+circle.radius = 10     # Uses setter
+print(circle.area)     # 314.159
+```
+:::
+
+## Private Attributes
+
+::: {.fragment}
+**Python conventions for "private" attributes:**
+```python
+class BankAccount:
+    def __init__(self, balance):
+        self.public_attr = "Anyone can access"
+        self._protected_attr = "Should not access directly"
+        self.__private_attr = "Name mangled for privacy"
+    
+    def get_private(self):
+        return self.__private_attr
+
+account = BankAccount(1000)
+print(account.public_attr)      # OK
+print(account._protected_attr)  # Works but not recommended
+# print(account.__private_attr) # AttributeError
+print(account.get_private())    # Access through method
+```
+
+**Note:** Python doesn't have true private attributes, only conventions
+:::
+
+## Class Methods and Static Methods
+
+::: {.fragment}
+**Class methods** work with the class, not instances:
+```python
+class Person:
+    population = 0
+    
+    def __init__(self, name):
+        self.name = name
+        Person.population += 1
+    
+    @classmethod
+    def get_population(cls):
+        return cls.population
+    
+    @classmethod
+    def create_anonymous(cls):
+        return cls("Anonymous")
+
+print(Person.get_population())  # 0
+person1 = Person("Alice")
+anonymous = Person.create_anonymous()
+print(Person.get_population())  # 2
+```
+:::
+
+## Static Methods
+
+::: {.fragment}
+**Static methods** don't use `self` or `cls`:
+```python
+class MathUtils:
+    @staticmethod
+    def add(a, b):
+        return a + b
+    
+    @staticmethod
+    def is_even(number):
+        return number % 2 == 0
+    
+    @staticmethod
+    def factorial(n):
+        if n <= 1:
+            return 1
+        return n * MathUtils.factorial(n - 1)
+
+# Can call without creating instance
+print(MathUtils.add(5, 3))      # 8
+print(MathUtils.is_even(4))     # True
+print(MathUtils.factorial(5))   # 120
+```
+:::
+
+## Practical Example: Student Management
+
+```python
+class Student:
+    total_students = 0
+    
+    def __init__(self, name, student_id, email):
+        self.name = name
+        self.student_id = student_id
+        self.email = email
+        self.grades = {}
+        self.enrolled_courses = []
+        Student.total_students += 1
+    
+    def enroll_course(self, course):
+        if course not in self.enrolled_courses:
+            self.enrolled_courses.append(course)
+            self.grades[course] = []
+    
+    def add_grade(self, course, grade):
+        if course in self.grades:
+            self.grades[course].append(grade)
+    
+    def get_average(self, course):
+        if course in self.grades and self.grades[course]:
+            return sum(self.grades[course]) / len(self.grades[course])
+        return 0
+    
+    def __str__(self):
+        return f"Student: {self.name} (ID: {self.student_id})"
+```
+
+## Using the Student Class
+
+```python
+# Create students
+alice = Student("Alice Johnson", "S001", "alice@school.edu")
+bob = Student("Bob Smith", "S002", "bob@school.edu")
+
+# Enroll in courses
+alice.enroll_course("Math")
+alice.enroll_course("Science")
+bob.enroll_course("Math")
+
+# Add grades
+alice.add_grade("Math", 85)
+alice.add_grade("Math", 92)
+alice.add_grade("Science", 78)
+
+# Check results
+print(alice)                           # Student: Alice Johnson (ID: S001)
+print(f"Math average: {alice.get_average('Math')}")  # 88.5
+print(f"Total students: {Student.total_students}")   # 2
+```
+
+## Exercise Time! 🚀
+
+::: {.fragment}
+**Challenge 1: Rectangle Class**
+```python
+class Rectangle:
+    def __init__(self, width, height):
+        # Your code here
+        pass
+    
+    def area(self):
+        # Return area
+        pass
+    
+    def perimeter(self):
+        # Return perimeter
+        pass
+    
+    def __str__(self):
+        # Return string representation
+        pass
+```
+:::
+
+::: {.fragment}
+**Challenge 2: Library Book System**
+```python
+class LibraryBook:
+    def __init__(self, title, author, isbn):
+        # Initialize book
+        pass
+    
+    def check_out(self):
+        # Mark as checked out
+        pass
+    
+    def return_book(self):
+        # Mark as returned
+        pass
+```
+:::
+
+## Exercise Solutions
+
+::: {.fragment}
+**Rectangle Class:**
+```python
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+    
+    def area(self):
+        return self.width * self.height
+    
+    def perimeter(self):
+        return 2 * (self.width + self.height)
+    
+    def __str__(self):
+        return f"Rectangle({self.width}x{self.height})"
+```
+:::
+
+::: {.fragment}
+**Library Book System:**
+```python
+class LibraryBook:
+    def __init__(self, title, author, isbn):
+        self.title = title
+        self.author = author
+        self.isbn = isbn
+        self.is_checked_out = False
+    
+    def check_out(self):
+        if not self.is_checked_out:
+            self.is_checked_out = True
+            return True
+        return False
+    
+    def return_book(self):
+        if self.is_checked_out:
+            self.is_checked_out = False
+            return True
+        return False
+```
+:::
+
+## Best Practices
+
+::: {.incremental}
+- **Use clear, descriptive class names**: `BankAccount` not `BA`
+- **Follow the single responsibility principle**: One class, one purpose
+- **Use `__init__` for initialization**: Set up object state properly
+- **Provide string representations**: Implement `__str__` and `__repr__`
+- **Use properties for validation**: Control attribute access
+- **Document your classes**: Include docstrings
+- **Keep methods focused**: Each method should do one thing well
+:::
+
+## Common Mistakes
+
+::: {.fragment}
+**1. Forgetting `self`:**
+```python
+class Counter:
+    def __init__(self, start=0):
+        count = start  # Wrong! Should be self.count = start
+    
+    def increment(self):
+        count += 1     # Wrong! Should be self.count += 1
+```
+:::
+
+::: {.fragment}
+**2. Mutable default arguments:**
+```python
+# Bad
+class Student:
+    def __init__(self, name, courses=[]):
+        self.courses = courses  # Shared between instances!
+
+# Good
+class Student:
+    def __init__(self, name, courses=None):
+        self.courses = courses if courses is not None else []
+```
+:::
+
+## When to Use Classes
+
+::: {.fragment}
+**Good candidates for classes:**
+- Entities with both data and behavior
+- Complex state that needs to be maintained
+- When you need multiple instances
+- When inheritance would be beneficial
+:::
+
+::: {.fragment}
+**Consider alternatives:**
+- Simple data storage → use dictionaries or namedtuples
+- Pure functions → don't need classes
+- One-time use → functions might be simpler
+:::
+
+## Summary
+
+::: {.incremental}
+- Classes are blueprints for creating objects
+- Objects combine data (attributes) and behavior (methods)
+- `__init__` method initializes new instances
+- Use `self` to refer to the current instance
+- Class attributes are shared; instance attributes are unique
+- Properties provide controlled access to attributes
+- Good class design makes code more organized and reusable
+:::
+
+## Next Steps
+
+::: {.fragment}
+**Coming up next:**
+- Inheritance and polymorphism
+- Advanced OOP concepts
+- Design patterns and best practices
+:::
+
+::: {.fragment}
+**Practice more:**
+- Model real-world entities as classes
+- Create a simple game with classes
+- Build a basic inventory management system
+:::

@@ -1,0 +1,654 @@
+---
+title: "Modules and Packages"
+subtitle: "Organizing and Reusing Code"
+---
+
+## What are Modules?
+
+::: {.incremental}
+- **Modules** are files containing Python code that can be imported and used
+- They help organize code into logical units
+- Each `.py` file is a module
+- Modules can contain functions, classes, and variables
+- They promote code reusability and maintainability
+:::
+
+::: {.fragment}
+```python
+# math_utils.py (a module)
+def add(a, b):
+    return a + b
+
+def multiply(a, b):
+    return a * b
+
+PI = 3.14159
+```
+:::
+
+## Why Use Modules?
+
+::: {.columns}
+::: {.column width="50%"}
+**Benefits:**
+
+::: {.incremental}
+- **Code Organization**: Group related functionality
+- **Reusability**: Use code across multiple programs
+- **Namespace Management**: Avoid naming conflicts
+- **Maintainability**: Easier to update and debug
+- **Collaboration**: Team members can work on different modules
+:::
+:::
+
+::: {.column width="50%"}
+**Example Structure:**
+```
+my_project/
+├── main.py
+├── utils/
+│   ├── math_utils.py
+│   ├── string_utils.py
+│   └── file_utils.py
+└── models/
+    ├── user.py
+    └── product.py
+```
+:::
+:::
+
+## Importing Modules
+
+::: {.fragment}
+**Import entire module:**
+```python
+import math
+
+result = math.sqrt(16)  # 4.0
+print(math.pi)          # 3.141592653589793
+```
+:::
+
+::: {.fragment}
+**Import specific functions:**
+```python
+from math import sqrt, pi
+
+result = sqrt(16)  # No need for math.sqrt
+print(pi)          # No need for math.pi
+```
+:::
+
+::: {.fragment}
+**Import with alias:**
+```python
+import math as m
+import numpy as np  # Common convention
+
+result = m.sqrt(16)
+array = np.array([1, 2, 3])
+```
+:::
+
+## Different Import Styles
+
+::: {.fragment}
+**Import everything (use with caution):**
+```python
+from math import *
+
+result = sqrt(16)  # All functions available directly
+# Can cause namespace pollution!
+```
+:::
+
+::: {.fragment}
+**Import with custom names:**
+```python
+from math import sqrt as square_root
+from math import pi as PI_VALUE
+
+result = square_root(16)
+print(PI_VALUE)
+```
+:::
+
+::: {.fragment}
+**Conditional imports:**
+```python
+try:
+    import numpy as np
+    HAS_NUMPY = True
+except ImportError:
+    HAS_NUMPY = False
+    print("NumPy not available")
+```
+:::
+
+## Built-in Modules
+
+::: {.fragment}
+**Common built-in modules:**
+```python
+import os        # Operating system interface
+import sys       # System-specific parameters
+import datetime  # Date and time handling
+import random    # Random number generation
+import json      # JSON encoder/decoder
+import re        # Regular expressions
+import collections  # Specialized container datatypes
+```
+:::
+
+::: {.fragment}
+**Examples:**
+```python
+import os
+print(os.getcwd())  # Current working directory
+
+import datetime
+now = datetime.datetime.now()
+print(now.strftime("%Y-%m-%d %H:%M:%S"))
+
+import random
+number = random.randint(1, 100)
+```
+:::
+
+## Creating Your Own Modules
+
+::: {.fragment}
+**Create a module file: `calculator.py`**
+```python
+"""A simple calculator module."""
+
+def add(a, b):
+    """Add two numbers."""
+    return a + b
+
+def subtract(a, b):
+    """Subtract second number from first."""
+    return a - b
+
+def multiply(a, b):
+    """Multiply two numbers."""
+    return a * b
+
+def divide(a, b):
+    """Divide first number by second."""
+    if b != 0:
+        return a / b
+    else:
+        raise ValueError("Cannot divide by zero!")
+
+# Module-level variable
+VERSION = "1.0.0"
+```
+:::
+
+## Using Your Custom Module
+
+::: {.fragment}
+**In another file: `main.py`**
+```python
+import calculator
+
+# Use the functions
+result1 = calculator.add(10, 5)
+result2 = calculator.subtract(10, 5)
+
+print(f"Addition: {result1}")
+print(f"Subtraction: {result2}")
+print(f"Calculator version: {calculator.VERSION}")
+```
+:::
+
+::: {.fragment}
+**Or import specific functions:**
+```python
+from calculator import add, multiply, VERSION
+
+result = add(10, 5)
+product = multiply(3, 4)
+print(f"Version: {VERSION}")
+```
+:::
+
+## Module Search Path
+
+::: {.fragment}
+**Python looks for modules in this order:**
+```python
+import sys
+print(sys.path)
+```
+
+1. Current directory
+2. PYTHONPATH environment variable directories
+3. Standard library directories
+4. Site-packages directory (third-party packages)
+:::
+
+::: {.fragment}
+**Adding custom paths:**
+```python
+import sys
+sys.path.append('/path/to/my/modules')
+
+# Now Python can find modules in that directory
+import my_custom_module
+```
+:::
+
+## Packages
+
+::: {.fragment}
+**Packages** are directories containing multiple modules:
+```
+my_package/
+├── __init__.py      # Makes it a package
+├── module1.py
+├── module2.py
+└── subpackage/
+    ├── __init__.py
+    └── module3.py
+```
+:::
+
+::: {.fragment}
+**The `__init__.py` file:**
+- Makes a directory a Python package
+- Can be empty or contain initialization code
+- Controls what gets imported with `from package import *`
+:::
+
+## Creating a Package
+
+::: {.fragment}
+**Directory structure:**
+```
+math_tools/
+├── __init__.py
+├── basic.py
+└── advanced.py
+```
+:::
+
+::: {.fragment}
+**`math_tools/__init__.py`:**
+```python
+"""Math tools package."""
+from .basic import add, subtract
+from .advanced import fibonacci, factorial
+
+__version__ = "1.0.0"
+__all__ = ['add', 'subtract', 'fibonacci', 'factorial']
+```
+:::
+
+::: {.fragment}
+**`math_tools/basic.py`:**
+```python
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    return a - b
+```
+:::
+
+## Using Packages
+
+::: {.fragment}
+**Import from package:**
+```python
+# Import entire package
+import math_tools
+result = math_tools.add(5, 3)
+
+# Import specific modules
+from math_tools import basic
+result = basic.add(5, 3)
+
+# Import specific functions
+from math_tools.basic import add
+result = add(5, 3)
+
+# Import from package root (if defined in __init__.py)
+from math_tools import add
+result = add(5, 3)
+```
+:::
+
+## Relative vs Absolute Imports
+
+::: {.fragment}
+**Absolute imports (from project root):**
+```python
+from math_tools.basic import add
+from math_tools.advanced import fibonacci
+```
+:::
+
+::: {.fragment}
+**Relative imports (within package):**
+```python
+# In math_tools/advanced.py
+from .basic import add        # Same package
+from ..other_package import something  # Parent package
+
+# In math_tools/__init__.py
+from .basic import add, subtract
+from .advanced import fibonacci
+```
+:::
+
+## The `__name__` Variable
+
+::: {.fragment}
+**Every module has a `__name__` attribute:**
+```python
+# In calculator.py
+print(f"Module name: {__name__}")
+
+def add(a, b):
+    return a + b
+
+# This runs only when file is executed directly
+if __name__ == "__main__":
+    print("Calculator module is being run directly")
+    print(f"2 + 3 = {add(2, 3)}")
+```
+:::
+
+::: {.fragment}
+**When imported:** `__name__` is the module name
+**When run directly:** `__name__` is `"__main__"`
+:::
+
+## Module Documentation
+
+::: {.fragment}
+**Good module documentation:**
+```python
+"""
+utils.py - Utility functions for data processing
+
+This module provides common utility functions for:
+- String manipulation
+- File operations
+- Data validation
+
+Example:
+    >>> from utils import clean_string
+    >>> clean_string("  Hello World  ")
+    'Hello World'
+"""
+
+def clean_string(text):
+    """
+    Remove leading/trailing whitespace and normalize.
+    
+    Args:
+        text (str): The string to clean
+        
+    Returns:
+        str: Cleaned string
+    """
+    return text.strip()
+```
+:::
+
+## Third-Party Packages
+
+::: {.fragment}
+**Installing packages with pip:**
+```bash
+pip install requests
+pip install numpy
+pip install pandas
+```
+:::
+
+::: {.fragment}
+**Using third-party packages:**
+```python
+import requests
+import numpy as np
+import pandas as pd
+
+# Make HTTP requests
+response = requests.get('https://api.github.com')
+
+# Create arrays
+array = np.array([1, 2, 3, 4, 5])
+
+# Work with data
+df = pd.DataFrame({'A': [1, 2, 3], 'B': [4, 5, 6]})
+```
+:::
+
+## Virtual Environments
+
+::: {.fragment}
+**Why use virtual environments?**
+- Isolate project dependencies
+- Avoid version conflicts
+- Keep global Python clean
+:::
+
+::: {.fragment}
+**Creating and using virtual environments:**
+```bash
+# Create virtual environment
+python -m venv myenv
+
+# Activate (Windows)
+myenv\Scripts\activate
+
+# Activate (macOS/Linux)
+source myenv/bin/activate
+
+# Install packages
+pip install requests numpy
+
+# Deactivate
+deactivate
+```
+:::
+
+## Package Management
+
+::: {.fragment}
+**Requirements file:**
+```bash
+# Create requirements.txt
+pip freeze > requirements.txt
+
+# Install from requirements
+pip install -r requirements.txt
+```
+:::
+
+::: {.fragment}
+**Example `requirements.txt`:**
+```
+requests==2.28.1
+numpy==1.21.0
+pandas>=1.3.0
+matplotlib~=3.5.0
+```
+:::
+
+## Practical Example: File Utilities Package
+
+::: {.fragment}
+**Package structure:**
+```
+file_utils/
+├── __init__.py
+├── readers.py
+└── writers.py
+```
+:::
+
+::: {.fragment}
+**`file_utils/readers.py`:**
+```python
+def read_text_file(filename):
+    """Read entire text file."""
+    with open(filename, 'r', encoding='utf-8') as file:
+        return file.read()
+
+def read_lines(filename):
+    """Read file lines as list."""
+    with open(filename, 'r', encoding='utf-8') as file:
+        return [line.strip() for line in file]
+```
+:::
+
+## Exercise Time! 🚀
+
+::: {.fragment}
+**Challenge 1: Create a String Utils Module**
+```python
+# Create string_utils.py with these functions:
+
+def reverse_string(text):
+    # Return reversed string
+    pass
+
+def count_words(text):
+    # Return word count
+    pass
+
+def title_case(text):
+    # Convert to title case
+    pass
+```
+:::
+
+::: {.fragment}
+**Challenge 2: Create a Simple Package**
+```
+helpers/
+├── __init__.py
+├── math_helpers.py
+└── string_helpers.py
+```
+:::
+
+## Exercise Solutions
+
+::: {.fragment}
+**String Utils Module:**
+```python
+def reverse_string(text):
+    return text[::-1]
+
+def count_words(text):
+    return len(text.split())
+
+def title_case(text):
+    return ' '.join(word.capitalize() for word in text.split())
+```
+:::
+
+::: {.fragment}
+**Package `__init__.py`:**
+```python
+from .math_helpers import add, multiply
+from .string_helpers import reverse_string, count_words
+
+__version__ = "1.0.0"
+```
+:::
+
+## Best Practices
+
+::: {.incremental}
+- **Use descriptive module names**: `database_utils` not `db_stuff`
+- **Keep modules focused**: One clear purpose per module
+- **Document your modules**: Include docstrings and examples
+- **Use `__init__.py`**: Control package imports
+- **Avoid circular imports**: Design clear dependency hierarchies
+- **Use virtual environments**: Isolate project dependencies
+- **Pin package versions**: Use specific versions in production
+:::
+
+## Common Pitfalls
+
+::: {.fragment}
+**1. Circular imports:**
+```python
+# module_a.py
+from module_b import function_b
+
+# module_b.py
+from module_a import function_a  # Circular import!
+```
+:::
+
+::: {.fragment}
+**2. Modifying sys.path incorrectly:**
+```python
+# Bad
+sys.path.insert(0, '/some/absolute/path')
+
+# Better
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'modules'))
+```
+:::
+
+::: {.fragment}
+**3. Using `from module import *`:**
+```python
+# Avoid this - can cause namespace pollution
+from math import *
+from numpy import *  # May override math functions!
+```
+:::
+
+## Module Reloading
+
+::: {.fragment}
+**For development/debugging:**
+```python
+import importlib
+import my_module
+
+# Reload module after changes
+importlib.reload(my_module)
+```
+:::
+
+::: {.fragment}
+**Note:** Reloading has limitations and should mainly be used during development
+:::
+
+## Summary
+
+::: {.incremental}
+- Modules organize code into reusable files
+- Packages group related modules together
+- Python has many built-in modules for common tasks
+- Use `import` statements to access module functionality
+- Create virtual environments for project isolation
+- Follow best practices for clean, maintainable code organization
+:::
+
+## Next Steps
+
+::: {.fragment}
+**Coming up next:**
+- Object-oriented programming concepts
+- Classes and inheritance
+- Advanced Python features
+:::
+
+::: {.fragment}
+**Practice more:**
+- Create a utilities package for your common tasks
+- Explore the Python standard library
+- Build a simple project with multiple modules
+:::

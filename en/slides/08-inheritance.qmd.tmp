@@ -1,0 +1,576 @@
+---
+title: "Inheritance and Polymorphism"
+subtitle: "Advanced Object-Oriented Programming"
+---
+
+## What is Inheritance?
+
+::: {.incremental}
+- **Inheritance** allows classes to inherit attributes and methods from other classes
+- Creates a parent-child relationship between classes
+- Child classes (subclasses) inherit from parent classes (superclasses)
+- Promotes code reuse and establishes hierarchical relationships
+- Models real-world "is-a" relationships
+:::
+
+::: {.fragment}
+**Real-world example:**
+- A `Car` is a type of `Vehicle`
+- A `Dog` is a type of `Animal`
+- A `Student` is a type of `Person`
+:::
+
+## Basic Inheritance Syntax
+
+::: {.fragment}
+```python
+# Parent class (base class, superclass)
+class Animal:
+    def __init__(self, name, species):
+        self.name = name
+        self.species = species
+    
+    def make_sound(self):
+        return "Some generic animal sound"
+    
+    def info(self):
+        return f"{self.name} is a {self.species}"
+
+# Child class (derived class, subclass)
+class Dog(Animal):
+    def __init__(self, name, breed):
+        super().__init__(name, "Canine")  # Call parent constructor
+        self.breed = breed
+    
+    def make_sound(self):  # Override parent method
+        return "Woof!"
+```
+:::
+
+## Using Inherited Classes
+
+::: {.fragment}
+```python
+# Create instances
+generic_animal = Animal("Unknown", "Unknown species")
+my_dog = Dog("Buddy", "Golden Retriever")
+
+# Use inherited methods
+print(my_dog.info())        # "Buddy is a Canine"
+print(my_dog.make_sound())  # "Woof!"
+
+# Dog inherits from Animal
+print(isinstance(my_dog, Dog))     # True
+print(isinstance(my_dog, Animal))  # True
+```
+:::
+
+## The `super()` Function
+
+::: {.fragment}
+**`super()` gives access to parent class methods:**
+```python
+class Vehicle:
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+    
+    def start(self):
+        return f"{self.make} {self.model} is starting"
+
+class Car(Vehicle):
+    def __init__(self, make, model, year, doors):
+        super().__init__(make, model, year)  # Call parent __init__
+        self.doors = doors
+    
+    def start(self):
+        parent_start = super().start()  # Call parent method
+        return f"{parent_start} with {self.doors} doors"
+```
+:::
+
+## Method Overriding
+
+::: {.fragment}
+**Child classes can override parent methods:**
+```python
+class Shape:
+    def __init__(self, color):
+        self.color = color
+    
+    def area(self):
+        return 0  # Default implementation
+    
+    def describe(self):
+        return f"A {self.color} shape with area {self.area()}"
+
+class Rectangle(Shape):
+    def __init__(self, color, width, height):
+        super().__init__(color)
+        self.width = width
+        self.height = height
+    
+    def area(self):  # Override parent method
+        return self.width * self.height
+
+class Circle(Shape):
+    def __init__(self, color, radius):
+        super().__init__(color)
+        self.radius = radius
+    
+    def area(self):  # Override parent method
+        return 3.14159 * self.radius ** 2
+```
+:::
+
+## Multiple Inheritance
+
+::: {.fragment}
+**Python supports inheriting from multiple classes:**
+```python
+class Flyable:
+    def fly(self):
+        return "Flying through the air"
+
+class Swimmable:
+    def swim(self):
+        return "Swimming in water"
+
+class Duck(Animal, Flyable, Swimmable):
+    def __init__(self, name):
+        super().__init__(name, "Bird")
+    
+    def make_sound(self):
+        return "Quack!"
+
+# Duck can use methods from all parent classes
+duck = Duck("Daffy")
+print(duck.info())        # From Animal
+print(duck.fly())         # From Flyable
+print(duck.swim())        # From Swimmable
+print(duck.make_sound())  # Overridden method
+```
+:::
+
+## Method Resolution Order (MRO)
+
+::: {.fragment}
+**Python determines which method to call using MRO:**
+```python
+class A:
+    def method(self):
+        return "A"
+
+class B(A):
+    def method(self):
+        return "B"
+
+class C(A):
+    def method(self):
+        return "C"
+
+class D(B, C):
+    pass
+
+# Check method resolution order
+print(D.__mro__)
+# (<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.A'>, <class 'object'>)
+
+d = D()
+print(d.method())  # "B" (follows MRO)
+```
+:::
+
+## Abstract Base Classes
+
+::: {.fragment}
+**Use ABC to define interfaces:**
+```python
+from abc import ABC, abstractmethod
+
+class Shape(ABC):
+    def __init__(self, color):
+        self.color = color
+    
+    @abstractmethod
+    def area(self):
+        pass  # Must be implemented by subclasses
+    
+    @abstractmethod
+    def perimeter(self):
+        pass  # Must be implemented by subclasses
+    
+    def describe(self):
+        return f"A {self.color} shape"
+
+# Cannot instantiate abstract class
+# shape = Shape("red")  # TypeError
+
+class Rectangle(Shape):
+    def __init__(self, color, width, height):
+        super().__init__(color)
+        self.width = width
+        self.height = height
+    
+    def area(self):
+        return self.width * self.height
+    
+    def perimeter(self):
+        return 2 * (self.width + self.height)
+```
+:::
+
+## Polymorphism
+
+::: {.fragment}
+**Same interface, different implementations:**
+```python
+def calculate_total_area(shapes):
+    total = 0
+    for shape in shapes:
+        total += shape.area()  # Calls appropriate area() method
+    return total
+
+# Different shapes, same interface
+shapes = [
+    Rectangle("red", 5, 4),
+    Circle("blue", 3),
+    Rectangle("green", 2, 8)
+]
+
+print(f"Total area: {calculate_total_area(shapes)}")
+```
+:::
+
+## Duck Typing
+
+::: {.fragment}
+**"If it walks like a duck and quacks like a duck, it's a duck"**
+```python
+class Dog:
+    def make_sound(self):
+        return "Woof!"
+
+class Cat:
+    def make_sound(self):
+        return "Meow!"
+
+class Robot:
+    def make_sound(self):
+        return "Beep!"
+
+def make_all_sounds(animals):
+    for animal in animals:
+        print(animal.make_sound())  # Works with any object with make_sound()
+
+# No inheritance needed - just same interface
+creatures = [Dog(), Cat(), Robot()]
+make_all_sounds(creatures)
+```
+:::
+
+## Practical Example: Employee Hierarchy
+
+```python
+class Employee:
+    def __init__(self, name, employee_id, salary):
+        self.name = name
+        self.employee_id = employee_id
+        self.salary = salary
+    
+    def get_info(self):
+        return f"Employee: {self.name} (ID: {self.employee_id})"
+    
+    def calculate_pay(self):
+        return self.salary
+
+class Manager(Employee):
+    def __init__(self, name, employee_id, salary, team_size):
+        super().__init__(name, employee_id, salary)
+        self.team_size = team_size
+        self.bonus_rate = 0.1
+    
+    def calculate_pay(self):
+        base_pay = super().calculate_pay()
+        bonus = base_pay * self.bonus_rate * (self.team_size / 10)
+        return base_pay + bonus
+    
+    def get_info(self):
+        base_info = super().get_info()
+        return f"{base_info}, Manager of {self.team_size} people"
+
+class Developer(Employee):
+    def __init__(self, name, employee_id, salary, programming_languages):
+        super().__init__(name, employee_id, salary)
+        self.programming_languages = programming_languages
+    
+    def get_info(self):
+        base_info = super().get_info()
+        languages = ", ".join(self.programming_languages)
+        return f"{base_info}, Developer ({languages})"
+```
+
+## Using the Employee Hierarchy
+
+```python
+# Create different types of employees
+manager = Manager("Alice Johnson", "M001", 80000, 5)
+developer = Developer("Bob Smith", "D001", 70000, ["Python", "JavaScript"])
+employee = Employee("Charlie Brown", "E001", 50000)
+
+# Polymorphism in action
+employees = [manager, developer, employee]
+
+for emp in employees:
+    print(emp.get_info())
+    print(f"Pay: ${emp.calculate_pay():,.2f}")
+    print("-" * 40)
+```
+
+## Class Hierarchies Design
+
+::: {.fragment}
+**Good hierarchy design principles:**
+- **Is-a relationship**: Use inheritance for "is-a" relationships
+- **Liskov Substitution Principle**: Subclasses should be substitutable for parent classes
+- **Single Responsibility**: Each class should have one reason to change
+- **Open/Closed Principle**: Open for extension, closed for modification
+:::
+
+::: {.fragment}
+```python
+# Good: Car is-a Vehicle
+class Vehicle:
+    pass
+
+class Car(Vehicle):
+    pass
+
+# Bad: Car has-a Engine (use composition instead)
+class Engine:
+    pass
+
+class Car:
+    def __init__(self):
+        self.engine = Engine()  # Composition, not inheritance
+```
+:::
+
+## Composition vs Inheritance
+
+::: {.fragment}
+**When to use composition instead of inheritance:**
+```python
+# Composition: "has-a" relationship
+class Engine:
+    def start(self):
+        return "Engine started"
+
+class Car:
+    def __init__(self, make, model):
+        self.make = make
+        self.model = model
+        self.engine = Engine()  # Car HAS an Engine
+    
+    def start(self):
+        return f"{self.make} {self.model}: {self.engine.start()}"
+
+# Inheritance: "is-a" relationship
+class Vehicle:
+    def move(self):
+        return "Moving"
+
+class Car(Vehicle):  # Car IS a Vehicle
+    def move(self):
+        return "Driving on roads"
+```
+:::
+
+## Exercise Time! 🚀
+
+::: {.fragment}
+**Challenge 1: Animal Hierarchy**
+```python
+class Animal:
+    def __init__(self, name):
+        self.name = name
+    
+    def speak(self):
+        pass
+
+class Dog(Animal):
+    # Implement speak method
+    pass
+
+class Cat(Animal):
+    # Implement speak method
+    pass
+
+# Test polymorphism
+animals = [Dog("Buddy"), Cat("Whiskers")]
+for animal in animals:
+    print(f"{animal.name}: {animal.speak()}")
+```
+:::
+
+::: {.fragment}
+**Challenge 2: Shape Calculator**
+```python
+from abc import ABC, abstractmethod
+
+class Shape(ABC):
+    @abstractmethod
+    def area(self):
+        pass
+
+class Rectangle(Shape):
+    # Implement area calculation
+    pass
+
+class Triangle(Shape):
+    # Implement area calculation
+    pass
+```
+:::
+
+## Exercise Solutions
+
+::: {.fragment}
+**Animal Hierarchy:**
+```python
+class Animal:
+    def __init__(self, name):
+        self.name = name
+    
+    def speak(self):
+        return "Some sound"
+
+class Dog(Animal):
+    def speak(self):
+        return "Woof!"
+
+class Cat(Animal):
+    def speak(self):
+        return "Meow!"
+```
+:::
+
+::: {.fragment}
+**Shape Calculator:**
+```python
+class Rectangle(Shape):
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+    
+    def area(self):
+        return self.width * self.height
+
+class Triangle(Shape):
+    def __init__(self, base, height):
+        self.base = base
+        self.height = height
+    
+    def area(self):
+        return 0.5 * self.base * self.height
+```
+:::
+
+## Best Practices
+
+::: {.incremental}
+- **Favor composition over inheritance**: Use inheritance sparingly
+- **Keep hierarchies shallow**: Deep inheritance chains are hard to maintain
+- **Use abstract base classes**: Define clear interfaces
+- **Override methods meaningfully**: Don't override just to override
+- **Document inheritance relationships**: Make the design clear
+- **Test polymorphic behavior**: Ensure substitutability works
+- **Use `super()` appropriately**: Call parent methods when needed
+:::
+
+## Common Pitfalls
+
+::: {.fragment}
+**1. Deep inheritance hierarchies:**
+```python
+# Avoid deep chains
+class A: pass
+class B(A): pass
+class C(B): pass
+class D(C): pass  # Too deep!
+```
+:::
+
+::: {.fragment}
+**2. Multiple inheritance confusion:**
+```python
+# Be careful with diamond problem
+class A:
+    def method(self): pass
+
+class B(A): pass
+class C(A): pass
+class D(B, C): pass  # Diamond inheritance
+```
+:::
+
+::: {.fragment}
+**3. Overriding without calling super():**
+```python
+class Parent:
+    def __init__(self, value):
+        self.value = value
+
+class Child(Parent):
+    def __init__(self, value, extra):
+        # Forgot super().__init__(value)!
+        self.extra = extra
+```
+:::
+
+## When to Use Inheritance
+
+::: {.fragment}
+**Good use cases:**
+- Clear "is-a" relationships
+- Shared behavior among related classes
+- Need for polymorphism
+- Framework extension points
+:::
+
+::: {.fragment}
+**Consider alternatives:**
+- **Composition**: For "has-a" relationships
+- **Mixins**: For adding functionality
+- **Protocols**: For duck typing (Python 3.8+)
+- **Functions**: For simple code reuse
+:::
+
+## Summary
+
+::: {.incremental}
+- Inheritance creates parent-child relationships between classes
+- Child classes inherit attributes and methods from parents
+- Use `super()` to access parent class functionality
+- Method overriding allows customization of inherited behavior
+- Polymorphism enables same interface, different implementations
+- Abstract base classes define interfaces that subclasses must implement
+- Favor composition over inheritance for better design
+:::
+
+## Next Steps
+
+::: {.fragment}
+**Coming up next:**
+- Advanced Python features (decorators, generators)
+- Error handling best practices
+- File I/O and data processing
+:::
+
+::: {.fragment}
+**Practice more:**
+- Design a game with character inheritance
+- Create a plugin system using abstract base classes
+- Build a document processing system with different file types
+:::
