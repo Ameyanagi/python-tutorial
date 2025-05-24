@@ -46,18 +46,25 @@ jobs:
           rm -rf docs
           mkdir -p docs/en/book docs/en/slides docs/ja/book docs/ja/slides docs/en/shared docs/ja/shared
           
-          # Copy shared assets first (needed during rendering)
+          # Copy shared assets (accessible from both book/ and slides/ subdirectories)
           if [ -d "en/shared" ]; then
             cp -r en/shared/* docs/en/shared/
+            echo "Copied en/shared assets to docs/en/shared/"
           fi
           if [ -d "ja/shared" ]; then
             cp -r ja/shared/* docs/ja/shared/
+            echo "Copied ja/shared assets to docs/ja/shared/"
           fi
           # Copy root shared assets to both language directories
           if [ -d "shared" ]; then
             cp -r shared/* docs/en/shared/ 2>/dev/null || true
             cp -r shared/* docs/ja/shared/ 2>/dev/null || true
+            echo "Copied root shared assets to both language directories"
           fi
+          
+          # Verify shared assets are in place
+          ls -la docs/en/shared/ || echo "No English shared assets found"
+          ls -la docs/ja/shared/ || echo "No Japanese shared assets found"
 
       - name: Render main landing page
         run: |
@@ -75,7 +82,10 @@ jobs:
           uv run quarto render
           echo "English slides rendered with isolated configuration"
           # Copy rendered slides to docs directory
-          cp -r *.html *_files/ ../../docs/en/slides/ 2>/dev/null || true
+          cp -r *.html ../../docs/en/slides/ 2>/dev/null || true
+          cp -r *_files/ ../../docs/en/slides/ 2>/dev/null || true
+          echo "Copied English slides to docs/en/slides/"
+          ls -la ../../docs/en/slides/ | head -10
 
       - name: Render Japanese book
         run: |
@@ -89,7 +99,10 @@ jobs:
           uv run quarto render
           echo "Japanese slides rendered with isolated configuration"
           # Copy rendered slides to docs directory
-          cp -r *.html *_files/ ../../docs/ja/slides/ 2>/dev/null || true
+          cp -r *.html ../../docs/ja/slides/ 2>/dev/null || true
+          cp -r *_files/ ../../docs/ja/slides/ 2>/dev/null || true
+          echo "Copied Japanese slides to docs/ja/slides/"
+          ls -la ../../docs/ja/slides/ | head -10
 
       - name: Create language redirect pages
         run: |

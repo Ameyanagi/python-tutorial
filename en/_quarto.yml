@@ -52,7 +52,7 @@ format:
     filters:
       - live
       - drop
-    logo: shared/python-logo.svg
+    logo: ../shared/python-logo.svg
     navbar:
       background: primary
       search: true
