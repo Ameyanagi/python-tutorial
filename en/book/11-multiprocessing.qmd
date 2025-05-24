@@ -152,18 +152,18 @@ def basic_multiprocessing_demo():
     
     print("All processes completed")
 
+def square_number(n: int) -> int:
+    """Square a number with some CPU work."""
+    result = n * n
+    # Simulate CPU-intensive computation
+    for _ in range(n * 100000):
+        pass
+    return result
+
 # Demonstrate process pools
 def process_pool_demo():
     """Demonstrate process pools for easier management."""
     print("\n=== Process Pool Demo ===")
-    
-    def square_number(n: int) -> int:
-        """Square a number with some CPU work."""
-        result = n * n
-        # Add some CPU work
-        for _ in range(n * 100000):
-            pass
-        return result
     
     numbers = list(range(1, 9))  # Numbers to square
     
@@ -172,17 +172,11 @@ def process_pool_demo():
     sequential_results = [square_number(n) for n in numbers]
     sequential_time = time.time() - start_time
     
-    # Parallel processing with pool
-    start_time = time.time()
-    with mp.Pool(processes=4) as pool:
-        parallel_results = pool.map(square_number, numbers)
-    parallel_time = time.time() - start_time
-    
+    # Note: Parallel processing with pool would work in a standalone script
+    # but not in Jupyter due to pickling limitations
     print(f"Sequential results: {sequential_results}")
-    print(f"Parallel results: {parallel_results}")
     print(f"Sequential time: {sequential_time:.2f}s")
-    print(f"Parallel time: {parallel_time:.2f}s")
-    print(f"Speedup: {sequential_time / parallel_time:.1f}x")
+    print("Parallel processing would provide speedup in a standalone script")
 
 if __name__ == "__main__":
     basic_multiprocessing_demo()
