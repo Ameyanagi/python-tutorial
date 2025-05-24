@@ -79,7 +79,7 @@ print(f"Total time: {end_time - start_time:.2f} seconds")
 
 ```{python}
 import asyncio
-import aiohttp
+import time
 from typing import List, Dict, Any
 
 async def fetch_data(url: str) -> Dict[str, Any]:
