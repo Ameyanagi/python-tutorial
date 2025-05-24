@@ -208,7 +208,7 @@ class SalesAnalyzer:
             quantity = np.random.randint(1, 10)
             
             # Add some seasonality and randomness
-            month_factor = 1 + 0.2 * np.sin(2 * np.pi * date.month / 12)
+            month_factor = 1 + 0.2 * np.sin(2 * np.pi * pd.Timestamp(date).month / 12)
             price = base_price * month_factor * np.random.uniform(0.8, 1.2)
             revenue = price * quantity
             
