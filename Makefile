@@ -11,6 +11,7 @@ help:
 	@echo "  format     - Format code"
 	@echo "  typecheck  - Run type checking"
 	@echo "  test       - Test that Python code compiles"
+	@echo "  test-build - Test build multiprocessing chapter"
 	@echo "  build      - Build all content locally"
 	@echo "  clean      - Clean build artifacts"
 	@echo "  all        - Run all checks and build"
@@ -55,6 +56,12 @@ build:
 	uv run quarto render en/ --to html
 	@echo "Building Japanese content..."
 	uv run quarto render ja/ --to html
+
+# Test build (extract and test Python code execution)
+test-build:
+	@echo "Testing multiprocessing chapter Python code..."
+	@uv run python test_execution.py
+	@echo "Multiprocessing chapter code tested successfully!"
 
 # Clean build artifacts
 clean:

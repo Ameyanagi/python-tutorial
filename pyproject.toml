@@ -10,7 +10,6 @@ dependencies = [
     "jupyter>=1.1.1",
     "pyright>=1.1.401",
     "pytest>=8.3.5",
-    "quarto>=0.1.0",
     "ruff>=0.11.11",
 ]
 
@@ -43,3 +42,9 @@ venvPath = "."
 venv = ".venv"
 pythonVersion = "3.12"
 typeCheckingMode = "basic"
+
+[dependency-groups]
+dev = [
+    "jupytext>=1.17.1",
+    "quarto>=0.1.0",
+]
