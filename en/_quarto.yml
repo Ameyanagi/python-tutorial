@@ -1,6 +1,6 @@
 project:
   type: book
-  output-dir: ../docs/en
+  output-dir: ../docs/en/book
   
 book:
   title: "Python Tutorial"

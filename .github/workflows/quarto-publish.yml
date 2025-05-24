@@ -65,7 +65,7 @@ jobs:
 
       - name: Render English book
         run: |
-          cd en && uv run quarto render --to html --output-dir ../docs/en/book
+          cd en && uv run quarto render --to html
 
       - name: Render English slides (isolated)
         run: |
@@ -79,7 +79,7 @@ jobs:
 
       - name: Render Japanese book
         run: |
-          cd ja && uv run quarto render --to html --output-dir ../docs/ja/book
+          cd ja && uv run quarto render --to html
 
       - name: Render Japanese slides (isolated)
         run: |
