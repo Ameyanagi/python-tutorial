@@ -1,0 +1,373 @@
+---
+title: "制御フロー"
+subtitle: "判断と繰り返し処理"
+format: 
+  revealjs:
+    theme: [default, ../shared/style.scss]
+    transition: slide
+    background-transition: fade
+    highlight-style: github
+    code-fold: false
+    controls: true
+    controlsLayout: edges
+    controlsTutorial: true
+    progress: true
+    slideNumber: true
+    chalkboard: true
+    menu: true
+    keyboard: true
+    overview: true
+    touch: true
+    hash: true
+    history: true
+    previewLinks: auto
+    logo: ../shared/python-logo.svg
+    footer: "Python チュートリアル - 制御フロー"
+    width: 1050
+    height: 700
+    margin: 0.1
+    center: false
+    navigationMode: linear
+    loop: false
+    rtl: false
+    # Mobile-specific optimizations
+    mobileViewDistance: 2
+    embedded: false
+    minScale: 0.2
+    maxScale: 2.0
+    disableLayout: false
+---
+
+# 制御フロー {background-color="#2E86AB"}
+
+## プログラミングロジック
+
+::: {.incremental}
+- **条件文** - 判断を行う
+- **ループ** - 処理を繰り返す
+- **制御文** - フローを管理する
+- **論理演算子** - 条件を組み合わせる
+:::
+
+## if文 - 判断を行う {.smaller}
+
+```python
+age = 18
+
+if age >= 18:
+    print("あなたは成人です")
+    print("投票できます")
+else:
+    print("あなたは未成年です")
+    print("まだ投票できません")
+
+print("これは常に実行されます")
+```
+
+::: {.fragment}
+**重要ポイント:** Pythonではインデントがコードブロックを定義します！
+:::
+
+## if-elif-else チェーン
+
+```python
+score = 85
+
+if score >= 90:
+    grade = "A"
+    message = "優秀です！"
+elif score >= 80:
+    grade = "B" 
+    message = "よくできました！"
+elif score >= 70:
+    grade = "C"
+    message = "頑張って続けましょう！"
+elif score >= 60:
+    grade = "D"
+    message = "改善が必要です"
+else:
+    grade = "F"
+    message = "再受験が必要です"
+
+print(f"点数: {score}, 成績: {grade}")
+```
+
+## 比較演算子
+
+| 演算子 | 意味 | 例 |
+|----------|---------|---------|
+| `==` | 等しい | `x == 5` |
+| `!=` | 等しくない | `x != 5` |
+| `<` | より小さい | `x < 10` |
+| `>` | より大きい | `x > 10` |
+| `<=` | 以下 | `x <= 10` |
+| `>=` | 以上 | `x >= 10` |
+
+```python
+a, b = 10, 5
+print(f"{a} > {b}: {a > b}")     # True
+print(f"{a} == {b}: {a == b}")   # False
+```
+
+## 論理演算子 {.smaller}
+
+```python
+age = 25
+has_license = True
+has_car = False
+
+# AND演算子 - 両方の条件がTrueである必要
+can_drive = age >= 18 and has_license
+print(f"運転できる: {can_drive}")  # True
+
+# OR演算子 - 少なくとも一つの条件がTrueである必要  
+can_travel = has_car or age >= 18
+print(f"旅行できる: {can_travel}")  # True
+
+# NOT演算子 - ブール値を反転
+needs_license = not has_license
+print(f"免許が必要: {needs_license}")  # False
+
+# 複雑な条件
+can_rent_car = age >= 21 and has_license and not has_car
+```
+
+## メンバーシップ＆同一性演算子
+
+```python
+fruits = ["りんご", "バナナ", "さくらんぼ"]
+my_fruit = "りんご"
+
+# メンバーシップ演算子
+if my_fruit in fruits:
+    print(f"{my_fruit}があります！")
+
+if "ぶどう" not in fruits:
+    print("ぶどうはありません")
+
+# 同一性演算子（注意！）
+list1 = [1, 2, 3]
+list2 = [1, 2, 3]  
+list3 = list1
+
+print(list1 == list2)  # True（同じ内容）
+print(list1 is list2)  # False（異なるオブジェクト）  
+print(list1 is list3)  # True（同じオブジェクト）
+```
+
+## forループ - コレクションの反復 {.smaller}
+
+```python
+# リストをループ
+fruits = ["りんご", "バナナ", "さくらんぼ"]
+for fruit in fruits:
+    print(f"{fruit}が好きです")
+
+# 文字列をループ
+for letter in "Python":
+    print(letter)
+
+# enumerate でインデックス + 値を取得
+for index, fruit in enumerate(fruits):
+    print(f"{index + 1}. {fruit}")
+
+# 辞書をループ
+student = {"名前": "太郎", "年齢": 20, "専攻": "CS"}
+for key, value in student.items():
+    print(f"{key}: {value}")
+```
+
+## range() - 数値シーケンスの生成
+
+```python
+# 基本range - 0から4の数値
+for i in range(5):
+    print(i)  # 0, 1, 2, 3, 4
+
+# 開始と終了を指定
+for i in range(1, 6):
+    print(i)  # 1, 2, 3, 4, 5
+
+# ステップを指定
+for i in range(0, 11, 2):
+    print(i)  # 0, 2, 4, 6, 8, 10
+
+# カウントダウン
+for i in range(5, 0, -1):
+    print(i)  # 5, 4, 3, 2, 1
+```
+
+## whileループ - 条件ベースの繰り返し {.smaller}
+
+```python
+# 基本的なwhileループ
+count = 0
+while count < 5:
+    print(f"カウント: {count}")
+    count += 1
+
+# ユーザー入力まで待機（仮想例）
+password = ""
+while password != "secret":
+    password = input("パスワードを入力してください: ")
+    if password != "secret":
+        print("間違っています。もう一度試してください。")
+
+print("ログイン成功！")
+```
+
+## ループ制御文 {.smaller}
+
+```python
+# break - ループを完全に終了
+for i in range(10):
+    if i == 5:
+        print("5に達したので終了")
+        break
+    print(i)
+
+print("ループ後")
+
+# continue - 現在の反復をスキップ
+for i in range(10):
+    if i % 2 == 0:  # 偶数をスキップ
+        continue
+    print(f"奇数: {i}")
+
+# else文をループに使用
+for i in range(3):
+    print(i)
+else:
+    print("ループが正常に完了しました")
+```
+
+## ネストしたループ
+
+```python
+# 九九表を作成
+print("九九表:")
+for i in range(1, 10):
+    for j in range(1, 10):
+        result = i * j
+        print(f"{result:2d}", end=" ")
+    print()  # 新しい行
+
+# パターンを描画
+for row in range(5):
+    for col in range(row + 1):
+        print("*", end="")
+    print()
+```
+
+## リスト内包表記 - Pythonらしい書き方
+
+```python
+# 従来の方法
+squares = []
+for x in range(10):
+    squares.append(x**2)
+
+# リスト内包表記（Pythonic）
+squares = [x**2 for x in range(10)]
+print(squares)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+# 条件付きリスト内包表記
+even_squares = [x**2 for x in range(10) if x % 2 == 0]
+print(even_squares)  # [0, 4, 16, 36, 64]
+
+# 複雑な例
+words = ["hello", "world", "python", "programming"]
+upper_words = [word.upper() for word in words if len(word) > 5]
+print(upper_words)  # ['PYTHON', 'PROGRAMMING']
+```
+
+## 実践演習 {background-color="#F18F01"}
+
+## 演習: グレード計算器
+
+```python
+# 学生の成績を計算
+students = [
+    {"名前": "太郎", "点数": [85, 92, 78]},
+    {"名前": "花子", "点数": [90, 88, 95]},
+    {"名前": "次郎", "点数": [76, 81, 69]}
+]
+
+for student in students:
+    scores = student["点数"]
+    average = sum(scores) / len(scores)
+    
+    if average >= 90:
+        grade = "A"
+    elif average >= 80:
+        grade = "B"
+    elif average >= 70:
+        grade = "C"
+    else:
+        grade = "D"
+    
+    print(f"{student['名前']}: 平均 {average:.1f}, 成績 {grade}")
+```
+
+## 演習: 数当てゲーム
+
+```python
+import random
+
+# 1から100の間の数を選択
+secret_number = random.randint(1, 100)
+attempts = 0
+max_attempts = 7
+
+print("1から100の間の数を当ててください！")
+
+while attempts < max_attempts:
+    try:
+        guess = int(input(f"推測 {attempts + 1}/{max_attempts}: "))
+        attempts += 1
+        
+        if guess == secret_number:
+            print(f"正解！ {attempts}回で当てました！")
+            break
+        elif guess < secret_number:
+            print("もっと大きい数です")
+        else:
+            print("もっと小さい数です")
+    except ValueError:
+        print("有効な数値を入力してください")
+
+if attempts == max_attempts:
+    print(f"ゲームオーバー！答えは {secret_number} でした。")
+```
+
+## 重要ポイント {background-color="#A23B72"}
+
+::: {.incremental}
+1. **インデント** - Pythonの構造を定義
+2. **条件の組み合わせ** - and, or, not を効果的に使用
+3. **適切なループ選択** - for vs while
+4. **早期終了** - break と continue で効率化
+5. **リスト内包表記** - Pythonicなコード
+:::
+
+## 次の内容
+
+::: {.incremental}
+- **関数** (コードの整理と再利用)
+- **エラーハンドリング** (例外処理)
+- **モジュール** (コードの分割)
+- **クラス** (オブジェクト指向プログラミング)
+:::
+
+## ありがとうございました！ {background-color="#C73E1D"}
+
+### 質問はありますか？
+
+次は [関数](../book/06-functions.html) に進みましょう！
+
+---
+
+**リソース:**
+- [Python.org](https://python.org)
+- [Real Python](https://realpython.com)
+- [Python Tutor](http://pythontutor.com)

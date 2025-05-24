@@ -1,0 +1,596 @@
+---
+title: "継承と多態性"
+subtitle: "高度なオブジェクト指向プログラミング"
+format:
+  revealjs:
+    theme: [default, ../shared/style.scss]
+    transition: slide
+    background-transition: fade
+    highlight-style: github
+    code-fold: false
+    controls: true
+    controlsLayout: edges
+    controlsTutorial: true
+    progress: true
+    slideNumber: true
+    chalkboard: true
+    menu: true
+    keyboard: true
+    overview: true
+    touch: true
+    hash: true
+    history: true
+    previewLinks: auto
+    logo: ../shared/python-logo.svg
+    footer: "Python チュートリアル - 継承と多態性"
+    width: 1050
+    height: 700
+    margin: 0.1
+    center: false
+    navigationMode: linear
+    loop: false
+    rtl: false
+    # Mobile-specific optimizations
+    mobileViewDistance: 2
+    embedded: false
+    minScale: 0.2
+    maxScale: 2.0
+    disableLayout: false
+---
+
+# 継承と多態性 {background-color="#2E86AB"}
+
+## 継承とは？
+
+::: {.incremental}
+- **既存のクラスから新しいクラスを作る** メカニズム
+- **コードの再利用** と **論理的な階層構造** を提供
+- **親クラス（基底クラス）** から **子クラス（派生クラス）** を作成
+- 子クラスは親クラスの属性とメソッドを **継承** する
+- 子クラスで新しい機能を **追加** したり、既存の機能を **オーバーライド** できる
+:::
+
+::: {.fragment}
+```python
+# 親クラス
+class Animal:
+    def __init__(self, name):
+        self.name = name
+    
+    def speak(self):
+        print(f"{self.name}が鳴いています")
+
+# 子クラス
+class Dog(Animal):  # Animal から継承
+    def speak(self):  # メソッドをオーバーライド
+        print(f"{self.name}がワンワン鳴いています")
+
+# 使用例
+dog = Dog("ポチ")
+dog.speak()  # ポチがワンワン鳴いています
+```
+:::
+
+## 基本的な継承の例
+
+::: {.fragment}
+```python
+class Vehicle:  # 親クラス
+    def __init__(self, brand, model, year):
+        self.brand = brand
+        self.model = model
+        self.year = year
+        self.is_running = False
+    
+    def start(self):
+        self.is_running = True
+        print(f"{self.brand} {self.model} エンジン始動")
+    
+    def stop(self):
+        self.is_running = False
+        print(f"{self.brand} {self.model} エンジン停止")
+    
+    def info(self):
+        return f"{self.year}年製 {self.brand} {self.model}"
+
+class Car(Vehicle):  # 子クラス
+    def __init__(self, brand, model, year, doors):
+        super().__init__(brand, model, year)  # 親のコンストラクタを呼び出し
+        self.doors = doors  # 新しい属性
+    
+    def honk(self):  # 新しいメソッド
+        print("プップー！")
+    
+    def info(self):  # メソッドをオーバーライド
+        base_info = super().info()  # 親のメソッドを呼び出し
+        return f"{base_info} ({self.doors}ドア)"
+
+# 使用例
+my_car = Car("Toyota", "Prius", 2023, 4)
+print(my_car.info())  # 2023年製 Toyota Prius (4ドア)
+my_car.start()        # Toyota Prius エンジン始動
+my_car.honk()         # プップー！
+```
+:::
+
+## super() の使用法
+
+::: {.fragment}
+```python
+class Employee:
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+    
+    def work(self):
+        print(f"{self.name}が働いています")
+    
+    def get_annual_salary(self):
+        return self.salary * 12
+
+class Manager(Employee):
+    def __init__(self, name, salary, team_size):
+        super().__init__(name, salary)  # 親のコンストラクタ
+        self.team_size = team_size
+    
+    def work(self):
+        super().work()  # 親のメソッドを呼び出し
+        print(f"そして{self.team_size}人のチームを管理しています")
+    
+    def get_annual_salary(self):
+        base_salary = super().get_annual_salary()
+        bonus = base_salary * 0.2  # 20%のボーナス
+        return base_salary + bonus
+
+class Developer(Employee):
+    def __init__(self, name, salary, programming_language):
+        super().__init__(name, salary)
+        self.programming_language = programming_language
+    
+    def work(self):
+        print(f"{self.name}が{self.programming_language}でプログラミングしています")
+    
+    def code_review(self):
+        print(f"{self.name}がコードレビューを行っています")
+
+# 使用例
+manager = Manager("田中部長", 80000, 5)
+developer = Developer("佐藤エンジニア", 60000, "Python")
+
+manager.work()
+print(f"年収: {manager.get_annual_salary():,}円")
+
+developer.work()
+developer.code_review()
+```
+:::
+
+## 多重継承
+
+::: {.fragment}
+```python
+class Flyable:
+    def fly(self):
+        print("空を飛んでいます")
+
+class Swimmable:
+    def swim(self):
+        print("泳いでいます")
+
+class Duck(Animal, Flyable, Swimmable):  # 多重継承
+    def __init__(self, name):
+        super().__init__(name)
+    
+    def speak(self):
+        print(f"{self.name}がガーガー鳴いています")
+
+class Penguin(Animal, Swimmable):  # 泳げるが飛べない
+    def __init__(self, name):
+        super().__init__(name)
+    
+    def speak(self):
+        print(f"{self.name}がペンペン鳴いています")
+
+# 使用例
+duck = Duck("アヒル")
+duck.speak()  # アヒルがガーガー鳴いています
+duck.fly()    # 空を飛んでいます
+duck.swim()   # 泳いでいます
+
+penguin = Penguin("ペンペン")
+penguin.speak()  # ペンペンがペンペン鳴いています
+penguin.swim()   # 泳いでいます
+# penguin.fly()  # AttributeError: これは使えない
+```
+:::
+
+## メソッド解決順序（MRO）
+
+::: {.fragment}
+```python
+class A:
+    def method(self):
+        print("A")
+
+class B(A):
+    def method(self):
+        print("B")
+        super().method()
+
+class C(A):
+    def method(self):
+        print("C")
+        super().method()
+
+class D(B, C):  # 多重継承
+    def method(self):
+        print("D")
+        super().method()
+
+# MRO（Method Resolution Order）を確認
+print(D.__mro__)
+# (<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.A'>, <class 'object'>)
+
+d = D()
+d.method()
+# D
+# B
+# C
+# A
+```
+:::
+
+## 多態性（ポリモーフィズム）
+
+::: {.fragment}
+```python
+class Shape:
+    def area(self):
+        raise NotImplementedError("サブクラスで実装してください")
+    
+    def perimeter(self):
+        raise NotImplementedError("サブクラスで実装してください")
+
+class Rectangle(Shape):
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+    
+    def area(self):
+        return self.width * self.height
+    
+    def perimeter(self):
+        return 2 * (self.width + self.height)
+
+class Circle(Shape):
+    def __init__(self, radius):
+        self.radius = radius
+    
+    def area(self):
+        return 3.14159 * self.radius ** 2
+    
+    def perimeter(self):
+        return 2 * 3.14159 * self.radius
+
+# 多態性の実演
+def print_shape_info(shape):  # どのShapeでも受け入れる
+    print(f"面積: {shape.area():.2f}")
+    print(f"周囲: {shape.perimeter():.2f}")
+    print()
+
+# 使用例
+shapes = [
+    Rectangle(5, 3),
+    Circle(4),
+    Rectangle(2, 8)
+]
+
+for shape in shapes:
+    print_shape_info(shape)  # 同じ関数で異なる図形を処理
+```
+:::
+
+## 抽象基底クラス（ABC）
+
+::: {.fragment}
+```python
+from abc import ABC, abstractmethod
+
+class PaymentProcessor(ABC):
+    @abstractmethod
+    def process_payment(self, amount):
+        pass
+    
+    @abstractmethod
+    def validate_payment(self, payment_data):
+        pass
+    
+    def log_transaction(self, amount):  # 共通の実装
+        print(f"取引記録: {amount}円の処理")
+
+class CreditCardProcessor(PaymentProcessor):
+    def process_payment(self, amount):
+        print(f"クレジットカードで{amount}円を処理")
+        self.log_transaction(amount)
+    
+    def validate_payment(self, payment_data):
+        # クレジットカード特有の検証
+        card_number = payment_data.get('card_number', '')
+        return len(card_number) == 16
+
+class PayPalProcessor(PaymentProcessor):
+    def process_payment(self, amount):
+        print(f"PayPalで{amount}円を処理")
+        self.log_transaction(amount)
+    
+    def validate_payment(self, payment_data):
+        # PayPal特有の検証
+        email = payment_data.get('email', '')
+        return '@' in email
+
+# 使用例
+def make_payment(processor, amount, payment_data):
+    if processor.validate_payment(payment_data):
+        processor.process_payment(amount)
+    else:
+        print("支払い情報が無効です")
+
+credit_processor = CreditCardProcessor()
+paypal_processor = PayPalProcessor()
+
+make_payment(credit_processor, 1000, {'card_number': '1234567890123456'})
+make_payment(paypal_processor, 500, {'email': 'user@example.com'})
+
+# 抽象クラスはインスタンス化できない
+# processor = PaymentProcessor()  # TypeError!
+```
+:::
+
+## 実践演習 {background-color="#F18F01"}
+
+## 演習: 動物園管理システム
+
+::: {.fragment}
+```python
+from abc import ABC, abstractmethod
+
+class Animal(ABC):
+    def __init__(self, name, age, habitat):
+        self.name = name
+        self.age = age
+        self.habitat = habitat
+        self.hunger_level = 50  # 0-100
+        self.health = 100
+    
+    @abstractmethod
+    def make_sound(self):
+        pass
+    
+    @abstractmethod
+    def eat(self, food_type):
+        pass
+    
+    def sleep(self):
+        self.health = min(100, self.health + 10)
+        print(f"{self.name}が眠っています。健康度: {self.health}")
+    
+    def __str__(self):
+        return f"{self.name} ({self.__class__.__name__}) - 年齢: {self.age}, 健康度: {self.health}"
+
+class Mammal(Animal):
+    def __init__(self, name, age, habitat, fur_color):
+        super().__init__(name, age, habitat)
+        self.fur_color = fur_color
+    
+    def groom(self):
+        print(f"{self.name}が毛づくろいしています")
+
+class Bird(Animal):
+    def __init__(self, name, age, habitat, wingspan):
+        super().__init__(name, age, habitat)
+        self.wingspan = wingspan
+        self.can_fly = True
+    
+    def fly(self):
+        if self.can_fly and self.health > 30:
+            print(f"{self.name}が飛んでいます（翼幅: {self.wingspan}cm）")
+        else:
+            print(f"{self.name}は飛べません")
+
+class Lion(Mammal):
+    def __init__(self, name, age, mane_size="medium"):
+        super().__init__(name, age, "サバンナ", "茶色")
+        self.mane_size = mane_size
+    
+    def make_sound(self):
+        print(f"{self.name}がガオーと吠えています")
+    
+    def eat(self, food_type):
+        if food_type == "肉":
+            self.hunger_level = max(0, self.hunger_level - 30)
+            self.health = min(100, self.health + 5)
+            print(f"{self.name}が{food_type}を食べました。満腹度が上がりました。")
+        else:
+            print(f"{self.name}は{food_type}を食べません")
+    
+    def hunt(self):
+        if self.hunger_level > 70:
+            print(f"{self.name}が狩りをしています")
+            self.hunger_level -= 20
+        else:
+            print(f"{self.name}はお腹いっぱいで狩りをしません")
+
+class Elephant(Mammal):
+    def __init__(self, name, age, trunk_length=150):
+        super().__init__(name, age, "サバンナ", "灰色")
+        self.trunk_length = trunk_length
+    
+    def make_sound(self):
+        print(f"{self.name}がパオーンと鳴いています")
+    
+    def eat(self, food_type):
+        if food_type in ["草", "果物", "野菜"]:
+            self.hunger_level = max(0, self.hunger_level - 25)
+            self.health = min(100, self.health + 3)
+            print(f"{self.name}が{food_type}を食べました")
+        else:
+            print(f"{self.name}は{food_type}を食べません")
+    
+    def spray_water(self):
+        print(f"{self.name}が鼻で水を撒いています")
+
+class Eagle(Bird):
+    def __init__(self, name, age, wingspan=200):
+        super().__init__(name, age, "山岳", wingspan)
+        self.hunting_skill = 80
+    
+    def make_sound(self):
+        print(f"{self.name}がピーヒョロロと鳴いています")
+    
+    def eat(self, food_type):
+        if food_type in ["魚", "小動物"]:
+            self.hunger_level = max(0, self.hunger_level - 35)
+            self.health = min(100, self.health + 8)
+            print(f"{self.name}が{food_type}を食べました")
+        else:
+            print(f"{self.name}は{food_type}を食べません")
+    
+    def hunt_from_sky(self):
+        if self.health > 40:
+            print(f"{self.name}が空から獲物を狙っています")
+            success = self.hunting_skill > 70
+            if success:
+                print("狩り成功！")
+                self.eat("小動物")
+            else:
+                print("狩り失敗...")
+
+class Penguin(Bird):
+    def __init__(self, name, age):
+        super().__init__(name, age, "南極", 80)
+        self.can_fly = False  # ペンギンは飛べない
+    
+    def make_sound(self):
+        print(f"{self.name}がペンペン鳴いています")
+    
+    def eat(self, food_type):
+        if food_type == "魚":
+            self.hunger_level = max(0, self.hunger_level - 30)
+            self.health = min(100, self.health + 6)
+            print(f"{self.name}が{food_type}を食べました")
+        else:
+            print(f"{self.name}は{food_type}を食べません")
+    
+    def swim(self):
+        print(f"{self.name}が上手に泳いでいます")
+
+class Zoo:
+    def __init__(self, name):
+        self.name = name
+        self.animals = []
+        self.visitors = 0
+    
+    def add_animal(self, animal):
+        self.animals.append(animal)
+        print(f"{animal.name}を{self.name}に迎えました")
+    
+    def feed_all_animals(self):
+        print(f"\n=== {self.name}の餌やりタイム ===")
+        food_menu = {
+            Lion: "肉",
+            Elephant: "草",
+            Eagle: "魚",
+            Penguin: "魚"
+        }
+        
+        for animal in self.animals:
+            food = food_menu.get(type(animal), "エサ")
+            animal.eat(food)
+    
+    def animal_show(self):
+        print(f"\n=== {self.name}のアニマルショー ===")
+        for animal in self.animals:
+            print(f"\n{animal.name}のパフォーマンス:")
+            animal.make_sound()
+            
+            if isinstance(animal, Lion):
+                animal.hunt()
+            elif isinstance(animal, Elephant):
+                animal.spray_water()
+            elif isinstance(animal, Eagle):
+                animal.hunt_from_sky()
+            elif isinstance(animal, Penguin):
+                animal.swim()
+    
+    def health_check(self):
+        print(f"\n=== {self.name}の健康診断 ===")
+        for animal in self.animals:
+            print(animal)
+            if animal.health < 50:
+                print(f"  ⚠️ {animal.name}の健康状態に注意が必要です")
+            elif animal.health > 80:
+                print(f"  ✅ {animal.name}は健康です")
+
+# 動物園シミュレーション
+zoo = Zoo("わくわく動物園")
+
+# 動物たちを追加
+lion = Lion("レオ", 5, "large")
+elephant = Elephant("エレン", 12)
+eagle = Eagle("イーグル", 3, 250)
+penguin = Penguin("ペン太", 2)
+
+animals = [lion, elephant, eagle, penguin]
+for animal in animals:
+    zoo.add_animal(animal)
+
+# 1日の動物園運営
+print("\n🌅 朝の健康チェック")
+zoo.health_check()
+
+print("\n🍽️ 餌やりタイム")
+zoo.feed_all_animals()
+
+print("\n🎪 アニマルショー")
+zoo.animal_show()
+
+print("\n😴 動物たちの休憩時間")
+for animal in zoo.animals:
+    animal.sleep()
+
+print("\n🌙 夜の健康チェック")
+zoo.health_check()
+```
+:::
+
+## 重要ポイント {background-color="#A23B72"}
+
+::: {.incremental}
+1. **継承** でコードを再利用し、階層構造を作る
+2. **super()** で親クラスのメソッドを呼び出し
+3. **多態性** で同じインターフェースで異なる動作を実現
+4. **抽象基底クラス** で共通インターフェースを強制
+5. **MRO** で多重継承の順序を理解
+:::
+
+## 次の内容
+
+::: {.incremental}
+- **型ヒント** (コードの可読性向上)
+- **非同期プログラミング** (async/await)
+- **データサイエンス** (NumPy, Pandas)
+- **実世界アプリケーション** (Web開発、自動化)
+:::
+
+## ありがとうございました！ {background-color="#C73E1D"}
+
+### 質問はありますか？
+
+次は [型ヒント](../book/09-type-hints.html) に進みましょう！
+
+---
+
+**リソース:**
+- [Python.org - 継承](https://docs.python.org/ja/3/tutorial/classes.html#inheritance)
+- [Real Python - 継承と合成](https://realpython.com/inheritance-composition-python/)
+- [Python ABC ドキュメント](https://docs.python.org/ja/3/library/abc.html)

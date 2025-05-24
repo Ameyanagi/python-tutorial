@@ -1,0 +1,615 @@
+---
+title: "型ヒントと静的型付け"
+subtitle: "Pythonコードをより堅牢にする"
+format:
+  revealjs:
+    theme: [default, ../shared/style.scss]
+    transition: slide
+    background-transition: fade
+    highlight-style: github
+    code-fold: false
+    controls: true
+    controlsLayout: edges
+    controlsTutorial: true
+    progress: true
+    slideNumber: true
+    chalkboard: true
+    menu: true
+    keyboard: true
+    overview: true
+    touch: true
+    hash: true
+    history: true
+    previewLinks: auto
+    logo: ../shared/python-logo.svg
+    footer: "Python チュートリアル - 型ヒント"
+    width: 1050
+    height: 700
+    margin: 0.1
+    center: false
+    navigationMode: linear
+    loop: false
+    rtl: false
+    # Mobile-specific optimizations
+    mobileViewDistance: 2
+    embedded: false
+    minScale: 0.2
+    maxScale: 2.0
+    disableLayout: false
+---
+
+# 型ヒント {background-color="#2E86AB"}
+
+## 型ヒントとは？
+
+::: {.incremental}
+- **Python 3.5+** で導入された**オプション機能**
+- 変数や関数の**期待される型を明示**
+- 実行時には**影響しない**（純粋にヒント）
+- **IDE**, **型チェッカー**, **開発者**が理解しやすくする
+- **大規模プロジェクト**での保守性向上
+:::
+
+::: {.fragment}
+```python
+# 型ヒントなし
+def add(a, b):
+    return a + b
+
+# 型ヒントあり
+def add(a: int, b: int) -> int:
+    return a + b
+
+# 使用例
+result: int = add(5, 3)  # 変数にも型ヒント可能
+```
+:::
+
+## 基本的な型ヒント
+
+::: {.fragment}
+```python
+# 基本型
+name: str = "太郎"
+age: int = 25
+height: float = 170.5
+is_student: bool = True
+
+# 関数の型ヒント
+def greet(name: str) -> str:
+    return f"こんにちは、{name}さん！"
+
+def calculate_area(radius: float) -> float:
+    return 3.14159 * radius ** 2
+
+def print_info(name: str, age: int) -> None:  # 戻り値なし
+    print(f"{name}さんは{age}歳です")
+
+# 使用例
+message: str = greet("花子")
+area: float = calculate_area(5.0)
+print_info("次郎", 30)
+```
+:::
+
+## コレクション型のヒント
+
+::: {.fragment}
+```python
+from typing import List, Dict, Tuple, Set, Optional
+
+# リスト型
+numbers: List[int] = [1, 2, 3, 4, 5]
+names: List[str] = ["太郎", "花子", "次郎"]
+
+# 辞書型
+student: Dict[str, int] = {"太郎": 85, "花子": 92}
+config: Dict[str, str] = {"host": "localhost", "port": "8080"}
+
+# タプル型
+point: Tuple[int, int] = (10, 20)
+person: Tuple[str, int, bool] = ("太郎", 25, True)
+
+# セット型
+unique_numbers: Set[int] = {1, 2, 3, 4, 5}
+
+# オプショナル型（None が許可される）
+maybe_name: Optional[str] = None  # str | None と同じ
+maybe_age: Optional[int] = 25
+
+def find_user(user_id: int) -> Optional[str]:
+    """ユーザーを検索し、見つからなければNoneを返す"""
+    users = {1: "太郎", 2: "花子"}
+    return users.get(user_id)
+
+# 使用例
+user: Optional[str] = find_user(1)  # "太郎"
+unknown: Optional[str] = find_user(99)  # None
+```
+:::
+
+## 関数型のヒント
+
+::: {.fragment}
+```python
+from typing import Callable, List, Any
+
+# 関数型
+def apply_operation(numbers: List[int], operation: Callable[[int], int]) -> List[int]:
+    """数値リストに操作を適用"""
+    return [operation(num) for num in numbers]
+
+def square(x: int) -> int:
+    return x ** 2
+
+def double(x: int) -> int:
+    return x * 2
+
+# 使用例
+numbers = [1, 2, 3, 4, 5]
+squared = apply_operation(numbers, square)    # [1, 4, 9, 16, 25]
+doubled = apply_operation(numbers, double)    # [2, 4, 6, 8, 10]
+
+# より複雑な関数型
+Calculator = Callable[[float, float], float]
+
+def add(a: float, b: float) -> float:
+    return a + b
+
+def multiply(a: float, b: float) -> float:
+    return a * b
+
+def perform_calculation(calc: Calculator, x: float, y: float) -> float:
+    return calc(x, y)
+
+result1 = perform_calculation(add, 5.0, 3.0)       # 8.0
+result2 = perform_calculation(multiply, 4.0, 2.0)  # 8.0
+```
+:::
+
+## クラスの型ヒント
+
+::: {.fragment}
+```python
+from typing import List, Optional, ClassVar
+from dataclasses import dataclass
+
+class Student:
+    # クラス変数の型ヒント
+    school_name: ClassVar[str] = "Python高校"
+    total_students: ClassVar[int] = 0
+    
+    def __init__(self, name: str, student_id: str, grades: Optional[List[int]] = None):
+        self.name: str = name
+        self.student_id: str = student_id
+        self.grades: List[int] = grades or []
+        Student.total_students += 1
+    
+    def add_grade(self, grade: int) -> None:
+        self.grades.append(grade)
+    
+    def get_average(self) -> Optional[float]:
+        if not self.grades:
+            return None
+        return sum(self.grades) / len(self.grades)
+    
+    def __str__(self) -> str:
+        return f"Student({self.name}, {self.student_id})"
+
+# データクラスを使用（自動的に型ヒント対応）
+@dataclass
+class Point:
+    x: float
+    y: float
+    
+    def distance_from_origin(self) -> float:
+        return (self.x ** 2 + self.y ** 2) ** 0.5
+
+@dataclass
+class Course:
+    name: str
+    credits: int
+    students: List[Student]
+    instructor: Optional[str] = None
+    
+    def add_student(self, student: Student) -> None:
+        self.students.append(student)
+    
+    def get_enrollment_count(self) -> int:
+        return len(self.students)
+
+# 使用例
+student1 = Student("太郎", "S001", [85, 92, 78])
+student2 = Student("花子", "S002")
+
+course = Course("Python入門", 3, [student1])
+course.add_student(student2)
+
+point = Point(3.0, 4.0)
+distance: float = point.distance_from_origin()  # 5.0
+```
+:::
+
+## Union型と新しい構文（Python 3.10+）
+
+::: {.fragment}
+```python
+from typing import Union, List, Dict
+
+# Union型（複数の型を許可）
+def process_id(user_id: Union[int, str]) -> str:
+    return str(user_id).upper()
+
+# Python 3.10+ の新しい構文
+def process_id_new(user_id: int | str) -> str:
+    return str(user_id).upper()
+
+# 複雑なUnion型
+ApiResponse = Union[Dict[str, str], List[Dict[str, str]], str]
+
+def handle_api_response(response: ApiResponse) -> None:
+    if isinstance(response, dict):
+        print(f"単一オブジェクト: {response}")
+    elif isinstance(response, list):
+        print(f"配列レスポンス: {len(response)}個のアイテム")
+    else:
+        print(f"エラーメッセージ: {response}")
+
+# Optional は Union[T, None] のショートカット
+def find_by_name(name: str) -> Optional[Student]:
+    # Python 3.10+では Student | None
+    pass
+
+# 使用例
+process_id(123)        # "123"
+process_id("abc")      # "ABC"
+
+handle_api_response({"status": "success"})
+handle_api_response([{"id": 1}, {"id": 2}])
+handle_api_response("エラーが発生しました")
+```
+:::
+
+## ジェネリック型
+
+::: {.fragment}
+```python
+from typing import TypeVar, Generic, List, Optional
+
+# 型変数を定義
+T = TypeVar('T')
+
+class Stack(Generic[T]):
+    """ジェネリックなスタック実装"""
+    
+    def __init__(self) -> None:
+        self._items: List[T] = []
+    
+    def push(self, item: T) -> None:
+        self._items.append(item)
+    
+    def pop(self) -> Optional[T]:
+        if self._items:
+            return self._items.pop()
+        return None
+    
+    def peek(self) -> Optional[T]:
+        if self._items:
+            return self._items[-1]
+        return None
+    
+    def is_empty(self) -> bool:
+        return len(self._items) == 0
+    
+    def size(self) -> int:
+        return len(self._items)
+
+# 使用例
+# 文字列スタック
+string_stack: Stack[str] = Stack()
+string_stack.push("Hello")
+string_stack.push("World")
+top_string: Optional[str] = string_stack.pop()  # "World"
+
+# 整数スタック
+int_stack: Stack[int] = Stack()
+int_stack.push(1)
+int_stack.push(2)
+top_int: Optional[int] = int_stack.pop()  # 2
+
+# ジェネリック関数
+def get_first_item(items: List[T]) -> Optional[T]:
+    return items[0] if items else None
+
+first_str: Optional[str] = get_first_item(["a", "b", "c"])  # "a"
+first_int: Optional[int] = get_first_item([1, 2, 3])       # 1
+```
+:::
+
+## 型チェッカーの使用
+
+::: {.fragment}
+```python
+# mypy でのチェック例
+
+def calculate_discount(price: float, discount_rate: float) -> float:
+    if discount_rate < 0 or discount_rate > 1:
+        raise ValueError("割引率は0-1の間である必要があります")
+    return price * (1 - discount_rate)
+
+# 正しい使用
+final_price: float = calculate_discount(100.0, 0.1)  # OK
+
+# 型エラー（mypyが検出）
+# final_price = calculate_discount("100", "0.1")  # error: Argument 1 has incompatible type
+# final_price = calculate_discount(100.0)         # error: Too few arguments
+
+# pyright での設定例（pyproject.toml）
+"""
+[tool.pyright]
+include = ["src"]
+exclude = ["**/__pycache__"]
+reportMissingImports = true
+reportMissingTypeStubs = false
+pythonVersion = "3.12"
+"""
+
+# mypyでの設定例（mypy.ini）
+"""
+[mypy]
+python_version = 3.12
+warn_return_any = True
+warn_unused_configs = True
+disallow_untyped_defs = True
+"""
+```
+:::
+
+## 実践演習 {background-color="#F18F01"}
+
+## 演習: 型ヒント付きライブラリ
+
+::: {.fragment}
+```python
+from typing import List, Dict, Optional, Union, Callable, TypeVar, Generic
+from dataclasses import dataclass
+from datetime import datetime
+
+# 型エイリアス
+UserId = int
+BookId = str
+ISBN = str
+
+@dataclass
+class User:
+    id: UserId
+    name: str
+    email: str
+    registration_date: datetime
+    
+    def __str__(self) -> str:
+        return f"User(id={self.id}, name='{self.name}')"
+
+@dataclass 
+class Book:
+    id: BookId
+    title: str
+    author: str
+    isbn: ISBN
+    available_copies: int
+    
+    def is_available(self) -> bool:
+        return self.available_copies > 0
+    
+    def __str__(self) -> str:
+        return f"Book('{self.title}' by {self.author})"
+
+@dataclass
+class BorrowRecord:
+    user_id: UserId
+    book_id: BookId
+    borrow_date: datetime
+    return_date: Optional[datetime] = None
+    
+    def is_returned(self) -> bool:
+        return self.return_date is not None
+
+class LibraryError(Exception):
+    """図書館関連のエラー"""
+    pass
+
+class Library:
+    def __init__(self, name: str) -> None:
+        self.name: str = name
+        self.users: Dict[UserId, User] = {}
+        self.books: Dict[BookId, Book] = {}
+        self.borrow_records: List[BorrowRecord] = []
+        self._next_user_id: UserId = 1
+    
+    def register_user(self, name: str, email: str) -> User:
+        """ユーザーを登録"""
+        user = User(
+            id=self._next_user_id,
+            name=name,
+            email=email,
+            registration_date=datetime.now()
+        )
+        self.users[user.id] = user
+        self._next_user_id += 1
+        return user
+    
+    def add_book(self, title: str, author: str, isbn: ISBN, copies: int = 1) -> Book:
+        """本を追加"""
+        book_id = f"B{len(self.books) + 1:04d}"
+        book = Book(
+            id=book_id,
+            title=title,
+            author=author,
+            isbn=isbn,
+            available_copies=copies
+        )
+        self.books[book_id] = book
+        return book
+    
+    def find_user(self, user_id: UserId) -> Optional[User]:
+        """ユーザーを検索"""
+        return self.users.get(user_id)
+    
+    def find_book(self, book_id: BookId) -> Optional[Book]:
+        """本を検索"""
+        return self.books.get(book_id)
+    
+    def search_books(self, query: str) -> List[Book]:
+        """本を検索（タイトルまたは著者）"""
+        query_lower = query.lower()
+        results: List[Book] = []
+        
+        for book in self.books.values():
+            if (query_lower in book.title.lower() or 
+                query_lower in book.author.lower()):
+                results.append(book)
+        
+        return results
+    
+    def borrow_book(self, user_id: UserId, book_id: BookId) -> BorrowRecord:
+        """本を貸し出し"""
+        user = self.find_user(user_id)
+        if not user:
+            raise LibraryError(f"ユーザーID {user_id} が見つかりません")
+        
+        book = self.find_book(book_id)
+        if not book:
+            raise LibraryError(f"本ID {book_id} が見つかりません")
+        
+        if not book.is_available():
+            raise LibraryError(f"'{book.title}' は現在貸出中です")
+        
+        # 貸し出し記録を作成
+        record = BorrowRecord(
+            user_id=user_id,
+            book_id=book_id,
+            borrow_date=datetime.now()
+        )
+        
+        # 在庫を減らす
+        book.available_copies -= 1
+        self.borrow_records.append(record)
+        
+        return record
+    
+    def return_book(self, user_id: UserId, book_id: BookId) -> bool:
+        """本を返却"""
+        # 未返却の記録を検索
+        for record in self.borrow_records:
+            if (record.user_id == user_id and 
+                record.book_id == book_id and 
+                not record.is_returned()):
+                
+                # 返却処理
+                record.return_date = datetime.now()
+                book = self.find_book(book_id)
+                if book:
+                    book.available_copies += 1
+                return True
+        
+        return False
+    
+    def get_user_borrowed_books(self, user_id: UserId) -> List[Book]:
+        """ユーザーの借用中の本を取得"""
+        borrowed_books: List[Book] = []
+        
+        for record in self.borrow_records:
+            if record.user_id == user_id and not record.is_returned():
+                book = self.find_book(record.book_id)
+                if book:
+                    borrowed_books.append(book)
+        
+        return borrowed_books
+    
+    def get_overdue_books(self, days: int = 14) -> List[tuple[User, Book, int]]:
+        """延滞本の一覧を取得"""
+        from datetime import timedelta
+        
+        overdue: List[tuple[User, Book, int]] = []
+        cutoff_date = datetime.now() - timedelta(days=days)
+        
+        for record in self.borrow_records:
+            if not record.is_returned() and record.borrow_date < cutoff_date:
+                user = self.find_user(record.user_id)
+                book = self.find_book(record.book_id)
+                if user and book:
+                    days_overdue = (datetime.now() - record.borrow_date).days
+                    overdue.append((user, book, days_overdue))
+        
+        return overdue
+
+# 使用例とテスト
+def main() -> None:
+    # 図書館を作成
+    library = Library("市立図書館")
+    
+    # ユーザー登録
+    user1 = library.register_user("田中太郎", "tanaka@example.com")
+    user2 = library.register_user("佐藤花子", "sato@example.com")
+    
+    # 本を追加
+    book1 = library.add_book("Python入門", "山田一郎", "978-1234567890", 3)
+    book2 = library.add_book("データ分析", "鈴木次郎", "978-0987654321", 2)
+    book3 = library.add_book("機械学習", "田中三郎", "978-1111111111", 1)
+    
+    # 本を検索
+    search_results: List[Book] = library.search_books("Python")
+    print(f"検索結果: {len(search_results)}冊")
+    
+    # 貸し出し
+    try:
+        record1 = library.borrow_book(user1.id, book1.id)
+        record2 = library.borrow_book(user2.id, book2.id)
+        print("貸し出し成功")
+    except LibraryError as e:
+        print(f"エラー: {e}")
+    
+    # ユーザーの借用本確認
+    borrowed: List[Book] = library.get_user_borrowed_books(user1.id)
+    print(f"{user1.name}の借用本: {len(borrowed)}冊")
+    
+    # 返却
+    success: bool = library.return_book(user1.id, book1.id)
+    print(f"返却成功: {success}")
+
+if __name__ == "__main__":
+    main()
+```
+:::
+
+## ベストプラクティス {background-color="#A23B72"}
+
+::: {.incremental}
+1. **段階的導入** - 既存コードに徐々に型ヒントを追加
+2. **公開API優先** - まず関数の引数と戻り値から
+3. **型チェッカー使用** - mypy, pyright で定期的チェック
+4. **Union は最小限に** - 可能な限り具体的な型を使用
+5. **型エイリアス活用** - 複雑な型に分かりやすい名前を付ける
+:::
+
+## 次の内容
+
+::: {.incremental}
+- **非同期プログラミング** (async/await)
+- **マルチプロセシング** (並列処理)
+- **データサイエンス** (NumPy, Pandas)
+- **実世界アプリケーション** (Web開発、自動化)
+:::
+
+## ありがとうございました！ {background-color="#C73E1D"}
+
+### 質問はありますか？
+
+次は [非同期処理](../book/10-async.html) に進みましょう！
+
+---
+
+**リソース:**
+- [Python.org - 型ヒント](https://docs.python.org/ja/3/library/typing.html)
+- [mypy ドキュメント](https://mypy.readthedocs.io/)
+- [Real Python - 型ヒント](https://realpython.com/python-type-checking/)

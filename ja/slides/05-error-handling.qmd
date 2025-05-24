@@ -1,0 +1,439 @@
+---
+title: "エラーハンドリング"
+subtitle: "例外処理とデバッグ"
+format:
+  revealjs:
+    theme: [default, ../shared/style.scss]
+    transition: slide
+    background-transition: fade
+    highlight-style: github
+    code-fold: false
+    controls: true
+    controlsLayout: edges
+    controlsTutorial: true
+    progress: true
+    slideNumber: true
+    chalkboard: true
+    menu: true
+    keyboard: true
+    overview: true
+    touch: true
+    hash: true
+    history: true
+    previewLinks: auto
+    logo: ../shared/python-logo.svg
+    footer: "Python チュートリアル - エラーハンドリング"
+    width: 1050
+    height: 700
+    margin: 0.1
+    center: false
+    navigationMode: linear
+    loop: false
+    rtl: false
+    # Mobile-specific optimizations
+    mobileViewDistance: 2
+    embedded: false
+    minScale: 0.2
+    maxScale: 2.0
+    disableLayout: false
+---
+
+# エラーハンドリング {background-color="#2E86AB"}
+
+## エラーとは？
+
+::: {.incremental}
+- **エラー** はプログラム実行中に発生する問題
+- 適切に処理されないとプログラムがクラッシュする
+- Pythonはエラーを捕捉し適切に処理するメカニズムを提供
+- 良いエラーハンドリングはプログラムを堅牢でユーザーフレンドリーにする
+:::
+
+::: {.fragment}
+```python
+# これはエラーを引き起こします！
+number = int("hello")  # ValueError: invalid literal
+```
+:::
+
+## エラーの種類
+
+::: {.columns}
+::: {.column width="50%"}
+**構文エラー:**
+```python
+# コロンが不足
+if x > 5
+    print("5より大きい")
+
+# 括弧の不一致
+print("Hello"
+```
+:::
+
+::: {.column width="50%"}
+**実行時エラー（例外）:**
+```python
+# ゼロ除算
+result = 10 / 0
+
+# 存在しないインデックスへのアクセス
+numbers = [1, 2, 3]
+print(numbers[5])
+
+# 間違ったデータ型
+int("hello")
+```
+:::
+:::
+
+## よくある例外の種類
+
+::: {.fragment}
+```python
+# ValueError: データ型に対して間違った値
+int("abc")
+float("hello")
+
+# TypeError: 間違ったデータ型
+"hello" + 5
+len(42)
+
+# IndexError: リストのインデックスが範囲外
+my_list = [1, 2, 3]
+my_list[10]
+
+# KeyError: 辞書のキーが存在しない
+my_dict = {"名前": "太郎"}
+my_dict["年齢"]
+
+# FileNotFoundError: ファイルが存在しない
+open("nonexistent.txt")
+```
+:::
+
+## try-except ブロック
+
+::: {.fragment}
+**基本構文:**
+```python
+try:
+    # エラーを引き起こす可能性のあるコード
+    risky_code()
+except ExceptionType:
+    # エラーを処理するコード
+    handle_error()
+```
+:::
+
+::: {.fragment}
+**シンプルな例:**
+```python
+try:
+    number = int(input("数値を入力してください: "))
+    result = 10 / number
+    print(f"結果: {result}")
+except ValueError:
+    print("有効な数値を入力してください！")
+except ZeroDivisionError:
+    print("ゼロで割ることはできません！")
+```
+:::
+
+## 複数の例外を捕捉
+
+::: {.fragment}
+**複数のexceptブロック:**
+```python
+try:
+    age = int(input("年齢を入力してください: "))
+    category = determine_category(age)
+    print(f"あなたは{category}カテゴリです")
+except ValueError:
+    print("年齢は数値である必要があります！")
+except TypeError:
+    print("無効な年齢形式です！")
+except Exception as e:
+    print(f"予期しないエラーが発生しました: {e}")
+```
+:::
+
+::: {.fragment}
+**複数の例外をまとめて捕捉:**
+```python
+try:
+    # 何らかのリスクのある操作
+    process_data()
+except (ValueError, TypeError, IndexError):
+    print("データ処理エラーが発生しました！")
+```
+:::
+
+## else と finally 句
+
+::: {.fragment}
+**else: 例外が発生しなかった場合に実行**
+```python
+try:
+    number = int(input("数値を入力してください: "))
+except ValueError:
+    print("無効な入力です！")
+else:
+    print(f"入力された数値: {number}")
+    # これは例外が発生しなかった場合のみ実行される
+```
+:::
+
+::: {.fragment}
+**finally: 常に実行される（クリーンアップコード）**
+```python
+try:
+    file = open("data.txt", "r")
+    content = file.read()
+except FileNotFoundError:
+    print("ファイルが見つかりません！")
+finally:
+    # これは常に実行される - クリーンアップに適している
+    if 'file' in locals():
+        file.close()
+```
+:::
+
+## 例外情報の取得
+
+::: {.fragment}
+```python
+try:
+    result = 10 / 0
+except ZeroDivisionError as e:
+    print(f"エラーの詳細: {e}")
+    print(f"エラーの種類: {type(e).__name__}")
+
+# より詳細な情報
+import traceback
+
+try:
+    risky_operation()
+except Exception as e:
+    print("エラーが発生しました:")
+    print(traceback.format_exc())
+```
+:::
+
+## カスタム例外の作成
+
+::: {.fragment}
+```python
+class CustomError(Exception):
+    """カスタム例外クラス"""
+    def __init__(self, message, error_code=None):
+        super().__init__(message)
+        self.error_code = error_code
+
+class AgeError(Exception):
+    """年齢関連のエラー"""
+    pass
+
+def validate_age(age):
+    if age < 0:
+        raise AgeError("年齢は負の値にはできません")
+    if age > 150:
+        raise AgeError("年齢が現実的ではありません")
+    return True
+
+try:
+    validate_age(-5)
+except AgeError as e:
+    print(f"年齢エラー: {e}")
+```
+:::
+
+## ファイル操作のエラーハンドリング
+
+::: {.fragment}
+```python
+def read_file_safely(filename):
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            content = file.read()
+            return content
+    except FileNotFoundError:
+        print(f"ファイル '{filename}' が見つかりません")
+        return None
+    except PermissionError:
+        print(f"ファイル '{filename}' へのアクセス権限がありません")
+        return None
+    except UnicodeDecodeError:
+        print(f"ファイル '{filename}' の文字エンコーディングが正しくありません")
+        return None
+
+# 使用例
+content = read_file_safely("example.txt")
+if content:
+    print("ファイル読み取り成功")
+```
+:::
+
+## assert文でのデバッグ
+
+::: {.fragment}
+```python
+def divide(a, b):
+    # デバッグ用のアサーション
+    assert isinstance(a, (int, float)), "aは数値である必要があります"
+    assert isinstance(b, (int, float)), "bは数値である必要があります"
+    assert b != 0, "bはゼロであってはいけません"
+    
+    return a / b
+
+# テスト
+try:
+    result = divide(10, "2")  # AssertionError が発生
+except AssertionError as e:
+    print(f"アサーションエラー: {e}")
+
+# 本番環境では assert を無効化できる
+# python -O script.py
+```
+:::
+
+## ログ記録とエラー追跡
+
+::: {.fragment}
+```python
+import logging
+
+# ログ設定
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+
+def process_user_data(data):
+    try:
+        # データ処理
+        result = complex_calculation(data)
+        logging.info("データ処理が正常に完了しました")
+        return result
+    except ValueError as e:
+        logging.error(f"データエラー: {e}")
+        raise
+    except Exception as e:
+        logging.critical(f"予期しないエラー: {e}")
+        raise
+
+# 使用例
+try:
+    result = process_user_data([1, 2, 3])
+except Exception:
+    logging.error("データ処理に失敗しました")
+```
+:::
+
+## 実践演習 {background-color="#F18F01"}
+
+## 演習: ロバストな計算機
+
+```python
+class Calculator:
+    def __init__(self):
+        self.history = []
+    
+    def calculate(self, expression):
+        try:
+            # 安全な評価（evalは危険なので制限された環境で）
+            allowed_chars = set('0123456789+-*/(). ')
+            if not all(c in allowed_chars for c in expression):
+                raise ValueError("無効な文字が含まれています")
+            
+            result = eval(expression)
+            self.history.append(f"{expression} = {result}")
+            return result
+            
+        except ZeroDivisionError:
+            return "エラー: ゼロ除算"
+        except ValueError as e:
+            return f"エラー: {e}"
+        except SyntaxError:
+            return "エラー: 無効な式"
+
+# 使用例
+calc = Calculator()
+expressions = ["2+2", "10/0", "2*invalid", "3**2"]
+
+for expr in expressions:
+    result = calc.calculate(expr)
+    print(f"{expr} → {result}")
+```
+
+## 演習: ファイル処理システム
+
+```python
+import json
+
+class DataManager:
+    def __init__(self, filename):
+        self.filename = filename
+        self.data = self.load_data()
+    
+    def load_data(self):
+        try:
+            with open(self.filename, 'r', encoding='utf-8') as file:
+                return json.load(file)
+        except FileNotFoundError:
+            print("データファイルが見つかりません。新しいファイルを作成します。")
+            return {}
+        except json.JSONDecodeError:
+            print("データファイルが破損しています。バックアップから復元してください。")
+            return {}
+    
+    def save_data(self):
+        try:
+            with open(self.filename, 'w', encoding='utf-8') as file:
+                json.dump(self.data, file, ensure_ascii=False, indent=2)
+            return True
+        except PermissionError:
+            print("ファイルへの書き込み権限がありません。")
+            return False
+        except Exception as e:
+            print(f"保存中にエラーが発生しました: {e}")
+            return False
+
+# 使用例
+manager = DataManager("user_data.json")
+manager.data["users"] = ["太郎", "花子"]
+if manager.save_data():
+    print("データが正常に保存されました")
+```
+
+## ベストプラクティス {background-color="#A23B72"}
+
+::: {.incremental}
+1. **具体的な例外を捕捉** - `Exception`ではなく具体的な例外型を使用
+2. **適切なエラーメッセージ** - ユーザーに分かりやすいメッセージを提供
+3. **ログ記録** - エラーを適切にログに記録
+4. **クリーンアップ** - `finally`や`with`文でリソースを確実に解放
+5. **例外の再発生** - 必要に応じて例外を再発生させる
+:::
+
+## 次の内容
+
+::: {.incremental}
+- **モジュールとパッケージ** (コードの整理)
+- **クラスとオブジェクト** (オブジェクト指向プログラミング)
+- **継承** (コードの再利用)
+- **ファイル操作** (データの永続化)
+:::
+
+## ありがとうございました！ {background-color="#C73E1D"}
+
+### 質問はありますか？
+
+次は [モジュール](../book/06-modules.html) に進みましょう！
+
+---
+
+**リソース:**
+- [Python.org - エラー](https://docs.python.org/ja/3/tutorial/errors.html)
+- [Real Python - 例外処理](https://realpython.com/python-exceptions/)
+- [Python Tutor](http://pythontutor.com)

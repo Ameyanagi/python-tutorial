@@ -1,0 +1,447 @@
+---
+title: "モジュールとパッケージ"
+subtitle: "コードの整理と再利用"
+format:
+  revealjs:
+    theme: [default, ../shared/style.scss]
+    transition: slide
+    background-transition: fade
+    highlight-style: github
+    code-fold: false
+    controls: true
+    controlsLayout: edges
+    controlsTutorial: true
+    progress: true
+    slideNumber: true
+    chalkboard: true
+    menu: true
+    keyboard: true
+    overview: true
+    touch: true
+    hash: true
+    history: true
+    previewLinks: auto
+    logo: ../shared/python-logo.svg
+    footer: "Python チュートリアル - モジュールとパッケージ"
+    width: 1050
+    height: 700
+    margin: 0.1
+    center: false
+    navigationMode: linear
+    loop: false
+    rtl: false
+    # Mobile-specific optimizations
+    mobileViewDistance: 2
+    embedded: false
+    minScale: 0.2
+    maxScale: 2.0
+    disableLayout: false
+---
+
+# モジュールとパッケージ {background-color="#2E86AB"}
+
+## モジュールとは？
+
+::: {.incremental}
+- **モジュール** はインポートして使用できるPythonコードを含むファイル
+- コードを論理的な単位に整理するのに役立つ
+- 各 `.py` ファイルがモジュール
+- モジュールには関数、クラス、変数を含めることができる
+- コードの再利用性と保守性を促進
+:::
+
+::: {.fragment}
+```python
+# math_utils.py（モジュール）
+def add(a, b):
+    return a + b
+
+def multiply(a, b):
+    return a * b
+
+PI = 3.14159
+```
+:::
+
+## なぜモジュールを使うのか？
+
+::: {.columns}
+::: {.column width="50%"}
+**利点:**
+
+::: {.incremental}
+- **コード整理**: 関連機能をグループ化
+- **再利用性**: 複数のプログラムでコードを使用
+- **名前空間管理**: 命名の競合を避ける
+- **保守性**: 更新とデバッグが容易
+- **協力**: チームメンバーが異なるモジュールで作業可能
+:::
+:::
+
+::: {.column width="50%"}
+**構造例:**
+```
+my_project/
+├── main.py
+├── utils/
+│   ├── math_utils.py
+│   ├── string_utils.py
+│   └── file_utils.py
+└── models/
+    ├── user.py
+    └── product.py
+```
+:::
+:::
+
+## モジュールのインポート
+
+::: {.fragment}
+**モジュール全体をインポート:**
+```python
+import math
+
+result = math.sqrt(16)  # 4.0
+print(math.pi)          # 3.141592653589793
+```
+:::
+
+::: {.fragment}
+**特定の関数をインポート:**
+```python
+from math import sqrt, pi
+
+result = sqrt(16)  # math.sqrt不要
+print(pi)          # math.pi不要
+```
+:::
+
+::: {.fragment}
+**エイリアス付きでインポート:**
+```python
+import math as m
+import numpy as np  # 一般的な慣習
+
+result = m.sqrt(16)
+array = np.array([1, 2, 3])
+```
+:::
+
+## さまざまなインポートスタイル
+
+::: {.fragment}
+**すべてをインポート（注意して使用）:**
+```python
+from math import *
+
+result = sqrt(16)  # すべての関数が直接利用可能
+# 名前空間の汚染を引き起こす可能性！
+```
+:::
+
+::: {.fragment}
+**カスタム名でインポート:**
+```python
+from math import sqrt as square_root
+from math import pi as PI_VALUE
+
+result = square_root(16)
+print(PI_VALUE)
+```
+:::
+
+## 自作モジュールの作成
+
+::: {.fragment}
+**calculator.py:**
+```python
+"""シンプルな計算機モジュール"""
+
+def add(a, b):
+    """二つの数値を加算"""
+    return a + b
+
+def subtract(a, b):
+    """二つの数値を減算"""
+    return a - b
+
+def divide(a, b):
+    """二つの数値を除算（ゼロチェック付き）"""
+    if b == 0:
+        raise ValueError("ゼロで除算はできません")
+    return a / b
+
+VERSION = "1.0.0"
+```
+:::
+
+::: {.fragment}
+**main.py:**
+```python
+import calculator
+
+result = calculator.add(10, 5)
+print(f"結果: {result}")
+print(f"バージョン: {calculator.VERSION}")
+```
+:::
+
+## パッケージの理解
+
+::: {.fragment}
+**パッケージ構造:**
+```
+my_package/
+├── __init__.py      # パッケージマーカー
+├── math_ops.py
+├── string_ops.py
+└── subpackage/
+    ├── __init__.py
+    └── advanced.py
+```
+:::
+
+::: {.fragment}
+**__init__.py:**
+```python
+"""My Package - 便利なユーティリティ集"""
+
+from .math_ops import add, multiply
+from .string_ops import capitalize_words
+
+__version__ = "1.0.0"
+__all__ = ["add", "multiply", "capitalize_words"]
+```
+:::
+
+::: {.fragment}
+**使用方法:**
+```python
+from my_package import add, capitalize_words
+
+result = add(5, 3)
+text = capitalize_words("hello world")
+```
+:::
+
+## 標準ライブラリモジュール
+
+::: {.fragment}
+**よく使われるモジュール:**
+```python
+import os          # オペレーティングシステム操作
+import sys         # システム固有のパラメータと関数
+import datetime    # 日付と時刻
+import random      # 乱数生成
+import json        # JSON操作
+import re          # 正規表現
+import pathlib     # パス操作（modern way）
+
+# 使用例
+current_time = datetime.datetime.now()
+random_number = random.randint(1, 100)
+file_path = pathlib.Path("data.txt")
+```
+:::
+
+## サードパーティライブラリ
+
+::: {.fragment}
+**人気のライブラリ:**
+```python
+import requests    # HTTP リクエスト
+import pandas as pd    # データ分析
+import numpy as np     # 数値計算
+import matplotlib.pyplot as plt  # グラフ作成
+
+# インストール方法
+# uv add requests pandas numpy matplotlib
+```
+:::
+
+::: {.fragment}
+**使用例:**
+```python
+# Web API からデータ取得
+response = requests.get("https://api.example.com/data")
+data = response.json()
+
+# pandas でデータ処理
+df = pd.DataFrame(data)
+print(df.head())
+```
+:::
+
+## モジュール検索パス
+
+::: {.fragment}
+```python
+import sys
+
+# Pythonがモジュールを検索するパス
+print("モジュール検索パス:")
+for path in sys.path:
+    print(f"  {path}")
+
+# パスを動的に追加
+sys.path.append("/custom/module/path")
+
+# 現在のディレクトリ
+import os
+print(f"現在のディレクトリ: {os.getcwd()}")
+```
+:::
+
+## 実践演習 {background-color="#F18F01"}
+
+## 演習: ユーティリティパッケージ作成
+
+::: {.fragment}
+**file_utils.py:**
+```python
+"""ファイル操作ユーティリティ"""
+import json
+import csv
+from pathlib import Path
+
+def read_json(filename):
+    """JSONファイルを読み込み"""
+    with open(filename, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+def write_json(data, filename):
+    """JSONファイルに書き込み"""
+    with open(filename, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+def read_csv(filename):
+    """CSVファイルを読み込み"""
+    with open(filename, 'r', encoding='utf-8') as f:
+        return list(csv.DictReader(f))
+
+def get_file_size(filename):
+    """ファイルサイズを取得"""
+    return Path(filename).stat().st_size
+```
+:::
+
+## 演習: 数学ライブラリ
+
+::: {.fragment}
+**math_advanced.py:**
+```python
+"""高度な数学関数"""
+import math
+
+def factorial(n):
+    """階乗を計算"""
+    if n < 0:
+        raise ValueError("負の数の階乗は計算できません")
+    if n <= 1:
+        return 1
+    return n * factorial(n - 1)
+
+def fibonacci(n):
+    """フィボナッチ数列のn番目を計算"""
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+
+def is_prime(n):
+    """素数かどうかを判定"""
+    if n < 2:
+        return False
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def prime_factors(n):
+    """素因数分解"""
+    factors = []
+    d = 2
+    while d * d <= n:
+        while n % d == 0:
+            factors.append(d)
+            n //= d
+        d += 1
+    if n > 1:
+        factors.append(n)
+    return factors
+```
+:::
+
+## 演習: メインプログラム
+
+::: {.fragment}
+```python
+# main.py
+from file_utils import read_json, write_json
+from math_advanced import factorial, is_prime, prime_factors
+
+def main():
+    # データ準備
+    data = {
+        "numbers": [5, 7, 12, 17, 20],
+        "operation": "analysis"
+    }
+    
+    # ファイルに保存
+    write_json(data, "input.json")
+    
+    # ファイルから読み込み
+    loaded_data = read_json("input.json")
+    
+    # 数学的分析
+    results = {}
+    for num in loaded_data["numbers"]:
+        results[num] = {
+            "factorial": factorial(num) if num <= 10 else "Too large",
+            "is_prime": is_prime(num),
+            "prime_factors": prime_factors(num) if num > 1 else []
+        }
+    
+    # 結果を保存
+    write_json(results, "results.json")
+    
+    print("分析完了！結果はresults.jsonに保存されました。")
+
+if __name__ == "__main__":
+    main()
+```
+:::
+
+## ベストプラクティス {background-color="#A23B72"}
+
+::: {.incremental}
+1. **明確な命名** - モジュール名は短く、説明的に
+2. **適切な文書化** - docstringを使用
+3. **__name__ == "__main__"** - スクリプトとモジュールの区別
+4. **適切なインポート** - 必要なもののみインポート
+5. **仮想環境の使用** - 依存関係の管理
+:::
+
+## 次の内容
+
+::: {.incremental}
+- **クラスとオブジェクト** (オブジェクト指向プログラミング)
+- **継承と多態性** (コードの再利用)
+- **特殊メソッド** (Pythonらしいクラス設計)
+- **プロパティ** (getter/setterの代替)
+:::
+
+## ありがとうございました！ {background-color="#C73E1D"}
+
+### 質問はありますか？
+
+次は [クラス](../book/07-classes.html) に進みましょう！
+
+---
+
+**リソース:**
+- [Python.org - モジュール](https://docs.python.org/ja/3/tutorial/modules.html)
+- [PyPI - Python Package Index](https://pypi.org/)
+- [Real Python - モジュール](https://realpython.com/python-modules-packages/)
