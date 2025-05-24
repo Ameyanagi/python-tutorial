@@ -85,6 +85,23 @@ This is a comprehensive Python tutorial repository using Quarto to generate mult
 - Share code examples and datasets via `shared/` directory
 - Maintain parallel development of both language versions
 
+## Claude Code Tool Usage
+
+### Context7 - Library Documentation
+- Use `mcp__context7__resolve-library-id` to find Context7-compatible library IDs
+- Use `mcp__context7__get-library-docs` to retrieve up-to-date documentation
+- Always resolve library ID first before getting docs unless user provides exact ID format
+- Prefer Context7 for Python library documentation over web search when available
+- Examples: `/python/docs`, `/fastapi/fastapi`, `/requests/requests`
+
+### Playwright - Browser Automation
+- Use `mcp__playwright__browser_navigate` to visit URLs
+- Use `mcp__playwright__browser_snapshot` for accessibility snapshots (preferred over screenshots)
+- Use `mcp__playwright__browser_click`, `mcp__playwright__browser_type` for interactions
+- Use `mcp__playwright__browser_take_screenshot` for visual captures when needed
+- Install browser if needed with `mcp__playwright__browser_install`
+- Close browser with `mcp__playwright__browser_close` when done
+
 ## VS Code Configuration
 - Use ruff for linting and formatting (not black/flake8)
 - Configure pyright for type checking
