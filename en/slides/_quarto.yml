@@ -6,10 +6,10 @@ project:
 
 format:
   revealjs:
-    theme: moon
+    theme: dark
     transition: slide
     background-transition: fade
-    highlight-style: github
+    highlight-style: dracula
     code-fold: false
     controls: true
     controlsLayout: edges

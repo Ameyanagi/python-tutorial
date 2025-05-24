@@ -261,13 +261,27 @@ summary = sales_data.groupby('Product').agg({
 ## Data Visualization with Matplotlib
 
 ::: {.fragment}
-```python
+```{python}
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 
-# Sample data
+# Configure matplotlib for slides
+plt.rcParams['figure.figsize'] = (10, 6)
+plt.rcParams['figure.dpi'] = 100
+plt.style.use('dark_background')  # Better for dark theme
+
+# Sample data  
 x = np.linspace(0, 10, 100)
 y1 = np.sin(x)
 y2 = np.cos(x)
+
+# Sample DataFrame for other plots
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'], 
+    'Age': [25, 30, 35, 28],
+    'Salary': [70000, 80000, 90000, 65000]
+})
 
 # Create plots
 plt.figure(figsize=(10, 6))
@@ -394,25 +408,44 @@ print(classification_report(y_test, y_pred))
 
 ## Real-World Example: Sales Analysis
 
-```python
-# Load and clean sales data
-sales_df = pd.read_csv('sales_data.csv')
+```{python}
+# Generate sample sales data for demonstration
+import pandas as pd
+import numpy as np
+from datetime import datetime, timedelta
 
-# Basic exploration
-print("Dataset Info:")
-print(f"Shape: {sales_df.shape}")
-print(f"Columns: {list(sales_df.columns)}")
-print("\nFirst 5 rows:")
-print(sales_df.head())
+np.random.seed(42)
 
-# Data cleaning
+# Create sample sales data
+dates = pd.date_range('2023-01-01', '2023-12-31', freq='D')
+products = ['Laptop', 'Desktop', 'Tablet', 'Phone', 'Monitor']
+customers = [f'Customer_{i:03d}' for i in range(1, 101)]
+
+sales_data = []
+for _ in range(1000):
+    date = np.random.choice(dates)
+    product = np.random.choice(products)
+    customer = np.random.choice(customers)
+    quantity = np.random.randint(1, 5)
+    unit_price = np.random.uniform(100, 2000)
+    revenue = quantity * unit_price
+    
+    sales_data.append({
+        'Date': date,
+        'Product': product,
+        'CustomerID': customer,
+        'Quantity': quantity,
+        'Revenue': revenue
+    })
+
+sales_df = pd.DataFrame(sales_data)
 sales_df['Date'] = pd.to_datetime(sales_df['Date'])
-sales_df = sales_df.dropna()
-
-# Feature engineering
 sales_df['Month'] = sales_df['Date'].dt.month
 sales_df['Year'] = sales_df['Date'].dt.year
 sales_df['DayOfWeek'] = sales_df['Date'].dt.dayofweek
+
+print(f"Generated {len(sales_df)} sales records")
+print(f"Date range: {sales_df['Date'].min()} to {sales_df['Date'].max()}")
 
 # Analysis
 monthly_sales = sales_df.groupby(['Year', 'Month'])['Revenue'].sum()
@@ -422,31 +455,32 @@ product_performance = sales_df.groupby('Product').agg({
     'CustomerID': 'nunique'
 }).rename(columns={'CustomerID': 'UniqueCustomers'})
 
-# Visualization
+# Configure matplotlib for dark theme
+plt.style.use('dark_background')
 plt.figure(figsize=(15, 10))
 
 # Monthly sales trend
 plt.subplot(2, 2, 1)
-monthly_sales.plot()
-plt.title('Monthly Sales Trend')
-plt.ylabel('Revenue')
+monthly_sales.plot(color='cyan', linewidth=2)
+plt.title('Monthly Sales Trend', color='white')
+plt.ylabel('Revenue', color='white')
 
 # Product performance
 plt.subplot(2, 2, 2)
-product_performance['Revenue'].plot(kind='bar')
-plt.title('Revenue by Product')
-plt.xticks(rotation=45)
+product_performance['Revenue'].plot(kind='bar', color='lightgreen')
+plt.title('Revenue by Product', color='white')
+plt.xticks(rotation=45, color='white')
 
 # Customer distribution
 plt.subplot(2, 2, 3)
-sales_df['CustomerID'].value_counts().head(10).plot(kind='bar')
-plt.title('Top 10 Customers by Transaction Count')
+sales_df['CustomerID'].value_counts().head(10).plot(kind='bar', color='orange')
+plt.title('Top 10 Customers by Transaction Count', color='white')
 
 # Sales by day of week
 plt.subplot(2, 2, 4)
-sales_df.groupby('DayOfWeek')['Revenue'].mean().plot(kind='bar')
-plt.title('Average Daily Sales by Day of Week')
-plt.xlabel('Day of Week (0=Monday)')
+sales_df.groupby('DayOfWeek')['Revenue'].mean().plot(kind='bar', color='lightcoral')
+plt.title('Average Daily Sales by Day of Week', color='white')
+plt.xlabel('Day of Week (0=Monday)', color='white')
 
 plt.tight_layout()
 plt.show()
@@ -539,10 +573,19 @@ data = {
 
 ::: {.fragment}
 **Data Analysis Solution:**
-```python
+```{python}
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+
+# Sample data
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve'],
+    'Age': [25, 30, 35, 28, 32],
+    'Department': ['IT', 'HR', 'IT', 'Finance', 'HR'],
+    'Salary': [70000, 80000, 90000, 75000, 72000],
+    'Years_Experience': [2, 5, 8, 3, 4]
+}
 
 # 1. Create DataFrame
 df = pd.DataFrame(data)
@@ -556,25 +599,27 @@ print(dept_salary)
 correlation = df['Age'].corr(df['Salary'])
 print(f"\nCorrelation between Age and Salary: {correlation:.3f}")
 
-# 4. Visualization
+# 4. Visualization with dark theme
+plt.style.use('dark_background')
 plt.figure(figsize=(12, 4))
 
 plt.subplot(1, 3, 1)
-dept_salary.plot(kind='bar')
-plt.title('Average Salary by Department')
-plt.xticks(rotation=45)
+dept_salary.plot(kind='bar', color='lightblue')
+plt.title('Average Salary by Department', color='white')
+plt.xticks(rotation=45, color='white')
+plt.ylabel('Salary', color='white')
 
 plt.subplot(1, 3, 2)
-plt.scatter(df['Age'], df['Salary'])
-plt.xlabel('Age')
-plt.ylabel('Salary')
-plt.title('Age vs Salary')
+plt.scatter(df['Age'], df['Salary'], color='lightgreen', s=100, alpha=0.7)
+plt.xlabel('Age', color='white')
+plt.ylabel('Salary', color='white')
+plt.title('Age vs Salary', color='white')
 
 plt.subplot(1, 3, 3)
-plt.scatter(df['Years_Experience'], df['Salary'])
-plt.xlabel('Years Experience')
-plt.ylabel('Salary')
-plt.title('Experience vs Salary')
+plt.scatter(df['Years_Experience'], df['Salary'], color='lightcoral', s=100, alpha=0.7)
+plt.xlabel('Years Experience', color='white')
+plt.ylabel('Salary', color='white')
+plt.title('Experience vs Salary', color='white')
 
 plt.tight_layout()
 plt.show()

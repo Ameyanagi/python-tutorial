@@ -98,6 +98,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+# Configure matplotlib for Quarto
+plt.rcParams['figure.figsize'] = (12, 8)
+plt.rcParams['figure.dpi'] = 100
+
 print("=== Data Visualization Examples ===")
 
 # Generate sample data

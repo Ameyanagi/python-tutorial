@@ -43,10 +43,22 @@ Python の旅を始める準備はできましたか？[環境構築](book/01-se
 
 [**🎯 スライドコレクションを見る →**](slides/){.btn .btn-primary .btn-lg}
 
-### **日本語スライド (利用可能)**
+### **日本語スライド (完全版利用可能)**
+**基本概念:**
 - [🚀 導入とセットアップ](slides/01-intro.html) - Python と uv を始める
 - [📊 データ型とコレクション](slides/02-data-types.html) - リスト、辞書、セット
+- [🔀 制御フロー](slides/03-control-flow.html) - If/else文、ループ
 - [⚙️ 関数](slides/04-functions.html) - 再利用可能なコードブロック
+- [🚨 エラーハンドリング](slides/05-error-handling.html) - Try/except パターン
+
+**コード組織:**
+- [📦 モジュールとパッケージ](slides/06-modules.html) - コード組織
+- [🏗️ クラスとオブジェクト](slides/07-classes.html) - オブジェクト指向プログラミング
+- [🔗 継承](slides/08-inheritance.html) - 高度な OOP 概念
+- [🏷️ 型ヒント](slides/09-type-hints.html) - 現代的な Python 型システム
+
+**高度な応用:**
+- [📈 データサイエンス](slides/12-data-science.html) - NumPy、Pandas、機械学習
 - [🌐 IoT 接続と産業プロトコル](slides/14-iot-connectivity.html) - シリアル、Modbus、InfluxDB
 
 ### **English スライド (完全版利用可能)**
