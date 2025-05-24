@@ -1,0 +1,1092 @@
+# Python Applications and Real-World Projects
+
+Python's versatility makes it perfect for a wide range of applications. This chapter explores practical projects and real-world use cases that demonstrate Python's power across different domains.
+
+## Web Development with Flask
+
+### Simple Web Application
+
+```{python}
+# Note: This code demonstrates Flask concepts
+# To run, install Flask: pip install flask
+
+flask_app_code = '''
+from flask import Flask, render_template, request, jsonify
+import json
+from datetime import datetime
+
+app = Flask(__name__)
+
+# Sample data storage (in real apps, use a database)
+tasks = [
+    {"id": 1, "title": "Learn Python", "completed": True, "created": "2024-01-01"},
+    {"id": 2, "title": "Build a web app", "completed": False, "created": "2024-01-02"}
+]
+
+@app.route('/')
+def home():
+    return render_template('index.html', tasks=tasks)
+
+@app.route('/api/tasks', methods=['GET', 'POST'])
+def api_tasks():
+    if request.method == 'GET':
+        return jsonify(tasks)
+    
+    elif request.method == 'POST':
+        data = request.json
+        new_task = {
+            "id": max([t["id"] for t in tasks]) + 1 if tasks else 1,
+            "title": data["title"],
+            "completed": False,
+            "created": datetime.now().strftime("%Y-%m-%d")
+        }
+        tasks.append(new_task)
+        return jsonify(new_task), 201
+
+@app.route('/api/tasks/<int:task_id>', methods=['PUT', 'DELETE'])
+def api_task(task_id):
+    task = next((t for t in tasks if t["id"] == task_id), None)
+    if not task:
+        return jsonify({"error": "Task not found"}), 404
+    
+    if request.method == 'PUT':
+        data = request.json
+        task.update(data)
+        return jsonify(task)
+    
+    elif request.method == 'DELETE':
+        tasks.remove(task)
+        return '', 204
+
+if __name__ == '__main__':
+    app.run(debug=True)
+'''
+
+print("Flask To-Do Application Code:")
+print("=" * 50)
+print(flask_app_code)
+```
+
+### API Development Best Practices
+
+```{python}
+import json
+from datetime import datetime
+from typing import Dict, List, Optional
+
+class TaskManager:
+    """A simple task management system demonstrating API design patterns."""
+    
+    def __init__(self):
+        self.tasks: List[Dict] = []
+        self.next_id = 1
+    
+    def create_task(self, title: str, description: str = "") -> Dict:
+        """Create a new task."""
+        task = {
+            "id": self.next_id,
+            "title": title,
+            "description": description,
+            "completed": False,
+            "created_at": datetime.now().isoformat(),
+            "updated_at": datetime.now().isoformat()
+        }
+        self.tasks.append(task)
+        self.next_id += 1
+        return task
+    
+    def get_task(self, task_id: int) -> Optional[Dict]:
+        """Get a task by ID."""
+        return next((task for task in self.tasks if task["id"] == task_id), None)
+    
+    def get_all_tasks(self, completed: Optional[bool] = None) -> List[Dict]:
+        """Get all tasks, optionally filtered by completion status."""
+        if completed is None:
+            return self.tasks.copy()
+        return [task for task in self.tasks if task["completed"] == completed]
+    
+    def update_task(self, task_id: int, **updates) -> Optional[Dict]:
+        """Update a task."""
+        task = self.get_task(task_id)
+        if task:
+            task.update(updates)
+            task["updated_at"] = datetime.now().isoformat()
+            return task
+        return None
+    
+    def delete_task(self, task_id: int) -> bool:
+        """Delete a task."""
+        task = self.get_task(task_id)
+        if task:
+            self.tasks.remove(task)
+            return True
+        return False
+    
+    def get_statistics(self) -> Dict:
+        """Get task statistics."""
+        total = len(self.tasks)
+        completed = len([t for t in self.tasks if t["completed"]])
+        return {
+            "total_tasks": total,
+            "completed_tasks": completed,
+            "pending_tasks": total - completed,
+            "completion_rate": (completed / total * 100) if total > 0 else 0
+        }
+
+# Demonstrate the task manager
+manager = TaskManager()
+
+# Create some tasks
+task1 = manager.create_task("Learn Python basics", "Cover variables, functions, classes")
+task2 = manager.create_task("Build a web application", "Create a Flask or Django app")
+task3 = manager.create_task("Deploy to production", "Set up hosting and CI/CD")
+
+print("Created tasks:")
+for task in manager.get_all_tasks():
+    print(f"  {task['id']}: {task['title']}")
+
+# Update a task
+manager.update_task(1, completed=True)
+print(f"\\nMarked task 1 as completed")
+
+# Get statistics
+stats = manager.get_statistics()
+print(f"\\nTask Statistics:")
+print(f"  Total: {stats['total_tasks']}")
+print(f"  Completed: {stats['completed_tasks']}")
+print(f"  Completion Rate: {stats['completion_rate']:.1f}%")
+```
+
+## Data Processing and Analysis
+
+### File Processing Pipeline
+
+```{python}
+import csv
+import json
+from pathlib import Path
+from typing import Dict, List, Any
+from datetime import datetime
+
+class DataProcessor:
+    """A flexible data processing pipeline for various file formats."""
+    
+    def __init__(self, input_dir: str, output_dir: str):
+        self.input_dir = Path(input_dir)
+        self.output_dir = Path(output_dir)
+        self.output_dir.mkdir(exist_ok=True)
+    
+    def process_csv_file(self, filename: str) -> List[Dict]:
+        """Process a CSV file and return structured data."""
+        filepath = self.input_dir / filename
+        data = []
+        
+        # Simulate CSV processing
+        sample_data = [
+            {"id": 1, "name": "Alice", "age": 30, "city": "New York"},
+            {"id": 2, "name": "Bob", "age": 25, "city": "San Francisco"},
+            {"id": 3, "name": "Charlie", "age": 35, "city": "Chicago"}
+        ]
+        
+        print(f"Processing CSV file: {filename}")
+        for row in sample_data:
+            # Data cleaning and validation
+            processed_row = {
+                "id": int(row["id"]),
+                "name": row["name"].strip().title(),
+                "age": int(row["age"]),
+                "city": row["city"].strip(),
+                "processed_at": datetime.now().isoformat()
+            }
+            data.append(processed_row)
+        
+        return data
+    
+    def generate_report(self, data: List[Dict]) -> Dict:
+        """Generate a summary report from processed data."""
+        if not data:
+            return {"error": "No data to process"}
+        
+        total_records = len(data)
+        avg_age = sum(person["age"] for person in data) / total_records
+        cities = set(person["city"] for person in data)
+        
+        age_groups = {"18-25": 0, "26-35": 0, "36+": 0}
+        for person in data:
+            age = person["age"]
+            if age <= 25:
+                age_groups["18-25"] += 1
+            elif age <= 35:
+                age_groups["26-35"] += 1
+            else:
+                age_groups["36+"] += 1
+        
+        return {
+            "total_records": total_records,
+            "average_age": round(avg_age, 1),
+            "unique_cities": len(cities),
+            "cities": list(cities),
+            "age_distribution": age_groups,
+            "generated_at": datetime.now().isoformat()
+        }
+    
+    def save_json_report(self, data: Any, filename: str) -> str:
+        """Save data as a JSON report."""
+        output_path = self.output_dir / filename
+        with open(output_path, 'w') as f:
+            json.dump(data, f, indent=2)
+        return str(output_path)
+    
+    def run_pipeline(self, csv_filename: str) -> Dict:
+        """Run the complete data processing pipeline."""
+        try:
+            # Step 1: Process the CSV file
+            processed_data = self.process_csv_file(csv_filename)
+            
+            # Step 2: Generate report
+            report = self.generate_report(processed_data)
+            
+            # Step 3: Save results
+            data_file = self.save_json_report(processed_data, "processed_data.json")
+            report_file = self.save_json_report(report, "summary_report.json")
+            
+            return {
+                "status": "success",
+                "records_processed": len(processed_data),
+                "files_created": [data_file, report_file],
+                "summary": report
+            }
+            
+        except Exception as e:
+            return {
+                "status": "error",
+                "error": str(e),
+                "timestamp": datetime.now().isoformat()
+            }
+
+# Demonstrate the data processor
+processor = DataProcessor("./input", "./output")
+result = processor.run_pipeline("sample_data.csv")
+
+print("Data Processing Pipeline Results:")
+print("=" * 40)
+print(f"Status: {result['status']}")
+if result['status'] == 'success':
+    print(f"Records processed: {result['records_processed']}")
+    print(f"Summary: {result['summary']}")
+else:
+    print(f"Error: {result['error']}")
+```
+
+## Automation and Scripting
+
+### File Organization Tool
+
+```{python}
+import os
+import shutil
+from pathlib import Path
+from datetime import datetime
+from typing import Dict, List
+
+class FileOrganizer:
+    """Automatically organize files based on type and date."""
+    
+    def __init__(self, source_dir: str):
+        self.source_dir = Path(source_dir)
+        self.file_types = {
+            'images': ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg'],
+            'documents': ['.pdf', '.doc', '.docx', '.txt', '.rtf'],
+            'spreadsheets': ['.xls', '.xlsx', '.csv'],
+            'code': ['.py', '.js', '.html', '.css', '.cpp', '.java'],
+            'archives': ['.zip', '.rar', '.7z', '.tar', '.gz']
+        }
+    
+    def categorize_file(self, file_path: Path) -> str:
+        """Determine the category of a file based on its extension."""
+        extension = file_path.suffix.lower()
+        
+        for category, extensions in self.file_types.items():
+            if extension in extensions:
+                return category
+        
+        return 'others'
+    
+    def get_date_folder(self, file_path: Path) -> str:
+        """Get the date-based folder name for a file."""
+        try:
+            # Use file modification time
+            timestamp = file_path.stat().st_mtime
+            date = datetime.fromtimestamp(timestamp)
+            return date.strftime("%Y/%m-%B")
+        except:
+            return "unknown-date"
+    
+    def organize_files(self, dry_run: bool = True) -> Dict:
+        """Organize files in the source directory."""
+        if not self.source_dir.exists():
+            return {"error": f"Source directory {self.source_dir} does not exist"}
+        
+        results = {
+            "files_processed": 0,
+            "files_moved": 0,
+            "categories": {},
+            "errors": []
+        }
+        
+        # Simulate file organization (since we don't have actual files)
+        sample_files = [
+            "document.pdf", "photo.jpg", "script.py", 
+            "data.csv", "archive.zip", "readme.txt"
+        ]
+        
+        for filename in sample_files:
+            file_path = Path(filename)
+            category = self.categorize_file(file_path)
+            date_folder = "2024/01-January"  # Simulated date
+            
+            # Create target directory structure
+            target_dir = self.source_dir / "organized" / category / date_folder
+            target_path = target_dir / filename
+            
+            results["files_processed"] += 1
+            
+            if category not in results["categories"]:
+                results["categories"][category] = []
+            
+            results["categories"][category].append({
+                "filename": filename,
+                "target_path": str(target_path),
+                "moved": not dry_run
+            })
+            
+            if not dry_run:
+                results["files_moved"] += 1
+                print(f"Would move {filename} to {target_path}")
+            else:
+                print(f"[DRY RUN] Would move {filename} to {target_path}")
+        
+        return results
+    
+    def generate_organization_report(self, results: Dict) -> str:
+        """Generate a report of the organization process."""
+        if "error" in results:
+            return f"Error: {results['error']}"
+        
+        report = []
+        report.append("File Organization Report")
+        report.append("=" * 30)
+        report.append(f"Files processed: {results['files_processed']}")
+        report.append(f"Files moved: {results['files_moved']}")
+        report.append("")
+        
+        report.append("Files by category:")
+        for category, files in results["categories"].items():
+            report.append(f"  {category}: {len(files)} files")
+            for file_info in files[:3]:  # Show first 3 files
+                status = "moved" if file_info["moved"] else "would move"
+                report.append(f"    - {file_info['filename']} ({status})")
+            if len(files) > 3:
+                report.append(f"    ... and {len(files) - 3} more")
+        
+        return "\\n".join(report)
+
+# Demonstrate file organization
+organizer = FileOrganizer("./downloads")
+
+# Run in dry-run mode first
+print("Running file organization (dry run):")
+print("=" * 45)
+results = organizer.organize_files(dry_run=True)
+report = organizer.generate_organization_report(results)
+print(report)
+```
+
+### System Monitoring Tool
+
+```{python}
+import psutil
+import time
+from datetime import datetime
+from typing import Dict, List
+
+class SystemMonitor:
+    """Monitor system resources and generate alerts."""
+    
+    def __init__(self):
+        self.alerts = []
+        self.thresholds = {
+            'cpu_percent': 80.0,
+            'memory_percent': 85.0,
+            'disk_percent': 90.0
+        }
+    
+    def get_system_info(self) -> Dict:
+        """Get current system information."""
+        # CPU information
+        cpu_percent = psutil.cpu_percent(interval=1)
+        cpu_count = psutil.cpu_count()
+        
+        # Memory information
+        memory = psutil.virtual_memory()
+        
+        # Disk information
+        disk = psutil.disk_usage('/')
+        
+        # Network information (if available)
+        try:
+            network = psutil.net_io_counters()
+            network_info = {
+                "bytes_sent": network.bytes_sent,
+                "bytes_recv": network.bytes_recv
+            }
+        except:
+            network_info = {"error": "Network info not available"}
+        
+        return {
+            "timestamp": datetime.now().isoformat(),
+            "cpu": {
+                "percent": cpu_percent,
+                "count": cpu_count
+            },
+            "memory": {
+                "total": memory.total,
+                "available": memory.available,
+                "percent": memory.percent,
+                "used": memory.used
+            },
+            "disk": {
+                "total": disk.total,
+                "used": disk.used,
+                "free": disk.free,
+                "percent": (disk.used / disk.total) * 100
+            },
+            "network": network_info
+        }
+    
+    def check_thresholds(self, system_info: Dict) -> List[str]:
+        """Check if any system metrics exceed thresholds."""
+        alerts = []
+        
+        # Check CPU
+        if system_info["cpu"]["percent"] > self.thresholds["cpu_percent"]:
+            alerts.append(f"High CPU usage: {system_info['cpu']['percent']:.1f}%")
+        
+        # Check Memory
+        if system_info["memory"]["percent"] > self.thresholds["memory_percent"]:
+            alerts.append(f"High memory usage: {system_info['memory']['percent']:.1f}%")
+        
+        # Check Disk
+        if system_info["disk"]["percent"] > self.thresholds["disk_percent"]:
+            alerts.append(f"High disk usage: {system_info['disk']['percent']:.1f}%")
+        
+        return alerts
+    
+    def format_bytes(self, bytes_value: int) -> str:
+        """Convert bytes to human readable format."""
+        for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+            if bytes_value < 1024.0:
+                return f"{bytes_value:.1f} {unit}"
+            bytes_value /= 1024.0
+        return f"{bytes_value:.1f} PB"
+    
+    def generate_report(self, system_info: Dict) -> str:
+        """Generate a formatted system report."""
+        report = []
+        report.append("System Status Report")
+        report.append("=" * 25)
+        report.append(f"Timestamp: {system_info['timestamp']}")
+        report.append("")
+        
+        # CPU Report
+        report.append(f"CPU Usage: {system_info['cpu']['percent']:.1f}% ({system_info['cpu']['count']} cores)")
+        
+        # Memory Report
+        memory = system_info['memory']
+        report.append(f"Memory Usage: {memory['percent']:.1f}%")
+        report.append(f"  Total: {self.format_bytes(memory['total'])}")
+        report.append(f"  Used: {self.format_bytes(memory['used'])}")
+        report.append(f"  Available: {self.format_bytes(memory['available'])}")
+        
+        # Disk Report
+        disk = system_info['disk']
+        report.append(f"Disk Usage: {disk['percent']:.1f}%")
+        report.append(f"  Total: {self.format_bytes(disk['total'])}")
+        report.append(f"  Used: {self.format_bytes(disk['used'])}")
+        report.append(f"  Free: {self.format_bytes(disk['free'])}")
+        
+        # Alerts
+        alerts = self.check_thresholds(system_info)
+        if alerts:
+            report.append("")
+            report.append("⚠️  ALERTS:")
+            for alert in alerts:
+                report.append(f"  - {alert}")
+        else:
+            report.append("")
+            report.append("✅ All systems normal")
+        
+        return "\\n".join(report)
+    
+    def monitor_continuous(self, duration: int = 10, interval: int = 2):
+        """Monitor system continuously for a specified duration."""
+        print(f"Starting system monitoring for {duration} seconds...")
+        start_time = time.time()
+        
+        while time.time() - start_time < duration:
+            system_info = self.get_system_info()
+            report = self.generate_report(system_info)
+            
+            # Clear screen (in real terminal)
+            print("\\n" + "="*50)
+            print(report)
+            
+            time.sleep(interval)
+
+# Demonstrate system monitoring
+monitor = SystemMonitor()
+
+print("Current System Status:")
+print("=" * 30)
+current_info = monitor.get_system_info()
+current_report = monitor.generate_report(current_info)
+print(current_report)
+```
+
+## Command Line Tools
+
+### Project Generator
+
+```{python}
+import os
+from pathlib import Path
+from datetime import datetime
+
+class ProjectGenerator:
+    """Generate project templates for different types of Python projects."""
+    
+    def __init__(self):
+        self.templates = {
+            'web': self._create_web_project,
+            'cli': self._create_cli_project,
+            'data': self._create_data_project,
+            'api': self._create_api_project
+        }
+    
+    def _create_web_project(self, name: str, path: Path) -> Dict[str, str]:
+        """Create a Flask web application template."""
+        files = {
+            'app.py': '''from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
+''',
+            'requirements.txt': '''Flask==2.3.3
+python-dotenv==1.0.0
+''',
+            'templates/index.html': '''<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ project_name }}</title>
+</head>
+<body>
+    <h1>Welcome to {{ project_name }}</h1>
+</body>
+</html>
+''',
+            '.env': '''FLASK_APP=app.py
+FLASK_ENV=development
+''',
+            'README.md': f'''# {name}
+
+A Flask web application.
+
+## Setup
+
+1. Install dependencies: `pip install -r requirements.txt`
+2. Run the application: `python app.py`
+3. Open http://localhost:5000
+
+Created on {datetime.now().strftime("%Y-%m-%d")}
+'''
+        }
+        return files
+    
+    def _create_cli_project(self, name: str, path: Path) -> Dict[str, str]:
+        """Create a command-line application template."""
+        files = {
+            'main.py': '''#!/usr/bin/env python3
+"""
+Command-line application template.
+"""
+import argparse
+import sys
+
+def main():
+    parser = argparse.ArgumentParser(description='Command line tool')
+    parser.add_argument('--version', action='version', version='1.0.0')
+    parser.add_argument('--verbose', '-v', action='store_true', 
+                       help='Enable verbose output')
+    
+    args = parser.parse_args()
+    
+    if args.verbose:
+        print("Verbose mode enabled")
+    
+    print("Hello from the command line!")
+
+if __name__ == '__main__':
+    main()
+''',
+            'requirements.txt': '''click==8.1.7
+''',
+            'README.md': f'''# {name}
+
+A command-line application.
+
+## Usage
+
+```bash
+python main.py --help
+python main.py --verbose
+```
+
+Created on {datetime.now().strftime("%Y-%m-%d")}
+'''
+        }
+        return files
+    
+    def _create_data_project(self, name: str, path: Path) -> Dict[str, str]:
+        """Create a data analysis project template."""
+        files = {
+            'analysis.py': '''import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+def load_data(filepath):
+    """Load data from file."""
+    return pd.read_csv(filepath)
+
+def analyze_data(df):
+    """Perform basic data analysis."""
+    print("Data shape:", df.shape)
+    print("\\nData types:")
+    print(df.dtypes)
+    print("\\nSummary statistics:")
+    print(df.describe())
+
+def main():
+    # Example data analysis workflow
+    print("Data analysis started...")
+    
+if __name__ == '__main__':
+    main()
+''',
+            'requirements.txt': '''pandas==2.1.0
+numpy==1.24.3
+matplotlib==3.7.2
+seaborn==0.12.2
+jupyter==1.0.0
+''',
+            'README.md': f'''# {name}
+
+A data analysis project.
+
+## Setup
+
+1. Install dependencies: `pip install -r requirements.txt`
+2. Run analysis: `python analysis.py`
+3. Start Jupyter: `jupyter notebook`
+
+Created on {datetime.now().strftime("%Y-%m-%d")}
+'''
+        }
+        return files
+    
+    def _create_api_project(self, name: str, path: Path) -> Dict[str, str]:
+        """Create a REST API project template."""
+        files = {
+            'api.py': '''from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+
+# Sample data
+items = [
+    {"id": 1, "name": "Item 1", "description": "First item"},
+    {"id": 2, "name": "Item 2", "description": "Second item"}
+]
+
+@app.route('/api/items', methods=['GET'])
+def get_items():
+    return jsonify(items)
+
+@app.route('/api/items/<int:item_id>', methods=['GET'])
+def get_item(item_id):
+    item = next((item for item in items if item["id"] == item_id), None)
+    if item:
+        return jsonify(item)
+    return jsonify({"error": "Item not found"}), 404
+
+if __name__ == '__main__':
+    app.run(debug=True)
+''',
+            'requirements.txt': '''Flask==2.3.3
+Flask-CORS==4.0.0
+''',
+            'README.md': f'''# {name}
+
+A REST API application.
+
+## Endpoints
+
+- GET /api/items - Get all items
+- GET /api/items/<id> - Get specific item
+
+## Setup
+
+1. Install dependencies: `pip install -r requirements.txt`
+2. Run API: `python api.py`
+3. Test: http://localhost:5000/api/items
+
+Created on {datetime.now().strftime("%Y-%m-%d")}
+'''
+        }
+        return files
+    
+    def create_project(self, project_type: str, name: str, 
+                      base_path: str = ".", force: bool = False) -> Dict:
+        """Create a new project from template."""
+        if project_type not in self.templates:
+            return {
+                "error": f"Unknown project type: {project_type}",
+                "available_types": list(self.templates.keys())
+            }
+        
+        project_path = Path(base_path) / name
+        
+        # Check if project already exists
+        if project_path.exists() and not force:
+            return {
+                "error": f"Project directory {project_path} already exists",
+                "suggestion": "Use --force to overwrite"
+            }
+        
+        try:
+            # Create project directory
+            project_path.mkdir(parents=True, exist_ok=True)
+            
+            # Generate files
+            files = self.templates[project_type](name, project_path)
+            created_files = []
+            
+            for file_path, content in files.items():
+                full_path = project_path / file_path
+                full_path.parent.mkdir(parents=True, exist_ok=True)
+                
+                # Replace placeholders
+                content = content.replace('{{ project_name }}', name)
+                
+                # Write file (simulated)
+                print(f"Creating: {full_path}")
+                created_files.append(str(full_path))
+            
+            return {
+                "status": "success",
+                "project_path": str(project_path),
+                "project_type": project_type,
+                "files_created": created_files,
+                "next_steps": [
+                    f"cd {name}",
+                    "pip install -r requirements.txt",
+                    "Read README.md for more information"
+                ]
+            }
+            
+        except Exception as e:
+            return {
+                "status": "error",
+                "error": str(e)
+            }
+
+# Demonstrate project generation
+generator = ProjectGenerator()
+
+print("Available project types:", list(generator.templates.keys()))
+print()
+
+# Create different types of projects
+for project_type in ['web', 'cli', 'data', 'api']:
+    print(f"Creating {project_type} project:")
+    result = generator.create_project(project_type, f"my-{project_type}-app")
+    
+    if result.get("status") == "success":
+        print(f"  ✅ Created in: {result['project_path']}")
+        print(f"  📁 Files: {len(result['files_created'])}")
+        print(f"  🚀 Next: {' && '.join(result['next_steps'])}")
+    else:
+        print(f"  ❌ Error: {result.get('error')}")
+    print()
+```
+
+## Testing and Quality Assurance
+
+### Test Suite Example
+
+```{python}
+import unittest
+from unittest.mock import patch, MagicMock
+from datetime import datetime
+
+# Mock classes for demonstration
+class Calculator:
+    """Simple calculator for testing demonstration."""
+    
+    def add(self, a, b):
+        return a + b
+    
+    def divide(self, a, b):
+        if b == 0:
+            raise ValueError("Cannot divide by zero")
+        return a / b
+    
+    def multiply(self, a, b):
+        return a * b
+
+class DatabaseConnection:
+    """Mock database connection for testing."""
+    
+    def __init__(self, connection_string):
+        self.connection_string = connection_string
+        self.connected = False
+    
+    def connect(self):
+        # Simulate connection
+        if "invalid" in self.connection_string:
+            raise ConnectionError("Invalid connection string")
+        self.connected = True
+        return True
+    
+    def execute_query(self, query):
+        if not self.connected:
+            raise RuntimeError("Not connected to database")
+        # Simulate query execution
+        return [{"id": 1, "name": "Test"}]
+
+class TestCalculator(unittest.TestCase):
+    """Test cases for Calculator class."""
+    
+    def setUp(self):
+        """Set up test fixtures before each test method."""
+        self.calc = Calculator()
+    
+    def test_add_positive_numbers(self):
+        """Test addition of positive numbers."""
+        result = self.calc.add(2, 3)
+        self.assertEqual(result, 5)
+    
+    def test_add_negative_numbers(self):
+        """Test addition of negative numbers."""
+        result = self.calc.add(-2, -3)
+        self.assertEqual(result, -5)
+    
+    def test_divide_normal_case(self):
+        """Test normal division."""
+        result = self.calc.divide(10, 2)
+        self.assertEqual(result, 5)
+    
+    def test_divide_by_zero_raises_error(self):
+        """Test that division by zero raises ValueError."""
+        with self.assertRaises(ValueError) as context:
+            self.calc.divide(10, 0)
+        self.assertIn("Cannot divide by zero", str(context.exception))
+    
+    def test_multiply(self):
+        """Test multiplication."""
+        result = self.calc.multiply(3, 4)
+        self.assertEqual(result, 12)
+
+class TestDatabaseConnection(unittest.TestCase):
+    """Test cases for DatabaseConnection class."""
+    
+    def test_successful_connection(self):
+        """Test successful database connection."""
+        db = DatabaseConnection("valid://connection")
+        self.assertTrue(db.connect())
+        self.assertTrue(db.connected)
+    
+    def test_invalid_connection_string(self):
+        """Test invalid connection string raises error."""
+        db = DatabaseConnection("invalid://connection")
+        with self.assertRaises(ConnectionError):
+            db.connect()
+    
+    @patch('__main__.DatabaseConnection.execute_query')
+    def test_query_execution_with_mock(self, mock_execute):
+        """Test query execution with mocking."""
+        # Setup mock
+        mock_execute.return_value = [{"id": 1, "name": "Mocked Result"}]
+        
+        db = DatabaseConnection("valid://connection")
+        db.connected = True  # Simulate connected state
+        
+        result = db.execute_query("SELECT * FROM users")
+        
+        # Verify mock was called
+        mock_execute.assert_called_once_with("SELECT * FROM users")
+        self.assertEqual(result[0]["name"], "Mocked Result")
+    
+    def test_query_without_connection_raises_error(self):
+        """Test that querying without connection raises error."""
+        db = DatabaseConnection("valid://connection")
+        # Don't connect
+        with self.assertRaises(RuntimeError) as context:
+            db.execute_query("SELECT * FROM users")
+        self.assertIn("Not connected", str(context.exception))
+
+def run_test_suite():
+    """Run the complete test suite and return results."""
+    # Create test suite
+    suite = unittest.TestSuite()
+    
+    # Add test cases
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestCalculator))
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestDatabaseConnection))
+    
+    # Run tests
+    runner = unittest.TextTestRunner(verbosity=2, stream=open(os.devnull, 'w'))
+    result = runner.run(suite)
+    
+    # Return summary
+    return {
+        "tests_run": result.testsRun,
+        "failures": len(result.failures),
+        "errors": len(result.errors),
+        "success_rate": ((result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun) * 100,
+        "details": {
+            "failures": [str(failure) for failure in result.failures],
+            "errors": [str(error) for error in result.errors]
+        }
+    }
+
+# Demonstrate testing
+print("Running Test Suite:")
+print("=" * 25)
+
+# Import os for the test runner
+import os
+
+# Run the tests
+test_results = run_test_suite()
+
+print(f"Tests run: {test_results['tests_run']}")
+print(f"Failures: {test_results['failures']}")
+print(f"Errors: {test_results['errors']}")
+print(f"Success rate: {test_results['success_rate']:.1f}%")
+
+if test_results['success_rate'] == 100:
+    print("🎉 All tests passed!")
+else:
+    print("⚠️ Some tests failed - check the details")
+```
+
+## Practice Projects
+
+### Exercise 1: Personal Finance Tracker
+
+Create a command-line application that tracks income and expenses:
+
+**Requirements:**
+- Add income and expense entries
+- Categorize transactions
+- Generate monthly reports
+- Export data to CSV
+- Set budget limits and alerts
+
+**Starter Code:**
+```python
+class FinanceTracker:
+    def __init__(self):
+        self.transactions = []
+        self.categories = ["Food", "Transport", "Entertainment", "Utilities", "Income"]
+    
+    def add_transaction(self, amount, category, description):
+        # Implement this method
+        pass
+    
+    def generate_report(self, month, year):
+        # Implement this method
+        pass
+```
+
+### Exercise 2: Web Scraper and Data Analyzer
+
+Build a tool that scrapes data from websites and analyzes it:
+
+**Requirements:**
+- Scrape product prices from multiple sites
+- Store data in a database
+- Track price changes over time
+- Generate price alerts
+- Create visualization charts
+
+**Starter Code:**
+```python
+import requests
+from bs4 import BeautifulSoup
+
+class PriceScraper:
+    def __init__(self):
+        self.products = []
+    
+    def scrape_price(self, url, selector):
+        # Implement web scraping logic
+        pass
+    
+    def analyze_trends(self):
+        # Implement trend analysis
+        pass
+```
+
+### Exercise 3: Task Automation Suite
+
+Create a suite of automation tools:
+
+**Requirements:**
+- File organizer (sort files by type/date)
+- Email sender (bulk emails with templates)
+- Backup manager (automated backups)
+- System cleaner (remove temp files)
+- Report generator (system health)
+
+**Tips:**
+- Use `pathlib` for file operations
+- Use `smtplib` for email sending
+- Use `schedule` for automation
+- Use `psutil` for system information
+- Create a unified CLI interface
+
+## Next Steps
+
+Now that you've seen Python's practical applications:
+
+1. **Choose Your Focus**: Pick an area that interests you (web, data, automation, etc.)
+2. **Build Projects**: Start with small projects and gradually increase complexity
+3. **Learn Frameworks**: Dive deeper into relevant frameworks (Django, FastAPI, etc.)
+4. **Join Communities**: Participate in Python communities and open source projects
+5. **Keep Learning**: Python evolves constantly - stay updated with new features
+
+## Resources for Further Learning
+
+- **Web Development**: Django, FastAPI, Flask documentation
+- **Data Science**: Pandas, NumPy, Scikit-learn tutorials
+- **Automation**: Automate the Boring Stuff with Python
+- **Testing**: pytest documentation and best practices
+- **Deployment**: Docker, AWS, Heroku guides
+
+Remember: The best way to learn is by building real projects that solve actual problems!

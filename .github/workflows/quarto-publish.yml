@@ -49,7 +49,12 @@ jobs:
           cd en/slides
           for slide in *.qmd; do
             echo "Rendering $slide..."
-            uv run quarto render "$slide" --to revealjs --output-dir "../../docs/en/slides"
+            uv run quarto render "$slide" --to revealjs
+            # Move rendered file to correct location
+            filename="${slide%.qmd}.html"
+            if [ -f "$filename" ]; then
+              mv "$filename" "../../docs/en/slides/"
+            fi
           done
 
       - name: Render Japanese book
