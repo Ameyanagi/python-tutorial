@@ -10,6 +10,17 @@ Welcome to the comprehensive Python programming tutorial by **Ameyanagi**. This 
 - **Modern Development**: Using uv, VS Code, and best practices
 - **Real-world Applications**: Practical projects and examples
 
+::: {.callout-important}
+## ⚡ Interactive Python Learning
+**NEW!** All tutorials now feature **Quarto Live** - run and edit Python code directly in your browser without installing anything! Perfect for beginners and experienced developers alike.
+
+**Features:**
+- 🚀 **Zero Setup** - No Python installation required
+- 🎮 **Live Code Editing** - Modify examples and see results instantly  
+- 📊 **Interactive Plots** - Create and customize data visualizations
+- 🌐 **Browser-Based** - Works on any device with a web browser
+:::
+
 ## 📚 Available Formats
 
 ### 📖 Books (Comprehensive Guides)

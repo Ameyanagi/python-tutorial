@@ -47,6 +47,8 @@ format:
     highlight-style: github
     code-fold: false
     code-tools: true
+    filters:
+      - live
     
   pdf:
     documentclass: scrreprt

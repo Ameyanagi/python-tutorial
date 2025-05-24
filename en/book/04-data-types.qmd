@@ -15,7 +15,19 @@ mixed = ["hello", 42, 3.14, True]
 print("Fruits:", fruits)
 print("Numbers:", numbers)
 print("Mixed types:", mixed)
+
+# Interactive challenge: Add your favorite fruit to the list!
+fruits.append("mango")  # Try changing this to your favorite fruit
+print("Updated fruits:", fruits)
 ```
+
+::: {.callout-note}
+## 🎮 Try It Yourself
+The code above is fully interactive! Try:
+1. Add your favorite fruit to the `fruits` list
+2. Add more numbers to the `numbers` list  
+3. Create your own `mixed` list with different data types
+:::
 
 ### List Operations
 

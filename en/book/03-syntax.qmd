@@ -2,13 +2,23 @@
 
 Python's clean, readable syntax makes it perfect for beginners while remaining powerful for experts.
 
+::: {.callout-tip}
+## 🚀 Interactive Learning
+This tutorial uses **Quarto Live** - you can edit and run all Python code directly in your browser! Try modifying the code below and see the results instantly.
+:::
+
 ## Your First Python Program
 
 ```{python}
 print("Hello, Python!")
+print("Welcome to interactive Python learning!")
+
+# Try changing this message and run the code
+your_name = "Student"  # Change this to your name!
+print(f"Hello, {your_name}! Ready to learn Python?")
 ```
 
-This simple line demonstrates Python's philosophy: code should be readable and straightforward.
+This simple example demonstrates Python's philosophy: code should be readable and straightforward. **Try editing the code above** - change `your_name` to your actual name and run it again!
 
 ## Python Philosophy - The Zen of Python
 

@@ -93,16 +93,35 @@ print(df[['Name', 'Age', 'Age_Group', 'Salary', 'Salary_Rank']])
 
 ### Matplotlib - Data Visualization
 
+::: {.callout-important}
+## 📊 Interactive Plotting
+With **Quarto Live**, you can modify the plotting code below and see the results instantly! Try changing colors, plot types, or data values to experiment with different visualizations.
+:::
+
 ```{python}
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
 # Configure matplotlib for Quarto
-plt.rcParams['figure.figsize'] = (12, 8)
+plt.rcParams['figure.figsize'] = (10, 6)
 plt.rcParams['figure.dpi'] = 100
 
-print("=== Data Visualization Examples ===")
+print("=== Interactive Data Visualization ===")
+
+# Interactive example: Create your own data
+x = np.linspace(0, 10, 50)
+y = np.sin(x) * 2 + np.random.normal(0, 0.1, 50)  # Try changing the multiplier!
+
+plt.figure(figsize=(10, 6))
+plt.plot(x, y, 'bo-', markersize=4, linewidth=2, color='blue')  # Try different colors!
+plt.title('Interactive Plot - Modify and Run!', fontsize=14)
+plt.xlabel('X values')
+plt.ylabel('Y values') 
+plt.grid(True, alpha=0.3)
+plt.show()
+
+print("Try modifying the plot above - change colors, markers, or the mathematical function!")
 
 # Generate sample data
 np.random.seed(42)

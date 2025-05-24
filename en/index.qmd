@@ -20,6 +20,11 @@ This tutorial is designed for mixed skill levels and covers:
 - 🎯 **Multiple Formats** - Book, slides, PDF
 - 🌐 **Bilingual** - Available in English and Japanese
 
+::: {.callout-tip}
+## ⚡ NEW: Live Interactive Python
+This tutorial now features **Quarto Live** - run and modify Python code directly in your browser! No installation required, perfect for immediate hands-on learning.
+:::
+
 ## Prerequisites
 
 - Basic computer literacy

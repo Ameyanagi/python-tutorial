@@ -11,6 +11,8 @@ format:
     background-transition: fade
     highlight-style: dracula
     code-fold: false
+    filters:
+      - live
     controls: true
     controlsLayout: edges
     controlsTutorial: true
