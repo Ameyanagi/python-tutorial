@@ -35,6 +35,11 @@ jobs:
         run: |
           uv sync
 
+      - name: Install Quarto extensions
+        run: |
+          quarto add --no-prompt r-wasm/quarto-live
+          quarto add --no-prompt r-wasm/quarto-drop
+
       - name: Setup output directories and copy shared assets
         run: |
           # Clean and create all necessary directories
