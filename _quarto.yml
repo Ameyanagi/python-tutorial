@@ -23,13 +23,6 @@ website:
     right:
       - icon: github
         href: "https://github.com/ameyanagi/python-tutorial"
-      - icon: sun
-        text: "Theme"
-        menu:
-          - text: "☀️ Light"
-            theme: light
-          - text: "🌙 Dark"
-            theme: dark
 
 format:
   html:
