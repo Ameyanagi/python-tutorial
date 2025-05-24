@@ -30,6 +30,12 @@ format:
     touch: true
     loop: false
     rtl: false
+    # Mobile-specific optimizations
+    mobileViewDistance: 2
+    embedded: false
+    minScale: 0.2
+    maxScale: 2.0
+    disableLayout: false
 ---
 
 <!-- RevealJS controls enabled for proper navigation -->
