@@ -3,7 +3,7 @@ title: "型ヒントと静的型付け"
 subtitle: "Pythonコードをより堅牢にする"
 format:
   revealjs:
-    theme: [default, ../shared/style.scss]
+    theme: default
     transition: slide
     background-transition: fade
     highlight-style: github
@@ -21,7 +21,7 @@ format:
     hash: true
     history: true
     previewLinks: auto
-    logo: ../shared/python-logo.svg
+    
     footer: "Python チュートリアル - 型ヒント"
     width: 1050
     height: 700

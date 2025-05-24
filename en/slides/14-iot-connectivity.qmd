@@ -3,7 +3,7 @@ title: "IoT Connectivity & Industrial Protocols"
 subtitle: "Serial, Modbus, InfluxDB for Device Communication"
 format: 
   revealjs:
-    theme: [default, ../shared/style.scss]
+    theme: default
     transition: slide
     background-transition: fade
     highlight-style: github
@@ -16,7 +16,7 @@ format:
     chalkboard: true
     menu: true
     previewLinks: auto
-    logo: ../shared/python-logo.svg
+    
     footer: "Python Tutorial - IoT Connectivity"
     width: 1050
     height: 700

@@ -3,7 +3,7 @@ title: "データサイエンス with Python"
 subtitle: "NumPy、Pandas、機械学習"
 format:
   revealjs:
-    theme: [default, ../shared/style.scss]
+    theme: default
     transition: slide
     background-transition: fade
     highlight-style: github
@@ -21,7 +21,7 @@ format:
     hash: true
     history: true
     previewLinks: auto
-    logo: ../shared/python-logo.svg
+    
     footer: "Python チュートリアル - データサイエンス"
     width: 1050
     height: 700

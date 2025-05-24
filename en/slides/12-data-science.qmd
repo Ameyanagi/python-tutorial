@@ -3,7 +3,7 @@ title: "Data Science with Python"
 subtitle: "NumPy, Pandas, and Machine Learning"
 format:
   revealjs:
-    theme: [default, ../shared/style.scss]
+    theme: default
     transition: slide
     background-transition: fade
     highlight-style: github
@@ -21,7 +21,7 @@ format:
     hash: true
     history: true
     previewLinks: auto
-    logo: ../shared/python-logo.svg
+    
     footer: "Python Tutorial - Data Science"
     width: 1050
     height: 700
