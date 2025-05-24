@@ -20,6 +20,34 @@ print(f"Hello, {your_name}! Ready to learn Python?")
 
 This simple example demonstrates Python's philosophy: code should be readable and straightforward. **Try editing the code above** - change `your_name` to your actual name and run it again!
 
+## Test File Upload
+
+::: {.callout-note}
+## 📁 Test Drag and Drop
+Try dragging a small text file here to test the upload functionality:
+:::
+
+```{python}
+#| label: test-upload
+#| drop: true
+#| filename: test.txt
+
+# Drag and drop a text file here
+import os
+
+try:
+    if os.path.exists('test.txt'):
+        with open('test.txt', 'r') as f:
+            content = f.read()
+        print(f"File uploaded successfully!")
+        print(f"Content length: {len(content)} characters")
+        print(f"First 100 characters: {content[:100]}")
+    else:
+        print("No file uploaded yet. Drag a text file to this area!")
+except Exception as e:
+    print(f"Error reading file: {e}")
+```
+
 ## Python Philosophy - The Zen of Python
 
 ```{python}

@@ -646,11 +646,12 @@ plt.show()
 ::: {.fragment}
 **Quarto Drop enables drag-and-drop file uploads:**
 
-```{.python}
-# Drag and drop your CSV file here
+```{python}
 #| label: slide-upload
 #| drop: true
 #| filename: mydata.csv
+
+# Drag and drop your CSV file here
 
 import pandas as pd
 

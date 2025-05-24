@@ -38,6 +38,8 @@ format:
     highlight-style: github
     code-fold: false
     code-tools: true
+    echo: true
+    eval: false
     filters:
       - live
       - drop

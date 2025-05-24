@@ -11,6 +11,8 @@ format:
     background-transition: fade
     highlight-style: dracula
     code-fold: false
+    echo: true
+    eval: false
     filters:
       - live
       - drop

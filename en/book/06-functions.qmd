@@ -632,11 +632,12 @@ print(f"BMI: {bmi:.1f} ({category})")
 Try uploading a text file (.txt) to see this file processing function in action!
 :::
 
-```{.python}
-# Upload a text file to process it
+```{python}
 #| label: text-file-processor
 #| drop: true
 #| filename: textfile.txt
+
+# Upload a text file to process it
 
 def analyze_text_file(filename):
     """

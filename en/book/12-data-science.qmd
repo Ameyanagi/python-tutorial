@@ -98,11 +98,12 @@ print(df[['Name', 'Age', 'Age_Group', 'Salary', 'Salary_Rank']])
 With **Quarto Drop**, you can drag and drop your own CSV files directly into the browser! Try uploading a CSV file in the area below and analyze it with Pandas.
 :::
 
-```{.python}
-# Drag and drop your CSV file here to upload it
+```{python}
 #| label: file-upload
 #| drop: true
 #| filename: data.csv
+
+# Drag and drop your CSV file here to upload it
 
 import pandas as pd
 import io
@@ -244,11 +245,12 @@ print("Visualization plots created successfully!")
 Beyond CSV files, you can also upload Excel files (.xlsx), JSON files, and other formats for analysis. Try dropping different file types below!
 :::
 
-```{.python}
-# Drag and drop Excel, JSON, or other data files here
+```{python}
 #| label: multi-file-upload
 #| drop: true
 #| filename: datafile
+
+# Drag and drop Excel, JSON, or other data files here
 
 import pandas as pd
 import json
