@@ -3,11 +3,33 @@ title: "Data Types and Collections"
 subtitle: "Python's Built-in Data Structures"
 format: 
   revealjs:
-    theme: dark
+    theme: [default, ../shared/style.scss]
     transition: slide
     background-transition: fade
     highlight-style: github
     code-fold: false
+    controls: true
+    controlsLayout: edges
+    controlsTutorial: true
+    progress: true
+    slideNumber: true
+    chalkboard: true
+    menu: true
+    keyboard: true
+    overview: true
+    touch: true
+    hash: true
+    history: true
+    previewLinks: auto
+    logo: ../shared/python-logo.svg
+    footer: "Python Tutorial - Data Types"
+    width: 1050
+    height: 700
+    margin: 0.1
+    center: false
+    navigationMode: linear
+    loop: false
+    rtl: false
 ---
 
 # Data Types & Collections {background-color="#2E86AB"}

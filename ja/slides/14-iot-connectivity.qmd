@@ -3,11 +3,33 @@ title: "IoT 接続と産業プロトコル"
 subtitle: "シリアル通信、Modbus、InfluxDB によるデバイス通信"
 format: 
   revealjs:
-    theme: dark
+    theme: [default, ../shared/style.scss]
     transition: slide
     background-transition: fade
     highlight-style: github
     code-fold: false
+    controls: true
+    controlsLayout: edges
+    controlsTutorial: true
+    progress: true
+    slideNumber: true
+    chalkboard: true
+    menu: true
+    keyboard: true
+    overview: true
+    touch: true
+    hash: true
+    history: true
+    previewLinks: auto
+    logo: ../shared/python-logo.svg
+    footer: "Python チュートリアル - IoT 接続"
+    width: 1050
+    height: 700
+    margin: 0.1
+    center: false
+    navigationMode: linear
+    loop: false
+    rtl: false
 ---
 
 # IoT と産業通信 {background-color="#2E86AB"}

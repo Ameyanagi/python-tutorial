@@ -4,12 +4,17 @@ subtitle: "Introduction and Setup"
 format: 
   revealjs:
     theme: [default, ../shared/style.scss]
-    transition: none
-    background-transition: none
+    transition: slide
+    background-transition: fade
     highlight-style: github
     code-fold: false
+    controls: true
+    controlsLayout: edges
+    controlsTutorial: true
+    progress: true
     slideNumber: true
     chalkboard: true
+    menu: true
     previewLinks: auto
     logo: ../shared/python-logo.svg
     footer: "Python Tutorial - Introduction"
@@ -18,10 +23,13 @@ format:
     margin: 0.1
     center: false
     navigationMode: linear
-    controlsLayout: edges
-    controlsTutorial: false
     hash: true
     history: true
+    keyboard: true
+    overview: true
+    touch: true
+    loop: false
+    rtl: false
 ---
 
 # Welcome to Python! {background-color="#2E86AB"}

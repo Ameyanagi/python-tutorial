@@ -3,11 +3,33 @@ title: "関数"
 subtitle: "再利用可能なコードブロックの整理"
 format: 
   revealjs:
-    theme: dark
+    theme: [default, ../shared/style.scss]
     transition: slide
     background-transition: fade
     highlight-style: github
     code-fold: false
+    controls: true
+    controlsLayout: edges
+    controlsTutorial: true
+    progress: true
+    slideNumber: true
+    chalkboard: true
+    menu: true
+    keyboard: true
+    overview: true
+    touch: true
+    hash: true
+    history: true
+    previewLinks: auto
+    logo: ../shared/python-logo.svg
+    footer: "Python チュートリアル - 関数"
+    width: 1050
+    height: 700
+    margin: 0.1
+    center: false
+    navigationMode: linear
+    loop: false
+    rtl: false
 ---
 
 # 関数とは？ {background-color="#2E86AB"}
