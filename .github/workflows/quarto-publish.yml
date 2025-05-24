@@ -45,7 +45,12 @@ jobs:
 
       - name: Render English slides
         run: |
-          cd en && uv run quarto render slides/ --to revealjs --output-dir ../docs/en/slides
+          mkdir -p docs/en/slides
+          cd en/slides
+          for slide in *.qmd; do
+            echo "Rendering $slide..."
+            uv run quarto render "$slide" --to revealjs --output-dir "../../docs/en/slides"
+          done
 
       - name: Render Japanese book
         run: |
