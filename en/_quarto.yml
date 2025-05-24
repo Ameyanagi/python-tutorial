@@ -53,10 +53,3 @@ format:
     toc: true
     number-sections: true
     colorlinks: true
-    
-  revealjs:
-    theme: dark
-    transition: slide
-    background-transition: fade
-    highlight-style: github
-    code-fold: false
