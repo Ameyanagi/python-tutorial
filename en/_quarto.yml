@@ -37,9 +37,9 @@ book:
 
 format:
   html:
-    theme: 
-      - cosmo
-      - ../custom.scss
+    theme:
+      light: [cosmo, ../custom.scss]
+      dark: [darkly, ../custom.scss]
     css: ../styles.css
     toc: true
     toc-depth: 3
@@ -52,6 +52,28 @@ format:
     filters:
       - live
       - drop
+    logo: shared/python-logo.svg
+    navbar:
+      background: primary
+      search: true
+      left:
+        - text: "📖 Book"
+          href: "index.html"
+        - text: "📚 Slides"
+          href: "../slides/index.html"
+        - text: "🏠 Home"
+          href: "../index.html"
+      right:
+        - icon: github
+          href: "https://github.com/ameyanagi/python-tutorial"
+        - icon: sun
+          text: "Theme"
+          menu:
+            - text: "☀️ Light"
+              theme: light
+            - text: "🌙 Dark"
+              theme: dark
+    theme-toggle: true
     
   pdf:
     documentclass: scrreprt
