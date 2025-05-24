@@ -41,3 +41,8 @@ format:
     minScale: 0.2
     maxScale: 2.0
     disableLayout: false
+    # Scrolling configuration
+    scrollLayout: true
+    scrollSnap: false
+    scrollActivationWidth: null
+    scrollProgress: true

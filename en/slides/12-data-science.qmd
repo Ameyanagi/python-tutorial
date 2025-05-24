@@ -56,6 +56,21 @@ format:
 - **Scikit-learn**: Machine learning
 :::
 
+## 📱 Navigation Tips
+
+::: {.callout-tip}
+## Scrolling in RevealJS Slides
+**For long slides with lots of content:**
+
+- **Desktop**: Use mouse wheel or Page Up/Down keys to scroll within slides
+- **Mobile/Touch**: Swipe up/down to scroll, left/right to navigate slides  
+- **Arrow Keys**: ↑↓ scroll within slide, ←→ navigate between slides
+- **Keyboard Shortcuts**: 
+  - `ESC` - Overview mode
+  - `F` - Fullscreen
+  - `S` - Speaker view
+:::
+
 ## NumPy: Numerical Computing
 
 ::: {.fragment}
