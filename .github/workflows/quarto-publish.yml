@@ -37,7 +37,8 @@ jobs:
 
       - name: Setup output directories and copy shared assets
         run: |
-          # Create all necessary directories
+          # Clean and create all necessary directories
+          rm -rf docs
           mkdir -p docs/en/slides docs/ja/slides docs/en/shared docs/ja/shared
           
           # Copy shared assets first (needed during rendering)
@@ -61,35 +62,21 @@ jobs:
         run: |
           cd en && uv run quarto render --to html --output-dir ../docs/en
 
-      - name: Render English slides
+      - name: Render English slides (isolated)
         run: |
           cd en/slides
-          for slide in *.qmd; do
-            echo "Rendering $slide..."
-            uv run quarto render "$slide" --to revealjs
-            # Move rendered file to correct location
-            filename="${slide%.qmd}.html"
-            if [ -f "$filename" ]; then
-              mv "$filename" "../../docs/en/slides/"
-            fi
-          done
+          uv run quarto render
+          echo "English slides rendered with isolated configuration"
 
       - name: Render Japanese book
         run: |
           cd ja && uv run quarto render --to html --output-dir ../docs/ja
 
-      - name: Render Japanese slides
+      - name: Render Japanese slides (isolated)
         run: |
           cd ja/slides
-          for slide in *.qmd; do
-            echo "Rendering $slide..."
-            uv run quarto render "$slide" --to revealjs
-            # Move rendered file to correct location
-            filename="${slide%.qmd}.html"
-            if [ -f "$filename" ]; then
-              mv "$filename" "../../docs/ja/slides/"
-            fi
-          done
+          uv run quarto render
+          echo "Japanese slides rendered with isolated configuration"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

@@ -1,41 +1,6 @@
 ---
 title: "Python Tutorial"
 subtitle: "Introduction and Setup"
-format: 
-  revealjs:
-    theme: default
-    transition: slide
-    background-transition: fade
-    highlight-style: github
-    code-fold: false
-    controls: true
-    controlsLayout: edges
-    controlsTutorial: true
-    progress: true
-    slideNumber: true
-    chalkboard: true
-    menu: true
-    previewLinks: auto
-    
-    footer: "Python Tutorial - Introduction"
-    width: 1050
-    height: 700
-    margin: 0.1
-    center: false
-    navigationMode: linear
-    hash: true
-    history: true
-    keyboard: true
-    overview: true
-    touch: true
-    loop: false
-    rtl: false
-    # Mobile-specific optimizations
-    mobileViewDistance: 2
-    embedded: false
-    minScale: 0.2
-    maxScale: 2.0
-    disableLayout: false
 ---
 
 <!-- RevealJS controls enabled for proper navigation -->

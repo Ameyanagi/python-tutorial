@@ -1,0 +1,256 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Python Tutorial",
+    "section": "",
+    "text": "Python Tutorial\nWelcome to the comprehensive Python programming tutorial by Ameyanagi. This tutorial covers Python from basics to advanced applications, with support for multiple languages and formats.",
+    "crumbs": [
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "index.html#tutorial-features",
+    "href": "index.html#tutorial-features",
+    "title": "Python Tutorial",
+    "section": "🚀 Tutorial Features",
+    "text": "🚀 Tutorial Features\n\nMulti-format Learning: Books, slides, and interactive content\nBilingual Support: English and Japanese versions\nComprehensive Coverage: From Python basics to data science\nModern Development: Using uv, VS Code, and best practices\nReal-world Applications: Practical projects and examples",
+    "crumbs": [
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "index.html#available-formats",
+    "href": "index.html#available-formats",
+    "title": "Python Tutorial",
+    "section": "📚 Available Formats",
+    "text": "📚 Available Formats\n\n📖 Books (Comprehensive Guides)\n\n\n🇺🇸 English Version\nComplete Python tutorial with 12 chapters covering: - Environment setup and Git integration - Python syntax and data structures\n- Functions and error handling - Object-oriented programming - Advanced topics (async, type hints) - Real-world applications (data science, web development)\n📖 Read English Book →\n\n\n🇯🇵 Japanese Version (日本語版)\nPython完全ガイド - 12章で構成: - 環境設定とGit統合 - Python構文とデータ構造 - 関数とエラー処理\n- オブジェクト指向プログラミング - 高度なトピック（非同期、型ヒント） - 実世界のアプリケーション（データサイエンス、Web開発）\n📖 日本語版を読む →\n\n\n\n\n🎯 Slides (Interactive Presentations)\nPerfect for lectures, workshops, and quick learning sessions:\n\n\nCore Concepts\n\n📊 Data Types & Collections\n🔄 Control Flow\n⚙️ Functions\n🛡️ Error Handling\n\n\n\nCode Organization\n\n📦 Modules & Packages\n🏗️ Classes & Objects\n🔄 Inheritance\n\n\n\nAdvanced Topics\n\n🏷️ Type Hints\n📊 Data Science",
+    "crumbs": [
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "index.html#development-environment",
+    "href": "index.html#development-environment",
+    "title": "Python Tutorial",
+    "section": "🛠️ Development Environment",
+    "text": "🛠️ Development Environment\nThis tutorial teaches modern Python development using:\n\nuv: Modern Python package manager\nVS Code: Integrated development environment\nruff: Fast Python linter and formatter\npyright: Static type checker\nGit: Version control integration\nQuarto: Multi-format publishing",
+    "crumbs": [
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "index.html#learning-path",
+    "href": "index.html#learning-path",
+    "title": "Python Tutorial",
+    "section": "📋 Learning Path",
+    "text": "📋 Learning Path\n\n👶 Beginners\n\nStart with Environment Setup\nLearn Git & GitHub\nMaster Python Syntax\nPractice with Data Types\n\n\n\n🎓 Intermediate\n\nUnderstand Control Flow\nLearn Functions\nComplete Self-Review\nExplore Object-Oriented Programming\n\n\n\n🚀 Advanced\n\nMaster Inheritance\nUse Type Hints\nLearn Async Programming\nApply Data Science",
+    "crumbs": [
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "index.html#quick-start",
+    "href": "index.html#quick-start",
+    "title": "Python Tutorial",
+    "section": "🎯 Quick Start",
+    "text": "🎯 Quick Start\n\nFor Self-Study\n\nChoose your preferred language (English/Japanese)\nFollow the learning path sequentially\nComplete exercises in each chapter\nBuild the capstone projects\n\n\n\nFor Instructors\n\nUse slides for classroom presentations\nAssign book chapters for reading\nLeverage built-in exercises and self-review sections\nAdapt content for your curriculum\n\n\n\nFor Developers\n\nJump to specific topics you need\nUse as a reference guide\nFollow best practices demonstrated\nIntegrate modern tooling into your workflow",
+    "crumbs": [
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "index.html#code-examples",
+    "href": "index.html#code-examples",
+    "title": "Python Tutorial",
+    "section": "💻 Code Examples",
+    "text": "💻 Code Examples\nAll code examples are: - ✅ Tested and verified - ✅ Copy-paste ready - ✅ Following best practices - ✅ Progressively complex",
+    "crumbs": [
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "index.html#contributing",
+    "href": "index.html#contributing",
+    "title": "Python Tutorial",
+    "section": "🤝 Contributing",
+    "text": "🤝 Contributing\nThis tutorial is open source and welcomes contributions:\n\n🐛 Report issues\n💡 Suggest improvements\n\n🌍 Help with translations\n📝 Add examples and exercises\n\nContribute on GitHub →",
+    "crumbs": [
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "index.html#responsive-design",
+    "href": "index.html#responsive-design",
+    "title": "Python Tutorial",
+    "section": "📱 Responsive Design",
+    "text": "📱 Responsive Design\nThis tutorial works perfectly on: - 💻 Desktop computers - 📱 Mobile devices - 📓 Tablets - 📊 Projectors (for slides)",
+    "crumbs": [
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "index.html#latest-updates",
+    "href": "index.html#latest-updates",
+    "title": "Python Tutorial",
+    "section": "🆕 Latest Updates",
+    "text": "🆕 Latest Updates\n\n✨ Comprehensive slide presentations for interactive learning\n🇯🇵 Japanese translations for key chapters\n🔬 Data science applications with real-world examples\n⚡ Modern tooling integration (uv, ruff, pyright)\n🎯 Type hints coverage for robust code development\n\n\n\n\nReady to start your Python journey?\n\n\nChoose your learning format and begin today!\n\n📖 Start with Books 🎯 View Slides\n\nBuilt with ❤️ by Ameyanagi using Quarto, Python, and modern development tools.",
+    "crumbs": [
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "en/index.html",
+    "href": "en/index.html",
+    "title": "Python Tutorial",
+    "section": "",
+    "text": "What You’ll Learn\nWelcome to the comprehensive Python tutorial! This book will take you from Python basics to advanced applications.\nThis tutorial is designed for mixed skill levels and covers:",
+    "crumbs": [
+      "Language Versions",
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "en/index.html#what-youll-learn",
+    "href": "en/index.html#what-youll-learn",
+    "title": "Python Tutorial",
+    "section": "",
+    "text": "Environment Setup - uv, poetry, miniforge, Git/GitHub, VS Code\nPython Basics - Syntax, data types, control flow, functions\n\nObject-Oriented Programming - Classes, inheritance, advanced patterns\nAdvanced Topics - Type hints, async programming, multiprocessing\nReal Applications - Data science, automation, web development",
+    "crumbs": [
+      "Language Versions",
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "en/index.html#tutorial-features",
+    "href": "en/index.html#tutorial-features",
+    "title": "Python Tutorial",
+    "section": "Tutorial Features",
+    "text": "Tutorial Features\n\n🖥️ Interactive Examples - Code with execution output\n📝 Exercises & Quizzes - Test your understanding\n🚀 Hands-on Projects - Build real applications\n🎯 Multiple Formats - Book, slides, PDF\n🌐 Bilingual - Available in English and Japanese",
+    "crumbs": [
+      "Language Versions",
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "en/index.html#prerequisites",
+    "href": "en/index.html#prerequisites",
+    "title": "Python Tutorial",
+    "section": "Prerequisites",
+    "text": "Prerequisites\n\nBasic computer literacy\nWillingness to learn and experiment\nPython 3.12+ (we’ll help you install it!)",
+    "crumbs": [
+      "Language Versions",
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "en/index.html#how-to-use-this-tutorial",
+    "href": "en/index.html#how-to-use-this-tutorial",
+    "title": "Python Tutorial",
+    "section": "How to Use This Tutorial",
+    "text": "How to Use This Tutorial\n\nLinear Learning - Follow chapters in order for best results\nPractice Code - Run every example yourself\nComplete Exercises - Reinforce your learning\nBuild Projects - Apply knowledge to real problems",
+    "crumbs": [
+      "Language Versions",
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "en/index.html#book-chapters",
+    "href": "en/index.html#book-chapters",
+    "title": "Python Tutorial",
+    "section": "📚 Book Chapters",
+    "text": "📚 Book Chapters\nReady to start your Python journey? Let’s begin with Environment Setup!",
+    "crumbs": [
+      "Language Versions",
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "en/index.html#interactive-revealjs-slides",
+    "href": "en/index.html#interactive-revealjs-slides",
+    "title": "Python Tutorial",
+    "section": "🎬 Interactive RevealJS Slides",
+    "text": "🎬 Interactive RevealJS Slides\nProfessional presentation slides with full navigation controls:\n\nCore Python Concepts\n\n🚀 Introduction & Setup - Get started with Python and uv\n📊 Data Types & Collections - Lists, dictionaries, sets\n🔀 Control Flow - If/else statements, loops\n⚙️ Functions - Reusable code blocks\n🚨 Error Handling - Try/except patterns\n\n\n\nCode Organization\n\n📦 Modules & Packages - Code organization\n🏗️ Classes & Objects - Object-oriented programming\n🔗 Inheritance - Advanced OOP concepts\n🏷️ Type Hints - Modern Python typing\n\n\n\nAdvanced Applications\n\n📈 Data Science - NumPy, Pandas, Machine Learning\n🌐 IoT Connectivity - Serial, Modbus, InfluxDB\n\n\n\n🎮 RevealJS Features:\n\nNavigation: Arrow keys, mouse clicks, touch gestures\nShortcuts: ESC (overview), F (fullscreen), S (speaker view)\nInteractive: Chalkboard (B key), Menu, Progress bar\n\n\n🎌 日本語版をお探しですか？ こちらから日本語版にアクセスできます",
+    "crumbs": [
+      "Language Versions",
+      "Python Tutorial"
+    ]
+  },
+  {
+    "objectID": "ja/index.html",
+    "href": "ja/index.html",
+    "title": "Python チュートリアル",
+    "section": "",
+    "text": "学習内容\n包括的な Python チュートリアルへようこそ！この本では Python の基礎から応用まで学習できます。\nこのチュートリアルは様々なスキルレベルに対応し、以下の内容をカバーします：",
+    "crumbs": [
+      "Language Versions",
+      "Python チュートリアル"
+    ]
+  },
+  {
+    "objectID": "ja/index.html#学習内容",
+    "href": "ja/index.html#学習内容",
+    "title": "Python チュートリアル",
+    "section": "",
+    "text": "環境構築 - uv、poetry、miniforge、Git/GitHub、VS Code\nPython の基本 - 構文、データ型、制御フロー、関数\nオブジェクト指向プログラミング - クラス、継承、高度なパターン\n高度なトピック - 型ヒント、非同期プログラミング、マルチプロセシング\n実際の応用 - データサイエンス、自動化、Web 開発",
+    "crumbs": [
+      "Language Versions",
+      "Python チュートリアル"
+    ]
+  },
+  {
+    "objectID": "ja/index.html#チュートリアルの特徴",
+    "href": "ja/index.html#チュートリアルの特徴",
+    "title": "Python チュートリアル",
+    "section": "チュートリアルの特徴",
+    "text": "チュートリアルの特徴\n\n🖥️ インタラクティブな例 - 実行結果付きのコード\n📝 演習とクイズ - 理解度をテスト\n🚀 実践プロジェクト - 実際のアプリケーションを構築\n🎯 複数の形式 - 書籍、スライド、PDF\n🌐 バイリンガル - 英語と日本語で利用可能",
+    "crumbs": [
+      "Language Versions",
+      "Python チュートリアル"
+    ]
+  },
+  {
+    "objectID": "ja/index.html#前提条件",
+    "href": "ja/index.html#前提条件",
+    "title": "Python チュートリアル",
+    "section": "前提条件",
+    "text": "前提条件\n\n基本的なコンピュータリテラシー\n学習と実験への意欲\nPython 3.12+（インストール方法も説明します！）",
+    "crumbs": [
+      "Language Versions",
+      "Python チュートリアル"
+    ]
+  },
+  {
+    "objectID": "ja/index.html#このチュートリアルの使い方",
+    "href": "ja/index.html#このチュートリアルの使い方",
+    "title": "Python チュートリアル",
+    "section": "このチュートリアルの使い方",
+    "text": "このチュートリアルの使い方\n\n順次学習 - 最良の結果を得るために章順に進む\nコード実践 - すべての例を自分で実行する\n演習完了 - 学習を強化する\nプロジェクト構築 - 実際の問題に知識を適用する",
+    "crumbs": [
+      "Language Versions",
+      "Python チュートリアル"
+    ]
+  },
+  {
+    "objectID": "ja/index.html#書籍チャプター",
+    "href": "ja/index.html#書籍チャプター",
+    "title": "Python チュートリアル",
+    "section": "📚 書籍チャプター",
+    "text": "📚 書籍チャプター\nPython の旅を始める準備はできましたか？環境構築から始めましょう！",
+    "crumbs": [
+      "Language Versions",
+      "Python チュートリアル"
+    ]
+  },
+  {
+    "objectID": "ja/index.html#インタラクティブ-revealjs-スライド",
+    "href": "ja/index.html#インタラクティブ-revealjs-スライド",
+    "title": "Python チュートリアル",
+    "section": "🎬 インタラクティブ RevealJS スライド",
+    "text": "🎬 インタラクティブ RevealJS スライド\n完全なナビゲーション機能付きプロフェッショナルプレゼンテーション：\n\n利用可能なスライド\n\n🚀 導入とセットアップ - Python と uv を始める\n📊 データ型とコレクション - リスト、辞書、セット\n⚙️ 関数 - 再利用可能なコードブロック\n🌐 IoT 接続と産業プロトコル - シリアル、Modbus、InfluxDB\n\n\n\n🎮 RevealJS 機能:\n\nナビゲーション: 矢印キー、マウスクリック、タッチジェスチャー\nショートカット: ESC (概要表示), F (フルスクリーン), S (発表者モード)\nインタラクティブ: チョークボード (B キー)、メニュー、プログレスバー\n\n\n\n📝 その他のスライド準備中:\n\n制御フロー (if/else、ループ)\nエラーハンドリング\n\nモジュールとパッケージ\nクラスとオブジェクト\n継承\n型ヒント\nデータサイエンス\n\n英語版では全スライドが利用可能です\n\n🇺🇸 Looking for the English version? Access the English version here",
+    "crumbs": [
+      "Language Versions",
+      "Python チュートリアル"
+    ]
+  }
+]

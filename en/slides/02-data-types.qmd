@@ -1,41 +1,6 @@
 ---
 title: "Data Types and Collections"
 subtitle: "Python's Built-in Data Structures"
-format: 
-  revealjs:
-    theme: default
-    transition: slide
-    background-transition: fade
-    highlight-style: github
-    code-fold: false
-    controls: true
-    controlsLayout: edges
-    controlsTutorial: true
-    progress: true
-    slideNumber: true
-    chalkboard: true
-    menu: true
-    keyboard: true
-    overview: true
-    touch: true
-    hash: true
-    history: true
-    previewLinks: auto
-    
-    footer: "Python Tutorial - Data Types"
-    width: 1050
-    height: 700
-    margin: 0.1
-    center: false
-    navigationMode: linear
-    loop: false
-    rtl: false
-    # Mobile-specific optimizations
-    mobileViewDistance: 2
-    embedded: false
-    minScale: 0.2
-    maxScale: 2.0
-    disableLayout: false
 ---
 
 # Data Types & Collections {background-color="#2E86AB"}
@@ -342,7 +307,6 @@ most_common = max(result.items(), key=lambda x: x[1])
 
 Ready to continue with [Control Flow](../book/05-control-flow.html)?
 
----
 
 **Practice more:**
 - Build a contact book with dictionaries
