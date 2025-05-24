@@ -40,9 +40,9 @@ format:
     code-tools: true
     echo: true
     eval: false
-    filters:
-      - live
-      - drop
+# filters:
+    #   - live
+    #   - drop
     logo: shared/python-logo.svg
     navbar:
       background: primary
