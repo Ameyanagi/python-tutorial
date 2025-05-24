@@ -6,7 +6,7 @@ project:
 
 format:
   revealjs:
-    theme: dark
+    theme: dracula
     transition: slide
     background-transition: fade
     highlight-style: dracula
