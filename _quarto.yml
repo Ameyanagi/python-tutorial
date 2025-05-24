@@ -1,25 +1,41 @@
 project:
-  type: book
+  type: website
   output-dir: docs
   
-book:
+website:
   title: "Python Tutorial"
-  subtitle: "From Basics to Advanced Applications"
-  author: "Ameyanagi"
-  date: today
-  
-  chapters:
-    - index.qmd
-    - part: "Language Versions"
-      chapters:
-        - en/index.qmd
-        - ja/index.qmd
+  description: "From Basics to Advanced Applications"
+  navbar:
+    background: primary
+    search: true
+    logo: en/shared/python-logo.svg
+    left:
+      - text: "🏠 Home"
+        href: "index.html"
+      - text: "📖 English Book"
+        href: "en/book/index.html"
+      - text: "📖 日本語ブック"  
+        href: "ja/book/index.html"
+      - text: "🎯 English Slides"
+        href: "en/slides/index.html"
+      - text: "🎯 日本語スライド"
+        href: "ja/slides/index.html"
+    right:
+      - icon: github
+        href: "https://github.com/ameyanagi/python-tutorial"
+      - icon: sun
+        text: "Theme"
+        menu:
+          - text: "☀️ Light"
+            theme: light
+          - text: "🌙 Dark"
+            theme: dark
 
 format:
   html:
-    theme: 
-      - cosmo
-      - custom.scss
+    theme:
+      light: [cosmo, custom.scss]
+      dark: [darkly, custom.scss]
     css: styles.css
     toc: true
     toc-depth: 3
@@ -27,6 +43,7 @@ format:
     highlight-style: github
     code-fold: false
     code-tools: true
+    theme-toggle: true
     
   pdf:
     documentclass: scrreprt
@@ -34,14 +51,3 @@ format:
     number-sections: true
     colorlinks: true
 
-website:
-  title: "Python Tutorial"
-  navbar:
-    left:
-      - text: "English"
-        href: en/book/index.html
-      - text: "日本語"  
-        href: ja/book/index.html
-    right:
-      - icon: github
-        href: https://github.com/ameyanagi/python-tutorial

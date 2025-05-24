@@ -38,7 +38,7 @@ Welcome to the comprehensive Python programming tutorial by **Ameyanagi**. This 
 - Advanced topics (async, type hints)
 - Real-world applications (data science, web development)
 
-[**📖 Read English Book →**](en/index.html){.btn .btn-primary .btn-lg}
+[**📖 Read English Book →**](en/book/index.html){.btn .btn-primary .btn-lg}
 
 </div>
 <div class="g-col-12 g-col-md-6">
@@ -52,7 +52,7 @@ Welcome to the comprehensive Python programming tutorial by **Ameyanagi**. This 
 - 高度なトピック（非同期、型ヒント）
 - 実世界のアプリケーション（データサイエンス、Web開発）
 
-[**📖 日本語版を読む →**](ja/index.html){.btn .btn-primary .btn-lg}
+[**📖 日本語版を読む →**](ja/book/index.html){.btn .btn-primary .btn-lg}
 
 </div>
 </div>
@@ -135,22 +135,22 @@ This tutorial teaches modern Python development using:
 ## 📋 Learning Path
 
 ### 👶 Beginners
-1. Start with [Environment Setup](en/book/01-setup.html)
-2. Learn [Git & GitHub](en/book/02-git-github.html)
-3. Master [Python Syntax](en/book/03-syntax.html)
-4. Practice with [Data Types](en/book/04-data-types.html)
+1. Start with [Environment Setup](en/book/book/01-setup.html)
+2. Learn [Git & GitHub](en/book/book/02-git-github.html)
+3. Master [Python Syntax](en/book/book/03-syntax.html)
+4. Practice with [Data Types](en/book/book/04-data-types.html)
 
 ### 🎓 Intermediate
-1. Understand [Control Flow](en/book/05-control-flow.html)
-2. Learn [Functions](en/book/06-functions.html)
-3. Complete [Self-Review](en/book/self-review-1.html)
-4. Explore [Object-Oriented Programming](en/book/07-classes.html)
+1. Understand [Control Flow](en/book/book/05-control-flow.html)
+2. Learn [Functions](en/book/book/06-functions.html)
+3. Complete [Self-Review](en/book/book/self-review-1.html)
+4. Explore [Object-Oriented Programming](en/book/book/07-classes.html)
 
 ### 🚀 Advanced
-1. Master [Inheritance](en/book/08-inheritance.html)
-2. Use [Type Hints](en/book/09-type-hints.html)
-3. Learn [Async Programming](en/book/10-async.html)
-4. Apply [Data Science](en/book/12-data-science.html)
+1. Master [Inheritance](en/book/book/08-inheritance.html)
+2. Use [Type Hints](en/book/book/09-type-hints.html)
+3. Learn [Async Programming](en/book/book/10-async.html)
+4. Apply [Data Science](en/book/book/12-data-science.html)
 
 ## 🎯 Quick Start
 
