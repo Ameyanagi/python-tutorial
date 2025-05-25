@@ -6,7 +6,7 @@
 <script src="02-data-types_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="02-data-types_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="02-data-types_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="02-data-types_files/libs/quarto-html/quarto-syntax-highlighting-dark-46f4cc9626f044588a66931b604fc9c8.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="02-data-types_files/libs/quarto-html/quarto-syntax-highlighting-dark-ed09741bc9a4bc7923efc7a27dab3f48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.7.31">
 
   <title>データ型とコレクション</title>
@@ -58,46 +58,48 @@
       }
     pre.numberSource { margin-left: 3em;  padding-left: 4px; }
     div.sourceCode
-      { color: #e1e4e8; background-color: #24292e; }
+      { color: #f8f8f2; background-color: #282a36; }
     @media screen {
     pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
     }
-    code span { color: #e1e4e8; } /* Normal */
+    code span { color: #f8f8f2; } /* Normal */
     code span.al { color: #ff5555; font-weight: bold; } /* Alert */
-    code span.an { color: #6a737d; } /* Annotation */
-    code span.at { color: #f97583; } /* Attribute */
-    code span.bn { color: #79b8ff; } /* BaseN */
-    code span.bu { color: #f97583; } /* BuiltIn */
-    code span.cf { color: #f97583; } /* ControlFlow */
-    code span.ch { color: #9ecbff; } /* Char */
-    code span.cn { color: #79b8ff; } /* Constant */
-    code span.co { color: #6a737d; } /* Comment */
-    code span.cv { color: #6a737d; } /* CommentVar */
-    code span.do { color: #6a737d; } /* Documentation */
-    code span.dt { color: #f97583; } /* DataType */
-    code span.dv { color: #79b8ff; } /* DecVal */
+    code span.an { color: #ff79c6; } /* Annotation */
+    code span.at { color: #ff79c6; } /* Attribute */
+    code span.bn { color: #bd93f9; } /* BaseN */
+    code span.bu { color: #8be9fd; } /* BuiltIn */
+    code span.cf { color: #ff79c6; } /* ControlFlow */
+    code span.ch { color: #f1fa8c; } /* Char */
+    code span.cn { color: #bd93f9; font-weight: bold; } /* Constant */
+    code span.co { color: #6272a4; } /* Comment */
+    code span.cv { color: #8be9fd; } /* CommentVar */
+    code span.do { color: #ffb86c; } /* Documentation */
+    code span.dt { color: #8be9fd; font-style: italic; } /* DataType */
+    code span.dv { color: #bd93f9; } /* DecVal */
     code span.er { color: #ff5555; text-decoration: underline; } /* Error */
-    code span.ex { color: #f97583; font-weight: bold; } /* Extension */
-    code span.fl { color: #79b8ff; } /* Float */
-    code span.fu { color: #b392f0; } /* Function */
-    code span.im { color: #9ecbff; } /* Import */
-    code span.in { color: #6a737d; } /* Information */
-    code span.kw { color: #f97583; } /* Keyword */
-    code span.op { color: #e1e4e8; } /* Operator */
-    code span.ot { color: #b392f0; } /* Other */
-    code span.pp { color: #f97583; } /* Preprocessor */
-    code span.re { color: #6a737d; } /* RegionMarker */
-    code span.sc { color: #79b8ff; } /* SpecialChar */
-    code span.ss { color: #9ecbff; } /* SpecialString */
-    code span.st { color: #9ecbff; } /* String */
-    code span.va { color: #ffab70; } /* Variable */
-    code span.vs { color: #9ecbff; } /* VerbatimString */
+    code span.ex { color: #8be9fd; } /* Extension */
+    code span.fl { color: #bd93f9; } /* Float */
+    code span.fu { color: #50fa7b; } /* Function */
+    code span.im { color: #ff79c6; } /* Import */
+    code span.in { color: #f1fa8c; } /* Information */
+    code span.kw { color: #ff79c6; } /* Keyword */
+    code span.op { color: #f8f8f2; } /* Operator */
+    code span.ot { color: #50fa7b; } /* Other */
+    code span.pp { color: #ff79c6; } /* Preprocessor */
+    code span.re { color: #8be9fd; } /* RegionMarker */
+    code span.sc { color: #ff79c6; } /* SpecialChar */
+    code span.ss { color: #f1fa8c; } /* SpecialString */
+    code span.st { color: #f1fa8c; } /* String */
+    code span.va { color: #8be9fd; } /* Variable */
+    code span.vs { color: #f1fa8c; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="02-data-types_files/libs/revealjs/dist/theme/quarto-091ebfb71d12db7fc524ec91495e1509.css">
+  <link rel="stylesheet" href="02-data-types_files/libs/revealjs/dist/theme/quarto-3b129a9275a5ffe3026525a34ddd15b4.css">
   <link href="02-data-types_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="02-data-types_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="02-data-types_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="02-data-types_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="02-data-types_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
   <link href="02-data-types_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -235,14 +237,22 @@
 </section>
 <section id="ブール型と-none" class="slide level2 smaller">
 <h2>ブール型と None</h2>
-<div id="9fe12f7e" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-stdout">
-<pre><code>is_valid の型: &lt;class 'bool'&gt;
-result の型: &lt;class 'NoneType'&gt;
-True and False = False
-True or False = True
-not True = False</code></pre>
-</div>
+<div id="1262bcc1" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># ブール型</span></span>
+<span id="cb3-2"><a href=""></a>is_valid <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb3-3"><a href=""></a>is_empty <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb3-4"><a href=""></a></span>
+<span id="cb3-5"><a href=""></a><span class="co"># None 型（値がない状態）</span></span>
+<span id="cb3-6"><a href=""></a>result <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb3-7"><a href=""></a></span>
+<span id="cb3-8"><a href=""></a><span class="co"># 型の確認</span></span>
+<span id="cb3-9"><a href=""></a><span class="bu">print</span>(<span class="ss">f"is_valid の型: </span><span class="sc">{</span><span class="bu">type</span>(is_valid)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-10"><a href=""></a><span class="bu">print</span>(<span class="ss">f"result の型: </span><span class="sc">{</span><span class="bu">type</span>(result)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-11"><a href=""></a></span>
+<span id="cb3-12"><a href=""></a><span class="co"># 真偽値の評価</span></span>
+<span id="cb3-13"><a href=""></a><span class="bu">print</span>(<span class="ss">f"True and False = </span><span class="sc">{</span><span class="va">True</span> <span class="kw">and</span> <span class="va">False</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-14"><a href=""></a><span class="bu">print</span>(<span class="ss">f"True or False = </span><span class="sc">{</span><span class="va">True</span> <span class="kw">or</span> <span class="va">False</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-15"><a href=""></a><span class="bu">print</span>(<span class="ss">f"not True = </span><span class="sc">{</span><span class="kw">not</span> <span class="va">True</span><span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -252,38 +262,55 @@ not True = False</code></pre>
 </section>
 <section id="リストの基本" class="slide level2 smaller">
 <h2>リストの基本</h2>
-<div id="835273c8" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-stdout">
-<pre><code>果物: ['りんご', 'バナナ', 'オレンジ']
-数値: [1, 2, 3, 4, 5]
-混合: ['テキスト', 42, True, None]
-果物の数: 3</code></pre>
-</div>
+<div id="73b71e22" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># リストの作成</span></span>
+<span id="cb4-2"><a href=""></a>fruits <span class="op">=</span> [<span class="st">"りんご"</span>, <span class="st">"バナナ"</span>, <span class="st">"オレンジ"</span>]</span>
+<span id="cb4-3"><a href=""></a>numbers <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb4-4"><a href=""></a>mixed <span class="op">=</span> [<span class="st">"テキスト"</span>, <span class="dv">42</span>, <span class="va">True</span>, <span class="va">None</span>]</span>
+<span id="cb4-5"><a href=""></a></span>
+<span id="cb4-6"><a href=""></a><span class="bu">print</span>(<span class="ss">f"果物: </span><span class="sc">{</span>fruits<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-7"><a href=""></a><span class="bu">print</span>(<span class="ss">f"数値: </span><span class="sc">{</span>numbers<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-8"><a href=""></a><span class="bu">print</span>(<span class="ss">f"混合: </span><span class="sc">{</span>mixed<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-9"><a href=""></a></span>
+<span id="cb4-10"><a href=""></a><span class="co"># リストの長さ</span></span>
+<span id="cb4-11"><a href=""></a><span class="bu">print</span>(<span class="ss">f"果物の数: </span><span class="sc">{</span><span class="bu">len</span>(fruits)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="リストの操作" class="slide level2 smaller">
 <h2>リストの操作</h2>
-<div id="def2d351" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-stdout">
-<pre><code>追加後: ['牛乳', 'パン', '卵', 'バター']
-挿入後: ['牛乳', 'チーズ', 'パン', '卵', 'バター']
-削除後: ['牛乳', 'チーズ', '卵', 'バター']
-最初の項目: 牛乳
-最後の項目: バター</code></pre>
-</div>
+<div id="1716fe5e" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># リストの操作</span></span>
+<span id="cb5-2"><a href=""></a>shopping_list <span class="op">=</span> [<span class="st">"牛乳"</span>, <span class="st">"パン"</span>, <span class="st">"卵"</span>]</span>
+<span id="cb5-3"><a href=""></a></span>
+<span id="cb5-4"><a href=""></a><span class="co"># 要素の追加</span></span>
+<span id="cb5-5"><a href=""></a>shopping_list.append(<span class="st">"バター"</span>)</span>
+<span id="cb5-6"><a href=""></a><span class="bu">print</span>(<span class="ss">f"追加後: </span><span class="sc">{</span>shopping_list<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-7"><a href=""></a></span>
+<span id="cb5-8"><a href=""></a><span class="co"># 要素の挿入</span></span>
+<span id="cb5-9"><a href=""></a>shopping_list.insert(<span class="dv">1</span>, <span class="st">"チーズ"</span>)</span>
+<span id="cb5-10"><a href=""></a><span class="bu">print</span>(<span class="ss">f"挿入後: </span><span class="sc">{</span>shopping_list<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-11"><a href=""></a></span>
+<span id="cb5-12"><a href=""></a><span class="co"># 要素の削除</span></span>
+<span id="cb5-13"><a href=""></a>shopping_list.remove(<span class="st">"パン"</span>)</span>
+<span id="cb5-14"><a href=""></a><span class="bu">print</span>(<span class="ss">f"削除後: </span><span class="sc">{</span>shopping_list<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-15"><a href=""></a></span>
+<span id="cb5-16"><a href=""></a><span class="co"># インデックスによるアクセス</span></span>
+<span id="cb5-17"><a href=""></a><span class="bu">print</span>(<span class="ss">f"最初の項目: </span><span class="sc">{</span>shopping_list[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-18"><a href=""></a><span class="bu">print</span>(<span class="ss">f"最後の項目: </span><span class="sc">{</span>shopping_list[<span class="op">-</span><span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="リストスライシング" class="slide level2 smaller">
 <h2>リストスライシング</h2>
-<div id="2633463e" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-stdout">
-<pre><code>全体: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-最初の3つ: [0, 1, 2]
-最後の3つ: [7, 8, 9]
-中間部分: [3, 4, 5, 6]
-偶数インデックス: [0, 2, 4, 6, 8]
-逆順: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]</code></pre>
-</div>
+<div id="6ec92b24" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># スライシング</span></span>
+<span id="cb6-2"><a href=""></a>numbers <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
+<span id="cb6-3"><a href=""></a></span>
+<span id="cb6-4"><a href=""></a><span class="bu">print</span>(<span class="ss">f"全体: </span><span class="sc">{</span>numbers<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-5"><a href=""></a><span class="bu">print</span>(<span class="ss">f"最初の3つ: </span><span class="sc">{</span>numbers[:<span class="dv">3</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-6"><a href=""></a><span class="bu">print</span>(<span class="ss">f"最後の3つ: </span><span class="sc">{</span>numbers[<span class="op">-</span><span class="dv">3</span>:]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-7"><a href=""></a><span class="bu">print</span>(<span class="ss">f"中間部分: </span><span class="sc">{</span>numbers[<span class="dv">3</span>:<span class="dv">7</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-8"><a href=""></a><span class="bu">print</span>(<span class="ss">f"偶数インデックス: </span><span class="sc">{</span>numbers[::<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-9"><a href=""></a><span class="bu">print</span>(<span class="ss">f"逆順: </span><span class="sc">{</span>numbers[::<span class="op">-</span><span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -293,25 +320,41 @@ not True = False</code></pre>
 </section>
 <section id="辞書の基本" class="slide level2 smaller">
 <h2>辞書の基本</h2>
-<div id="e8424930" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-stdout">
-<pre><code>人物情報: {'名前': '田中太郎', '年齢': 30, '職業': 'エンジニア', '趣味': ['読書', '映画', 'プログラミング']}
-名前: 田中太郎
-年齢: 30</code></pre>
-</div>
+<div id="7934afea" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># 辞書の作成</span></span>
+<span id="cb7-2"><a href=""></a>person <span class="op">=</span> {</span>
+<span id="cb7-3"><a href=""></a>    <span class="st">"名前"</span>: <span class="st">"田中太郎"</span>,</span>
+<span id="cb7-4"><a href=""></a>    <span class="st">"年齢"</span>: <span class="dv">30</span>,</span>
+<span id="cb7-5"><a href=""></a>    <span class="st">"職業"</span>: <span class="st">"エンジニア"</span>,</span>
+<span id="cb7-6"><a href=""></a>    <span class="st">"趣味"</span>: [<span class="st">"読書"</span>, <span class="st">"映画"</span>, <span class="st">"プログラミング"</span>]</span>
+<span id="cb7-7"><a href=""></a>}</span>
+<span id="cb7-8"><a href=""></a></span>
+<span id="cb7-9"><a href=""></a><span class="bu">print</span>(<span class="ss">f"人物情報: </span><span class="sc">{</span>person<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-10"><a href=""></a><span class="bu">print</span>(<span class="ss">f"名前: </span><span class="sc">{</span>person[<span class="st">'名前'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-11"><a href=""></a><span class="bu">print</span>(<span class="ss">f"年齢: </span><span class="sc">{</span>person[<span class="st">'年齢'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="辞書の操作" class="slide level2 smaller">
 <h2>辞書の操作</h2>
-<div id="746a5d81" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-stdout">
-<pre><code>科目追加後: {'数学': 85, '英語': 92, '理科': 78, '社会': 88}
-更新後: {'数学': 90, '英語': 92, '理科': 78, '社会': 88}
-英語の成績はある？ True
-音楽の成績はある？ False
-科目: ['数学', '英語', '理科', '社会']
-成績: [90, 92, 78, 88]</code></pre>
-</div>
+<div id="e9ef1169" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># 辞書の操作</span></span>
+<span id="cb8-2"><a href=""></a>student_grades <span class="op">=</span> {<span class="st">"数学"</span>: <span class="dv">85</span>, <span class="st">"英語"</span>: <span class="dv">92</span>, <span class="st">"理科"</span>: <span class="dv">78</span>}</span>
+<span id="cb8-3"><a href=""></a></span>
+<span id="cb8-4"><a href=""></a><span class="co"># 新しいキーと値の追加</span></span>
+<span id="cb8-5"><a href=""></a>student_grades[<span class="st">"社会"</span>] <span class="op">=</span> <span class="dv">88</span></span>
+<span id="cb8-6"><a href=""></a><span class="bu">print</span>(<span class="ss">f"科目追加後: </span><span class="sc">{</span>student_grades<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-7"><a href=""></a></span>
+<span id="cb8-8"><a href=""></a><span class="co"># 値の更新</span></span>
+<span id="cb8-9"><a href=""></a>student_grades[<span class="st">"数学"</span>] <span class="op">=</span> <span class="dv">90</span></span>
+<span id="cb8-10"><a href=""></a><span class="bu">print</span>(<span class="ss">f"更新後: </span><span class="sc">{</span>student_grades<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-11"><a href=""></a></span>
+<span id="cb8-12"><a href=""></a><span class="co"># キーの確認</span></span>
+<span id="cb8-13"><a href=""></a><span class="bu">print</span>(<span class="ss">f"英語の成績はある？ </span><span class="sc">{</span><span class="st">'英語'</span> <span class="kw">in</span> student_grades<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-14"><a href=""></a><span class="bu">print</span>(<span class="ss">f"音楽の成績はある？ </span><span class="sc">{</span><span class="st">'音楽'</span> <span class="kw">in</span> student_grades<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-15"><a href=""></a></span>
+<span id="cb8-16"><a href=""></a><span class="co"># すべてのキーと値</span></span>
+<span id="cb8-17"><a href=""></a><span class="bu">print</span>(<span class="ss">f"科目: </span><span class="sc">{</span><span class="bu">list</span>(student_grades.keys())<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-18"><a href=""></a><span class="bu">print</span>(<span class="ss">f"成績: </span><span class="sc">{</span><span class="bu">list</span>(student_grades.values())<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -321,26 +364,41 @@ not True = False</code></pre>
 </section>
 <section id="タプル変更不可" class="slide level2 smaller">
 <h2>タプル（変更不可）</h2>
-<div id="089cec86" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-stdout">
-<pre><code>座標: (10, 20)
-RGB色: (255, 128, 0)
-人物情報: ('山田花子', 25, 'デザイナー')
-X座標: 10, Y座標: 20
-名前: 山田花子, 年齢: 25, 職業: デザイナー</code></pre>
-</div>
+<div id="2b71d2f9" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># タプルの作成</span></span>
+<span id="cb9-2"><a href=""></a>coordinates <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">20</span>)</span>
+<span id="cb9-3"><a href=""></a>rgb_color <span class="op">=</span> (<span class="dv">255</span>, <span class="dv">128</span>, <span class="dv">0</span>)</span>
+<span id="cb9-4"><a href=""></a>person_info <span class="op">=</span> (<span class="st">"山田花子"</span>, <span class="dv">25</span>, <span class="st">"デザイナー"</span>)</span>
+<span id="cb9-5"><a href=""></a></span>
+<span id="cb9-6"><a href=""></a><span class="bu">print</span>(<span class="ss">f"座標: </span><span class="sc">{</span>coordinates<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-7"><a href=""></a><span class="bu">print</span>(<span class="ss">f"RGB色: </span><span class="sc">{</span>rgb_color<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-8"><a href=""></a><span class="bu">print</span>(<span class="ss">f"人物情報: </span><span class="sc">{</span>person_info<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-9"><a href=""></a></span>
+<span id="cb9-10"><a href=""></a><span class="co"># タプルのアンパック</span></span>
+<span id="cb9-11"><a href=""></a>x, y <span class="op">=</span> coordinates</span>
+<span id="cb9-12"><a href=""></a>name, age, job <span class="op">=</span> person_info</span>
+<span id="cb9-13"><a href=""></a></span>
+<span id="cb9-14"><a href=""></a><span class="bu">print</span>(<span class="ss">f"X座標: </span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">, Y座標: </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-15"><a href=""></a><span class="bu">print</span>(<span class="ss">f"名前: </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">, 年齢: </span><span class="sc">{</span>age<span class="sc">}</span><span class="ss">, 職業: </span><span class="sc">{</span>job<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="セット重複なし" class="slide level2 smaller">
 <h2>セット（重複なし）</h2>
-<div id="40ff7692" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-stdout">
-<pre><code>ユニークな数値: {1, 2, 3, 4, 5}
-色セット: {'赤', '青', '緑', '黄'}
-和集合: {1, 2, 3, 4, 5, 6}
-積集合: {3, 4}
-差集合: {1, 2}</code></pre>
-</div>
+<div id="fe758204" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># セットの作成</span></span>
+<span id="cb10-2"><a href=""></a>unique_numbers <span class="op">=</span> {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>}</span>
+<span id="cb10-3"><a href=""></a>colors <span class="op">=</span> {<span class="st">"赤"</span>, <span class="st">"青"</span>, <span class="st">"緑"</span>, <span class="st">"赤"</span>, <span class="st">"黄"</span>}  <span class="co"># 重複は自動削除</span></span>
+<span id="cb10-4"><a href=""></a></span>
+<span id="cb10-5"><a href=""></a><span class="bu">print</span>(<span class="ss">f"ユニークな数値: </span><span class="sc">{</span>unique_numbers<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-6"><a href=""></a><span class="bu">print</span>(<span class="ss">f"色セット: </span><span class="sc">{</span>colors<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-7"><a href=""></a></span>
+<span id="cb10-8"><a href=""></a><span class="co"># セット演算</span></span>
+<span id="cb10-9"><a href=""></a>set1 <span class="op">=</span> {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>}</span>
+<span id="cb10-10"><a href=""></a>set2 <span class="op">=</span> {<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>}</span>
+<span id="cb10-11"><a href=""></a></span>
+<span id="cb10-12"><a href=""></a><span class="bu">print</span>(<span class="ss">f"和集合: </span><span class="sc">{</span>set1 <span class="op">|</span> set2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-13"><a href=""></a><span class="bu">print</span>(<span class="ss">f"積集合: </span><span class="sc">{</span>set1 <span class="op">&amp;</span> set2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-14"><a href=""></a><span class="bu">print</span>(<span class="ss">f"差集合: </span><span class="sc">{</span>set1 <span class="op">-</span> set2<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -350,25 +408,46 @@ X座標: 10, Y座標: 20
 </section>
 <section id="データ処理の例" class="slide level2 smaller">
 <h2>データ処理の例</h2>
-<div id="6781781f" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-stdout">
-<pre><code>田中太郎の平均点: 85.8
-佐藤花子の平均点: 91.0
-鈴木一郎の平均点: 80.2</code></pre>
-</div>
+<div id="c84e9927" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># 学生の成績管理システム</span></span>
+<span id="cb11-2"><a href=""></a>students <span class="op">=</span> [</span>
+<span id="cb11-3"><a href=""></a>    {<span class="st">"名前"</span>: <span class="st">"田中太郎"</span>, <span class="st">"成績"</span>: [<span class="dv">85</span>, <span class="dv">92</span>, <span class="dv">78</span>, <span class="dv">88</span>]},</span>
+<span id="cb11-4"><a href=""></a>    {<span class="st">"名前"</span>: <span class="st">"佐藤花子"</span>, <span class="st">"成績"</span>: [<span class="dv">90</span>, <span class="dv">87</span>, <span class="dv">95</span>, <span class="dv">92</span>]},</span>
+<span id="cb11-5"><a href=""></a>    {<span class="st">"名前"</span>: <span class="st">"鈴木一郎"</span>, <span class="st">"成績"</span>: [<span class="dv">75</span>, <span class="dv">82</span>, <span class="dv">79</span>, <span class="dv">85</span>]}</span>
+<span id="cb11-6"><a href=""></a>]</span>
+<span id="cb11-7"><a href=""></a></span>
+<span id="cb11-8"><a href=""></a><span class="co"># 各学生の平均点を計算</span></span>
+<span id="cb11-9"><a href=""></a><span class="cf">for</span> student <span class="kw">in</span> students:</span>
+<span id="cb11-10"><a href=""></a>    name <span class="op">=</span> student[<span class="st">"名前"</span>]</span>
+<span id="cb11-11"><a href=""></a>    grades <span class="op">=</span> student[<span class="st">"成績"</span>]</span>
+<span id="cb11-12"><a href=""></a>    average <span class="op">=</span> <span class="bu">sum</span>(grades) <span class="op">/</span> <span class="bu">len</span>(grades)</span>
+<span id="cb11-13"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">の平均点: </span><span class="sc">{</span>average<span class="sc">:.1f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="在庫管理システム" class="slide level2 smaller">
 <h2>在庫管理システム</h2>
-<div id="a04ad9cc" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-stdout">
-<pre><code>=== 在庫状況 ===
-りんご: 50個, 単価120円, 総額6000円
-バナナ: 30個, 単価80円, 総額2400円
-オレンジ: 25個, 単価100円, 総額2500円
-
-総在庫価値: 10900円</code></pre>
-</div>
+<div id="628446db" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a><span class="co"># 在庫管理</span></span>
+<span id="cb12-2"><a href=""></a>inventory <span class="op">=</span> {</span>
+<span id="cb12-3"><a href=""></a>    <span class="st">"りんご"</span>: {<span class="st">"数量"</span>: <span class="dv">50</span>, <span class="st">"価格"</span>: <span class="dv">120</span>},</span>
+<span id="cb12-4"><a href=""></a>    <span class="st">"バナナ"</span>: {<span class="st">"数量"</span>: <span class="dv">30</span>, <span class="st">"価格"</span>: <span class="dv">80</span>},</span>
+<span id="cb12-5"><a href=""></a>    <span class="st">"オレンジ"</span>: {<span class="st">"数量"</span>: <span class="dv">25</span>, <span class="st">"価格"</span>: <span class="dv">100</span>}</span>
+<span id="cb12-6"><a href=""></a>}</span>
+<span id="cb12-7"><a href=""></a></span>
+<span id="cb12-8"><a href=""></a><span class="co"># 在庫状況の表示</span></span>
+<span id="cb12-9"><a href=""></a><span class="bu">print</span>(<span class="st">"=== 在庫状況 ==="</span>)</span>
+<span id="cb12-10"><a href=""></a><span class="cf">for</span> item, details <span class="kw">in</span> inventory.items():</span>
+<span id="cb12-11"><a href=""></a>    quantity <span class="op">=</span> details[<span class="st">"数量"</span>]</span>
+<span id="cb12-12"><a href=""></a>    price <span class="op">=</span> details[<span class="st">"価格"</span>]</span>
+<span id="cb12-13"><a href=""></a>    total_value <span class="op">=</span> quantity <span class="op">*</span> price</span>
+<span id="cb12-14"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>item<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>quantity<span class="sc">}</span><span class="ss">個, 単価</span><span class="sc">{</span>price<span class="sc">}</span><span class="ss">円, 総額</span><span class="sc">{</span>total_value<span class="sc">}</span><span class="ss">円"</span>)</span>
+<span id="cb12-15"><a href=""></a></span>
+<span id="cb12-16"><a href=""></a><span class="co"># 合計在庫価値</span></span>
+<span id="cb12-17"><a href=""></a>total_inventory_value <span class="op">=</span> <span class="bu">sum</span>(</span>
+<span id="cb12-18"><a href=""></a>    details[<span class="st">"数量"</span>] <span class="op">*</span> details[<span class="st">"価格"</span>] </span>
+<span id="cb12-19"><a href=""></a>    <span class="cf">for</span> details <span class="kw">in</span> inventory.values()</span>
+<span id="cb12-20"><a href=""></a>)</span>
+<span id="cb12-21"><a href=""></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">総在庫価値: </span><span class="sc">{</span>total_inventory_value<span class="sc">}</span><span class="ss">円"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -445,12 +524,26 @@ X座標: 10, Y座標: 20
 <h2>お疲れさまでした！</h2>
 <p>質問がありましたら、いつでもお気軽にどうぞ！</p>
 <p>次回もお楽しみに！ 🐍📊</p>
+</section>
+<section id="ナビゲーション" class="slide level2">
+<h2>ナビゲーション</h2>
+<div class="columns">
+<div class="column" style="width:33%;">
+<p><strong>前へ:</strong><br>
+<a href="01-intro.html">入門とセットアップ</a></p>
+</div><div class="column" style="width:33%;">
+<p><strong>ホーム:</strong><br>
+<a href="index.html">📚 スライド一覧</a> | <a href="../book/index.html">📖 ブック</a></p>
+</div><div class="column" style="width:33%;">
+<p><strong>次へ:</strong><br>
+<a href="03-control-flow.html">制御フロー</a></p>
+</div></div>
 
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
-
+<p>Python チュートリアル</p>
 </div>
 </div></div>
 
@@ -461,6 +554,7 @@ X座標: 10, Y座標: 20
   <script src="02-data-types_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="02-data-types_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="02-data-types_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="02-data-types_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
   <script src="02-data-types_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -475,22 +569,27 @@ X座標: 10, Y座標: 20
       // Full list of configuration options available at:
       // https://revealjs.com/config/
       Reveal.initialize({
-'controlsAuto': true,
-'previewLinksAuto': false,
+'controlsAuto': false,
+'previewLinksAuto': true,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'scrollProgress': true,
+'scrollSnap': false,
+'scrollLayout': true,
+'scrollActivationWidth': null,
+'menu': {"side":"left","useTextContentForMissingTitles":false,"markers":true,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"},{"title":"📚 ナビゲーション","icon":"<i class=\"fas fa-bars\"></i>","content":"<ul style=\"list-style: none; padding: 0; margin: 0;\">\n  <li style=\"margin: 8px 0;\"><a href=\"index.html\" style=\"color: #bd93f9; text-decoration: none;\">🏠 スライド一覧</a></li>\n  <li style=\"margin: 8px 0;\"><a href=\"../book/index.html\" style=\"color: #bd93f9; text-decoration: none;\">📖 ブック</a></li>\n  <li style=\"margin: 8px 0;\"><a href=\"../../index.html\" style=\"color: #bd93f9; text-decoration: none;\">🏠 メインサイト</a></li>\n  <li style=\"margin: 8px 0;\"><a href=\"https://github.com/ameyanagi/python-tutorial\" style=\"color: #bd93f9; text-decoration: none;\">💻 GitHub</a></li>\n</ul>\n"}],"openButton":true,"width":"normal","numbers":false,"titleSelector":"h1, h2, h3, h4, h5, h6","hideMissingTitles":false},
+'chalkboard': {"buttons":true},
 'smaller': false,
  
         // Display controls in the bottom right corner
-        controls: false,
+        controls: true,
 
         // Help the user learn the controls by providing hints, for example by
         // bouncing the down arrow when they first encounter a vertical slide
-        controlsTutorial: false,
+        controlsTutorial: true,
 
         // Determines where controls appear, "edges" or "bottom-right"
         controlsLayout: 'edges',
@@ -503,7 +602,7 @@ X座標: 10, Y座標: 20
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -635,6 +734,11 @@ X座標: 10, Y座標: 20
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 0.2,
+
+        maxScale: 2,
+
         math: {
           mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
@@ -653,7 +757,7 @@ X座標: 10, Y座標: 20
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
 
           RevealMath,
           RevealNotes,

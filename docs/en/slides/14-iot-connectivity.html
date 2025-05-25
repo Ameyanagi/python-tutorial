@@ -94,7 +94,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="14-iot-connectivity_files/libs/revealjs/dist/theme/quarto-bc4f107ba135cdc10f62bbbaff0f8275.css">
+  <link rel="stylesheet" href="14-iot-connectivity_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
   <link href="14-iot-connectivity_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="14-iot-connectivity_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="14-iot-connectivity_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -826,6 +826,22 @@
 <li><strong>Build production systems</strong> - Scalability, reliability, security</li>
 </ol>
 </section>
+<section class="slide level2">
+
+</section>
+<section id="navigation" class="slide level2">
+<h2>Navigation</h2>
+<div class="columns">
+<div class="column" style="width:33%;">
+<p><strong>Previous:</strong><br>
+<a href="12-data-science.html">Data Science</a></p>
+</div><div class="column" style="width:33%;">
+<p><strong>Home:</strong><br>
+<a href="index.html">📚 Slides Index</a> | <a href="../book/index.html">📖 Book</a></p>
+</div><div class="column" style="width:33%;">
+
+</div></div>
+</section>
 <section id="thank-you" class="slide level2 center">
 <h2>Thank You!</h2>
 <p>Ready to connect the physical and digital worlds with Python!</p>
@@ -834,7 +850,6 @@
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="../shared/python-logo.svg" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>Python Tutorial - IoT Connectivity</p>
 </div>
@@ -869,6 +884,10 @@
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
+'scrollProgress': true,
+'scrollSnap': false,
+'scrollLayout': true,
+'scrollActivationWidth': null,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
 'smaller': false,
@@ -1022,6 +1041,11 @@
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
+
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 0.2,
+
+        maxScale: 2,
 
         math: {
           mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',

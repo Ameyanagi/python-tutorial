@@ -6,7 +6,7 @@
 <script src="04-functions_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="04-functions_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="04-functions_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="04-functions_files/libs/quarto-html/quarto-syntax-highlighting-dark-46f4cc9626f044588a66931b604fc9c8.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="04-functions_files/libs/quarto-html/quarto-syntax-highlighting-dark-ed09741bc9a4bc7923efc7a27dab3f48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.7.31">
 
   <title>関数</title>
@@ -58,46 +58,48 @@
       }
     pre.numberSource { margin-left: 3em;  padding-left: 4px; }
     div.sourceCode
-      { color: #e1e4e8; background-color: #24292e; }
+      { color: #f8f8f2; background-color: #282a36; }
     @media screen {
     pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
     }
-    code span { color: #e1e4e8; } /* Normal */
+    code span { color: #f8f8f2; } /* Normal */
     code span.al { color: #ff5555; font-weight: bold; } /* Alert */
-    code span.an { color: #6a737d; } /* Annotation */
-    code span.at { color: #f97583; } /* Attribute */
-    code span.bn { color: #79b8ff; } /* BaseN */
-    code span.bu { color: #f97583; } /* BuiltIn */
-    code span.cf { color: #f97583; } /* ControlFlow */
-    code span.ch { color: #9ecbff; } /* Char */
-    code span.cn { color: #79b8ff; } /* Constant */
-    code span.co { color: #6a737d; } /* Comment */
-    code span.cv { color: #6a737d; } /* CommentVar */
-    code span.do { color: #6a737d; } /* Documentation */
-    code span.dt { color: #f97583; } /* DataType */
-    code span.dv { color: #79b8ff; } /* DecVal */
+    code span.an { color: #ff79c6; } /* Annotation */
+    code span.at { color: #ff79c6; } /* Attribute */
+    code span.bn { color: #bd93f9; } /* BaseN */
+    code span.bu { color: #8be9fd; } /* BuiltIn */
+    code span.cf { color: #ff79c6; } /* ControlFlow */
+    code span.ch { color: #f1fa8c; } /* Char */
+    code span.cn { color: #bd93f9; font-weight: bold; } /* Constant */
+    code span.co { color: #6272a4; } /* Comment */
+    code span.cv { color: #8be9fd; } /* CommentVar */
+    code span.do { color: #ffb86c; } /* Documentation */
+    code span.dt { color: #8be9fd; font-style: italic; } /* DataType */
+    code span.dv { color: #bd93f9; } /* DecVal */
     code span.er { color: #ff5555; text-decoration: underline; } /* Error */
-    code span.ex { color: #f97583; font-weight: bold; } /* Extension */
-    code span.fl { color: #79b8ff; } /* Float */
-    code span.fu { color: #b392f0; } /* Function */
-    code span.im { color: #9ecbff; } /* Import */
-    code span.in { color: #6a737d; } /* Information */
-    code span.kw { color: #f97583; } /* Keyword */
-    code span.op { color: #e1e4e8; } /* Operator */
-    code span.ot { color: #b392f0; } /* Other */
-    code span.pp { color: #f97583; } /* Preprocessor */
-    code span.re { color: #6a737d; } /* RegionMarker */
-    code span.sc { color: #79b8ff; } /* SpecialChar */
-    code span.ss { color: #9ecbff; } /* SpecialString */
-    code span.st { color: #9ecbff; } /* String */
-    code span.va { color: #ffab70; } /* Variable */
-    code span.vs { color: #9ecbff; } /* VerbatimString */
+    code span.ex { color: #8be9fd; } /* Extension */
+    code span.fl { color: #bd93f9; } /* Float */
+    code span.fu { color: #50fa7b; } /* Function */
+    code span.im { color: #ff79c6; } /* Import */
+    code span.in { color: #f1fa8c; } /* Information */
+    code span.kw { color: #ff79c6; } /* Keyword */
+    code span.op { color: #f8f8f2; } /* Operator */
+    code span.ot { color: #50fa7b; } /* Other */
+    code span.pp { color: #ff79c6; } /* Preprocessor */
+    code span.re { color: #8be9fd; } /* RegionMarker */
+    code span.sc { color: #ff79c6; } /* SpecialChar */
+    code span.ss { color: #f1fa8c; } /* SpecialString */
+    code span.st { color: #f1fa8c; } /* String */
+    code span.va { color: #8be9fd; } /* Variable */
+    code span.vs { color: #f1fa8c; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="04-functions_files/libs/revealjs/dist/theme/quarto-091ebfb71d12db7fc524ec91495e1509.css">
+  <link rel="stylesheet" href="04-functions_files/libs/revealjs/dist/theme/quarto-3b129a9275a5ffe3026525a34ddd15b4.css">
   <link href="04-functions_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="04-functions_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="04-functions_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="04-functions_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="04-functions_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
   <link href="04-functions_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -247,29 +249,54 @@
 </section>
 <section id="基本的な構文" class="slide level2 smaller">
 <h2>基本的な構文</h2>
-<div id="d0a1a2ea" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-stdout">
-<pre><code>こんにちは！
-Python の世界へようこそ！</code></pre>
-</div>
+<div id="d9e3fae9" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># 基本的な関数定義</span></span>
+<span id="cb2-2"><a href=""></a><span class="kw">def</span> greet():</span>
+<span id="cb2-3"><a href=""></a>    <span class="co">"""挨拶を表示する関数"""</span></span>
+<span id="cb2-4"><a href=""></a>    <span class="bu">print</span>(<span class="st">"こんにちは！"</span>)</span>
+<span id="cb2-5"><a href=""></a>    <span class="bu">print</span>(<span class="st">"Python の世界へようこそ！"</span>)</span>
+<span id="cb2-6"><a href=""></a></span>
+<span id="cb2-7"><a href=""></a><span class="co"># 関数の呼び出し</span></span>
+<span id="cb2-8"><a href=""></a>greet()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="引数のある関数" class="slide level2 smaller">
 <h2>引数のある関数</h2>
-<div id="26d2330b" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-stdout">
-<pre><code>こんにちは、太郎さん！
-おはよう、花子さん！</code></pre>
-</div>
+<div id="8de573ed" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># 引数を受け取る関数</span></span>
+<span id="cb3-2"><a href=""></a><span class="kw">def</span> greet_person(name):</span>
+<span id="cb3-3"><a href=""></a>    <span class="co">"""名前を指定して挨拶する関数"""</span></span>
+<span id="cb3-4"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"こんにちは、</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">さん！"</span>)</span>
+<span id="cb3-5"><a href=""></a></span>
+<span id="cb3-6"><a href=""></a><span class="kw">def</span> greet_with_time(name, time):</span>
+<span id="cb3-7"><a href=""></a>    <span class="co">"""名前と時間を指定して挨拶する関数"""</span></span>
+<span id="cb3-8"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>time<span class="sc">}</span><span class="ss">、</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">さん！"</span>)</span>
+<span id="cb3-9"><a href=""></a></span>
+<span id="cb3-10"><a href=""></a><span class="co"># 関数の呼び出し</span></span>
+<span id="cb3-11"><a href=""></a>greet_person(<span class="st">"太郎"</span>)</span>
+<span id="cb3-12"><a href=""></a>greet_with_time(<span class="st">"花子"</span>, <span class="st">"おはよう"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="戻り値のある関数" class="slide level2 smaller">
 <h2>戻り値のある関数</h2>
-<div id="48cf50ac" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-stdout">
-<pre><code>5 + 3 = 8
-部屋の面積: 24平方メートル</code></pre>
-</div>
+<div id="b5f9743e" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># 値を返す関数</span></span>
+<span id="cb4-2"><a href=""></a><span class="kw">def</span> add_numbers(a, b):</span>
+<span id="cb4-3"><a href=""></a>    <span class="co">"""2つの数値を足して結果を返す"""</span></span>
+<span id="cb4-4"><a href=""></a>    result <span class="op">=</span> a <span class="op">+</span> b</span>
+<span id="cb4-5"><a href=""></a>    <span class="cf">return</span> result</span>
+<span id="cb4-6"><a href=""></a></span>
+<span id="cb4-7"><a href=""></a><span class="kw">def</span> calculate_area(width, height):</span>
+<span id="cb4-8"><a href=""></a>    <span class="co">"""長方形の面積を計算"""</span></span>
+<span id="cb4-9"><a href=""></a>    area <span class="op">=</span> width <span class="op">*</span> height</span>
+<span id="cb4-10"><a href=""></a>    <span class="cf">return</span> area</span>
+<span id="cb4-11"><a href=""></a></span>
+<span id="cb4-12"><a href=""></a><span class="co"># 戻り値の使用</span></span>
+<span id="cb4-13"><a href=""></a>sum_result <span class="op">=</span> add_numbers(<span class="dv">5</span>, <span class="dv">3</span>)</span>
+<span id="cb4-14"><a href=""></a><span class="bu">print</span>(<span class="ss">f"5 + 3 = </span><span class="sc">{</span>sum_result<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-15"><a href=""></a></span>
+<span id="cb4-16"><a href=""></a>room_area <span class="op">=</span> calculate_area(<span class="dv">4</span>, <span class="dv">6</span>)</span>
+<span id="cb4-17"><a href=""></a><span class="bu">print</span>(<span class="ss">f"部屋の面積: </span><span class="sc">{</span>room_area<span class="sc">}</span><span class="ss">平方メートル"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -279,34 +306,62 @@ Python の世界へようこそ！</code></pre>
 </section>
 <section id="デフォルト引数" class="slide level2 smaller">
 <h2>デフォルト引数</h2>
-<div id="cb52c19f" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-stdout">
-<pre><code>私の名前は太郎です。
-年齢は25歳で、趣味は読書です。
-私の名前は花子です。
-年齢は30歳で、趣味は映画鑑賞です。</code></pre>
-</div>
+<div id="17c8f6ce" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># デフォルト値を持つ引数</span></span>
+<span id="cb5-2"><a href=""></a><span class="kw">def</span> introduce(name, age, hobby<span class="op">=</span><span class="st">"読書"</span>):</span>
+<span id="cb5-3"><a href=""></a>    <span class="co">"""自己紹介する関数（趣味はデフォルト値あり）"""</span></span>
+<span id="cb5-4"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"私の名前は</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">です。"</span>)</span>
+<span id="cb5-5"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"年齢は</span><span class="sc">{</span>age<span class="sc">}</span><span class="ss">歳で、趣味は</span><span class="sc">{</span>hobby<span class="sc">}</span><span class="ss">です。"</span>)</span>
+<span id="cb5-6"><a href=""></a></span>
+<span id="cb5-7"><a href=""></a><span class="co"># 呼び出し方法</span></span>
+<span id="cb5-8"><a href=""></a>introduce(<span class="st">"太郎"</span>, <span class="dv">25</span>)  <span class="co"># デフォルト値を使用</span></span>
+<span id="cb5-9"><a href=""></a>introduce(<span class="st">"花子"</span>, <span class="dv">30</span>, <span class="st">"映画鑑賞"</span>)  <span class="co"># デフォルト値を上書き</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="キーワード引数" class="slide level2 smaller">
 <h2>キーワード引数</h2>
-<div id="79c93978" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-stdout">
-<pre><code>山田太郎（28歳）は東京在住のエンジニアです。
-佐藤花子（32歳）は大阪在住のデザイナーです。</code></pre>
-</div>
+<div id="fdcfee2e" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># キーワード引数を使った呼び出し</span></span>
+<span id="cb6-2"><a href=""></a><span class="kw">def</span> create_profile(name, age, city, profession):</span>
+<span id="cb6-3"><a href=""></a>    <span class="co">"""プロフィールを作成"""</span></span>
+<span id="cb6-4"><a href=""></a>    profile <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">（</span><span class="sc">{</span>age<span class="sc">}</span><span class="ss">歳）は</span><span class="sc">{</span>city<span class="sc">}</span><span class="ss">在住の</span><span class="sc">{</span>profession<span class="sc">}</span><span class="ss">です。"</span></span>
+<span id="cb6-5"><a href=""></a>    <span class="cf">return</span> profile</span>
+<span id="cb6-6"><a href=""></a></span>
+<span id="cb6-7"><a href=""></a><span class="co"># 位置引数</span></span>
+<span id="cb6-8"><a href=""></a>profile1 <span class="op">=</span> create_profile(<span class="st">"山田太郎"</span>, <span class="dv">28</span>, <span class="st">"東京"</span>, <span class="st">"エンジニア"</span>)</span>
+<span id="cb6-9"><a href=""></a></span>
+<span id="cb6-10"><a href=""></a><span class="co"># キーワード引数（順序を変更可能）</span></span>
+<span id="cb6-11"><a href=""></a>profile2 <span class="op">=</span> create_profile(</span>
+<span id="cb6-12"><a href=""></a>    profession<span class="op">=</span><span class="st">"デザイナー"</span>,</span>
+<span id="cb6-13"><a href=""></a>    name<span class="op">=</span><span class="st">"佐藤花子"</span>, </span>
+<span id="cb6-14"><a href=""></a>    city<span class="op">=</span><span class="st">"大阪"</span>,</span>
+<span id="cb6-15"><a href=""></a>    age<span class="op">=</span><span class="dv">32</span></span>
+<span id="cb6-16"><a href=""></a>)</span>
+<span id="cb6-17"><a href=""></a></span>
+<span id="cb6-18"><a href=""></a><span class="bu">print</span>(profile1)</span>
+<span id="cb6-19"><a href=""></a><span class="bu">print</span>(profile2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="可変長引数" class="slide level2 smaller">
 <h2>可変長引数</h2>
-<div id="6f5e51f2" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-stdout">
-<pre><code>平均: 20.0
-平均: 3.0
-名前: 太郎
-年齢: 25
-職業: エンジニア</code></pre>
-</div>
+<div id="df9ffe6d" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># *args - 可変長位置引数</span></span>
+<span id="cb7-2"><a href=""></a><span class="kw">def</span> calculate_average(<span class="op">*</span>numbers):</span>
+<span id="cb7-3"><a href=""></a>    <span class="co">"""任意の数の数値の平均を計算"""</span></span>
+<span id="cb7-4"><a href=""></a>    <span class="cf">if</span> <span class="kw">not</span> numbers:</span>
+<span id="cb7-5"><a href=""></a>        <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb7-6"><a href=""></a>    <span class="cf">return</span> <span class="bu">sum</span>(numbers) <span class="op">/</span> <span class="bu">len</span>(numbers)</span>
+<span id="cb7-7"><a href=""></a></span>
+<span id="cb7-8"><a href=""></a><span class="bu">print</span>(<span class="ss">f"平均: </span><span class="sc">{</span>calculate_average(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-9"><a href=""></a><span class="bu">print</span>(<span class="ss">f"平均: </span><span class="sc">{</span>calculate_average(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-10"><a href=""></a></span>
+<span id="cb7-11"><a href=""></a><span class="co"># **kwargs - 可変長キーワード引数</span></span>
+<span id="cb7-12"><a href=""></a><span class="kw">def</span> print_info(<span class="op">**</span>info):</span>
+<span id="cb7-13"><a href=""></a>    <span class="co">"""任意のキーワード引数を表示"""</span></span>
+<span id="cb7-14"><a href=""></a>    <span class="cf">for</span> key, value <span class="kw">in</span> info.items():</span>
+<span id="cb7-15"><a href=""></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>key<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-16"><a href=""></a></span>
+<span id="cb7-17"><a href=""></a>print_info(名前<span class="op">=</span><span class="st">"太郎"</span>, 年齢<span class="op">=</span><span class="dv">25</span>, 職業<span class="op">=</span><span class="st">"エンジニア"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -316,23 +371,45 @@ Python の世界へようこそ！</code></pre>
 </section>
 <section id="ローカルスコープとグローバルスコープ" class="slide level2 smaller">
 <h2>ローカルスコープとグローバルスコープ</h2>
-<div id="611b5880" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-stdout">
-<pre><code>関数外から: これはグローバル変数です
-関数内から: これはグローバル変数です
-関数内から: これはローカル変数です
-変更後: グローバル変数が変更されました</code></pre>
-</div>
+<div id="0dab77cf" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># グローバル変数</span></span>
+<span id="cb8-2"><a href=""></a>global_message <span class="op">=</span> <span class="st">"これはグローバル変数です"</span></span>
+<span id="cb8-3"><a href=""></a></span>
+<span id="cb8-4"><a href=""></a><span class="kw">def</span> demo_scope():</span>
+<span id="cb8-5"><a href=""></a>    <span class="co"># ローカル変数</span></span>
+<span id="cb8-6"><a href=""></a>    local_message <span class="op">=</span> <span class="st">"これはローカル変数です"</span></span>
+<span id="cb8-7"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"関数内から: </span><span class="sc">{</span>global_message<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-8"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"関数内から: </span><span class="sc">{</span>local_message<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-9"><a href=""></a></span>
+<span id="cb8-10"><a href=""></a><span class="kw">def</span> modify_global():</span>
+<span id="cb8-11"><a href=""></a>    <span class="kw">global</span> global_message</span>
+<span id="cb8-12"><a href=""></a>    global_message <span class="op">=</span> <span class="st">"グローバル変数が変更されました"</span></span>
+<span id="cb8-13"><a href=""></a></span>
+<span id="cb8-14"><a href=""></a><span class="bu">print</span>(<span class="ss">f"関数外から: </span><span class="sc">{</span>global_message<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-15"><a href=""></a>demo_scope()</span>
+<span id="cb8-16"><a href=""></a></span>
+<span id="cb8-17"><a href=""></a>modify_global()</span>
+<span id="cb8-18"><a href=""></a><span class="bu">print</span>(<span class="ss">f"変更後: </span><span class="sc">{</span>global_message<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="変数の優先順位" class="slide level2 smaller">
 <h2>変数の優先順位</h2>
-<div id="2a62a8af" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-stdout">
-<pre><code>内側の関数内: 内側の関数
-外側の関数内: 外側の関数
-グローバル: グローバル</code></pre>
-</div>
+<div id="da78fec9" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># 変数の優先順位の例</span></span>
+<span id="cb9-2"><a href=""></a>x <span class="op">=</span> <span class="st">"グローバル"</span></span>
+<span id="cb9-3"><a href=""></a></span>
+<span id="cb9-4"><a href=""></a><span class="kw">def</span> outer_function():</span>
+<span id="cb9-5"><a href=""></a>    x <span class="op">=</span> <span class="st">"外側の関数"</span></span>
+<span id="cb9-6"><a href=""></a>    </span>
+<span id="cb9-7"><a href=""></a>    <span class="kw">def</span> inner_function():</span>
+<span id="cb9-8"><a href=""></a>        x <span class="op">=</span> <span class="st">"内側の関数"</span></span>
+<span id="cb9-9"><a href=""></a>        <span class="bu">print</span>(<span class="ss">f"内側の関数内: </span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-10"><a href=""></a>    </span>
+<span id="cb9-11"><a href=""></a>    inner_function()</span>
+<span id="cb9-12"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"外側の関数内: </span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-13"><a href=""></a></span>
+<span id="cb9-14"><a href=""></a>outer_function()</span>
+<span id="cb9-15"><a href=""></a><span class="bu">print</span>(<span class="ss">f"グローバル: </span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -342,32 +419,52 @@ Python の世界へようこそ！</code></pre>
 </section>
 <section id="ドキュメント文字列docstring" class="slide level2 smaller">
 <h2>ドキュメント文字列（docstring）</h2>
-<div id="fc695da5" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    BMI（体格指数）を計算する関数
-
-    Args:
-        weight (float): 体重（kg）
-        height (float): 身長（m）
-
-    Returns:
-        float: BMI値
-
-    Example:
-        &gt;&gt;&gt; calculate_bmi(70, 1.75)
-        22.857142857142858
-    
-BMI: 22.86</code></pre>
-</div>
+<div id="d7556b0a" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="kw">def</span> calculate_bmi(weight, height):</span>
+<span id="cb10-2"><a href=""></a>    <span class="co">"""</span></span>
+<span id="cb10-3"><a href=""></a><span class="co">    BMI（体格指数）を計算する関数</span></span>
+<span id="cb10-4"><a href=""></a><span class="co">    </span></span>
+<span id="cb10-5"><a href=""></a><span class="co">    Args:</span></span>
+<span id="cb10-6"><a href=""></a><span class="co">        weight (float): 体重（kg）</span></span>
+<span id="cb10-7"><a href=""></a><span class="co">        height (float): 身長（m）</span></span>
+<span id="cb10-8"><a href=""></a><span class="co">    </span></span>
+<span id="cb10-9"><a href=""></a><span class="co">    Returns:</span></span>
+<span id="cb10-10"><a href=""></a><span class="co">        float: BMI値</span></span>
+<span id="cb10-11"><a href=""></a><span class="co">    </span></span>
+<span id="cb10-12"><a href=""></a><span class="co">    Example:</span></span>
+<span id="cb10-13"><a href=""></a><span class="co">        &gt;&gt;&gt; calculate_bmi(70, 1.75)</span></span>
+<span id="cb10-14"><a href=""></a><span class="co">        22.857142857142858</span></span>
+<span id="cb10-15"><a href=""></a><span class="co">    """</span></span>
+<span id="cb10-16"><a href=""></a>    bmi <span class="op">=</span> weight <span class="op">/</span> (height <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb10-17"><a href=""></a>    <span class="cf">return</span> bmi</span>
+<span id="cb10-18"><a href=""></a></span>
+<span id="cb10-19"><a href=""></a><span class="co"># ドキュメンテーションの確認</span></span>
+<span id="cb10-20"><a href=""></a><span class="bu">print</span>(calculate_bmi.__doc__)</span>
+<span id="cb10-21"><a href=""></a></span>
+<span id="cb10-22"><a href=""></a><span class="co"># 実際の使用</span></span>
+<span id="cb10-23"><a href=""></a>result <span class="op">=</span> calculate_bmi(<span class="dv">70</span>, <span class="fl">1.75</span>)</span>
+<span id="cb10-24"><a href=""></a><span class="bu">print</span>(<span class="ss">f"BMI: </span><span class="sc">{</span>result<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="タイプヒント" class="slide level2 smaller">
 <h2>タイプヒント</h2>
-<div id="7db5f806" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-stdout">
-<pre><code>こんにちは、太郎さん（25歳）！</code></pre>
-</div>
+<div id="f469b2c2" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="kw">def</span> greet_user(name: <span class="bu">str</span>, age: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb11-2"><a href=""></a>    <span class="co">"""</span></span>
+<span id="cb11-3"><a href=""></a><span class="co">    ユーザーに挨拶する関数（タイプヒント付き）</span></span>
+<span id="cb11-4"><a href=""></a><span class="co">    </span></span>
+<span id="cb11-5"><a href=""></a><span class="co">    Args:</span></span>
+<span id="cb11-6"><a href=""></a><span class="co">        name: ユーザーの名前</span></span>
+<span id="cb11-7"><a href=""></a><span class="co">        age: ユーザーの年齢</span></span>
+<span id="cb11-8"><a href=""></a><span class="co">    </span></span>
+<span id="cb11-9"><a href=""></a><span class="co">    Returns:</span></span>
+<span id="cb11-10"><a href=""></a><span class="co">        挨拶メッセージ</span></span>
+<span id="cb11-11"><a href=""></a><span class="co">    """</span></span>
+<span id="cb11-12"><a href=""></a>    <span class="cf">return</span> <span class="ss">f"こんにちは、</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">さん（</span><span class="sc">{</span>age<span class="sc">}</span><span class="ss">歳）！"</span></span>
+<span id="cb11-13"><a href=""></a></span>
+<span id="cb11-14"><a href=""></a><span class="co"># 使用例</span></span>
+<span id="cb11-15"><a href=""></a>message <span class="op">=</span> greet_user(<span class="st">"太郎"</span>, <span class="dv">25</span>)</span>
+<span id="cb11-16"><a href=""></a><span class="bu">print</span>(message)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -377,19 +474,67 @@ BMI: 22.86</code></pre>
 </section>
 <section id="温度変換関数" class="slide level2 smaller">
 <h2>温度変換関数</h2>
-<div id="a186dfc7" class="cell" data-execution_count="11">
-<div class="cell-output cell-output-stdout">
-<pre><code>25°C = 77.00°F</code></pre>
-</div>
+<div id="edd3116d" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a><span class="kw">def</span> celsius_to_fahrenheit(celsius: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb12-2"><a href=""></a>    <span class="co">"""摂氏を華氏に変換"""</span></span>
+<span id="cb12-3"><a href=""></a>    <span class="cf">return</span> (celsius <span class="op">*</span> <span class="dv">9</span><span class="op">/</span><span class="dv">5</span>) <span class="op">+</span> <span class="dv">32</span></span>
+<span id="cb12-4"><a href=""></a></span>
+<span id="cb12-5"><a href=""></a><span class="kw">def</span> fahrenheit_to_celsius(fahrenheit: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb12-6"><a href=""></a>    <span class="co">"""華氏を摂氏に変換"""</span></span>
+<span id="cb12-7"><a href=""></a>    <span class="cf">return</span> (fahrenheit <span class="op">-</span> <span class="dv">32</span>) <span class="op">*</span> <span class="dv">5</span><span class="op">/</span><span class="dv">9</span></span>
+<span id="cb12-8"><a href=""></a></span>
+<span id="cb12-9"><a href=""></a><span class="kw">def</span> temperature_converter(temp: <span class="bu">float</span>, unit: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">dict</span>:</span>
+<span id="cb12-10"><a href=""></a>    <span class="co">"""温度変換の統合関数"""</span></span>
+<span id="cb12-11"><a href=""></a>    <span class="cf">if</span> unit.lower() <span class="op">==</span> <span class="st">'c'</span>:</span>
+<span id="cb12-12"><a href=""></a>        fahrenheit <span class="op">=</span> celsius_to_fahrenheit(temp)</span>
+<span id="cb12-13"><a href=""></a>        <span class="cf">return</span> {</span>
+<span id="cb12-14"><a href=""></a>            <span class="st">'original'</span>: <span class="ss">f"</span><span class="sc">{</span>temp<span class="sc">}</span><span class="ss">°C"</span>,</span>
+<span id="cb12-15"><a href=""></a>            <span class="st">'converted'</span>: <span class="ss">f"</span><span class="sc">{</span>fahrenheit<span class="sc">:.2f}</span><span class="ss">°F"</span></span>
+<span id="cb12-16"><a href=""></a>        }</span>
+<span id="cb12-17"><a href=""></a>    <span class="cf">elif</span> unit.lower() <span class="op">==</span> <span class="st">'f'</span>:</span>
+<span id="cb12-18"><a href=""></a>        celsius <span class="op">=</span> fahrenheit_to_celsius(temp)</span>
+<span id="cb12-19"><a href=""></a>        <span class="cf">return</span> {</span>
+<span id="cb12-20"><a href=""></a>            <span class="st">'original'</span>: <span class="ss">f"</span><span class="sc">{</span>temp<span class="sc">}</span><span class="ss">°F"</span>, </span>
+<span id="cb12-21"><a href=""></a>            <span class="st">'converted'</span>: <span class="ss">f"</span><span class="sc">{</span>celsius<span class="sc">:.2f}</span><span class="ss">°C"</span></span>
+<span id="cb12-22"><a href=""></a>        }</span>
+<span id="cb12-23"><a href=""></a></span>
+<span id="cb12-24"><a href=""></a><span class="co"># 使用例</span></span>
+<span id="cb12-25"><a href=""></a>result <span class="op">=</span> temperature_converter(<span class="dv">25</span>, <span class="st">'C'</span>)</span>
+<span id="cb12-26"><a href=""></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>result[<span class="st">'original'</span>]<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>result[<span class="st">'converted'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="パスワード検証システム" class="slide level2 smaller">
 <h2>パスワード検証システム</h2>
-<div id="25c62c18" class="cell" data-execution_count="12">
-<div class="cell-output cell-output-stdout">
-<pre><code>パスワード強度: 強い
-スコア: 5/5</code></pre>
-</div>
+<div id="9026a105" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a><span class="kw">def</span> check_password_strength(password: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">dict</span>:</span>
+<span id="cb13-2"><a href=""></a>    <span class="co">"""パスワードの強度をチェック"""</span></span>
+<span id="cb13-3"><a href=""></a>    checks <span class="op">=</span> {</span>
+<span id="cb13-4"><a href=""></a>        <span class="st">'length'</span>: <span class="bu">len</span>(password) <span class="op">&gt;=</span> <span class="dv">8</span>,</span>
+<span id="cb13-5"><a href=""></a>        <span class="st">'uppercase'</span>: <span class="bu">any</span>(c.isupper() <span class="cf">for</span> c <span class="kw">in</span> password),</span>
+<span id="cb13-6"><a href=""></a>        <span class="st">'lowercase'</span>: <span class="bu">any</span>(c.islower() <span class="cf">for</span> c <span class="kw">in</span> password),</span>
+<span id="cb13-7"><a href=""></a>        <span class="st">'digit'</span>: <span class="bu">any</span>(c.isdigit() <span class="cf">for</span> c <span class="kw">in</span> password),</span>
+<span id="cb13-8"><a href=""></a>        <span class="st">'special'</span>: <span class="bu">any</span>(c <span class="kw">in</span> <span class="st">"!@#$%^&amp;*"</span> <span class="cf">for</span> c <span class="kw">in</span> password)</span>
+<span id="cb13-9"><a href=""></a>    }</span>
+<span id="cb13-10"><a href=""></a>    </span>
+<span id="cb13-11"><a href=""></a>    score <span class="op">=</span> <span class="bu">sum</span>(checks.values())</span>
+<span id="cb13-12"><a href=""></a>    </span>
+<span id="cb13-13"><a href=""></a>    <span class="cf">if</span> score <span class="op">&gt;=</span> <span class="dv">4</span>:</span>
+<span id="cb13-14"><a href=""></a>        strength <span class="op">=</span> <span class="st">"強い"</span></span>
+<span id="cb13-15"><a href=""></a>    <span class="cf">elif</span> score <span class="op">&gt;=</span> <span class="dv">3</span>:</span>
+<span id="cb13-16"><a href=""></a>        strength <span class="op">=</span> <span class="st">"普通"</span></span>
+<span id="cb13-17"><a href=""></a>    <span class="cf">else</span>:</span>
+<span id="cb13-18"><a href=""></a>        strength <span class="op">=</span> <span class="st">"弱い"</span></span>
+<span id="cb13-19"><a href=""></a>    </span>
+<span id="cb13-20"><a href=""></a>    <span class="cf">return</span> {</span>
+<span id="cb13-21"><a href=""></a>        <span class="st">'strength'</span>: strength,</span>
+<span id="cb13-22"><a href=""></a>        <span class="st">'score'</span>: score,</span>
+<span id="cb13-23"><a href=""></a>        <span class="st">'checks'</span>: checks</span>
+<span id="cb13-24"><a href=""></a>    }</span>
+<span id="cb13-25"><a href=""></a></span>
+<span id="cb13-26"><a href=""></a><span class="co"># テスト</span></span>
+<span id="cb13-27"><a href=""></a>result <span class="op">=</span> check_password_strength(<span class="st">"MyPass123!"</span>)</span>
+<span id="cb13-28"><a href=""></a><span class="bu">print</span>(<span class="ss">f"パスワード強度: </span><span class="sc">{</span>result[<span class="st">'strength'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-29"><a href=""></a><span class="bu">print</span>(<span class="ss">f"スコア: </span><span class="sc">{</span>result[<span class="st">'score'</span>]<span class="sc">}</span><span class="ss">/5"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -399,13 +544,27 @@ BMI: 22.86</code></pre>
 </section>
 <section id="ラムダ関数の基本" class="slide level2 smaller">
 <h2>ラムダ関数の基本</h2>
-<div id="6b32c918" class="cell" data-execution_count="13">
-<div class="cell-output cell-output-stdout">
-<pre><code>通常の関数: 25
-ラムダ関数: 25
-二乗: [1, 4, 9, 16, 25]
-偶数: [2, 4]</code></pre>
-</div>
+<div id="56012fb1" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a><span class="co"># 通常の関数</span></span>
+<span id="cb14-2"><a href=""></a><span class="kw">def</span> square(x):</span>
+<span id="cb14-3"><a href=""></a>    <span class="cf">return</span> x <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb14-4"><a href=""></a></span>
+<span id="cb14-5"><a href=""></a><span class="co"># ラムダ関数（無名関数）</span></span>
+<span id="cb14-6"><a href=""></a>square_lambda <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb14-7"><a href=""></a></span>
+<span id="cb14-8"><a href=""></a><span class="bu">print</span>(<span class="ss">f"通常の関数: </span><span class="sc">{</span>square(<span class="dv">5</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-9"><a href=""></a><span class="bu">print</span>(<span class="ss">f"ラムダ関数: </span><span class="sc">{</span>square_lambda(<span class="dv">5</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-10"><a href=""></a></span>
+<span id="cb14-11"><a href=""></a><span class="co"># ラムダ関数の応用</span></span>
+<span id="cb14-12"><a href=""></a>numbers <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb14-13"><a href=""></a></span>
+<span id="cb14-14"><a href=""></a><span class="co"># map() でラムダ関数を使用</span></span>
+<span id="cb14-15"><a href=""></a>squared <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span>, numbers))</span>
+<span id="cb14-16"><a href=""></a><span class="bu">print</span>(<span class="ss">f"二乗: </span><span class="sc">{</span>squared<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-17"><a href=""></a></span>
+<span id="cb14-18"><a href=""></a><span class="co"># filter() でラムダ関数を使用</span></span>
+<span id="cb14-19"><a href=""></a>evens <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>, numbers))</span>
+<span id="cb14-20"><a href=""></a><span class="bu">print</span>(<span class="ss">f"偶数: </span><span class="sc">{</span>evens<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -500,12 +659,26 @@ BMI: 22.86</code></pre>
 <h2>お疲れさまでした！</h2>
 <p>関数はプログラミングの基礎です。<br> しっかりマスターしましょう！</p>
 <p>次回もお楽しみに！ 🐍⚙️</p>
+</section>
+<section id="ナビゲーション" class="slide level2">
+<h2>ナビゲーション</h2>
+<div class="columns">
+<div class="column" style="width:33%;">
+<p><strong>前へ:</strong><br>
+<a href="03-control-flow.html">制御フロー</a></p>
+</div><div class="column" style="width:33%;">
+<p><strong>ホーム:</strong><br>
+<a href="index.html">📚 スライド一覧</a> | <a href="../book/index.html">📖 ブック</a></p>
+</div><div class="column" style="width:33%;">
+<p><strong>次へ:</strong><br>
+<a href="05-error-handling.html">エラーハンドリング</a></p>
+</div></div>
 
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
-
+<p>Python チュートリアル</p>
 </div>
 </div></div>
 
@@ -516,6 +689,7 @@ BMI: 22.86</code></pre>
   <script src="04-functions_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="04-functions_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="04-functions_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="04-functions_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
   <script src="04-functions_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -530,22 +704,27 @@ BMI: 22.86</code></pre>
       // Full list of configuration options available at:
       // https://revealjs.com/config/
       Reveal.initialize({
-'controlsAuto': true,
-'previewLinksAuto': false,
+'controlsAuto': false,
+'previewLinksAuto': true,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'scrollProgress': true,
+'scrollSnap': false,
+'scrollLayout': true,
+'scrollActivationWidth': null,
+'menu': {"side":"left","useTextContentForMissingTitles":false,"markers":true,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"},{"title":"📚 ナビゲーション","icon":"<i class=\"fas fa-bars\"></i>","content":"<ul style=\"list-style: none; padding: 0; margin: 0;\">\n  <li style=\"margin: 8px 0;\"><a href=\"index.html\" style=\"color: #bd93f9; text-decoration: none;\">🏠 スライド一覧</a></li>\n  <li style=\"margin: 8px 0;\"><a href=\"../book/index.html\" style=\"color: #bd93f9; text-decoration: none;\">📖 ブック</a></li>\n  <li style=\"margin: 8px 0;\"><a href=\"../../index.html\" style=\"color: #bd93f9; text-decoration: none;\">🏠 メインサイト</a></li>\n  <li style=\"margin: 8px 0;\"><a href=\"https://github.com/ameyanagi/python-tutorial\" style=\"color: #bd93f9; text-decoration: none;\">💻 GitHub</a></li>\n</ul>\n"}],"openButton":true,"width":"normal","numbers":false,"titleSelector":"h1, h2, h3, h4, h5, h6","hideMissingTitles":false},
+'chalkboard': {"buttons":true},
 'smaller': false,
  
         // Display controls in the bottom right corner
-        controls: false,
+        controls: true,
 
         // Help the user learn the controls by providing hints, for example by
         // bouncing the down arrow when they first encounter a vertical slide
-        controlsTutorial: false,
+        controlsTutorial: true,
 
         // Determines where controls appear, "edges" or "bottom-right"
         controlsLayout: 'edges',
@@ -558,7 +737,7 @@ BMI: 22.86</code></pre>
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -690,6 +869,11 @@ BMI: 22.86</code></pre>
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 0.2,
+
+        maxScale: 2,
+
         math: {
           mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
@@ -708,7 +892,7 @@ BMI: 22.86</code></pre>
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
 
           RevealMath,
           RevealNotes,

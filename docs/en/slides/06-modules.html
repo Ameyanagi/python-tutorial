@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="06-modules_files/libs/clipboard/clipboard.min.js"></script>
+<script src="06-modules_files/libs/quarto-html/tabby.min.js"></script>
+<script src="06-modules_files/libs/quarto-html/popper.min.js"></script>
+<script src="06-modules_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="06-modules_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="06-modules_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="06-modules_files/libs/quarto-html/quarto-syntax-highlighting-dark-ed09741bc9a4bc7923efc7a27dab3f48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.31">
+
+  <title>Modules and Packages</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="06-modules_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="06-modules_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2; background-color: #282a36; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #ff79c6; } /* Annotation */
+    code span.at { color: #ff79c6; } /* Attribute */
+    code span.bn { color: #bd93f9; } /* BaseN */
+    code span.bu { color: #8be9fd; } /* BuiltIn */
+    code span.cf { color: #ff79c6; } /* ControlFlow */
+    code span.ch { color: #f1fa8c; } /* Char */
+    code span.cn { color: #bd93f9; font-weight: bold; } /* Constant */
+    code span.co { color: #6272a4; } /* Comment */
+    code span.cv { color: #8be9fd; } /* CommentVar */
+    code span.do { color: #ffb86c; } /* Documentation */
+    code span.dt { color: #8be9fd; font-style: italic; } /* DataType */
+    code span.dv { color: #bd93f9; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #8be9fd; } /* Extension */
+    code span.fl { color: #bd93f9; } /* Float */
+    code span.fu { color: #50fa7b; } /* Function */
+    code span.im { color: #ff79c6; } /* Import */
+    code span.in { color: #f1fa8c; } /* Information */
+    code span.kw { color: #ff79c6; } /* Keyword */
+    code span.op { color: #f8f8f2; } /* Operator */
+    code span.ot { color: #50fa7b; } /* Other */
+    code span.pp { color: #ff79c6; } /* Preprocessor */
+    code span.re { color: #8be9fd; } /* RegionMarker */
+    code span.sc { color: #ff79c6; } /* SpecialChar */
+    code span.ss { color: #f1fa8c; } /* SpecialString */
+    code span.st { color: #f1fa8c; } /* String */
+    code span.va { color: #8be9fd; } /* Variable */
+    code span.vs { color: #f1fa8c; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="06-modules_files/libs/revealjs/dist/theme/quarto-3b129a9275a5ffe3026525a34ddd15b4.css">
+  <link href="06-modules_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="06-modules_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="06-modules_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="06-modules_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="06-modules_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="06-modules_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-dark">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Modules and Packages</h1>
+  <p class="subtitle">Organizing and Reusing Code</p>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="what-are-modules" class="slide level2">
+<h2>What are Modules?</h2>
+<ul>
+<li class="fragment"><strong>Modules</strong> are files containing Python code that can be imported and used</li>
+<li class="fragment">They help organize code into logical units</li>
+<li class="fragment">Each <code>.py</code> file is a module</li>
+<li class="fragment">Modules can contain functions, classes, and variables</li>
+<li class="fragment">They promote code reusability and maintainability</li>
+</ul>
+<div class="fragment">
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># math_utils.py (a module)</span></span>
+<span id="cb1-2"><a href=""></a><span class="kw">def</span> add(a, b):</span>
+<span id="cb1-3"><a href=""></a>    <span class="cf">return</span> a <span class="op">+</span> b</span>
+<span id="cb1-4"><a href=""></a></span>
+<span id="cb1-5"><a href=""></a><span class="kw">def</span> multiply(a, b):</span>
+<span id="cb1-6"><a href=""></a>    <span class="cf">return</span> a <span class="op">*</span> b</span>
+<span id="cb1-7"><a href=""></a></span>
+<span id="cb1-8"><a href=""></a>PI <span class="op">=</span> <span class="fl">3.14159</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="why-use-modules" class="slide level2">
+<h2>Why Use Modules?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Benefits:</strong></p>
+<ul>
+<li class="fragment"><strong>Code Organization</strong>: Group related functionality</li>
+<li class="fragment"><strong>Reusability</strong>: Use code across multiple programs</li>
+<li class="fragment"><strong>Namespace Management</strong>: Avoid naming conflicts</li>
+<li class="fragment"><strong>Maintainability</strong>: Easier to update and debug</li>
+<li class="fragment"><strong>Collaboration</strong>: Team members can work on different modules</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Example Structure:</strong></p>
+<pre><code>my_project/
+├── main.py
+├── utils/
+│   ├── math_utils.py
+│   ├── string_utils.py
+│   └── file_utils.py
+└── models/
+    ├── user.py
+    └── product.py</code></pre>
+</div></div>
+</section>
+<section id="importing-modules" class="slide level2">
+<h2>Importing Modules</h2>
+<div class="fragment">
+<p><strong>Import entire module:</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="im">import</span> math</span>
+<span id="cb3-2"><a href=""></a></span>
+<span id="cb3-3"><a href=""></a>result <span class="op">=</span> math.sqrt(<span class="dv">16</span>)  <span class="co"># 4.0</span></span>
+<span id="cb3-4"><a href=""></a><span class="bu">print</span>(math.pi)          <span class="co"># 3.141592653589793</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>Import specific functions:</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="im">from</span> math <span class="im">import</span> sqrt, pi</span>
+<span id="cb4-2"><a href=""></a></span>
+<span id="cb4-3"><a href=""></a>result <span class="op">=</span> sqrt(<span class="dv">16</span>)  <span class="co"># No need for math.sqrt</span></span>
+<span id="cb4-4"><a href=""></a><span class="bu">print</span>(pi)          <span class="co"># No need for math.pi</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>Import with alias:</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="im">import</span> math <span class="im">as</span> m</span>
+<span id="cb5-2"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np  <span class="co"># Common convention</span></span>
+<span id="cb5-3"><a href=""></a></span>
+<span id="cb5-4"><a href=""></a>result <span class="op">=</span> m.sqrt(<span class="dv">16</span>)</span>
+<span id="cb5-5"><a href=""></a>array <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="different-import-styles" class="slide level2">
+<h2>Different Import Styles</h2>
+<div class="fragment">
+<p><strong>Import everything (use with caution):</strong></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="im">from</span> math <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb6-2"><a href=""></a></span>
+<span id="cb6-3"><a href=""></a>result <span class="op">=</span> sqrt(<span class="dv">16</span>)  <span class="co"># All functions available directly</span></span>
+<span id="cb6-4"><a href=""></a><span class="co"># Can cause namespace pollution!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>Import with custom names:</strong></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="im">from</span> math <span class="im">import</span> sqrt <span class="im">as</span> square_root</span>
+<span id="cb7-2"><a href=""></a><span class="im">from</span> math <span class="im">import</span> pi <span class="im">as</span> PI_VALUE</span>
+<span id="cb7-3"><a href=""></a></span>
+<span id="cb7-4"><a href=""></a>result <span class="op">=</span> square_root(<span class="dv">16</span>)</span>
+<span id="cb7-5"><a href=""></a><span class="bu">print</span>(PI_VALUE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>Conditional imports:</strong></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="cf">try</span>:</span>
+<span id="cb8-2"><a href=""></a>    <span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb8-3"><a href=""></a>    HAS_NUMPY <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb8-4"><a href=""></a><span class="cf">except</span> <span class="pp">ImportError</span>:</span>
+<span id="cb8-5"><a href=""></a>    HAS_NUMPY <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb8-6"><a href=""></a>    <span class="bu">print</span>(<span class="st">"NumPy not available"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="built-in-modules" class="slide level2">
+<h2>Built-in Modules</h2>
+<div class="fragment">
+<p><strong>Common built-in modules:</strong></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="im">import</span> os        <span class="co"># Operating system interface</span></span>
+<span id="cb9-2"><a href=""></a><span class="im">import</span> sys       <span class="co"># System-specific parameters</span></span>
+<span id="cb9-3"><a href=""></a><span class="im">import</span> datetime  <span class="co"># Date and time handling</span></span>
+<span id="cb9-4"><a href=""></a><span class="im">import</span> random    <span class="co"># Random number generation</span></span>
+<span id="cb9-5"><a href=""></a><span class="im">import</span> json      <span class="co"># JSON encoder/decoder</span></span>
+<span id="cb9-6"><a href=""></a><span class="im">import</span> re        <span class="co"># Regular expressions</span></span>
+<span id="cb9-7"><a href=""></a><span class="im">import</span> collections  <span class="co"># Specialized container datatypes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>Examples:</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="im">import</span> os</span>
+<span id="cb10-2"><a href=""></a><span class="bu">print</span>(os.getcwd())  <span class="co"># Current working directory</span></span>
+<span id="cb10-3"><a href=""></a></span>
+<span id="cb10-4"><a href=""></a><span class="im">import</span> datetime</span>
+<span id="cb10-5"><a href=""></a>now <span class="op">=</span> datetime.datetime.now()</span>
+<span id="cb10-6"><a href=""></a><span class="bu">print</span>(now.strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S"</span>))</span>
+<span id="cb10-7"><a href=""></a></span>
+<span id="cb10-8"><a href=""></a><span class="im">import</span> random</span>
+<span id="cb10-9"><a href=""></a>number <span class="op">=</span> random.randint(<span class="dv">1</span>, <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="creating-your-own-modules" class="slide level2">
+<h2>Creating Your Own Modules</h2>
+<div class="fragment">
+<p><strong>Create a module file: <code>calculator.py</code></strong></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co">"""A simple calculator module."""</span></span>
+<span id="cb11-2"><a href=""></a></span>
+<span id="cb11-3"><a href=""></a><span class="kw">def</span> add(a, b):</span>
+<span id="cb11-4"><a href=""></a>    <span class="co">"""Add two numbers."""</span></span>
+<span id="cb11-5"><a href=""></a>    <span class="cf">return</span> a <span class="op">+</span> b</span>
+<span id="cb11-6"><a href=""></a></span>
+<span id="cb11-7"><a href=""></a><span class="kw">def</span> subtract(a, b):</span>
+<span id="cb11-8"><a href=""></a>    <span class="co">"""Subtract second number from first."""</span></span>
+<span id="cb11-9"><a href=""></a>    <span class="cf">return</span> a <span class="op">-</span> b</span>
+<span id="cb11-10"><a href=""></a></span>
+<span id="cb11-11"><a href=""></a><span class="kw">def</span> multiply(a, b):</span>
+<span id="cb11-12"><a href=""></a>    <span class="co">"""Multiply two numbers."""</span></span>
+<span id="cb11-13"><a href=""></a>    <span class="cf">return</span> a <span class="op">*</span> b</span>
+<span id="cb11-14"><a href=""></a></span>
+<span id="cb11-15"><a href=""></a><span class="kw">def</span> divide(a, b):</span>
+<span id="cb11-16"><a href=""></a>    <span class="co">"""Divide first number by second."""</span></span>
+<span id="cb11-17"><a href=""></a>    <span class="cf">if</span> b <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb11-18"><a href=""></a>        <span class="cf">return</span> a <span class="op">/</span> b</span>
+<span id="cb11-19"><a href=""></a>    <span class="cf">else</span>:</span>
+<span id="cb11-20"><a href=""></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Cannot divide by zero!"</span>)</span>
+<span id="cb11-21"><a href=""></a></span>
+<span id="cb11-22"><a href=""></a><span class="co"># Module-level variable</span></span>
+<span id="cb11-23"><a href=""></a>VERSION <span class="op">=</span> <span class="st">"1.0.0"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="using-your-custom-module" class="slide level2">
+<h2>Using Your Custom Module</h2>
+<div class="fragment">
+<p><strong>In another file: <code>main.py</code></strong></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a><span class="im">import</span> calculator</span>
+<span id="cb12-2"><a href=""></a></span>
+<span id="cb12-3"><a href=""></a><span class="co"># Use the functions</span></span>
+<span id="cb12-4"><a href=""></a>result1 <span class="op">=</span> calculator.add(<span class="dv">10</span>, <span class="dv">5</span>)</span>
+<span id="cb12-5"><a href=""></a>result2 <span class="op">=</span> calculator.subtract(<span class="dv">10</span>, <span class="dv">5</span>)</span>
+<span id="cb12-6"><a href=""></a></span>
+<span id="cb12-7"><a href=""></a><span class="bu">print</span>(<span class="ss">f"Addition: </span><span class="sc">{</span>result1<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-8"><a href=""></a><span class="bu">print</span>(<span class="ss">f"Subtraction: </span><span class="sc">{</span>result2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-9"><a href=""></a><span class="bu">print</span>(<span class="ss">f"Calculator version: </span><span class="sc">{</span>calculator<span class="sc">.</span>VERSION<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>Or import specific functions:</strong></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a><span class="im">from</span> calculator <span class="im">import</span> add, multiply, VERSION</span>
+<span id="cb13-2"><a href=""></a></span>
+<span id="cb13-3"><a href=""></a>result <span class="op">=</span> add(<span class="dv">10</span>, <span class="dv">5</span>)</span>
+<span id="cb13-4"><a href=""></a>product <span class="op">=</span> multiply(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb13-5"><a href=""></a><span class="bu">print</span>(<span class="ss">f"Version: </span><span class="sc">{</span>VERSION<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="module-search-path" class="slide level2">
+<h2>Module Search Path</h2>
+<div class="fragment">
+<p><strong>Python looks for modules in this order:</strong></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a><span class="im">import</span> sys</span>
+<span id="cb14-2"><a href=""></a><span class="bu">print</span>(sys.path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol type="1">
+<li>Current directory</li>
+<li>PYTHONPATH environment variable directories</li>
+<li>Standard library directories</li>
+<li>Site-packages directory (third-party packages)</li>
+</ol>
+</div>
+<div class="fragment">
+<p><strong>Adding custom paths:</strong></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href=""></a><span class="im">import</span> sys</span>
+<span id="cb15-2"><a href=""></a>sys.path.append(<span class="st">'/path/to/my/modules'</span>)</span>
+<span id="cb15-3"><a href=""></a></span>
+<span id="cb15-4"><a href=""></a><span class="co"># Now Python can find modules in that directory</span></span>
+<span id="cb15-5"><a href=""></a><span class="im">import</span> my_custom_module</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="packages" class="slide level2">
+<h2>Packages</h2>
+<div class="fragment">
+<p><strong>Packages</strong> are directories containing multiple modules:</p>
+<pre><code>my_package/
+├── __init__.py      # Makes it a package
+├── module1.py
+├── module2.py
+└── subpackage/
+    ├── __init__.py
+    └── module3.py</code></pre>
+</div>
+<div class="fragment">
+<p><strong>The <code>__init__.py</code> file:</strong> - Makes a directory a Python package - Can be empty or contain initialization code - Controls what gets imported with <code>from package import *</code></p>
+</div>
+</section>
+<section id="creating-a-package" class="slide level2">
+<h2>Creating a Package</h2>
+<div class="fragment">
+<p><strong>Directory structure:</strong></p>
+<pre><code>math_tools/
+├── __init__.py
+├── basic.py
+└── advanced.py</code></pre>
+</div>
+<div class="fragment">
+<p><strong><code>math_tools/__init__.py</code>:</strong></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href=""></a><span class="co">"""Math tools package."""</span></span>
+<span id="cb18-2"><a href=""></a><span class="im">from</span> .basic <span class="im">import</span> add, subtract</span>
+<span id="cb18-3"><a href=""></a><span class="im">from</span> .advanced <span class="im">import</span> fibonacci, factorial</span>
+<span id="cb18-4"><a href=""></a></span>
+<span id="cb18-5"><a href=""></a>__version__ <span class="op">=</span> <span class="st">"1.0.0"</span></span>
+<span id="cb18-6"><a href=""></a><span class="va">__all__</span> <span class="op">=</span> [<span class="st">'add'</span>, <span class="st">'subtract'</span>, <span class="st">'fibonacci'</span>, <span class="st">'factorial'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong><code>math_tools/basic.py</code>:</strong></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href=""></a><span class="kw">def</span> add(a, b):</span>
+<span id="cb19-2"><a href=""></a>    <span class="cf">return</span> a <span class="op">+</span> b</span>
+<span id="cb19-3"><a href=""></a></span>
+<span id="cb19-4"><a href=""></a><span class="kw">def</span> subtract(a, b):</span>
+<span id="cb19-5"><a href=""></a>    <span class="cf">return</span> a <span class="op">-</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="using-packages" class="slide level2">
+<h2>Using Packages</h2>
+<div class="fragment">
+<p><strong>Import from package:</strong></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href=""></a><span class="co"># Import entire package</span></span>
+<span id="cb20-2"><a href=""></a><span class="im">import</span> math_tools</span>
+<span id="cb20-3"><a href=""></a>result <span class="op">=</span> math_tools.add(<span class="dv">5</span>, <span class="dv">3</span>)</span>
+<span id="cb20-4"><a href=""></a></span>
+<span id="cb20-5"><a href=""></a><span class="co"># Import specific modules</span></span>
+<span id="cb20-6"><a href=""></a><span class="im">from</span> math_tools <span class="im">import</span> basic</span>
+<span id="cb20-7"><a href=""></a>result <span class="op">=</span> basic.add(<span class="dv">5</span>, <span class="dv">3</span>)</span>
+<span id="cb20-8"><a href=""></a></span>
+<span id="cb20-9"><a href=""></a><span class="co"># Import specific functions</span></span>
+<span id="cb20-10"><a href=""></a><span class="im">from</span> math_tools.basic <span class="im">import</span> add</span>
+<span id="cb20-11"><a href=""></a>result <span class="op">=</span> add(<span class="dv">5</span>, <span class="dv">3</span>)</span>
+<span id="cb20-12"><a href=""></a></span>
+<span id="cb20-13"><a href=""></a><span class="co"># Import from package root (if defined in __init__.py)</span></span>
+<span id="cb20-14"><a href=""></a><span class="im">from</span> math_tools <span class="im">import</span> add</span>
+<span id="cb20-15"><a href=""></a>result <span class="op">=</span> add(<span class="dv">5</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="relative-vs-absolute-imports" class="slide level2">
+<h2>Relative vs Absolute Imports</h2>
+<div class="fragment">
+<p><strong>Absolute imports (from project root):</strong></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href=""></a><span class="im">from</span> math_tools.basic <span class="im">import</span> add</span>
+<span id="cb21-2"><a href=""></a><span class="im">from</span> math_tools.advanced <span class="im">import</span> fibonacci</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>Relative imports (within package):</strong></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href=""></a><span class="co"># In math_tools/advanced.py</span></span>
+<span id="cb22-2"><a href=""></a><span class="im">from</span> .basic <span class="im">import</span> add        <span class="co"># Same package</span></span>
+<span id="cb22-3"><a href=""></a><span class="im">from</span> ..other_package <span class="im">import</span> something  <span class="co"># Parent package</span></span>
+<span id="cb22-4"><a href=""></a></span>
+<span id="cb22-5"><a href=""></a><span class="co"># In math_tools/__init__.py</span></span>
+<span id="cb22-6"><a href=""></a><span class="im">from</span> .basic <span class="im">import</span> add, subtract</span>
+<span id="cb22-7"><a href=""></a><span class="im">from</span> .advanced <span class="im">import</span> fibonacci</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="the-__name__-variable" class="slide level2">
+<h2>The <code>__name__</code> Variable</h2>
+<div class="fragment">
+<p><strong>Every module has a <code>__name__</code> attribute:</strong></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href=""></a><span class="co"># In calculator.py</span></span>
+<span id="cb23-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"Module name: </span><span class="sc">{</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-3"><a href=""></a></span>
+<span id="cb23-4"><a href=""></a><span class="kw">def</span> add(a, b):</span>
+<span id="cb23-5"><a href=""></a>    <span class="cf">return</span> a <span class="op">+</span> b</span>
+<span id="cb23-6"><a href=""></a></span>
+<span id="cb23-7"><a href=""></a><span class="co"># This runs only when file is executed directly</span></span>
+<span id="cb23-8"><a href=""></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb23-9"><a href=""></a>    <span class="bu">print</span>(<span class="st">"Calculator module is being run directly"</span>)</span>
+<span id="cb23-10"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"2 + 3 = </span><span class="sc">{</span>add(<span class="dv">2</span>, <span class="dv">3</span>)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>When imported:</strong> <code>__name__</code> is the module name <strong>When run directly:</strong> <code>__name__</code> is <code>"__main__"</code></p>
+</div>
+</section>
+<section id="module-documentation" class="slide level2">
+<h2>Module Documentation</h2>
+<div class="fragment">
+<p><strong>Good module documentation:</strong></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href=""></a><span class="co">"""</span></span>
+<span id="cb24-2"><a href=""></a><span class="co">utils.py - Utility functions for data processing</span></span>
+<span id="cb24-3"><a href=""></a></span>
+<span id="cb24-4"><a href=""></a><span class="co">This module provides common utility functions for:</span></span>
+<span id="cb24-5"><a href=""></a><span class="co">- String manipulation</span></span>
+<span id="cb24-6"><a href=""></a><span class="co">- File operations</span></span>
+<span id="cb24-7"><a href=""></a><span class="co">- Data validation</span></span>
+<span id="cb24-8"><a href=""></a></span>
+<span id="cb24-9"><a href=""></a><span class="co">Example:</span></span>
+<span id="cb24-10"><a href=""></a><span class="co">    &gt;&gt;&gt; from utils import clean_string</span></span>
+<span id="cb24-11"><a href=""></a><span class="co">    &gt;&gt;&gt; clean_string("  Hello World  ")</span></span>
+<span id="cb24-12"><a href=""></a><span class="co">    'Hello World'</span></span>
+<span id="cb24-13"><a href=""></a><span class="co">"""</span></span>
+<span id="cb24-14"><a href=""></a></span>
+<span id="cb24-15"><a href=""></a><span class="kw">def</span> clean_string(text):</span>
+<span id="cb24-16"><a href=""></a>    <span class="co">"""</span></span>
+<span id="cb24-17"><a href=""></a><span class="co">    Remove leading/trailing whitespace and normalize.</span></span>
+<span id="cb24-18"><a href=""></a><span class="co">    </span></span>
+<span id="cb24-19"><a href=""></a><span class="co">    Args:</span></span>
+<span id="cb24-20"><a href=""></a><span class="co">        text (str): The string to clean</span></span>
+<span id="cb24-21"><a href=""></a><span class="co">        </span></span>
+<span id="cb24-22"><a href=""></a><span class="co">    Returns:</span></span>
+<span id="cb24-23"><a href=""></a><span class="co">        str: Cleaned string</span></span>
+<span id="cb24-24"><a href=""></a><span class="co">    """</span></span>
+<span id="cb24-25"><a href=""></a>    <span class="cf">return</span> text.strip()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="third-party-packages" class="slide level2">
+<h2>Third-Party Packages</h2>
+<div class="fragment">
+<p><strong>Installing packages with pip:</strong></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href=""></a><span class="ex">pip</span> install requests</span>
+<span id="cb25-2"><a href=""></a><span class="ex">pip</span> install numpy</span>
+<span id="cb25-3"><a href=""></a><span class="ex">pip</span> install pandas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>Using third-party packages:</strong></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href=""></a><span class="im">import</span> requests</span>
+<span id="cb26-2"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb26-3"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb26-4"><a href=""></a></span>
+<span id="cb26-5"><a href=""></a><span class="co"># Make HTTP requests</span></span>
+<span id="cb26-6"><a href=""></a>response <span class="op">=</span> requests.get(<span class="st">'https://api.github.com'</span>)</span>
+<span id="cb26-7"><a href=""></a></span>
+<span id="cb26-8"><a href=""></a><span class="co"># Create arrays</span></span>
+<span id="cb26-9"><a href=""></a>array <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
+<span id="cb26-10"><a href=""></a></span>
+<span id="cb26-11"><a href=""></a><span class="co"># Work with data</span></span>
+<span id="cb26-12"><a href=""></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'A'</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">'B'</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="virtual-environments" class="slide level2">
+<h2>Virtual Environments</h2>
+<div class="fragment">
+<p><strong>Why use virtual environments?</strong> - Isolate project dependencies - Avoid version conflicts - Keep global Python clean</p>
+</div>
+<div class="fragment">
+<p><strong>Creating and using virtual environments:</strong></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href=""></a><span class="co"># Create virtual environment</span></span>
+<span id="cb27-2"><a href=""></a><span class="ex">python</span> <span class="at">-m</span> venv myenv</span>
+<span id="cb27-3"><a href=""></a></span>
+<span id="cb27-4"><a href=""></a><span class="co"># Activate (Windows)</span></span>
+<span id="cb27-5"><a href=""></a><span class="ex">myenv\Scripts\activate</span></span>
+<span id="cb27-6"><a href=""></a></span>
+<span id="cb27-7"><a href=""></a><span class="co"># Activate (macOS/Linux)</span></span>
+<span id="cb27-8"><a href=""></a><span class="bu">source</span> myenv/bin/activate</span>
+<span id="cb27-9"><a href=""></a></span>
+<span id="cb27-10"><a href=""></a><span class="co"># Install packages</span></span>
+<span id="cb27-11"><a href=""></a><span class="ex">pip</span> install requests numpy</span>
+<span id="cb27-12"><a href=""></a></span>
+<span id="cb27-13"><a href=""></a><span class="co"># Deactivate</span></span>
+<span id="cb27-14"><a href=""></a><span class="ex">deactivate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="package-management" class="slide level2">
+<h2>Package Management</h2>
+<div class="fragment">
+<p><strong>Requirements file:</strong></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href=""></a><span class="co"># Create requirements.txt</span></span>
+<span id="cb28-2"><a href=""></a><span class="ex">pip</span> freeze <span class="op">&gt;</span> requirements.txt</span>
+<span id="cb28-3"><a href=""></a></span>
+<span id="cb28-4"><a href=""></a><span class="co"># Install from requirements</span></span>
+<span id="cb28-5"><a href=""></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>Example <code>requirements.txt</code>:</strong></p>
+<pre><code>requests==2.28.1
+numpy==1.21.0
+pandas&gt;=1.3.0
+matplotlib~=3.5.0</code></pre>
+</div>
+</section>
+<section id="practical-example-file-utilities-package" class="slide level2">
+<h2>Practical Example: File Utilities Package</h2>
+<div class="fragment">
+<p><strong>Package structure:</strong></p>
+<pre><code>file_utils/
+├── __init__.py
+├── readers.py
+└── writers.py</code></pre>
+</div>
+<div class="fragment">
+<p><strong><code>file_utils/readers.py</code>:</strong></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href=""></a><span class="kw">def</span> read_text_file(filename):</span>
+<span id="cb31-2"><a href=""></a>    <span class="co">"""Read entire text file."""</span></span>
+<span id="cb31-3"><a href=""></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb31-4"><a href=""></a>        <span class="cf">return</span> <span class="bu">file</span>.read()</span>
+<span id="cb31-5"><a href=""></a></span>
+<span id="cb31-6"><a href=""></a><span class="kw">def</span> read_lines(filename):</span>
+<span id="cb31-7"><a href=""></a>    <span class="co">"""Read file lines as list."""</span></span>
+<span id="cb31-8"><a href=""></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb31-9"><a href=""></a>        <span class="cf">return</span> [line.strip() <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">file</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-time" class="slide level2">
+<h2>Exercise Time! 🚀</h2>
+<div class="fragment">
+<p><strong>Challenge 1: Create a String Utils Module</strong></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href=""></a><span class="co"># Create string_utils.py with these functions:</span></span>
+<span id="cb32-2"><a href=""></a></span>
+<span id="cb32-3"><a href=""></a><span class="kw">def</span> reverse_string(text):</span>
+<span id="cb32-4"><a href=""></a>    <span class="co"># Return reversed string</span></span>
+<span id="cb32-5"><a href=""></a>    <span class="cf">pass</span></span>
+<span id="cb32-6"><a href=""></a></span>
+<span id="cb32-7"><a href=""></a><span class="kw">def</span> count_words(text):</span>
+<span id="cb32-8"><a href=""></a>    <span class="co"># Return word count</span></span>
+<span id="cb32-9"><a href=""></a>    <span class="cf">pass</span></span>
+<span id="cb32-10"><a href=""></a></span>
+<span id="cb32-11"><a href=""></a><span class="kw">def</span> title_case(text):</span>
+<span id="cb32-12"><a href=""></a>    <span class="co"># Convert to title case</span></span>
+<span id="cb32-13"><a href=""></a>    <span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>Challenge 2: Create a Simple Package</strong></p>
+<pre><code>helpers/
+├── __init__.py
+├── math_helpers.py
+└── string_helpers.py</code></pre>
+</div>
+</section>
+<section id="exercise-solutions" class="slide level2">
+<h2>Exercise Solutions</h2>
+<div class="fragment">
+<p><strong>String Utils Module:</strong></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href=""></a><span class="kw">def</span> reverse_string(text):</span>
+<span id="cb34-2"><a href=""></a>    <span class="cf">return</span> text[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb34-3"><a href=""></a></span>
+<span id="cb34-4"><a href=""></a><span class="kw">def</span> count_words(text):</span>
+<span id="cb34-5"><a href=""></a>    <span class="cf">return</span> <span class="bu">len</span>(text.split())</span>
+<span id="cb34-6"><a href=""></a></span>
+<span id="cb34-7"><a href=""></a><span class="kw">def</span> title_case(text):</span>
+<span id="cb34-8"><a href=""></a>    <span class="cf">return</span> <span class="st">' '</span>.join(word.capitalize() <span class="cf">for</span> word <span class="kw">in</span> text.split())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>Package <code>__init__.py</code>:</strong></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href=""></a><span class="im">from</span> .math_helpers <span class="im">import</span> add, multiply</span>
+<span id="cb35-2"><a href=""></a><span class="im">from</span> .string_helpers <span class="im">import</span> reverse_string, count_words</span>
+<span id="cb35-3"><a href=""></a></span>
+<span id="cb35-4"><a href=""></a>__version__ <span class="op">=</span> <span class="st">"1.0.0"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="best-practices" class="slide level2">
+<h2>Best Practices</h2>
+<ul>
+<li class="fragment"><strong>Use descriptive module names</strong>: <code>database_utils</code> not <code>db_stuff</code></li>
+<li class="fragment"><strong>Keep modules focused</strong>: One clear purpose per module</li>
+<li class="fragment"><strong>Document your modules</strong>: Include docstrings and examples</li>
+<li class="fragment"><strong>Use <code>__init__.py</code></strong>: Control package imports</li>
+<li class="fragment"><strong>Avoid circular imports</strong>: Design clear dependency hierarchies</li>
+<li class="fragment"><strong>Use virtual environments</strong>: Isolate project dependencies</li>
+<li class="fragment"><strong>Pin package versions</strong>: Use specific versions in production</li>
+</ul>
+</section>
+<section id="common-pitfalls" class="slide level2">
+<h2>Common Pitfalls</h2>
+<div class="fragment">
+<p><strong>1. Circular imports:</strong></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href=""></a><span class="co"># module_a.py</span></span>
+<span id="cb36-2"><a href=""></a><span class="im">from</span> module_b <span class="im">import</span> function_b</span>
+<span id="cb36-3"><a href=""></a></span>
+<span id="cb36-4"><a href=""></a><span class="co"># module_b.py</span></span>
+<span id="cb36-5"><a href=""></a><span class="im">from</span> module_a <span class="im">import</span> function_a  <span class="co"># Circular import!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>2. Modifying sys.path incorrectly:</strong></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href=""></a><span class="co"># Bad</span></span>
+<span id="cb37-2"><a href=""></a>sys.path.insert(<span class="dv">0</span>, <span class="st">'/some/absolute/path'</span>)</span>
+<span id="cb37-3"><a href=""></a></span>
+<span id="cb37-4"><a href=""></a><span class="co"># Better</span></span>
+<span id="cb37-5"><a href=""></a>sys.path.insert(<span class="dv">0</span>, os.path.join(os.path.dirname(<span class="va">__file__</span>), <span class="st">'modules'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>3. Using <code>from module import *</code>:</strong></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href=""></a><span class="co"># Avoid this - can cause namespace pollution</span></span>
+<span id="cb38-2"><a href=""></a><span class="im">from</span> math <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb38-3"><a href=""></a><span class="im">from</span> numpy <span class="im">import</span> <span class="op">*</span>  <span class="co"># May override math functions!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="module-reloading" class="slide level2">
+<h2>Module Reloading</h2>
+<div class="fragment">
+<p><strong>For development/debugging:</strong></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href=""></a><span class="im">import</span> importlib</span>
+<span id="cb39-2"><a href=""></a><span class="im">import</span> my_module</span>
+<span id="cb39-3"><a href=""></a></span>
+<span id="cb39-4"><a href=""></a><span class="co"># Reload module after changes</span></span>
+<span id="cb39-5"><a href=""></a>importlib.<span class="bu">reload</span>(my_module)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>Note:</strong> Reloading has limitations and should mainly be used during development</p>
+</div>
+</section>
+<section id="summary" class="slide level2">
+<h2>Summary</h2>
+<ul>
+<li class="fragment">Modules organize code into reusable files</li>
+<li class="fragment">Packages group related modules together</li>
+<li class="fragment">Python has many built-in modules for common tasks</li>
+<li class="fragment">Use <code>import</code> statements to access module functionality</li>
+<li class="fragment">Create virtual environments for project isolation</li>
+<li class="fragment">Follow best practices for clean, maintainable code organization</li>
+</ul>
+</section>
+<section id="next-steps" class="slide level2">
+<h2>Next Steps</h2>
+<div class="fragment">
+<p><strong>Coming up next:</strong> - Object-oriented programming concepts - Classes and inheritance - Advanced Python features</p>
+</div>
+</section>
+<section id="navigation" class="slide level2">
+<h2>Navigation</h2>
+<div class="columns">
+<div class="column" style="width:33%;">
+<p><strong>Previous:</strong><br>
+<a href="05-error-handling.html">Error Handling</a></p>
+</div><div class="column" style="width:33%;">
+<p><strong>Home:</strong><br>
+<a href="index.html">📚 Slides Index</a> | <a href="../book/index.html">📖 Book</a></p>
+</div><div class="column" style="width:33%;">
+<p><strong>Next:</strong><br>
+<a href="07-classes.html">Classes &amp; Objects</a></p>
+</div></div>
+<div class="fragment">
+<p><strong>Practice more:</strong> - Create a utilities package for your common tasks - Explore the Python standard library - Build a simple project with multiple modules</p>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>Python Tutorial</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="06-modules_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="06-modules_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="06-modules_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="06-modules_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="06-modules_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="06-modules_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="06-modules_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="06-modules_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="06-modules_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="06-modules_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="06-modules_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'scrollProgress': true,
+'scrollSnap': false,
+'scrollLayout': true,
+'scrollActivationWidth': null,
+'menu': {"side":"left","useTextContentForMissingTitles":false,"markers":true,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"},{"title":"📚 Navigation","icon":"<i class=\"fas fa-bars\"></i>","content":"<ul style=\"list-style: none; padding: 0; margin: 0;\">\n  <li style=\"margin: 8px 0;\"><a href=\"index.html\" style=\"color: #bd93f9; text-decoration: none;\">🏠 Slides Home</a></li>\n  <li style=\"margin: 8px 0;\"><a href=\"../book/index.html\" style=\"color: #bd93f9; text-decoration: none;\">📖 Book</a></li>\n  <li style=\"margin: 8px 0;\"><a href=\"../../index.html\" style=\"color: #bd93f9; text-decoration: none;\">🏠 Main Site</a></li>\n  <li style=\"margin: 8px 0;\"><a href=\"https://github.com/ameyanagi/python-tutorial\" style=\"color: #bd93f9; text-decoration: none;\">💻 GitHub</a></li>\n</ul>\n"}],"openButton":true,"width":"normal","numbers":false,"titleSelector":"h1, h2, h3, h4, h5, h6","hideMissingTitles":false},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 0.2,
+
+        maxScale: 2,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

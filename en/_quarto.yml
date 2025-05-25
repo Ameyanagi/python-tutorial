@@ -34,6 +34,8 @@ book:
     - part: "Applications"
       chapters:
         - book/12-data-science.qmd
+        - book/13-applications.qmd
+        - book/14-iot-connectivity.qmd
 
 format:
   html:
