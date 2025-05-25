@@ -19,12 +19,25 @@ book:
       chapters:
         - book/03-syntax.qmd
         - book/04-data-types.qmd
-        - book/04-functions.qmd
-        - book/05-error-handling.qmd
-        - book/06-modules.qmd
+        - book/05-control-flow.qmd
+        - book/06-functions.qmd
+        - book/07-error-handling.qmd
+        - book/08-modules.qmd
     - part: "オブジェクト指向プログラミング"
       chapters:
-        - book/07-classes.qmd
+        - book/09-classes.qmd
+        - book/11-inheritance.qmd
+    - part: "高度なトピック"
+      chapters:
+        - book/10-type-hints.qmd
+        - book/12-async.qmd
+        - book/13-multiprocessing.qmd
+    - part: "応用・実践"
+      chapters:
+        - book/14-data-science.qmd
+        - book/15-applications.qmd
+        - book/16-iot-connectivity.qmd
+        - book/99-self-review-1.qmd
 
 format:
   html:
