@@ -1,0 +1,514 @@
+# データサイエンスとPython
+
+Pythonはデータサイエンスの分野で最も人気のある言語の一つです。豊富なライブラリエコシステムにより、データの収集、処理、分析、可視化まで一貫して行うことができます。
+
+## データサイエンスの基本ライブラリ
+
+### NumPy - 数値計算の基盤
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# NumPyの基本操作
+print("=== NumPy基本操作 ===")
+
+# 配列の作成
+arr1 = np.array([1, 2, 3, 4, 5])
+arr2 = np.array([[1, 2, 3], [4, 5, 6]])
+
+print(f"1次元配列: {arr1}")
+print(f"2次元配列:\n{arr2}")
+print(f"配列の形状: {arr2.shape}")
+print(f"データ型: {arr2.dtype}")
+
+# 特殊な配列の作成
+zeros = np.zeros((3, 4))
+ones = np.ones((2, 3))
+random_arr = np.random.random((3, 3))
+
+print(f"\nゼロ配列:\n{zeros}")
+print(f"ランダム配列:\n{random_arr}")
+
+# 数学的操作
+data = np.array([1, 4, 9, 16, 25])
+print(f"\n元のデータ: {data}")
+print(f"平方根: {np.sqrt(data)}")
+print(f"対数: {np.log(data)}")
+print(f"合計: {np.sum(data)}")
+print(f"平均: {np.mean(data)}")
+print(f"標準偏差: {np.std(data)}")
+```
+
+### Pandas - データ操作と分析
+
+```{python}
+# サンプルデータの作成
+print("=== Pandas基本操作 ===")
+
+# DataFrame の作成
+sales_data = {
+    '日付': pd.date_range('2024-01-01', periods=10, freq='D'),
+    '売上': [120, 150, 98, 200, 175, 160, 210, 185, 145, 190],
+    '商品': ['A', 'B', 'A', 'C', 'B', 'A', 'C', 'B', 'A', 'C'],
+    '地域': ['東京', '大阪', '東京', '福岡', '大阪', '東京', '福岡', '大阪', '東京', '福岡']
+}
+
+df = pd.DataFrame(sales_data)
+print("売上データ:")
+print(df)
+
+# 基本的な統計情報
+print(f"\n基本統計:")
+print(df.describe())
+
+# グループ化と集計
+print(f"\n商品別売上:")
+product_sales = df.groupby('商品')['売上'].agg(['sum', 'mean', 'count'])
+print(product_sales)
+
+print(f"\n地域別売上:")
+region_sales = df.groupby('地域')['売上'].sum().sort_values(ascending=False)
+print(region_sales)
+
+# データフィルタリング
+high_sales = df[df['売上'] > 150]
+print(f"\n高売上データ (>150):")
+print(high_sales)
+```
+
+### データ可視化
+
+```{python}
+# matplotlib と seaborn を使った可視化
+print("=== データ可視化 ===")
+
+# 図のサイズとスタイルを設定
+plt.style.use('seaborn-v0_8')
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+# 1. 売上の時系列グラフ
+axes[0, 0].plot(df['日付'], df['売上'], marker='o', linewidth=2)
+axes[0, 0].set_title('日別売上推移')
+axes[0, 0].set_xlabel('日付')
+axes[0, 0].set_ylabel('売上')
+axes[0, 0].tick_params(axis='x', rotation=45)
+
+# 2. 商品別売上の棒グラフ
+product_totals = df.groupby('商品')['売上'].sum()
+axes[0, 1].bar(product_totals.index, product_totals.values, color=['skyblue', 'lightgreen', 'lightcoral'])
+axes[0, 1].set_title('商品別総売上')
+axes[0, 1].set_xlabel('商品')
+axes[0, 1].set_ylabel('総売上')
+
+# 3. 地域別売上の円グラフ
+region_totals = df.groupby('地域')['売上'].sum()
+axes[1, 0].pie(region_totals.values, labels=region_totals.index, autopct='%1.1f%%', startangle=90)
+axes[1, 0].set_title('地域別売上割合')
+
+# 4. 売上分布のヒストグラム
+axes[1, 1].hist(df['売上'], bins=6, color='orange', alpha=0.7, edgecolor='black')
+axes[1, 1].set_title('売上分布')
+axes[1, 1].set_xlabel('売上')
+axes[1, 1].set_ylabel('頻度')
+
+plt.tight_layout()
+plt.show()
+
+print("グラフを表示しました")
+```
+
+## 実際のデータ分析プロジェクト
+
+### 顧客データ分析
+
+```{python}
+# 模擬顧客データの作成
+np.random.seed(42)
+
+customer_data = {
+    '顧客ID': range(1, 1001),
+    '年齢': np.random.normal(40, 15, 1000).astype(int),
+    '年収': np.random.normal(500, 150, 1000).astype(int),
+    '購入金額': np.random.normal(100, 30, 1000),
+    '購入回数': np.random.poisson(3, 1000),
+    '性別': np.random.choice(['男性', '女性'], 1000),
+    '地域': np.random.choice(['東京', '大阪', '名古屋', '福岡'], 1000, p=[0.4, 0.3, 0.2, 0.1])
+}
+
+# 年齢を現実的な範囲に調整
+customer_data['年齢'] = np.clip(customer_data['年齢'], 18, 80)
+customer_data['年収'] = np.clip(customer_data['年収'], 200, 1500)
+customer_data['購入金額'] = np.clip(customer_data['購入金額'], 10, 500)
+
+customers_df = pd.DataFrame(customer_data)
+
+print("=== 顧客データ分析 ===")
+print(f"データ形状: {customers_df.shape}")
+print(f"\n最初の5行:")
+print(customers_df.head())
+
+# データの基本統計
+print(f"\n基本統計情報:")
+print(customers_df.describe())
+
+# 性別別分析
+print(f"\n性別別統計:")
+gender_stats = customers_df.groupby('性別').agg({
+    '年齢': ['mean', 'std'],
+    '年収': ['mean', 'std'], 
+    '購入金額': ['mean', 'std'],
+    '購入回数': ['mean', 'std']
+}).round(2)
+print(gender_stats)
+
+# 地域別分析
+print(f"\n地域別統計:")
+region_stats = customers_df.groupby('地域').agg({
+    '購入金額': ['count', 'mean', 'sum'],
+    '購入回数': 'mean'
+}).round(2)
+print(region_stats)
+```
+
+### 相関分析と機械学習の基礎
+
+```{python}
+# 相関分析
+print("=== 相関分析 ===")
+
+# 数値データの相関マトリックス
+numeric_columns = ['年齢', '年収', '購入金額', '購入回数']
+correlation_matrix = customers_df[numeric_columns].corr()
+
+print("相関マトリックス:")
+print(correlation_matrix.round(3))
+
+# 可視化
+plt.figure(figsize=(10, 8))
+
+# 相関マトリックスのヒートマップ
+plt.subplot(2, 2, 1)
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', center=0)
+plt.title('変数間の相関')
+
+# 年収と購入金額の散布図
+plt.subplot(2, 2, 2)
+plt.scatter(customers_df['年収'], customers_df['購入金額'], alpha=0.6)
+plt.xlabel('年収')
+plt.ylabel('購入金額')
+plt.title('年収 vs 購入金額')
+
+# 年齢別購入金額の箱ひげ図
+plt.subplot(2, 2, 3)
+age_groups = pd.cut(customers_df['年齢'], bins=[0, 30, 50, 100], labels=['若年', '中年', 'シニア'])
+customers_df['年齢層'] = age_groups
+sns.boxplot(data=customers_df, x='年齢層', y='購入金額')
+plt.title('年齢層別購入金額分布')
+
+# 地域別購入金額の棒グラフ
+plt.subplot(2, 2, 4)
+region_avg = customers_df.groupby('地域')['購入金額'].mean().sort_values(ascending=False)
+plt.bar(region_avg.index, region_avg.values, color=['red', 'blue', 'green', 'orange'])
+plt.title('地域別平均購入金額')
+plt.ylabel('平均購入金額')
+
+plt.tight_layout()
+plt.show()
+
+print("相関分析の可視化を表示しました")
+```
+
+### 機械学習入門
+
+```{python}
+# 簡単な機械学習の例（線形回帰）
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+print("=== 機械学習入門 ===")
+
+# 特徴量とターゲットの準備
+X = customers_df[['年齢', '年収', '購入回数']]  # 特徴量
+y = customers_df['購入金額']  # 予測対象
+
+# データを訓練用とテスト用に分割
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 線形回帰モデルの作成と訓練
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# 予測の実行
+y_pred = model.predict(X_test)
+
+# モデルの評価
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f"モデル評価:")
+print(f"平均二乗誤差 (MSE): {mse:.2f}")
+print(f"決定係数 (R²): {r2:.3f}")
+
+# 特徴量の重要度
+feature_importance = pd.DataFrame({
+    '特徴量': X.columns,
+    '係数': model.coef_,
+    '重要度': np.abs(model.coef_)
+}).sort_values('重要度', ascending=False)
+
+print(f"\n特徴量の重要度:")
+print(feature_importance)
+
+# 予測結果の可視化
+plt.figure(figsize=(10, 6))
+
+plt.subplot(1, 2, 1)
+plt.scatter(y_test, y_pred, alpha=0.6)
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2)
+plt.xlabel('実際の購入金額')
+plt.ylabel('予測購入金額')
+plt.title(f'予測精度 (R² = {r2:.3f})')
+
+plt.subplot(1, 2, 2)
+residuals = y_test - y_pred
+plt.scatter(y_pred, residuals, alpha=0.6)
+plt.axhline(y=0, color='r', linestyle='--')
+plt.xlabel('予測値')
+plt.ylabel('残差')
+plt.title('残差プロット')
+
+plt.tight_layout()
+plt.show()
+
+print("機械学習結果の可視化を表示しました")
+```
+
+## 時系列データ分析
+
+### トレンド分析と予測
+
+```{python}
+# 時系列データの作成
+print("=== 時系列データ分析 ===")
+
+# 月次売上データを作成
+date_range = pd.date_range('2022-01-01', '2024-12-31', freq='M')
+np.random.seed(42)
+
+# トレンドとノイズを含む売上データ
+trend = np.linspace(1000, 1500, len(date_range))
+seasonal = 200 * np.sin(2 * np.pi * np.arange(len(date_range)) / 12)
+noise = np.random.normal(0, 50, len(date_range))
+sales = trend + seasonal + noise
+
+time_series_df = pd.DataFrame({
+    '日付': date_range,
+    '売上': sales
+})
+
+print(f"時系列データ形状: {time_series_df.shape}")
+print(f"期間: {time_series_df['日付'].min()} から {time_series_df['日付'].max()}")
+
+# 基本統計
+print(f"\n売上統計:")
+print(f"平均: {time_series_df['売上'].mean():.2f}")
+print(f"最小: {time_series_df['売上'].min():.2f}")
+print(f"最大: {time_series_df['売上'].max():.2f}")
+
+# 移動平均の計算
+time_series_df['移動平均_3M'] = time_series_df['売上'].rolling(window=3).mean()
+time_series_df['移動平均_12M'] = time_series_df['売上'].rolling(window=12).mean()
+
+# 前年同月比の計算
+time_series_df['前年同月比'] = time_series_df['売上'].pct_change(periods=12) * 100
+
+# 時系列の可視化
+plt.figure(figsize=(15, 10))
+
+# 売上推移
+plt.subplot(3, 1, 1)
+plt.plot(time_series_df['日付'], time_series_df['売上'], label='実際の売上', alpha=0.7)
+plt.plot(time_series_df['日付'], time_series_df['移動平均_3M'], label='3か月移動平均', linewidth=2)
+plt.plot(time_series_df['日付'], time_series_df['移動平均_12M'], label='12か月移動平均', linewidth=2)
+plt.title('月次売上推移')
+plt.ylabel('売上')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+# 季節性の分析
+plt.subplot(3, 1, 2)
+monthly_avg = time_series_df.groupby(time_series_df['日付'].dt.month)['売上'].mean()
+plt.bar(monthly_avg.index, monthly_avg.values, color='lightblue', edgecolor='navy')
+plt.title('月別平均売上（季節性）')
+plt.xlabel('月')
+plt.ylabel('平均売上')
+plt.xticks(range(1, 13))
+plt.grid(True, alpha=0.3)
+
+# 前年同月比
+plt.subplot(3, 1, 3)
+plt.plot(time_series_df['日付'], time_series_df['前年同月比'], marker='o', linewidth=2, color='green')
+plt.axhline(y=0, color='red', linestyle='--', alpha=0.7)
+plt.title('前年同月比')
+plt.xlabel('日付')
+plt.ylabel('成長率 (%)')
+plt.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+
+print("時系列分析の可視化を表示しました")
+```
+
+## データサイエンスプロジェクトの実践例
+
+### A/Bテスト分析
+
+```{python}
+# A/Bテストのシミュレーション
+print("=== A/Bテスト分析 ===")
+
+np.random.seed(42)
+
+# A/Bテストデータの作成
+n_users_a = 1000
+n_users_b = 1000
+
+# グループAとBのコンバージョン率
+conversion_rate_a = 0.12  # 12%
+conversion_rate_b = 0.15  # 15%
+
+# テストデータ生成
+group_a = np.random.binomial(1, conversion_rate_a, n_users_a)
+group_b = np.random.binomial(1, conversion_rate_b, n_users_b)
+
+ab_test_df = pd.DataFrame({
+    'グループ': ['A'] * n_users_a + ['B'] * n_users_b,
+    'コンバージョン': np.concatenate([group_a, group_b])
+})
+
+# 基本統計
+results = ab_test_df.groupby('グループ')['コンバージョン'].agg(['count', 'sum', 'mean']).round(4)
+results.columns = ['ユーザー数', 'コンバージョン数', 'コンバージョン率']
+
+print("A/Bテスト結果:")
+print(results)
+
+# 統計的有意性検定（カイ二乗検定）
+from scipy.stats import chi2_contingency
+
+contingency_table = pd.crosstab(ab_test_df['グループ'], ab_test_df['コンバージョン'])
+chi2, p_value, dof, expected = chi2_contingency(contingency_table)
+
+print(f"\n統計的検定結果:")
+print(f"カイ二乗統計量: {chi2:.4f}")
+print(f"p値: {p_value:.4f}")
+print(f"有意水準0.05で{'有意' if p_value < 0.05 else '有意でない'}な差")
+
+# 効果の可視化
+plt.figure(figsize=(12, 6))
+
+plt.subplot(1, 2, 1)
+conversion_rates = results['コンバージョン率']
+colors = ['lightblue', 'lightgreen']
+bars = plt.bar(conversion_rates.index, conversion_rates.values, color=colors, edgecolor='navy')
+plt.title('グループ別コンバージョン率')
+plt.ylabel('コンバージョン率')
+plt.ylim(0, max(conversion_rates.values) * 1.2)
+
+# 数値をバーの上に表示
+for bar, rate in zip(bars, conversion_rates.values):
+    plt.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.005, 
+             f'{rate:.1%}', ha='center', va='bottom', fontweight='bold')
+
+plt.subplot(1, 2, 2)
+improvement = (results.loc['B', 'コンバージョン率'] - results.loc['A', 'コンバージョン率']) / results.loc['A', 'コンバージョン率'] * 100
+plt.bar(['改善率'], [improvement], color='orange', edgecolor='red')
+plt.title(f'グループBの改善率')
+plt.ylabel('改善率 (%)')
+plt.text(0, improvement + 1, f'{improvement:.1f}%', ha='center', va='bottom', fontweight='bold')
+
+plt.tight_layout()
+plt.show()
+
+print(f"グループBはグループAより{improvement:.1f}%改善")
+```
+
+### コホート分析
+
+```{python}
+# コホート分析（顧客のリテンション分析）
+print("=== コホート分析 ===")
+
+# サンプルデータの作成
+np.random.seed(42)
+
+# 顧客の初回購入月と再購入データを生成
+cohort_data = []
+for month in range(12):  # 12か月分
+    n_customers = np.random.randint(80, 120)  # 月ごとの新規顧客数
+    
+    for customer in range(n_customers):
+        customer_id = f"C{month:02d}_{customer:03d}"
+        first_purchase = pd.Timestamp('2024-01-01') + pd.DateOffset(months=month)
+        
+        # リテンション率をシミュレート（月が経つにつれて減少）
+        for future_month in range(6):  # 6か月先まで追跡
+            retention_prob = 0.8 * (0.85 ** future_month)  # 指数的減衰
+            if np.random.random() < retention_prob:
+                purchase_date = first_purchase + pd.DateOffset(months=future_month)
+                cohort_data.append({
+                    '顧客ID': customer_id,
+                    '初回購入月': first_purchase,
+                    '購入月': purchase_date,
+                    '経過月数': future_month
+                })
+
+cohort_df = pd.DataFrame(cohort_data)
+
+# コホートテーブルの作成
+cohort_table = cohort_df.pivot_table(
+    index='初回購入月',
+    columns='経過月数', 
+    values='顧客ID',
+    aggfunc='nunique'
+).fillna(0)
+
+# リテンション率の計算
+cohort_sizes = cohort_df.groupby('初回購入月')['顧客ID'].nunique()
+retention_table = cohort_table.divide(cohort_sizes, axis=0)
+
+print("コホートリテンション率:")
+print(retention_table.round(3))
+
+# 可視化
+plt.figure(figsize=(15, 8))
+
+plt.subplot(2, 1, 1)
+sns.heatmap(retention_table, annot=True, fmt='.2%', cmap='YlOrRd', cbar_kws={'label': 'リテンション率'})
+plt.title('コホート別リテンション率')
+plt.ylabel('初回購入月')
+plt.xlabel('経過月数')
+
+plt.subplot(2, 1, 2)
+avg_retention = retention_table.mean()
+plt.plot(avg_retention.index, avg_retention.values, marker='o', linewidth=3, markersize=8)
+plt.title('平均リテンション率の推移')
+plt.xlabel('経過月数')
+plt.ylabel('平均リテンション率')
+plt.grid(True, alpha=0.3)
+plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: '{:.0%}'.format(y)))
+
+plt.tight_layout()
+plt.show()
+
+print(f"平均リテンション率:")
+for month, rate in avg_retention.items():
+    print(f"  {month}か月後: {rate:.1%}")
+```
+
+この章では、Pythonを使ったデータサイエンスの基本から実践的な分析手法まで学習しました。NumPy、Pandas、Matplotlibなどの主要ライブラリを活用することで、データの収集、処理、分析、可視化を効率的に行うことができます。

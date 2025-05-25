@@ -1,0 +1,502 @@
+# 型ヒント - モダンな Python 開発
+
+型ヒント（Type Hints）は Python 3.5 から導入された機能で、コードの可読性を向上させ、バグを事前に発見するのに役立ちます。
+
+## 型ヒントとは
+
+型ヒントは、変数や関数の引数・戻り値の型を明示的に指定する仕組みです。
+
+```{python}
+# 型ヒントなし
+def greet(name):
+    return f"Hello, {name}!"
+
+# 型ヒントあり
+def greet_typed(name: str) -> str:
+    return f"Hello, {name}!"
+
+# 使用例
+message = greet_typed("太郎")
+print(message)
+```
+
+## 基本的な型の指定
+
+### プリミティブ型
+
+```{python}
+from typing import List, Dict, Tuple, Optional
+
+# 基本型
+name: str = "田中"
+age: int = 25
+height: float = 170.5
+is_student: bool = True
+
+print(f"名前: {name} ({type(name).__name__})")
+print(f"年齢: {age} ({type(age).__name__})")
+print(f"身長: {height} ({type(height).__name__})")
+print(f"学生: {is_student} ({type(is_student).__name__})")
+```
+
+### コレクション型
+
+```{python}
+# リスト型
+numbers: List[int] = [1, 2, 3, 4, 5]
+names: List[str] = ["太郎", "花子", "次郎"]
+
+# 辞書型
+student_ages: Dict[str, int] = {
+    "太郎": 20,
+    "花子": 22,
+    "次郎": 19
+}
+
+# タプル型
+coordinates: Tuple[float, float] = (35.6762, 139.6503)
+rgb_color: Tuple[int, int, int] = (255, 128, 0)
+
+print(f"数値リスト: {numbers}")
+print(f"名前リスト: {names}")
+print(f"学生の年齢: {student_ages}")
+print(f"座標: {coordinates}")
+print(f"RGB色: {rgb_color}")
+```
+
+## 関数の型ヒント
+
+### 基本的な関数
+
+```{python}
+def add_numbers(a: int, b: int) -> int:
+    """二つの数値を足し算する関数"""
+    return a + b
+
+def calculate_average(numbers: List[float]) -> float:
+    """数値リストの平均を計算"""
+    if not numbers:
+        return 0.0
+    return sum(numbers) / len(numbers)
+
+def format_name(first: str, last: str, middle: str = "") -> str:
+    """名前をフォーマット"""
+    if middle:
+        return f"{last} {first} {middle}"
+    return f"{last} {first}"
+
+# 使用例
+result = add_numbers(10, 20)
+print(f"10 + 20 = {result}")
+
+scores = [85.5, 92.0, 78.5, 90.0]
+avg = calculate_average(scores)
+print(f"平均点: {avg:.1f}")
+
+full_name = format_name("太郎", "田中")
+print(f"フルネーム: {full_name}")
+```
+
+### Optional と Union 型
+
+```{python}
+from typing import Optional, Union
+
+def find_student(students: List[str], name: str) -> Optional[int]:
+    """学生のインデックスを検索（見つからない場合は None）"""
+    try:
+        return students.index(name)
+    except ValueError:
+        return None
+
+def process_number(value: Union[int, float, str]) -> float:
+    """様々な型の数値を float に変換"""
+    if isinstance(value, str):
+        return float(value)
+    return float(value)
+
+# 使用例
+students = ["太郎", "花子", "次郎"]
+
+index = find_student(students, "花子")
+if index is not None:
+    print(f"花子は {index} 番目にいます")
+else:
+    print("花子が見つかりません")
+
+# Union 型のテスト
+print(f"整数 42: {process_number(42)}")
+print(f"浮動小数点 3.14: {process_number(3.14)}")
+print(f"文字列 '123.45': {process_number('123.45')}")
+```
+
+## クラスの型ヒント
+
+```{python}
+from typing import ClassVar
+from datetime import datetime
+
+class Student:
+    """学生クラス"""
+    
+    # クラス変数の型ヒント
+    school_name: ClassVar[str] = "東京大学"
+    
+    def __init__(self, name: str, age: int, grade: int) -> None:
+        self.name: str = name
+        self.age: int = age
+        self.grade: int = grade
+        self.scores: List[float] = []
+    
+    def add_score(self, score: float) -> None:
+        """成績を追加"""
+        self.scores.append(score)
+    
+    def get_average_score(self) -> Optional[float]:
+        """平均点を取得"""
+        if not self.scores:
+            return None
+        return sum(self.scores) / len(self.scores)
+    
+    def get_info(self) -> Dict[str, Union[str, int, float, None]]:
+        """学生情報を辞書で返す"""
+        return {
+            "name": self.name,
+            "age": self.age,
+            "grade": self.grade,
+            "average_score": self.get_average_score()
+        }
+    
+    def __str__(self) -> str:
+        return f"学生: {self.name} ({self.age}歳, {self.grade}年生)"
+
+# 使用例
+student = Student("田中太郎", 20, 2)
+student.add_score(85.5)
+student.add_score(92.0)
+student.add_score(78.5)
+
+print(student)
+print(f"平均点: {student.get_average_score():.1f}")
+print(f"詳細情報: {student.get_info()}")
+```
+
+## ジェネリック型
+
+```{python}
+from typing import TypeVar, Generic, List
+
+# 型変数の定義
+T = TypeVar('T')
+
+class Stack(Generic[T]):
+    """ジェネリックなスタッククラス"""
+    
+    def __init__(self) -> None:
+        self._items: List[T] = []
+    
+    def push(self, item: T) -> None:
+        """要素をプッシュ"""
+        self._items.append(item)
+    
+    def pop(self) -> Optional[T]:
+        """要素をポップ"""
+        if self._items:
+            return self._items.pop()
+        return None
+    
+    def peek(self) -> Optional[T]:
+        """トップの要素を確認"""
+        if self._items:
+            return self._items[-1]
+        return None
+    
+    def is_empty(self) -> bool:
+        """スタックが空かどうか"""
+        return len(self._items) == 0
+    
+    def size(self) -> int:
+        """スタックのサイズ"""
+        return len(self._items)
+
+# 文字列スタック
+string_stack: Stack[str] = Stack()
+string_stack.push("最初")
+string_stack.push("二番目")
+string_stack.push("三番目")
+
+print(f"スタックサイズ: {string_stack.size()}")
+print(f"トップ要素: {string_stack.peek()}")
+print(f"ポップ: {string_stack.pop()}")
+
+# 数値スタック
+number_stack: Stack[int] = Stack()
+number_stack.push(10)
+number_stack.push(20)
+number_stack.push(30)
+
+print(f"数値スタックサイズ: {number_stack.size()}")
+print(f"数値トップ: {number_stack.peek()}")
+```
+
+## 高度な型ヒント
+
+### Callable 型
+
+```{python}
+from typing import Callable
+
+def apply_operation(x: int, y: int, operation: Callable[[int, int], int]) -> int:
+    """二つの数値に演算を適用"""
+    return operation(x, y)
+
+def add(a: int, b: int) -> int:
+    return a + b
+
+def multiply(a: int, b: int) -> int:
+    return a * b
+
+# 使用例
+result1 = apply_operation(10, 5, add)
+result2 = apply_operation(10, 5, multiply)
+
+print(f"10 + 5 = {result1}")
+print(f"10 × 5 = {result2}")
+
+# ラムダ関数も使用可能
+result3 = apply_operation(10, 5, lambda x, y: x - y)
+print(f"10 - 5 = {result3}")
+```
+
+### Literal 型
+
+```{python}
+from typing import Literal
+
+def set_color(color: Literal["red", "green", "blue"]) -> str:
+    """指定された色を設定"""
+    return f"色を {color} に設定しました"
+
+def calculate_shape_area(shape: Literal["circle", "square", "triangle"], size: float) -> float:
+    """図形の面積を計算"""
+    import math
+    
+    if shape == "circle":
+        return math.pi * (size / 2) ** 2
+    elif shape == "square":
+        return size ** 2
+    elif shape == "triangle":
+        return (size ** 2) * math.sqrt(3) / 4
+    
+    return 0.0
+
+# 使用例
+print(set_color("red"))
+print(set_color("blue"))
+
+area1 = calculate_shape_area("circle", 10)
+area2 = calculate_shape_area("square", 10)
+print(f"円の面積 (直径10): {area1:.2f}")
+print(f"正方形の面積 (辺10): {area2:.2f}")
+```
+
+## 型ヒントの検証
+
+### mypy を使った静的型チェック
+
+```{python}
+# 以下は mypy でチェックできる例
+
+def divide_numbers(a: int, b: int) -> float:
+    """数値を割り算する（型安全版）"""
+    if b == 0:
+        raise ValueError("ゼロで割ることはできません")
+    return a / b
+
+def process_user_data(data: Dict[str, Union[str, int]]) -> str:
+    """ユーザーデータを処理"""
+    name = data.get("name", "未知")
+    age = data.get("age", 0)
+    
+    if not isinstance(name, str):
+        name = str(name)
+    if not isinstance(age, int):
+        age = int(age) if str(age).isdigit() else 0
+    
+    return f"{name} ({age}歳)"
+
+# 正しい使用例
+result = divide_numbers(10, 3)
+print(f"10 ÷ 3 = {result:.2f}")
+
+user = {"name": "田中太郎", "age": 25}
+info = process_user_data(user)
+print(f"ユーザー情報: {info}")
+```
+
+## 実践的な例：タスク管理システム
+
+```{python}
+from typing import NamedTuple
+from enum import Enum
+from datetime import datetime, date
+
+class Priority(Enum):
+    """タスクの優先度"""
+    LOW = 1
+    MEDIUM = 2
+    HIGH = 3
+    URGENT = 4
+
+class Task(NamedTuple):
+    """タスクデータ構造"""
+    id: int
+    title: str
+    description: str
+    priority: Priority
+    due_date: Optional[date]
+    completed: bool = False
+
+class TaskManager:
+    """タスク管理システム"""
+    
+    def __init__(self) -> None:
+        self._tasks: Dict[int, Task] = {}
+        self._next_id: int = 1
+    
+    def create_task(
+        self, 
+        title: str, 
+        description: str, 
+        priority: Priority = Priority.MEDIUM,
+        due_date: Optional[date] = None
+    ) -> Task:
+        """新しいタスクを作成"""
+        task = Task(
+            id=self._next_id,
+            title=title,
+            description=description,
+            priority=priority,
+            due_date=due_date
+        )
+        self._tasks[self._next_id] = task
+        self._next_id += 1
+        return task
+    
+    def get_task(self, task_id: int) -> Optional[Task]:
+        """IDでタスクを取得"""
+        return self._tasks.get(task_id)
+    
+    def get_tasks_by_priority(self, priority: Priority) -> List[Task]:
+        """優先度でタスクをフィルタ"""
+        return [task for task in self._tasks.values() if task.priority == priority]
+    
+    def complete_task(self, task_id: int) -> bool:
+        """タスクを完了にマーク"""
+        if task_id in self._tasks:
+            old_task = self._tasks[task_id]
+            self._tasks[task_id] = old_task._replace(completed=True)
+            return True
+        return False
+    
+    def get_overdue_tasks(self) -> List[Task]:
+        """期限切れのタスクを取得"""
+        today = date.today()
+        return [
+            task for task in self._tasks.values()
+            if task.due_date and task.due_date < today and not task.completed
+        ]
+
+# 使用例
+manager = TaskManager()
+
+# タスクの作成
+task1 = manager.create_task(
+    "レポート作成", 
+    "Python チュートリアルのレポートを書く",
+    Priority.HIGH,
+    date(2024, 12, 31)
+)
+
+task2 = manager.create_task(
+    "買い物", 
+    "食材を買いに行く",
+    Priority.MEDIUM
+)
+
+task3 = manager.create_task(
+    "メール返信", 
+    "重要なメールに返信する",
+    Priority.URGENT,
+    date(2024, 1, 15)
+)
+
+print(f"作成されたタスク: {task1}")
+print(f"高優先度タスク数: {len(manager.get_tasks_by_priority(Priority.HIGH))}")
+
+# タスクの完了
+success = manager.complete_task(task2.id)
+print(f"タスク完了: {success}")
+
+# 期限切れタスクのチェック
+overdue = manager.get_overdue_tasks()
+print(f"期限切れタスク数: {len(overdue)}")
+```
+
+## 型ヒントのベストプラクティス
+
+### 1. 段階的な導入
+
+```{python}
+# 始めは重要な関数から
+def important_function(data: List[str]) -> Dict[str, int]:
+    """重要な処理を行う関数"""
+    result = {}
+    for item in data:
+        result[item] = len(item)
+    return result
+
+# 徐々に全体に拡張
+```
+
+### 2. 複雑な型の簡略化
+
+```{python}
+from typing import TypeAlias, Any
+
+# 複雑な型を別名で定義
+UserData: TypeAlias = Dict[str, Union[str, int, List[str]]]
+ProcessResult: TypeAlias = Tuple[bool, str, Optional[Dict[str, Any]]]
+
+def process_user(data: UserData) -> ProcessResult:
+    """ユーザーデータを処理"""
+    try:
+        # 処理ロジック
+        return True, "成功", {"processed": True}
+    except Exception as e:
+        return False, str(e), None
+```
+
+## まとめ
+
+型ヒントは以下の利点を提供します：
+
+1. **コードの可読性向上**: 関数の期待する入力と出力が明確
+2. **IDE サポート**: より良い自動補完とエラー検出
+3. **バグの早期発見**: 型チェッカーによる静的解析
+4. **ドキュメント**: コード自体が型情報を含む
+5. **リファクタリング支援**: 型安全な変更が可能
+
+### 推奨事項
+
+- **新しいプロジェクトでは積極的に使用**
+- **既存コードは段階的に追加**
+- **mypy や pyright などの型チェッカーを活用**
+- **複雑な型は TypeAlias で簡略化**
+- **ジェネリック型で再利用性を向上**
+
+型ヒントは Python をより堅牢で保守性の高い言語にする重要な機能です。モダンな Python 開発では必須のスキルとなっています。
+
+## 次の章
+
+次は[非同期プログラミング](11-async.qmd)について学び、並行処理の基礎を理解しましょう。

@@ -297,100 +297,87 @@
 </section>
 <section id="dictionary-methods-operations" class="slide level2">
 <h2>Dictionary Methods &amp; Operations</h2>
+<p><strong>Dictionaries have powerful built-in methods for data manipulation:</strong></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>inventory <span class="op">=</span> {</span>
 <span id="cb5-2"><a href=""></a>    <span class="st">"apples"</span>: <span class="dv">50</span>,</span>
 <span id="cb5-3"><a href=""></a>    <span class="st">"bananas"</span>: <span class="dv">30</span>,</span>
 <span id="cb5-4"><a href=""></a>    <span class="st">"oranges"</span>: <span class="dv">25</span></span>
 <span id="cb5-5"><a href=""></a>}</span>
 <span id="cb5-6"><a href=""></a></span>
-<span id="cb5-7"><a href=""></a><span class="co"># Useful methods</span></span>
+<span id="cb5-7"><a href=""></a><span class="co"># .keys() gets all the dictionary keys (item names)</span></span>
 <span id="cb5-8"><a href=""></a><span class="bu">print</span>(inventory.keys())    <span class="co"># dict_keys(['apples', 'bananas', 'oranges'])</span></span>
-<span id="cb5-9"><a href=""></a><span class="bu">print</span>(inventory.values())  <span class="co"># dict_values([50, 30, 25])</span></span>
-<span id="cb5-10"><a href=""></a></span>
-<span id="cb5-11"><a href=""></a><span class="co"># Membership testing</span></span>
-<span id="cb5-12"><a href=""></a><span class="cf">if</span> <span class="st">"apples"</span> <span class="kw">in</span> inventory:</span>
-<span id="cb5-13"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"We have </span><span class="sc">{</span>inventory[<span class="st">'apples'</span>]<span class="sc">}</span><span class="ss"> apples"</span>)</span>
-<span id="cb5-14"><a href=""></a></span>
-<span id="cb5-15"><a href=""></a><span class="co"># Dictionary comprehension</span></span>
-<span id="cb5-16"><a href=""></a>doubled <span class="op">=</span> {k: v<span class="op">*</span><span class="dv">2</span> <span class="cf">for</span> k, v <span class="kw">in</span> inventory.items()}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-9"><a href=""></a></span>
+<span id="cb5-10"><a href=""></a><span class="co"># .values() gets all the dictionary values (quantities)</span></span>
+<span id="cb5-11"><a href=""></a><span class="bu">print</span>(inventory.values())  <span class="co"># dict_values([50, 30, 25])</span></span>
+<span id="cb5-12"><a href=""></a></span>
+<span id="cb5-13"><a href=""></a><span class="co"># Use 'in' to check if a key exists (very fast!)</span></span>
+<span id="cb5-14"><a href=""></a><span class="cf">if</span> <span class="st">"apples"</span> <span class="kw">in</span> inventory:</span>
+<span id="cb5-15"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"We have </span><span class="sc">{</span>inventory[<span class="st">'apples'</span>]<span class="sc">}</span><span class="ss"> apples"</span>)</span>
+<span id="cb5-16"><a href=""></a></span>
+<span id="cb5-17"><a href=""></a><span class="co"># Dictionary comprehension: transform all key-value pairs</span></span>
+<span id="cb5-18"><a href=""></a><span class="co"># This reads as: "for each key-value pair, create new pair with doubled value"</span></span>
+<span id="cb5-19"><a href=""></a>doubled <span class="op">=</span> {k: v<span class="op">*</span><span class="dv">2</span> <span class="cf">for</span> k, v <span class="kw">in</span> inventory.items()}</span>
+<span id="cb5-20"><a href=""></a><span class="co"># Result: {"apples": 100, "bananas": 60, "oranges": 50}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Key insight</strong>: Dictionary operations are very fast because they use hash tables for lookups!</p>
 </section>
 <section id="sets---unique-collections" class="slide level2 smaller">
 <h2>Sets - Unique Collections</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Creating sets</span></span>
+<p><strong>Sets are collections that automatically eliminate duplicates and provide fast membership testing:</strong></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Creating sets - notice curly braces like dictionaries, but no key:value pairs</span></span>
 <span id="cb6-2"><a href=""></a>fruits <span class="op">=</span> {<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"cherry"</span>}</span>
 <span id="cb6-3"><a href=""></a>numbers <span class="op">=</span> {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>}</span>
 <span id="cb6-4"><a href=""></a></span>
-<span id="cb6-5"><a href=""></a><span class="co"># Adding elements</span></span>
+<span id="cb6-5"><a href=""></a><span class="co"># Adding elements - only unique items are stored</span></span>
 <span id="cb6-6"><a href=""></a>fruits.add(<span class="st">"orange"</span>)</span>
 <span id="cb6-7"><a href=""></a></span>
-<span id="cb6-8"><a href=""></a><span class="co"># Sets automatically handle duplicates</span></span>
-<span id="cb6-9"><a href=""></a>mixed <span class="op">=</span> {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>}</span>
-<span id="cb6-10"><a href=""></a><span class="bu">print</span>(mixed)  <span class="co"># {1, 2, 3}</span></span>
+<span id="cb6-8"><a href=""></a><span class="co"># Sets automatically handle duplicates - perfect for removing duplicates!</span></span>
+<span id="cb6-9"><a href=""></a>mixed <span class="op">=</span> {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>}  <span class="co"># We added duplicates here</span></span>
+<span id="cb6-10"><a href=""></a><span class="bu">print</span>(mixed)  <span class="co"># {1, 2, 3} - duplicates automatically removed!</span></span>
 <span id="cb6-11"><a href=""></a></span>
-<span id="cb6-12"><a href=""></a><span class="co"># Set operations</span></span>
-<span id="cb6-13"><a href=""></a>set_a <span class="op">=</span> {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>}</span>
-<span id="cb6-14"><a href=""></a>set_b <span class="op">=</span> {<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>}</span>
-<span id="cb6-15"><a href=""></a></span>
-<span id="cb6-16"><a href=""></a>union <span class="op">=</span> set_a <span class="op">|</span> set_b           <span class="co"># {1, 2, 3, 4, 5, 6, 7, 8}</span></span>
-<span id="cb6-17"><a href=""></a>intersection <span class="op">=</span> set_a <span class="op">&amp;</span> set_b    <span class="co"># {4, 5}</span></span>
-<span id="cb6-18"><a href=""></a>difference <span class="op">=</span> set_a <span class="op">-</span> set_b      <span class="co"># {1, 2, 3}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="choosing-the-right-data-structure" class="slide level2">
-<h2>Choosing the Right Data Structure</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Structure</th>
-<th>When to Use</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>List</strong></td>
-<td>Ordered, mutable collection</td>
-<td>Shopping list, scores</td>
-</tr>
-<tr class="even">
-<td><strong>Tuple</strong></td>
-<td>Ordered, immutable data</td>
-<td>Coordinates, RGB</td>
-</tr>
-<tr class="odd">
-<td><strong>Dictionary</strong></td>
-<td>Key-value lookup</td>
-<td>User profiles, settings</td>
-</tr>
-<tr class="even">
-<td><strong>Set</strong></td>
-<td>Unique items, fast lookup</td>
-<td>Tags, unique IDs</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="real-world-example-student-system" class="slide level2 smaller">
-<h2>Real-World Example: Student System</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Student management using different data structures</span></span>
-<span id="cb7-2"><a href=""></a>students <span class="op">=</span> []  <span class="co"># List of student records</span></span>
-<span id="cb7-3"><a href=""></a></span>
-<span id="cb7-4"><a href=""></a><span class="kw">def</span> add_student(name, age, grades):</span>
-<span id="cb7-5"><a href=""></a>    student <span class="op">=</span> {</span>
-<span id="cb7-6"><a href=""></a>        <span class="st">"name"</span>: name,           <span class="co"># Dictionary for structured data</span></span>
-<span id="cb7-7"><a href=""></a>        <span class="st">"age"</span>: age,</span>
-<span id="cb7-8"><a href=""></a>        <span class="st">"grades"</span>: <span class="bu">tuple</span>(grades), <span class="co"># Tuple for immutable grade history</span></span>
-<span id="cb7-9"><a href=""></a>        <span class="st">"subjects"</span>: <span class="bu">set</span>(),       <span class="co"># Set for unique subjects</span></span>
-<span id="cb7-10"><a href=""></a>        <span class="st">"average"</span>: <span class="bu">sum</span>(grades) <span class="op">/</span> <span class="bu">len</span>(grades)</span>
-<span id="cb7-11"><a href=""></a>    }</span>
-<span id="cb7-12"><a href=""></a>    students.append(student)</span>
-<span id="cb7-13"><a href=""></a></span>
-<span id="cb7-14"><a href=""></a><span class="co"># Usage</span></span>
-<span id="cb7-15"><a href=""></a>add_student(<span class="st">"Alice"</span>, <span class="dv">20</span>, [<span class="dv">95</span>, <span class="dv">87</span>, <span class="dv">92</span>])</span>
-<span id="cb7-16"><a href=""></a>add_student(<span class="st">"Bob"</span>, <span class="dv">19</span>, [<span class="dv">78</span>, <span class="dv">84</span>, <span class="dv">88</span>])</span>
-<span id="cb7-17"><a href=""></a></span>
-<span id="cb7-18"><a href=""></a><span class="co"># Find top student</span></span>
-<span id="cb7-19"><a href=""></a>top_student <span class="op">=</span> <span class="bu">max</span>(students, key<span class="op">=</span><span class="kw">lambda</span> s: s[<span class="st">"average"</span>])</span>
-<span id="cb7-20"><a href=""></a><span class="bu">print</span>(<span class="ss">f"Top student: </span><span class="sc">{</span>top_student[<span class="st">'name'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-12"><a href=""></a><span class="co"># Real-world example: Get unique items from a list</span></span>
+<span id="cb6-13"><a href=""></a>email_list <span class="op">=</span> [<span class="st">"alice@test.com"</span>, <span class="st">"bob@test.com"</span>, <span class="st">"alice@test.com"</span>, <span class="st">"charlie@test.com"</span>]</span>
+<span id="cb6-14"><a href=""></a>unique_emails <span class="op">=</span> <span class="bu">set</span>(email_list)  <span class="co"># Converts list to set, removing duplicates</span></span>
+<span id="cb6-15"><a href=""></a><span class="bu">print</span>(<span class="ss">f"Unique emails: </span><span class="sc">{</span>unique_emails<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>When to use sets</strong>: Fast membership testing (<code>item in my_set</code>) and removing duplicates!</p>
+</section></section>
+<section>
+<section id="set-operations" class="title-slide slide level1 center">
+<h1>Set operations</h1>
+<p>set_a = {1, 2, 3, 4, 5} set_b = {4, 5, 6, 7, 8}</p>
+<p>union = set_a | set_b # {1, 2, 3, 4, 5, 6, 7, 8} intersection = set_a &amp; set_b # {4, 5} difference = set_a - set_b # {1, 2, 3}</p>
+<pre><code>
+## Choosing the Right Data Structure
+
+| Structure | When to Use | Example |
+|-----------|-------------|---------|
+| **List** | Ordered, mutable collection | Shopping list, scores |
+| **Tuple** | Ordered, immutable data | Coordinates, RGB |
+| **Dictionary** | Key-value lookup | User profiles, settings |
+| **Set** | Unique items, fast lookup | Tags, unique IDs |
+
+## Real-World Example: Student System {.smaller}
+
+```python
+# Student management using different data structures
+students = []  # List of student records
+
+def add_student(name, age, grades):
+    student = {
+        "name": name,           # Dictionary for structured data
+        "age": age,
+        "grades": tuple(grades), # Tuple for immutable grade history
+        "subjects": set(),       # Set for unique subjects
+        "average": sum(grades) / len(grades)
+    }
+    students.append(student)
+
+# Usage
+add_student("Alice", 20, [95, 87, 92])
+add_student("Bob", 19, [78, 84, 88])
+
+# Find top student
+top_student = max(students, key=lambda s: s["average"])
+print(f"Top student: {top_student['name']}")</code></pre>
 </section>
 <section id="list-comprehensions---powerful-pythonic" class="slide level2">
 <h2>List Comprehensions - Powerful &amp; Pythonic</h2>

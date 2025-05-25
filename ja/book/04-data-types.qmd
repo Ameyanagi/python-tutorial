@@ -250,12 +250,41 @@ unique_visitors = {"alice", "bob", "charlie"}     # セット: 重複なし
 
 ### リスト内包表記
 
+リスト内包表記は、既存のシーケンスに基づいて新しいリストを簡潔に作成する方法です。従来のループよりも読みやすく、しばしば高速です。
+
+**基本構文:** `[式 for 要素 in イテラブル if 条件]`
+
+段階的に見てみましょう：
+
 ```{python}
-# 従来の方法
+# 従来の方法 - ループとappendを使用
 squares = []
 for x in range(1, 6):
     squares.append(x**2)
 print("従来型:", squares)
+
+# リスト内包表記 - 1行で完結
+# これは「1から5までの各xについて、x²のリストを作成する」と読めます
+squares = [x**2 for x in range(1, 6)]
+print("内包表記:", squares)
+
+# 条件付き - フィルタリングしながら変換
+# これは「1から10までの各xについて、xが偶数の場合のみx²のリストを作成する」
+# （x % 2 == 0 は余りが0、つまり偶数を意味します）
+even_squares = [x**2 for x in range(1, 11) if x % 2 == 0]
+print("偶数の二乗:", even_squares)
+
+# 文字列との組み合わせ - 各単語を変換
+# これは「wordsリストの各wordについて、word.upper()のリストを作成する」
+words = ["hello", "world", "python"]
+uppercase = [word.upper() for word in words]
+print("大文字:", uppercase)
+```
+
+**なぜリスト内包表記を使うのか？**
+- **読みやすさ**: 意図が1行で明確
+- **パフォーマンス**: Pythonが内部的に最適化
+- **Pythonic**: Pythonらしい書き方とされている
 
 # リスト内包表記
 squares = [x**2 for x in range(1, 6)]

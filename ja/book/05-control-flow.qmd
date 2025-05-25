@@ -1,0 +1,326 @@
+# 制御フロー - 条件分岐とループ
+
+制御フロー文により、プログラムが条件に基づいて判断を行い、処理を繰り返すことができます。
+
+## 条件文 - if、elif、else
+
+### 基本的な if 文
+
+```{python}
+age = 18
+
+if age >= 18:
+    print("あなたは成人です")
+    print("投票できます")
+
+print("この行は常に実行されます")
+```
+
+### if-else 文
+
+```{python}
+temperature = 25
+
+if temperature > 30:
+    print("外は暑いです！")
+    print("水分補給を忘れずに")
+else:
+    print("それほど暑くありません")
+    print("完璧な天気です")
+
+print(f"現在の気温: {temperature}°C")
+```
+
+### if-elif-else チェーン
+
+```{python}
+score = 85
+
+if score >= 90:
+    grade = "A"
+    message = "素晴らしい！"
+elif score >= 80:
+    grade = "B"
+    message = "よくできました！"
+elif score >= 70:
+    grade = "C"
+    message = "頑張り続けましょう！"
+elif score >= 60:
+    grade = "D"
+    message = "改善が必要です"
+else:
+    grade = "F"
+    message = "もっと勉強しましょう"
+
+print(f"得点: {score}")
+print(f"評価: {grade}")
+print(f"コメント: {message}")
+```
+
+## ループ - 処理の繰り返し
+
+### for ループ
+
+```{python}
+# リストを使った繰り返し
+fruits = ["りんご", "バナナ", "さくらんぼ"]
+
+for fruit in fruits:
+    print(f"私は{fruit}が好きです")
+```
+
+```{python}
+# range() を使った数値の繰り返し
+print("1から5までの数字:")
+for i in range(1, 6):
+    print(f"数字: {i}")
+```
+
+```{python}
+# 九九の表
+print("九九の表:")
+for i in range(1, 10):
+    for j in range(1, 10):
+        result = i * j
+        print(f"{i} × {j} = {result:2d}", end="  ")
+    print()  # 改行
+```
+
+### while ループ
+
+```{python}
+# カウントダウン
+count = 5
+print("カウントダウン開始:")
+
+while count > 0:
+    print(f"{count}...")
+    count -= 1
+
+print("発射！🚀")
+```
+
+```{python}
+# ユーザー入力のシミュレーション（実際の例）
+import random
+
+# ランダムな数字を生成
+secret_number = random.randint(1, 10)
+attempts = 0
+max_attempts = 3
+
+print("1から10の数字を当ててください！")
+print(f"ヒント: 秘密の数字は {secret_number} です（実際のゲームでは表示されません）")
+
+# シミュレートされた推測
+guesses = [5, 8, secret_number]  # 実際の例では input() を使用
+
+for guess in guesses:
+    attempts += 1
+    print(f"推測 {attempts}: {guess}")
+    
+    if guess == secret_number:
+        print("正解です！🎉")
+        break
+    elif guess < secret_number:
+        print("もっと大きい数字です")
+    else:
+        print("もっと小さい数字です")
+    
+    if attempts >= max_attempts:
+        print(f"残念！正解は {secret_number} でした")
+        break
+```
+
+## ループ制御文
+
+### break - ループの中断
+
+```{python}
+# 特定の条件でループを終了
+numbers = [1, 3, 5, 8, 9, 11, 13]
+
+print("最初の偶数を探しています...")
+for num in numbers:
+    print(f"チェック中: {num}")
+    if num % 2 == 0:
+        print(f"見つかりました！最初の偶数は {num} です")
+        break
+else:
+    print("偶数が見つかりませんでした")
+```
+
+### continue - 次の反復へスキップ
+
+```{python}
+# 奇数のみを表示
+print("1から10の奇数:")
+for i in range(1, 11):
+    if i % 2 == 0:  # 偶数の場合
+        continue    # 残りの処理をスキップ
+    print(f"奇数: {i}")
+```
+
+## 実践的な例
+
+### 成績計算システム
+
+```{python}
+# 学生の成績を処理
+students = [
+    {"名前": "田中", "得点": [85, 90, 78]},
+    {"名前": "鈴木", "得点": [92, 88, 95]},
+    {"名前": "佐藤", "得点": [76, 82, 80]}
+]
+
+print("=== 成績レポート ===")
+for student in students:
+    name = student["名前"]
+    scores = student["得点"]
+    
+    # 平均点を計算
+    average = sum(scores) / len(scores)
+    
+    # 評価を決定
+    if average >= 90:
+        grade = "A"
+    elif average >= 80:
+        grade = "B"
+    elif average >= 70:
+        grade = "C"
+    else:
+        grade = "D"
+    
+    print(f"学生: {name}")
+    print(f"  得点: {scores}")
+    print(f"  平均: {average:.1f}")
+    print(f"  評価: {grade}")
+    print()
+```
+
+### パスワード強度チェッカー
+
+```{python}
+def check_password_strength(password):
+    """パスワードの強度をチェックする関数"""
+    
+    # 初期設定
+    score = 0
+    feedback = []
+    
+    # 長さをチェック
+    if len(password) >= 8:
+        score += 1
+    else:
+        feedback.append("8文字以上にしてください")
+    
+    # 文字の種類をチェック
+    has_upper = any(c.isupper() for c in password)
+    has_lower = any(c.islower() for c in password)
+    has_digit = any(c.isdigit() for c in password)
+    has_special = any(c in "!@#$%^&*" for c in password)
+    
+    if has_upper:
+        score += 1
+    else:
+        feedback.append("大文字を含めてください")
+        
+    if has_lower:
+        score += 1
+    else:
+        feedback.append("小文字を含めてください")
+        
+    if has_digit:
+        score += 1
+    else:
+        feedback.append("数字を含めてください")
+        
+    if has_special:
+        score += 1
+    else:
+        feedback.append("特殊文字を含めてください")
+    
+    # 強度を評価
+    if score >= 4:
+        strength = "強い"
+    elif score >= 3:
+        strength = "普通"
+    else:
+        strength = "弱い"
+    
+    return strength, feedback
+
+# テスト例
+test_passwords = ["123", "password", "Password1", "MyStrongP@ss1"]
+
+for password in test_passwords:
+    strength, feedback = check_password_strength(password)
+    print(f"パスワード: '{password}'")
+    print(f"強度: {strength}")
+    if feedback:
+        print("改善点:")
+        for suggestion in feedback:
+            print(f"  - {suggestion}")
+    print()
+```
+
+## 練習問題
+
+### 問題 1: FizzBuzz
+1から30までの数字を表示し、以下のルールに従ってください：
+- 3の倍数の場合は "Fizz" を表示
+- 5の倍数の場合は "Buzz" を表示  
+- 3と5の両方の倍数の場合は "FizzBuzz" を表示
+
+```{python}
+print("=== FizzBuzz ===")
+for i in range(1, 31):
+    if i % 3 == 0 and i % 5 == 0:
+        print("FizzBuzz")
+    elif i % 3 == 0:
+        print("Fizz")
+    elif i % 5 == 0:
+        print("Buzz")
+    else:
+        print(i)
+```
+
+### 問題 2: 素数判定
+
+```{python}
+def is_prime(n):
+    """数字が素数かどうかを判定"""
+    if n < 2:
+        return False
+    
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+# 1から50までの素数を表示
+print("1から50までの素数:")
+primes = []
+for num in range(1, 51):
+    if is_prime(num):
+        primes.append(num)
+
+print(primes)
+print(f"見つかった素数の数: {len(primes)}")
+```
+
+## まとめ
+
+この章では以下を学習しました：
+
+- **条件文**: if、elif、else を使った判断処理
+- **ループ**: for と while を使った繰り返し処理
+- **ループ制御**: break と continue の使い方
+- **実践例**: 成績処理、パスワード強度チェック
+- **アルゴリズム**: FizzBuzz、素数判定
+
+制御フローはプログラミングの基本中の基本です。これらの概念をしっかりと理解し、様々な問題解決に活用しましょう。
+
+## 次の章
+
+次は[関数](06-functions.qmd)について学習し、コードを整理して再利用可能にする方法を学びます。

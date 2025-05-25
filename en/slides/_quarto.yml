@@ -13,9 +13,9 @@ format:
     code-fold: false
     echo: true
     eval: false
-    filters:
-      - live
-      - drop
+    # filters:
+    #   - live
+    #   - drop
     controls: true
     controlsLayout: edges
     controlsTutorial: true

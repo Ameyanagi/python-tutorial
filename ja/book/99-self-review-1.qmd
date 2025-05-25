@@ -1,0 +1,336 @@
+# 自己評価: Python の基礎
+
+この章では、これまで学習した Python の基礎概念を復習し、理解度を確認します。
+
+## 📝 学習内容の復習
+
+### 1. 環境構築とツール
+- **uv** パッケージマネージャーの使用
+- **Git** と **GitHub** でのバージョン管理
+- **VS Code** での開発環境設定
+
+### 2. Python の基本構文
+- 変数と代入
+- データ型（文字列、数値、ブール値）
+- インデントによるコードブロック
+
+### 3. データ型とコレクション
+- **リスト**: 順序付きの要素のコレクション
+- **辞書**: キーと値のペア
+- **セット**: 重複のない要素のコレクション
+- **タプル**: 不変の順序付きコレクション
+
+### 4. 制御フロー
+- **条件文**: if、elif、else
+- **ループ**: for、while
+- **ループ制御**: break、continue
+
+### 5. 関数
+- 関数の定義と呼び出し
+- 引数とパラメータ
+- 戻り値
+- スコープ
+
+### 6. エラー処理
+- try-except 文
+- 異なる例外の処理
+- finally ブロック
+
+### 7. モジュールとパッケージ
+- モジュールのインポート
+- 標準ライブラリの使用
+- カスタムモジュールの作成
+
+## 🧪 理解度チェック問題
+
+### 問題 1: 基本的なデータ操作
+
+```{python}
+# 課題: 学生の成績管理システム
+students = [
+    {"名前": "田中太郎", "数学": 85, "英語": 92, "理科": 78},
+    {"名前": "佐藤花子", "数学": 93, "英語": 87, "理科": 95},
+    {"名前": "鈴木次郎", "数学": 76, "英語": 84, "理科": 89}
+]
+
+# 1. 各学生の平均点を計算
+print("=== 学生の平均点 ===")
+for student in students:
+    name = student["名前"]
+    scores = [student["数学"], student["英語"], student["理科"]]
+    average = sum(scores) / len(scores)
+    print(f"{name}: {average:.1f}点")
+
+# 2. 科目別の平均点を計算
+subjects = ["数学", "英語", "理科"]
+print("\n=== 科目別平均点 ===")
+for subject in subjects:
+    total = sum(student[subject] for student in students)
+    average = total / len(students)
+    print(f"{subject}: {average:.1f}点")
+
+# 3. 最高点を取った学生を見つける
+print("\n=== 各科目の最高点 ===")
+for subject in subjects:
+    max_score = 0
+    top_student = ""
+    for student in students:
+        if student[subject] > max_score:
+            max_score = student[subject]
+            top_student = student["名前"]
+    print(f"{subject}: {top_student} ({max_score}点)")
+```
+
+### 問題 2: 関数とエラー処理
+
+```{python}
+def calculate_bmi(weight, height):
+    """BMI (Body Mass Index) を計算する関数"""
+    try:
+        # BMI = 体重(kg) / 身長(m)^2
+        bmi = weight / (height ** 2)
+        return round(bmi, 2)
+    except ZeroDivisionError:
+        return "エラー: 身長に0は指定できません"
+    except TypeError:
+        return "エラー: 数値を入力してください"
+
+def get_bmi_category(bmi):
+    """BMI値から体型カテゴリを判定"""
+    if isinstance(bmi, str):  # エラーメッセージの場合
+        return bmi
+    
+    if bmi < 18.5:
+        return "やせ型"
+    elif bmi < 25:
+        return "標準"
+    elif bmi < 30:
+        return "肥満度1"
+    else:
+        return "肥満度2以上"
+
+# テストデータ
+test_data = [
+    {"名前": "田中", "体重": 70, "身長": 1.75},
+    {"名前": "佐藤", "体重": 55, "身長": 1.60},
+    {"名前": "鈴木", "体重": 85, "身長": 1.80},
+    {"名前": "エラー例", "体重": 70, "身長": 0},  # エラーケース
+]
+
+print("=== BMI 計算結果 ===")
+for person in test_data:
+    name = person["名前"]
+    weight = person["体重"]
+    height = person["身長"]
+    
+    bmi = calculate_bmi(weight, height)
+    category = get_bmi_category(bmi)
+    
+    if isinstance(bmi, str):  # エラーの場合
+        print(f"{name}: {bmi}")
+    else:
+        print(f"{name}: BMI={bmi}, 判定={category}")
+```
+
+### 問題 3: ファイル処理とデータ分析
+
+```{python}
+import json
+from datetime import datetime, timedelta
+
+# サンプルデータ（実際のファイルの代わり）
+sample_data = [
+    {"日付": "2024-01-01", "売上": 120000, "顧客数": 45},
+    {"日付": "2024-01-02", "売上": 98000, "顧客数": 38},
+    {"日付": "2024-01-03", "売上": 145000, "顧客数": 52},
+    {"日付": "2024-01-04", "売上": 87000, "顧客数": 33},
+    {"日付": "2024-01-05", "売上": 167000, "顧客数": 61},
+]
+
+def analyze_sales_data(data):
+    """売上データを分析する関数"""
+    if not data:
+        return {"エラー": "データが空です"}
+    
+    # 基本統計
+    total_sales = sum(day["売上"] for day in data)
+    total_customers = sum(day["顧客数"] for day in data)
+    average_sales = total_sales / len(data)
+    average_customers = total_customers / len(data)
+    
+    # 最高・最低売上日
+    best_day = max(data, key=lambda x: x["売上"])
+    worst_day = min(data, key=lambda x: x["売上"])
+    
+    # 顧客あたりの平均売上
+    customer_avg_spending = []
+    for day in data:
+        if day["顧客数"] > 0:
+            avg = day["売上"] / day["顧客数"]
+            customer_avg_spending.append(avg)
+    
+    overall_avg_spending = sum(customer_avg_spending) / len(customer_avg_spending)
+    
+    return {
+        "分析期間": f"{data[0]['日付']} ～ {data[-1]['日付']}",
+        "総売上": f"{total_sales:,}円",
+        "総顧客数": f"{total_customers:,}人",
+        "日平均売上": f"{average_sales:,.0f}円",
+        "日平均顧客数": f"{average_customers:.1f}人",
+        "最高売上日": f"{best_day['日付']} ({best_day['売上']:,}円)",
+        "最低売上日": f"{worst_day['日付']} ({worst_day['売上']:,}円)",
+        "顧客あたり平均単価": f"{overall_avg_spending:,.0f}円"
+    }
+
+# データ分析の実行
+analysis = analyze_sales_data(sample_data)
+
+print("=== 売上分析レポート ===")
+for key, value in analysis.items():
+    print(f"{key}: {value}")
+```
+
+## 🎯 実践課題
+
+### 課題 1: 家計簿アプリケーション
+
+以下の機能を持つ簡単な家計簿プログラムを作成してください：
+
+```{python}
+class HouseholdBudget:
+    """家計簿管理クラス"""
+    
+    def __init__(self):
+        self.transactions = []
+        self.categories = {
+            "収入": ["給与", "ボーナス", "その他収入"],
+            "支出": ["食費", "住居費", "交通費", "娯楽費", "その他支出"]
+        }
+    
+    def add_transaction(self, date, category, amount, description=""):
+        """取引を追加"""
+        transaction = {
+            "日付": date,
+            "カテゴリ": category,
+            "金額": amount,
+            "説明": description,
+            "ID": len(self.transactions) + 1
+        }
+        self.transactions.append(transaction)
+        return f"取引を追加しました: {description} ({amount:,}円)"
+    
+    def get_balance(self):
+        """収支を計算"""
+        income = sum(t["金額"] for t in self.transactions 
+                    if t["カテゴリ"] in self.categories["収入"])
+        expense = sum(t["金額"] for t in self.transactions 
+                     if t["カテゴリ"] in self.categories["支出"])
+        return income - expense
+    
+    def get_summary_by_category(self):
+        """カテゴリ別集計"""
+        summary = {}
+        for transaction in self.transactions:
+            category = transaction["カテゴリ"]
+            amount = transaction["金額"]
+            if category in summary:
+                summary[category] += amount
+            else:
+                summary[category] = amount
+        return summary
+    
+    def get_monthly_report(self, year, month):
+        """月次レポート"""
+        monthly_transactions = [
+            t for t in self.transactions 
+            if t["日付"].startswith(f"{year}-{month:02d}")
+        ]
+        
+        if not monthly_transactions:
+            return f"{year}年{month}月のデータがありません"
+        
+        income = sum(t["金額"] for t in monthly_transactions 
+                    if t["カテゴリ"] in self.categories["収入"])
+        expense = sum(t["金額"] for t in monthly_transactions 
+                     if t["カテゴリ"] in self.categories["支出"])
+        
+        return {
+            "期間": f"{year}年{month}月",
+            "収入": f"{income:,}円",
+            "支出": f"{expense:,}円",
+            "収支": f"{income - expense:,}円",
+            "取引件数": len(monthly_transactions)
+        }
+
+# 家計簿のテスト
+budget = HouseholdBudget()
+
+# サンプルデータの追加
+print("=== 取引データの追加 ===")
+print(budget.add_transaction("2024-01-01", "給与", 300000, "月給"))
+print(budget.add_transaction("2024-01-03", "食費", -5000, "スーパーでの買い物"))
+print(budget.add_transaction("2024-01-05", "住居費", -80000, "家賃"))
+print(budget.add_transaction("2024-01-10", "娯楽費", -12000, "映画・食事"))
+print(budget.add_transaction("2024-01-15", "その他収入", 50000, "副業"))
+
+# 残高確認
+print(f"\n現在の残高: {budget.get_balance():,}円")
+
+# カテゴリ別集計
+print("\n=== カテゴリ別集計 ===")
+summary = budget.get_summary_by_category()
+for category, amount in summary.items():
+    print(f"{category}: {amount:,}円")
+
+# 月次レポート
+print("\n=== 月次レポート ===")
+report = budget.get_monthly_report(2024, 1)
+if isinstance(report, dict):
+    for key, value in report.items():
+        print(f"{key}: {value}")
+else:
+    print(report)
+```
+
+## 🏆 習熟度評価
+
+### レベル 1 (初心者)
+- [ ] 変数と基本データ型を理解している
+- [ ] 簡単な計算とprint文が使える
+- [ ] リストと辞書の基本操作ができる
+
+### レベル 2 (初級)
+- [ ] if文とfor文を組み合わせて使える
+- [ ] 関数を定義して使える
+- [ ] 基本的なエラー処理ができる
+
+### レベル 3 (中級)
+- [ ] 複雑なデータ構造を扱える
+- [ ] モジュールを作成・利用できる
+- [ ] クラスの基本概念を理解している
+
+### レベル 4 (中上級)
+- [ ] 実践的なアプリケーションを作成できる
+- [ ] デバッグとテストができる
+- [ ] コードの可読性と保守性を意識できる
+
+## 💡 次のステップ
+
+この自己評価で自信がついたら、次の分野に進みましょう：
+
+1. **オブジェクト指向プログラミング**: クラスと継承
+2. **高度なトピック**: 型ヒント、非同期プログラミング
+3. **実践的な応用**: Webアプリケーション、データサイエンス
+4. **ツールとライブラリ**: pandas、requests、Flask など
+
+## 🎉 お疲れさまでした！
+
+Python の基礎をしっかりと学習されました。これらの概念は今後のプログラミング学習の土台となります。継続的に練習し、実際のプロジェクトで応用してください。
+
+### 学習のコツ
+- **実際にコードを書く**: 読むだけでなく、手を動かして練習
+- **小さなプロジェクトから始める**: 身近な問題を解決するプログラムを作成
+- **コミュニティに参加**: オンラインフォーラムや勉強会で交流
+- **継続的な学習**: 新しい機能やライブラリを定期的に学ぶ
+
+頑張ってください！🚀

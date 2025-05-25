@@ -557,10 +557,13 @@ print(current_report)
 
 ### Project Generator
 
+<!--
 ```{python}
+#| eval: false
 import os
 from pathlib import Path
 from datetime import datetime
+from typing import Dict
 
 class ProjectGenerator:
     """Generate project templates for different types of Python projects."""
@@ -833,6 +836,7 @@ for project_type in ['web', 'cli', 'data', 'api']:
         print(f"  ❌ Error: {result.get('error')}")
     print()
 ```
+-->
 
 ## Testing and Quality Assurance
 

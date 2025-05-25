@@ -81,40 +81,52 @@ print(f"果物の数: {len(fruits)}")
 
 ## リストの操作 {.smaller}
 
+**リストは変更可能（ミュータブル）なので、要素を自由に追加・削除・変更できます：**
+
 ```{python}
-# リストの操作
+# リストの作成
 shopping_list = ["牛乳", "パン", "卵"]
 
-# 要素の追加
+# .append() - 末尾に要素を追加
 shopping_list.append("バター")
 print(f"追加後: {shopping_list}")
 
-# 要素の挿入
-shopping_list.insert(1, "チーズ")
+# .insert() - 指定位置に要素を挿入（既存要素は右にシフト）
+shopping_list.insert(1, "チーズ")  # インデックス1番目に挿入
 print(f"挿入後: {shopping_list}")
 
-# 要素の削除
+# .remove() - 値で要素を削除（最初に見つかったもの）
 shopping_list.remove("パン")
 print(f"削除後: {shopping_list}")
 
 # インデックスによるアクセス
-print(f"最初の項目: {shopping_list[0]}")
-print(f"最後の項目: {shopping_list[-1]}")
+print(f"最初の項目: {shopping_list[0]}")   # インデックス0は最初
+print(f"最後の項目: {shopping_list[-1]}")  # -1は最後から1番目
 ```
+
+**重要**: Pythonのインデックスは0から始まります！
 
 ## リストスライシング {.smaller}
 
+**スライシングはリストの部分を取得する強力な機能です。構文: `[開始:終了:ステップ]`**
+
 ```{python}
-# スライシング
+# スライシングの例
 numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 print(f"全体: {numbers}")
-print(f"最初の3つ: {numbers[:3]}")
-print(f"最後の3つ: {numbers[-3:]}")
-print(f"中間部分: {numbers[3:7]}")
-print(f"偶数インデックス: {numbers[::2]}")
-print(f"逆順: {numbers[::-1]}")
+print(f"最初の3つ: {numbers[:3]}")      # 開始を省略=0から、終了=3（含まない）
+print(f"最後の3つ: {numbers[-3:]}")     # 開始=-3（後ろから3番目）、終了省略=最後まで
+print(f"中間部分: {numbers[3:7]}")      # インデックス3から6まで（7は含まない）
+print(f"偶数インデックス: {numbers[::2]}")  # ステップ2で要素を飛ばし取得
+print(f"逆順: {numbers[::-1]}")         # ステップ-1で逆順取得
 ```
+
+**覚え方**: 
+- `[:n]` → 最初からn個
+- `[n:]` → n番目から最後まで  
+- `[::2]` → 1つおきに取得
+- `[::-1]` → 逆順
 
 # 辞書 {background-color="#F18F01"}
 

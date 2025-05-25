@@ -262,26 +262,41 @@ unique_visitors = {"alice", "bob", "charlie"}     # Set: no duplicates
 
 ### List Comprehensions
 
+List comprehensions provide a concise way to create lists based on existing sequences. They're more readable and often faster than traditional loops for simple transformations.
+
+**Basic Syntax:** `[expression for item in iterable if condition]`
+
+Let's see how they work step by step:
+
 ```{python}
-# Traditional way
+# Traditional way - using a loop and append
 squares = []
 for x in range(1, 6):
     squares.append(x**2)
 print("Traditional:", squares)
 
-# List comprehension
+# List comprehension - all in one line
+# This reads as: "create a list of x squared for each x in range 1 to 5"
 squares = [x**2 for x in range(1, 6)]
 print("Comprehension:", squares)
 
-# With condition
+# With condition - filter while transforming
+# This reads as: "create a list of x squared for each x in range 1 to 10, 
+# but only if x is even (x % 2 == 0 means remainder is 0)"
 even_squares = [x**2 for x in range(1, 11) if x % 2 == 0]
 print("Even squares:", even_squares)
 
-# Working with strings
+# Working with strings - transforming each word
+# This reads as: "create a list of word.upper() for each word in the words list"
 words = ["hello", "world", "python"]
 uppercase = [word.upper() for word in words]
 print("Uppercase:", uppercase)
 ```
+
+**Why use list comprehensions?**
+- **More readable**: The intent is clear in one line
+- **Faster**: Python optimizes comprehensions internally
+- **Pythonic**: Considered the "Python way" to transform data
 
 ### Dictionary Comprehensions
 
@@ -421,27 +436,40 @@ print("Only taking Math:", only_math)
 
 ## Performance Tips
 
+Understanding the performance characteristics of different data types helps you choose the right tool for the job.
+
+### Why Sets Are Faster for Membership Testing
+
+When you check if an item exists in a collection using the `in` operator, different data types use different algorithms:
+
+- **Lists**: Must check each element one by one (linear search) - **O(n) complexity**
+- **Sets**: Use hash tables for instant lookup - **O(1) complexity**
+
+Let's see this difference in action:
+
 ```{python}
 import time
 
-# List vs Set for membership testing
-large_list = list(range(10000))
-large_set = set(range(10000))
+# Create large collections with the same data
+large_list = list(range(10000))  # [0, 1, 2, ..., 9999]
+large_set = set(range(10000))    # {0, 1, 2, ..., 9999}
 
-# Time list lookup
+# Time list lookup - Python checks each element until it finds 9999
 start = time.time()
-9999 in large_list
+9999 in large_list  # Has to check ~10,000 elements
 list_time = time.time() - start
 
-# Time set lookup
+# Time set lookup - Python calculates hash and checks directly
 start = time.time()
-9999 in large_set
+9999 in large_set   # Direct hash table lookup
 set_time = time.time() - start
 
 print(f"List lookup: {list_time:.6f} seconds")
 print(f"Set lookup: {set_time:.6f} seconds")
 print(f"Set is {list_time/set_time:.1f}x faster for membership testing")
 ```
+
+**Key Takeaway**: Use sets when you need to frequently check if items exist in a collection. Use lists when you need ordered data or duplicate values.
 
 ## Next Steps
 

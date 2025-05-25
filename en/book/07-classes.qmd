@@ -178,44 +178,71 @@ print(f"New area: {rect.area()}")
 
 ### Class Methods and Static Methods
 
+Python offers three types of methods in classes, each serving different purposes:
+
+1. **Instance methods** (regular methods): Work with instance data
+2. **Class methods** (`@classmethod`): Work with class data, receive class as first parameter
+3. **Static methods** (`@staticmethod`): Independent utilities, don't need class or instance
+
+**When to use each:**
+- **Instance method**: When you need access to instance attributes (`self.name`, `self.age`)
+- **Class method**: When you need access to class attributes or want alternative constructors
+- **Static method**: When the function is related to the class but doesn't need class/instance data
+
 ```{python}
 class MathUtils:
-    """Utility class with class and static methods."""
+    """Utility class demonstrating different method types."""
     
-    pi = 3.14159
+    pi = 3.14159  # Class attribute - shared by all instances
     
     def __init__(self, name):
-        self.name = name
+        self.name = name  # Instance attribute - unique to each instance
     
     @classmethod
     def circle_area(cls, radius):
-        """Calculate circle area using class method."""
+        """Class method - has access to class attributes via 'cls'."""
+        # 'cls' refers to the class itself (MathUtils)
+        # We can access class attributes like cls.pi
         return cls.pi * radius ** 2
     
     @staticmethod
     def is_even(number):
-        """Check if number is even using static method."""
+        """Static method - completely independent utility function."""
+        # No access to class or instance data
+        # Could be a regular function, but logically belongs with this class
         return number % 2 == 0
     
     @staticmethod
     def factorial(n):
-        """Calculate factorial using static method."""
+        """Another static method - pure calculation, no class data needed."""
         if n <= 1:
             return 1
         result = 1
         for i in range(2, n + 1):
             result *= i
         return result
+    
+    def instance_method_example(self):
+        """Instance method - has access to instance data via 'self'."""
+        return f"This is {self.name} speaking!"
 
-# Using class and static methods
+# Using class methods - call directly on the class
 print(f"Circle area (radius 5): {MathUtils.circle_area(5):.2f}")
+
+# Using static methods - call directly on the class
 print(f"Is 8 even? {MathUtils.is_even(8)}")
 print(f"Factorial of 5: {MathUtils.factorial(5)}")
 
-# Can also call on instance
+# Can also call static/class methods on instances (but not common)
 math_helper = MathUtils("Helper")
 print(f"Is 7 even? {math_helper.is_even(7)}")
+print(f"Instance method: {math_helper.instance_method_example()}")
 ```
+
+**Memory tip:**
+- **Instance methods**: "I need `self` to work with MY data"
+- **Class methods**: "I need the `cls` to work with OUR shared data"  
+- **Static methods**: "I don't need any special data, I'm just a utility function"
 
 ### Properties with @property
 

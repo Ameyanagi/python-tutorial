@@ -51,7 +51,7 @@ class MockSerial:
     
     def readline(self):
         # Simulate reading a line of data
-        mock_line = b"TEMP:25.3,HUMID:65.2\\n"
+        mock_line = b"TEMP:25.3,HUMID:65.2\n"
         print(f"Read line: {mock_line}")
         return mock_line
 
@@ -65,7 +65,7 @@ def demo_serial_communication():
     
     try:
         # Send command to device
-        command = "READ_SENSORS\\n"
+        command = "READ_SENSORS\n"
         ser.write(command)
         
         # Read response

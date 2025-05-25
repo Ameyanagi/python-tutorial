@@ -2,13 +2,51 @@
 
 Python の清潔で読みやすい構文は、初心者にとって完璧でありながら、専門家にとって強力なままです。
 
+::: {.callout-tip}
+## 🚀 インタラクティブ学習
+このチュートリアルは **Quarto Live** を使用しています - ブラウザで直接 Python コードを編集・実行できます！以下のコードを変更して、結果を即座に確認してみてください。
+:::
+
 ## 初めての Python プログラム
 
 ```{python}
 print("Hello, Python!")
+print("インタラクティブな Python 学習へようこそ！")
+
+# このメッセージを変更してコードを実行してみてください
+your_name = "学習者"  # これをあなたの名前に変えてください！
+print(f"こんにちは、{your_name}さん！Python を学ぶ準備はできていますか？")
 ```
 
-この単純な行は Python の哲学を実証しています：コードは読みやすく、わかりやすくあるべきです。
+この簡単な例は Python の哲学を実証しています：コードは読みやすく、わかりやすくあるべきです。**上のコードを編集してみてください** - `your_name` をあなたの実際の名前に変更して、再実行してみましょう！
+
+## ファイルアップロードのテスト
+
+::: {.callout-note}
+## 📁 ドラッグ＆ドロップのテスト
+ここに小さなテキストファイルをドラッグして、アップロード機能をテストしてみてください：
+:::
+
+```{python}
+#| label: test-upload
+#| drop: true
+#| filename: test.txt
+
+# ここにテキストファイルをドラッグ＆ドロップしてください
+import os
+
+try:
+    if os.path.exists('test.txt'):
+        with open('test.txt', 'r', encoding='utf-8') as f:
+            content = f.read()
+        print(f"ファイルのアップロードが成功しました！")
+        print(f"コンテンツの長さ: {len(content)} 文字")
+        print(f"最初の100文字: {content[:100]}")
+    else:
+        print("まだファイルがアップロードされていません。この領域にテキストファイルをドラッグしてください！")
+except Exception as e:
+    print(f"ファイル読み込みエラー: {e}")
+```
 
 ## Python の哲学 - Python の禅
 

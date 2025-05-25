@@ -1,0 +1,943 @@
+# 実践的なPythonアプリケーション
+
+Pythonの豊富なライブラリエコシステムを活用して、実際のビジネスや日常生活で役立つアプリケーションを構築する方法を学習します。
+
+## タスク管理システム
+
+### 完全機能のタスクマネージャー
+
+```{python}
+from datetime import datetime, timedelta
+from typing import List, Dict, Optional
+from enum import Enum
+import json
+
+class Priority(Enum):
+    """タスクの優先度"""
+    LOW = "低"
+    MEDIUM = "中"
+    HIGH = "高"
+    URGENT = "緊急"
+
+class Status(Enum):
+    """タスクのステータス"""
+    TODO = "未着手"
+    IN_PROGRESS = "進行中"
+    COMPLETED = "完了"
+    CANCELLED = "キャンセル"
+
+class Task:
+    """個別タスククラス"""
+    
+    def __init__(self, title: str, description: str = "", priority: Priority = Priority.MEDIUM):
+        self.id = id(self)  # 簡易ID
+        self.title = title
+        self.description = description
+        self.priority = priority
+        self.status = Status.TODO
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
+        self.due_date: Optional[datetime] = None
+        self.completed_at: Optional[datetime] = None
+        self.tags: List[str] = []
+    
+    def set_due_date(self, due_date: datetime):
+        """期限を設定"""
+        self.due_date = due_date
+        self.updated_at = datetime.now()
+    
+    def add_tag(self, tag: str):
+        """タグを追加"""
+        if tag not in self.tags:
+            self.tags.append(tag)
+            self.updated_at = datetime.now()
+    
+    def remove_tag(self, tag: str):
+        """タグを削除"""
+        if tag in self.tags:
+            self.tags.remove(tag)
+            self.updated_at = datetime.now()
+    
+    def update_status(self, status: Status):
+        """ステータスを更新"""
+        self.status = status
+        self.updated_at = datetime.now()
+        
+        if status == Status.COMPLETED:
+            self.completed_at = datetime.now()
+        elif self.completed_at:
+            self.completed_at = None
+    
+    def is_overdue(self) -> bool:
+        """期限切れかチェック"""
+        if not self.due_date or self.status == Status.COMPLETED:
+            return False
+        return datetime.now() > self.due_date
+    
+    def days_until_due(self) -> Optional[int]:
+        """期限までの日数"""
+        if not self.due_date:
+            return None
+        delta = self.due_date - datetime.now()
+        return delta.days
+    
+    def to_dict(self) -> Dict:
+        """辞書形式に変換"""
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "priority": self.priority.value,
+            "status": self.status.value,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat(),
+            "due_date": self.due_date.isoformat() if self.due_date else None,
+            "completed_at": self.completed_at.isoformat() if self.completed_at else None,
+            "tags": self.tags
+        }
+    
+    def __str__(self):
+        status_icon = {
+            Status.TODO: "⏳",
+            Status.IN_PROGRESS: "🔄", 
+            Status.COMPLETED: "✅",
+            Status.CANCELLED: "❌"
+        }
+        
+        priority_icon = {
+            Priority.LOW: "🔵",
+            Priority.MEDIUM: "🟡",
+            Priority.HIGH: "🟠", 
+            Priority.URGENT: "🔴"
+        }
+        
+        due_info = ""
+        if self.due_date:
+            days = self.days_until_due()
+            if days is not None:
+                if days < 0:
+                    due_info = f" (期限切れ: {abs(days)}日)"
+                elif days == 0:
+                    due_info = " (今日が期限)"
+                else:
+                    due_info = f" (あと{days}日)"
+        
+        return f"{status_icon[self.status]} {priority_icon[self.priority]} {self.title}{due_info}"
+
+class TaskManager:
+    """タスク管理システム"""
+    
+    def __init__(self):
+        self.tasks: List[Task] = []
+    
+    def create_task(self, title: str, description: str = "", priority: Priority = Priority.MEDIUM) -> Task:
+        """新しいタスクを作成"""
+        task = Task(title, description, priority)
+        self.tasks.append(task)
+        print(f"✅ タスクを作成しました: {task.title}")
+        return task
+    
+    def get_task(self, task_id: int) -> Optional[Task]:
+        """IDでタスクを取得"""
+        return next((task for task in self.tasks if task.id == task_id), None)
+    
+    def delete_task(self, task_id: int) -> bool:
+        """タスクを削除"""
+        task = self.get_task(task_id)
+        if task:
+            self.tasks.remove(task)
+            print(f"🗑️ タスクを削除しました: {task.title}")
+            return True
+        return False
+    
+    def list_tasks(self, status_filter: Optional[Status] = None, priority_filter: Optional[Priority] = None) -> List[Task]:
+        """タスク一覧を取得"""
+        filtered_tasks = self.tasks
+        
+        if status_filter:
+            filtered_tasks = [t for t in filtered_tasks if t.status == status_filter]
+        
+        if priority_filter:
+            filtered_tasks = [t for t in filtered_tasks if t.priority == priority_filter]
+        
+        # 優先度とステータスでソート
+        priority_order = {Priority.URGENT: 0, Priority.HIGH: 1, Priority.MEDIUM: 2, Priority.LOW: 3}
+        status_order = {Status.IN_PROGRESS: 0, Status.TODO: 1, Status.COMPLETED: 2, Status.CANCELLED: 3}
+        
+        return sorted(filtered_tasks, key=lambda t: (status_order[t.status], priority_order[t.priority]))
+    
+    def get_overdue_tasks(self) -> List[Task]:
+        """期限切れタスクを取得"""
+        return [task for task in self.tasks if task.is_overdue()]
+    
+    def get_upcoming_tasks(self, days: int = 7) -> List[Task]:
+        """指定日数以内に期限が来るタスクを取得"""
+        upcoming = []
+        for task in self.tasks:
+            if task.due_date and task.status != Status.COMPLETED:
+                days_until = task.days_until_due()
+                if days_until is not None and 0 <= days_until <= days:
+                    upcoming.append(task)
+        return sorted(upcoming, key=lambda t: t.due_date)
+    
+    def get_statistics(self) -> Dict:
+        """統計情報を取得"""
+        total = len(self.tasks)
+        if total == 0:
+            return {"message": "タスクがありません"}
+        
+        completed = len([t for t in self.tasks if t.status == Status.COMPLETED])
+        in_progress = len([t for t in self.tasks if t.status == Status.IN_PROGRESS])
+        overdue = len(self.get_overdue_tasks())
+        
+        return {
+            "総タスク数": total,
+            "完了済み": completed,
+            "進行中": in_progress,
+            "期限切れ": overdue,
+            "完了率": f"{(completed/total*100):.1f}%" if total > 0 else "0%"
+        }
+    
+    def export_to_json(self, filename: str):
+        """JSONファイルにエクスポート"""
+        data = [task.to_dict() for task in self.tasks]
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        print(f"📄 {filename}にエクスポートしました")
+
+# タスク管理システムのデモ
+def demo_task_manager():
+    """タスク管理システムのデモンストレーション"""
+    print("=== タスク管理システムデモ ===")
+    
+    # タスクマネージャーを作成
+    tm = TaskManager()
+    
+    # サンプルタスクを作成
+    task1 = tm.create_task("プレゼン資料作成", "来週の会議用資料", Priority.HIGH)
+    task2 = tm.create_task("買い物", "食材と日用品", Priority.LOW)
+    task3 = tm.create_task("レポート提出", "月次売上レポート", Priority.URGENT)
+    task4 = tm.create_task("システム更新", "セキュリティパッチ適用", Priority.MEDIUM)
+    
+    # 期限を設定
+    task1.set_due_date(datetime.now() + timedelta(days=3))
+    task2.set_due_date(datetime.now() + timedelta(days=1))
+    task3.set_due_date(datetime.now() + timedelta(days=-1))  # 期限切れ
+    task4.set_due_date(datetime.now() + timedelta(days=7))
+    
+    # タグを追加
+    task1.add_tag("仕事")
+    task1.add_tag("プレゼン")
+    task2.add_tag("個人")
+    task3.add_tag("仕事")
+    task3.add_tag("緊急")
+    task4.add_tag("IT")
+    
+    # いくつかのタスクのステータスを更新
+    task2.update_status(Status.IN_PROGRESS)
+    task4.update_status(Status.COMPLETED)
+    
+    print(f"\n📋 全タスク一覧:")
+    for task in tm.list_tasks():
+        print(f"  {task}")
+    
+    print(f"\n⚠️ 期限切れタスク:")
+    for task in tm.get_overdue_tasks():
+        print(f"  {task}")
+    
+    print(f"\n📅 今後7日間の期限タスク:")
+    for task in tm.get_upcoming_tasks(7):
+        print(f"  {task}")
+    
+    print(f"\n📊 統計情報:")
+    stats = tm.get_statistics()
+    for key, value in stats.items():
+        print(f"  {key}: {value}")
+
+# 実行
+demo_task_manager()
+```
+
+## ファイル管理システム
+
+### 自動ファイル整理ツール
+
+```{python}
+import os
+import shutil
+from pathlib import Path
+from collections import defaultdict
+import mimetypes
+
+class FileOrganizer:
+    """ファイル自動整理クラス"""
+    
+    def __init__(self, source_directory: str):
+        self.source_dir = Path(source_directory)
+        self.file_types = {
+            'images': ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg'],
+            'documents': ['.pdf', '.doc', '.docx', '.txt', '.rtf', '.odt'],
+            'spreadsheets': ['.xls', '.xlsx', '.csv', '.ods'],
+            'presentations': ['.ppt', '.pptx', '.odp'],
+            'videos': ['.mp4', '.avi', '.mkv', '.mov', '.wmv', '.flv', '.webm'],
+            'audio': ['.mp3', '.wav', '.flac', '.aac', '.ogg', '.m4a'],
+            'archives': ['.zip', '.rar', '.7z', '.tar', '.gz', '.bz2'],
+            'code': ['.py', '.js', '.html', '.css', '.java', '.cpp', '.c', '.php'],
+            'executables': ['.exe', '.msi', '.deb', '.rpm', '.dmg', '.app']
+        }
+        
+        self.stats = defaultdict(int)
+    
+    def get_file_category(self, file_path: Path) -> str:
+        """ファイルのカテゴリを判定"""
+        extension = file_path.suffix.lower()
+        
+        for category, extensions in self.file_types.items():
+            if extension in extensions:
+                return category
+        
+        return 'others'
+    
+    def create_directory_structure(self, target_dir: Path):
+        """整理用ディレクトリ構造を作成"""
+        categories = list(self.file_types.keys()) + ['others']
+        
+        for category in categories:
+            category_dir = target_dir / category
+            category_dir.mkdir(parents=True, exist_ok=True)
+        
+        print(f"📁 ディレクトリ構造を作成しました: {target_dir}")
+    
+    def organize_files(self, target_directory: str, copy_mode: bool = True):
+        """ファイルを整理"""
+        target_dir = Path(target_directory)
+        
+        if not self.source_dir.exists():
+            print(f"❌ ソースディレクトリが存在しません: {self.source_dir}")
+            return
+        
+        # ターゲットディレクトリを作成
+        target_dir.mkdir(parents=True, exist_ok=True)
+        self.create_directory_structure(target_dir)
+        
+        print(f"🔄 ファイル整理開始...")
+        print(f"  ソース: {self.source_dir}")
+        print(f"  ターゲット: {target_dir}")
+        print(f"  モード: {'コピー' if copy_mode else '移動'}")
+        
+        # ファイルを処理
+        for file_path in self.source_dir.rglob('*'):
+            if file_path.is_file():
+                self._process_file(file_path, target_dir, copy_mode)
+        
+        self._print_statistics()
+    
+    def _process_file(self, file_path: Path, target_dir: Path, copy_mode: bool):
+        """個別ファイルを処理"""
+        category = self.get_file_category(file_path)
+        category_dir = target_dir / category
+        
+        # 同名ファイルがある場合の処理
+        target_file = category_dir / file_path.name
+        counter = 1
+        while target_file.exists():
+            name_parts = file_path.stem, counter, file_path.suffix
+            target_file = category_dir / f"{name_parts[0]}_{name_parts[1]}{name_parts[2]}"
+            counter += 1
+        
+        try:
+            if copy_mode:
+                shutil.copy2(file_path, target_file)
+                action = "コピー"
+            else:
+                shutil.move(str(file_path), str(target_file))
+                action = "移動"
+            
+            self.stats[category] += 1
+            self.stats['total'] += 1
+            
+            print(f"  ✅ {action}: {file_path.name} → {category}/")
+            
+        except Exception as e:
+            print(f"  ❌ エラー: {file_path.name} - {e}")
+            self.stats['errors'] += 1
+    
+    def _print_statistics(self):
+        """統計情報を表示"""
+        print(f"\n📊 整理結果:")
+        print(f"  総ファイル数: {self.stats['total']}")
+        
+        for category in self.file_types.keys():
+            if self.stats[category] > 0:
+                print(f"  {category}: {self.stats[category]}ファイル")
+        
+        if self.stats['others'] > 0:
+            print(f"  その他: {self.stats['others']}ファイル")
+        
+        if self.stats['errors'] > 0:
+            print(f"  エラー: {self.stats['errors']}ファイル")
+    
+    def analyze_directory(self) -> Dict:
+        """ディレクトリを分析"""
+        if not self.source_dir.exists():
+            return {"error": "ディレクトリが存在しません"}
+        
+        analysis = {
+            'total_files': 0,
+            'total_size': 0,
+            'categories': defaultdict(list),
+            'largest_files': [],
+            'file_extensions': defaultdict(int)
+        }
+        
+        all_files = []
+        
+        for file_path in self.source_dir.rglob('*'):
+            if file_path.is_file():
+                file_size = file_path.stat().st_size
+                category = self.get_file_category(file_path)
+                extension = file_path.suffix.lower()
+                
+                analysis['total_files'] += 1
+                analysis['total_size'] += file_size
+                analysis['categories'][category].append({
+                    'name': file_path.name,
+                    'size': file_size,
+                    'path': str(file_path)
+                })
+                analysis['file_extensions'][extension] += 1
+                
+                all_files.append((file_path, file_size))
+        
+        # 最大ファイルトップ5
+        all_files.sort(key=lambda x: x[1], reverse=True)
+        analysis['largest_files'] = [
+            {'name': f.name, 'size': s, 'size_mb': s/(1024*1024)}
+            for f, s in all_files[:5]
+        ]
+        
+        return dict(analysis)
+
+# ファイル整理システムのデモ
+def demo_file_organizer():
+    """ファイル整理システムのデモ"""
+    print("=== ファイル整理システムデモ ===")
+    
+    # テスト用のファイル構造を作成（シミュレーション）
+    test_files = [
+        "report.pdf", "presentation.pptx", "photo1.jpg", "photo2.png",
+        "music.mp3", "video.mp4", "script.py", "data.csv", 
+        "archive.zip", "document.docx", "image.gif", "code.js"
+    ]
+    
+    print(f"📁 テストファイル構造:")
+    for file in test_files:
+        print(f"  📄 {file}")
+    
+    # ファイル分析のシミュレーション
+    organizer = FileOrganizer("./test_directory")
+    
+    # 各ファイルタイプの分析
+    print(f"\n🔍 ファイルタイプ分析:")
+    category_counts = defaultdict(int)
+    
+    for file in test_files:
+        file_path = Path(file)
+        category = organizer.get_file_category(file_path)
+        category_counts[category] += 1
+    
+    for category, count in category_counts.items():
+        print(f"  {category}: {count}ファイル")
+    
+    print(f"\n📋 推奨整理構造:")
+    for category in organizer.file_types.keys():
+        if category_counts[category] > 0:
+            print(f"  📁 {category}/ ({category_counts[category]}ファイル)")
+    
+    if category_counts['others'] > 0:
+        print(f"  📁 others/ ({category_counts['others']}ファイル)")
+
+demo_file_organizer()
+```
+
+## Webスクレイピングツール
+
+### 自動データ収集システム
+
+```{python}
+import requests
+from urllib.parse import urljoin, urlparse
+import time
+import csv
+from typing import List, Dict
+import json
+
+class WebScraper:
+    """Webスクレイピングクラス"""
+    
+    def __init__(self, delay: float = 1.0):
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        })
+        self.delay = delay
+        self.scraped_data = []
+    
+    def get_page(self, url: str) -> requests.Response:
+        """ページを取得"""
+        try:
+            print(f"🌐 取得中: {url}")
+            response = self.session.get(url)
+            response.raise_for_status()
+            time.sleep(self.delay)  # レート制限
+            return response
+        except requests.RequestException as e:
+            print(f"❌ エラー: {url} - {e}")
+            raise
+    
+    def extract_text_content(self, html: str, selectors: List[str]) -> Dict[str, str]:
+        """HTMLからテキストコンテンツを抽出（BeautifulSoupの代替として簡略化）"""
+        # 実際の実装ではBeautifulSoupを使用
+        # ここでは簡略化したデモ用の実装
+        extracted = {}
+        
+        # 模擬的な抽出（実際にはHTML解析が必要）
+        for selector in selectors:
+            if selector == 'title':
+                extracted['title'] = f"サンプルタイトル from {html[:20]}..."
+            elif selector == 'price':
+                extracted['price'] = "¥1,000"
+            elif selector == 'description':
+                extracted['description'] = "サンプル商品説明"
+        
+        return extracted
+    
+    def scrape_product_data(self, urls: List[str]) -> List[Dict]:
+        """商品データをスクレイピング"""
+        print(f"🛒 商品データスクレイピング開始 ({len(urls)}件)")
+        
+        products = []
+        selectors = ['title', 'price', 'description']
+        
+        for i, url in enumerate(urls, 1):
+            try:
+                print(f"進捗: {i}/{len(urls)}")
+                
+                # ページを取得（実際の実装）
+                # response = self.get_page(url)
+                # extracted = self.extract_text_content(response.text, selectors)
+                
+                # デモ用の模擬データ
+                extracted = {
+                    'url': url,
+                    'title': f"商品 {i}",
+                    'price': f"¥{1000 + i * 100:,}",
+                    'description': f"高品質な商品{i}の詳細説明",
+                    'scraped_at': time.strftime('%Y-%m-%d %H:%M:%S')
+                }
+                
+                products.append(extracted)
+                print(f"  ✅ {extracted['title']} - {extracted['price']}")
+                
+                # レート制限
+                time.sleep(self.delay)
+                
+            except Exception as e:
+                print(f"  ❌ スキップ: {url} - {e}")
+                continue
+        
+        self.scraped_data = products
+        print(f"✨ スクレイピング完了: {len(products)}件")
+        return products
+    
+    def save_to_csv(self, filename: str):
+        """CSVファイルに保存"""
+        if not self.scraped_data:
+            print("❌ 保存するデータがありません")
+            return
+        
+        with open(filename, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.DictWriter(f, fieldnames=self.scraped_data[0].keys())
+            writer.writeheader()
+            writer.writerows(self.scraped_data)
+        
+        print(f"💾 {filename}に保存しました ({len(self.scraped_data)}件)")
+    
+    def save_to_json(self, filename: str):
+        """JSONファイルに保存"""
+        if not self.scraped_data:
+            print("❌ 保存するデータがありません")
+            return
+        
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(self.scraped_data, f, ensure_ascii=False, indent=2)
+        
+        print(f"💾 {filename}に保存しました ({len(self.scraped_data)}件)")
+    
+    def get_statistics(self) -> Dict:
+        """統計情報を取得"""
+        if not self.scraped_data:
+            return {"message": "データがありません"}
+        
+        # 価格統計（¥記号と,を除去して数値化）
+        prices = []
+        for item in self.scraped_data:
+            try:
+                price_str = item['price'].replace('¥', '').replace(',', '')
+                prices.append(int(price_str))
+            except (ValueError, KeyError):
+                continue
+        
+        stats = {
+            "総データ数": len(self.scraped_data),
+            "価格データ数": len(prices)
+        }
+        
+        if prices:
+            stats.update({
+                "平均価格": f"¥{sum(prices)//len(prices):,}",
+                "最低価格": f"¥{min(prices):,}",
+                "最高価格": f"¥{max(prices):,}"
+            })
+        
+        return stats
+
+# ニュース記事スクレイパー
+class NewsArticleScraper(WebScraper):
+    """ニュース記事専用スクレイパー"""
+    
+    def scrape_news_articles(self, rss_urls: List[str]) -> List[Dict]:
+        """ニュース記事をスクレイピング"""
+        print(f"📰 ニュース記事スクレイピング開始")
+        
+        articles = []
+        
+        # デモ用の模擬記事データ
+        sample_articles = [
+            {
+                "title": "Python 3.12の新機能発表",
+                "summary": "Pythonの最新バージョンに追加された新機能について",
+                "category": "テクノロジー",
+                "published_date": "2024-01-15"
+            },
+            {
+                "title": "AIとプログラミング教育の未来", 
+                "summary": "人工知能技術がプログラミング教育に与える影響",
+                "category": "教育",
+                "published_date": "2024-01-14"
+            },
+            {
+                "title": "データサイエンス市場の成長",
+                "summary": "データサイエンス分野の市場規模と将来展望",
+                "category": "ビジネス", 
+                "published_date": "2024-01-13"
+            }
+        ]
+        
+        for i, article in enumerate(sample_articles, 1):
+            article['id'] = i
+            article['scraped_at'] = time.strftime('%Y-%m-%d %H:%M:%S')
+            articles.append(article)
+            print(f"  📄 {article['title']}")
+            time.sleep(0.5)  # デモ用の遅延
+        
+        self.scraped_data = articles
+        return articles
+    
+    def filter_by_category(self, category: str) -> List[Dict]:
+        """カテゴリでフィルタリング"""
+        return [article for article in self.scraped_data 
+                if article.get('category') == category]
+    
+    def get_recent_articles(self, days: int = 7) -> List[Dict]:
+        """最近の記事を取得"""
+        # 簡略化: 全記事を返す
+        return self.scraped_data
+
+# Webスクレイピングデモ
+def demo_web_scraping():
+    """Webスクレイピングデモ"""
+    print("=== Webスクレイピングデモ ===")
+    
+    # 1. 商品データスクレイピング
+    product_scraper = WebScraper(delay=0.5)
+    
+    sample_urls = [
+        "https://example-shop.com/product1",
+        "https://example-shop.com/product2", 
+        "https://example-shop.com/product3",
+        "https://example-shop.com/product4"
+    ]
+    
+    products = product_scraper.scrape_product_data(sample_urls)
+    
+    print(f"\n📊 商品データ統計:")
+    stats = product_scraper.get_statistics()
+    for key, value in stats.items():
+        print(f"  {key}: {value}")
+    
+    # 2. ニュース記事スクレイピング
+    print(f"\n" + "="*50)
+    
+    news_scraper = NewsArticleScraper(delay=0.3)
+    articles = news_scraper.scrape_news_articles([])
+    
+    print(f"\n📰 取得した記事:")
+    for article in articles:
+        print(f"  📄 [{article['category']}] {article['title']}")
+        print(f"      {article['summary']}")
+        print(f"      📅 {article['published_date']}")
+        print()
+    
+    # カテゴリ別フィルタリング
+    tech_articles = news_scraper.filter_by_category("テクノロジー")
+    print(f"🔧 テクノロジー記事: {len(tech_articles)}件")
+
+demo_web_scraping()
+```
+
+## システム監視ツール
+
+### パフォーマンス監視システム
+
+```{python}
+import psutil
+import time
+from datetime import datetime
+from typing import Dict, List
+import json
+
+class SystemMonitor:
+    """システム監視クラス"""
+    
+    def __init__(self):
+        self.monitoring_data = []
+        self.alerts = []
+        self.thresholds = {
+            'cpu_percent': 80.0,
+            'memory_percent': 85.0,
+            'disk_percent': 90.0
+        }
+    
+    def get_system_info(self) -> Dict:
+        """システム基本情報を取得"""
+        info = {
+            'timestamp': datetime.now().isoformat(),
+            'cpu': {
+                'percent': psutil.cpu_percent(interval=1),
+                'count': psutil.cpu_count(),
+                'freq': psutil.cpu_freq()._asdict() if psutil.cpu_freq() else None
+            },
+            'memory': {
+                'total': psutil.virtual_memory().total,
+                'available': psutil.virtual_memory().available, 
+                'percent': psutil.virtual_memory().percent,
+                'used': psutil.virtual_memory().used
+            },
+            'disk': {
+                'total': psutil.disk_usage('/').total,
+                'used': psutil.disk_usage('/').used,
+                'free': psutil.disk_usage('/').free,
+                'percent': psutil.disk_usage('/').percent
+            },
+            'network': psutil.net_io_counters()._asdict(),
+            'processes': len(psutil.pids())
+        }
+        
+        return info
+    
+    def format_bytes(self, bytes_value: int) -> str:
+        """バイト数を読みやすい形式に変換"""
+        for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+            if bytes_value < 1024.0:
+                return f"{bytes_value:.2f} {unit}"
+            bytes_value /= 1024.0
+        return f"{bytes_value:.2f} PB"
+    
+    def check_alerts(self, system_info: Dict):
+        """アラートをチェック"""
+        alerts = []
+        
+        if system_info['cpu']['percent'] > self.thresholds['cpu_percent']:
+            alerts.append({
+                'type': 'CPU',
+                'level': '警告',
+                'message': f"CPU使用率が高いです: {system_info['cpu']['percent']:.1f}%",
+                'timestamp': system_info['timestamp']
+            })
+        
+        if system_info['memory']['percent'] > self.thresholds['memory_percent']:
+            alerts.append({
+                'type': 'Memory',
+                'level': '警告', 
+                'message': f"メモリ使用率が高いです: {system_info['memory']['percent']:.1f}%",
+                'timestamp': system_info['timestamp']
+            })
+        
+        if system_info['disk']['percent'] > self.thresholds['disk_percent']:
+            alerts.append({
+                'type': 'Disk',
+                'level': '警告',
+                'message': f"ディスク使用率が高いです: {system_info['disk']['percent']:.1f}%", 
+                'timestamp': system_info['timestamp']
+            })
+        
+        self.alerts.extend(alerts)
+        return alerts
+    
+    def display_system_status(self):
+        """システム状態を表示"""
+        info = self.get_system_info()
+        
+        print(f"🖥️ システム監視レポート - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"{'='*60}")
+        
+        # CPU情報
+        print(f"💻 CPU")
+        print(f"  使用率: {info['cpu']['percent']:.1f}%")
+        print(f"  コア数: {info['cpu']['count']}")
+        if info['cpu']['freq']:
+            print(f"  周波数: {info['cpu']['freq']['current']:.0f} MHz")
+        
+        # メモリ情報
+        print(f"\n🧠 メモリ")
+        print(f"  使用率: {info['memory']['percent']:.1f}%")
+        print(f"  総容量: {self.format_bytes(info['memory']['total'])}")
+        print(f"  使用量: {self.format_bytes(info['memory']['used'])}")
+        print(f"  利用可能: {self.format_bytes(info['memory']['available'])}")
+        
+        # ディスク情報
+        print(f"\n💾 ディスク")
+        print(f"  使用率: {info['disk']['percent']:.1f}%")
+        print(f"  総容量: {self.format_bytes(info['disk']['total'])}")
+        print(f"  使用量: {self.format_bytes(info['disk']['used'])}")
+        print(f"  空き容量: {self.format_bytes(info['disk']['free'])}")
+        
+        # ネットワーク情報
+        print(f"\n🌐 ネットワーク")
+        print(f"  送信: {self.format_bytes(info['network']['bytes_sent'])}")
+        print(f"  受信: {self.format_bytes(info['network']['bytes_recv'])}")
+        
+        # プロセス情報
+        print(f"\n⚙️ プロセス数: {info['processes']}")
+        
+        # アラートチェック
+        alerts = self.check_alerts(info)
+        if alerts:
+            print(f"\n⚠️ アラート:")
+            for alert in alerts:
+                print(f"  {alert['level']}: {alert['message']}")
+        else:
+            print(f"\n✅ システム正常")
+        
+        return info
+    
+    def monitor_continuous(self, duration: int = 60, interval: int = 5):
+        """継続監視"""
+        print(f"🔄 システム監視開始 (継続時間: {duration}秒, 間隔: {interval}秒)")
+        
+        start_time = time.time()
+        iteration = 0
+        
+        while time.time() - start_time < duration:
+            iteration += 1
+            print(f"\n--- 監視サイクル {iteration} ---")
+            
+            system_info = self.display_system_status()
+            self.monitoring_data.append(system_info)
+            
+            # 次の監視まで待機
+            if time.time() - start_time < duration:
+                print(f"\n⏳ {interval}秒後に次の監視...")
+                time.sleep(interval)
+        
+        print(f"\n✅ 監視完了")
+        self._generate_summary_report()
+    
+    def _generate_summary_report(self):
+        """サマリーレポートを生成"""
+        if not self.monitoring_data:
+            return
+        
+        print(f"\n📊 監視サマリーレポート")
+        print(f"{'='*60}")
+        print(f"監視期間: {len(self.monitoring_data)} サイクル")
+        
+        # CPU統計
+        cpu_usage = [data['cpu']['percent'] for data in self.monitoring_data]
+        print(f"\n💻 CPU使用率統計:")
+        print(f"  平均: {sum(cpu_usage)/len(cpu_usage):.1f}%")
+        print(f"  最大: {max(cpu_usage):.1f}%")
+        print(f"  最小: {min(cpu_usage):.1f}%")
+        
+        # メモリ統計
+        memory_usage = [data['memory']['percent'] for data in self.monitoring_data]
+        print(f"\n🧠 メモリ使用率統計:")
+        print(f"  平均: {sum(memory_usage)/len(memory_usage):.1f}%")
+        print(f"  最大: {max(memory_usage):.1f}%")
+        print(f"  最小: {min(memory_usage):.1f}%")
+        
+        # アラート統計
+        if self.alerts:
+            print(f"\n⚠️ アラート統計:")
+            alert_types = {}
+            for alert in self.alerts:
+                alert_types[alert['type']] = alert_types.get(alert['type'], 0) + 1
+            
+            for alert_type, count in alert_types.items():
+                print(f"  {alert_type}: {count}回")
+        else:
+            print(f"\n✅ アラートなし")
+    
+    def get_top_processes(self, limit: int = 5) -> List[Dict]:
+        """CPU/メモリ使用率上位プロセスを取得"""
+        processes = []
+        
+        for proc in psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent']):
+            try:
+                processes.append(proc.info)
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                pass
+        
+        # CPU使用率でソート
+        processes.sort(key=lambda x: x['cpu_percent'] or 0, reverse=True)
+        
+        return processes[:limit]
+    
+    def display_top_processes(self):
+        """上位プロセスを表示"""
+        print(f"\n🔝 CPU使用率上位プロセス:")
+        top_processes = self.get_top_processes()
+        
+        for i, proc in enumerate(top_processes, 1):
+            cpu = proc['cpu_percent'] or 0
+            memory = proc['memory_percent'] or 0
+            print(f"  {i}. {proc['name']} (PID: {proc['pid']})")
+            print(f"     CPU: {cpu:.1f}%, メモリ: {memory:.1f}%")
+
+# システム監視デモ
+def demo_system_monitor():
+    """システム監視デモ"""
+    print("=== システム監視デモ ===")
+    
+    monitor = SystemMonitor()
+    
+    # 単発監視
+    print("🔍 現在のシステム状態:")
+    monitor.display_system_status()
+    
+    # 上位プロセス表示
+    monitor.display_top_processes()
+    
+    print(f"\n" + "="*50)
+    print("📈 継続監視のシミュレーション (15秒間、5秒間隔)")
+    print("実際の環境では以下のコマンドで長期監視できます:")
+    print("monitor.monitor_continuous(duration=300, interval=10)")
+    
+    # 短時間の監視デモ
+    monitor.monitor_continuous(duration=15, interval=5)
+
+demo_system_monitor()
+```
+
+この章では、Pythonを使って実際のビジネスや日常生活で役立つアプリケーションを構築する方法を学習しました。タスク管理、ファイル整理、Webスクレイピング、システム監視など、様々な用途に応用できる実践的なスキルを身につけることができます。

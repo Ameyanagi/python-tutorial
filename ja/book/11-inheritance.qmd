@@ -1,0 +1,592 @@
+# 継承とポリモーフィズム
+
+継承（inheritance）により、既存のクラスを基にして新しいクラスを作成でき、コードの再利用と論理的な階層構造を構築できます。ポリモーフィズム（polymorphism）により、異なる型のオブジェクトを統一的に扱うことができます。
+
+## 継承の理解
+
+### 基本的な継承
+
+```{python}
+# 基底クラス（親クラス・スーパークラス）
+class Animal:
+    """一般的な動物を表す基底クラス"""
+    
+    def __init__(self, name, species):
+        self.name = name
+        self.species = species
+        self.energy = 100
+    
+    def eat(self, food):
+        """一般的な食事の動作"""
+        self.energy += 10
+        print(f"{self.name}は{food}を食べて、エネルギーを得ました。エネルギー: {self.energy}")
+    
+    def sleep(self):
+        """一般的な睡眠の動作"""
+        self.energy += 20
+        print(f"{self.name}は眠って、エネルギーを回復しました。エネルギー: {self.energy}")
+    
+    def make_sound(self):
+        """一般的な鳴き声 - サブクラスでオーバーライドされます"""
+        print(f"{self.name}が音を出しています")
+    
+    def __str__(self):
+        return f"{self.species}の{self.name}"
+
+# 派生クラス（子クラス・サブクラス）
+class Dog(Animal):
+    """Animalクラスを継承するDogクラス"""
+    
+    def __init__(self, name, breed):
+        # 親のコンストラクタを呼び出し
+        super().__init__(name, "犬")
+        self.breed = breed
+        self.tricks = []
+    
+    def make_sound(self):
+        """親のメソッドをオーバーライド"""
+        print(f"{self.name}が吠えます: ワンワン！")
+    
+    def learn_trick(self, trick):
+        """犬特有のメソッド"""
+        self.tricks.append(trick)
+        print(f"{self.name}は{trick}を覚えました！")
+    
+    def perform_trick(self):
+        """覚えた芸を披露"""
+        if self.tricks:
+            trick = self.tricks[-1]  # 最後に覚えた芸
+            print(f"{self.name}が{trick}を披露します！")
+        else:
+            print(f"{self.name}はまだ芸を覚えていません")
+
+class Cat(Animal):
+    """Animalクラスを継承するCatクラス"""
+    
+    def __init__(self, name, color):
+        super().__init__(name, "猫")
+        self.color = color
+        self.lives = 9  # 猫は9つの命を持つ
+    
+    def make_sound(self):
+        """親のメソッドをオーバーライド"""
+        print(f"{self.name}が鳴きます: ニャーニャー")
+    
+    def climb(self, object_name):
+        """猫特有のメソッド"""
+        print(f"{self.name}が{object_name}に登ります")
+
+# 継承の使用例
+dog = Dog("ポチ", "柴犬")
+cat = Cat("タマ", "黒")
+
+print(f"犬: {dog}")
+print(f"猫: {cat}")
+
+dog.make_sound()
+cat.make_sound()
+
+dog.learn_trick("お座り")
+dog.learn_trick("お手")
+dog.perform_trick()
+
+cat.climb("木")
+```
+
+## メソッドのオーバーライド
+
+### super()を使った親メソッドの拡張
+
+```{python}
+class Vehicle:
+    """乗り物の基底クラス"""
+    
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+        self.fuel = 100
+    
+    def start(self):
+        print(f"{self.brand} {self.model}のエンジンが始動しました")
+    
+    def stop(self):
+        print(f"{self.brand} {self.model}のエンジンが停止しました")
+
+class Car(Vehicle):
+    """自動車クラス"""
+    
+    def __init__(self, brand, model, doors):
+        super().__init__(brand, model)  # 親のコンストラクタを呼び出し
+        self.doors = doors
+    
+    def start(self):
+        # 親のメソッドを呼び出してから追加処理
+        super().start()
+        print("シートベルトを確認してください")
+    
+    def open_trunk(self):
+        print("トランクを開きました")
+
+class Motorcycle(Vehicle):
+    """オートバイクラス"""
+    
+    def __init__(self, brand, model, cc):
+        super().__init__(brand, model)
+        self.cc = cc  # 排気量
+    
+    def start(self):
+        super().start()
+        print("ヘルメットを着用してください")
+
+# 使用例
+car = Car("トヨタ", "プリウス", 4)
+motorcycle = Motorcycle("ホンダ", "CB400", 400)
+
+car.start()
+car.open_trunk()
+
+print()
+motorcycle.start()
+```
+
+## ポリモーフィズム
+
+### 同じインターフェースで異なる動作
+
+```{python}
+class Shape:
+    """図形の基底クラス"""
+    
+    def __init__(self, name):
+        self.name = name
+    
+    def area(self):
+        """面積計算 - サブクラスで実装される"""
+        raise NotImplementedError("サブクラスで実装してください")
+    
+    def perimeter(self):
+        """周囲長計算 - サブクラスで実装される"""
+        raise NotImplementedError("サブクラスで実装してください")
+
+class Circle(Shape):
+    """円クラス"""
+    
+    def __init__(self, radius):
+        super().__init__("円")
+        self.radius = radius
+    
+    def area(self):
+        import math
+        return math.pi * self.radius ** 2
+    
+    def perimeter(self):
+        import math
+        return 2 * math.pi * self.radius
+
+class Rectangle(Shape):
+    """長方形クラス"""
+    
+    def __init__(self, width, height):
+        super().__init__("長方形")
+        self.width = width
+        self.height = height
+    
+    def area(self):
+        return self.width * self.height
+    
+    def perimeter(self):
+        return 2 * (self.width + self.height)
+
+class Triangle(Shape):
+    """三角形クラス"""
+    
+    def __init__(self, base, height, side1, side2):
+        super().__init__("三角形")
+        self.base = base
+        self.height = height
+        self.side1 = side1
+        self.side2 = side2
+    
+    def area(self):
+        return 0.5 * self.base * self.height
+    
+    def perimeter(self):
+        return self.base + self.side1 + self.side2
+
+# ポリモーフィズムの実践
+def print_shape_info(shape):
+    """図形の情報を表示する関数"""
+    print(f"{shape.name}:")
+    print(f"  面積: {shape.area():.2f}")
+    print(f"  周囲長: {shape.perimeter():.2f}")
+    print()
+
+# 異なる図形のリスト
+shapes = [
+    Circle(5),
+    Rectangle(4, 6),
+    Triangle(6, 4, 5, 5)
+]
+
+# 同じインターフェースで異なる図形を処理
+print("=== 図形の情報 ===")
+for shape in shapes:
+    print_shape_info(shape)
+```
+
+## 抽象基底クラス（ABC）
+
+### より厳密な抽象化
+
+```{python}
+from abc import ABC, abstractmethod
+
+class Database(ABC):
+    """データベースの抽象基底クラス"""
+    
+    def __init__(self, connection_string):
+        self.connection_string = connection_string
+        self.connected = False
+    
+    @abstractmethod
+    def connect(self):
+        """接続処理 - 必須実装"""
+        pass
+    
+    @abstractmethod
+    def disconnect(self):
+        """切断処理 - 必須実装"""
+        pass
+    
+    @abstractmethod
+    def execute_query(self, query):
+        """クエリ実行 - 必須実装"""
+        pass
+    
+    def is_connected(self):
+        """接続状態確認 - 共通実装"""
+        return self.connected
+
+class SQLiteDatabase(Database):
+    """SQLiteデータベース実装"""
+    
+    def connect(self):
+        print(f"SQLiteデータベースに接続中: {self.connection_string}")
+        self.connected = True
+        return "SQLite接続成功"
+    
+    def disconnect(self):
+        print("SQLiteデータベースから切断中")
+        self.connected = False
+        return "SQLite切断完了"
+    
+    def execute_query(self, query):
+        if not self.connected:
+            return "エラー: データベースに接続されていません"
+        print(f"SQLiteクエリ実行: {query}")
+        return f"SQLite結果: {query}の実行完了"
+
+class PostgreSQLDatabase(Database):
+    """PostgreSQLデータベース実装"""
+    
+    def connect(self):
+        print(f"PostgreSQLデータベースに接続中: {self.connection_string}")
+        self.connected = True
+        return "PostgreSQL接続成功"
+    
+    def disconnect(self):
+        print("PostgreSQLデータベースから切断中")
+        self.connected = False
+        return "PostgreSQL切断完了"
+    
+    def execute_query(self, query):
+        if not self.connected:
+            return "エラー: データベースに接続されていません"
+        print(f"PostgreSQLクエリ実行: {query}")
+        return f"PostgreSQL結果: {query}の実行完了"
+
+# データベース管理システム
+class DatabaseManager:
+    """データベース管理クラス"""
+    
+    def __init__(self):
+        self.databases = []
+    
+    def add_database(self, database):
+        """データベースを追加"""
+        self.databases.append(database)
+    
+    def connect_all(self):
+        """全データベースに接続"""
+        for db in self.databases:
+            result = db.connect()
+            print(f"結果: {result}")
+    
+    def execute_on_all(self, query):
+        """全データベースでクエリ実行"""
+        for db in self.databases:
+            if db.is_connected():
+                result = db.execute_query(query)
+                print(f"結果: {result}")
+
+# 使用例
+manager = DatabaseManager()
+
+# 異なる種類のデータベースを追加
+sqlite_db = SQLiteDatabase("data.db")
+postgres_db = PostgreSQLDatabase("postgresql://localhost:5432/mydb")
+
+manager.add_database(sqlite_db)
+manager.add_database(postgres_db)
+
+print("=== データベース管理システム ===")
+manager.connect_all()
+print()
+manager.execute_on_all("SELECT * FROM users")
+```
+
+## 多重継承
+
+### 複数の親クラスからの継承
+
+```{python}
+class Flying:
+    """飛行能力のミックスイン"""
+    
+    def __init__(self):
+        self.altitude = 0
+    
+    def take_off(self):
+        self.altitude = 100
+        print("離陸しました！高度: 100m")
+    
+    def land(self):
+        self.altitude = 0
+        print("着陸しました！")
+    
+    def fly_higher(self, meters):
+        self.altitude += meters
+        print(f"高度を上げました。現在の高度: {self.altitude}m")
+
+class Swimming:
+    """泳ぐ能力のミックスイン"""
+    
+    def __init__(self):
+        self.depth = 0
+    
+    def dive(self, meters):
+        self.depth += meters
+        print(f"潜水しました。現在の深度: {self.depth}m")
+    
+    def surface(self):
+        self.depth = 0
+        print("水面に浮上しました！")
+
+class Duck(Animal, Flying, Swimming):
+    """アヒルクラス - 多重継承の例"""
+    
+    def __init__(self, name):
+        Animal.__init__(self, name, "アヒル")
+        Flying.__init__(self)
+        Swimming.__init__(self)
+    
+    def make_sound(self):
+        print(f"{self.name}が鳴きます: ガーガー")
+
+class Penguin(Animal, Swimming):
+    """ペンギンクラス - 泳げるが飛べない"""
+    
+    def __init__(self, name):
+        Animal.__init__(self, name, "ペンギン")
+        Swimming.__init__(self)
+    
+    def make_sound(self):
+        print(f"{self.name}が鳴きます: ガァガァ")
+    
+    def slide_on_ice(self):
+        print(f"{self.name}が氷の上を滑ります！")
+
+# 使用例
+print("=== 多重継承の例 ===")
+duck = Duck("ドナルド")
+penguin = Penguin("ペンギン太郎")
+
+print(f"アヒル: {duck}")
+duck.make_sound()
+duck.eat("パン")
+duck.take_off()
+duck.fly_higher(50)
+duck.land()
+duck.dive(2)
+duck.surface()
+
+print()
+print(f"ペンギン: {penguin}")
+penguin.make_sound()
+penguin.eat("魚")
+penguin.dive(10)
+penguin.slide_on_ice()
+penguin.surface()
+```
+
+## 実践例：図書館管理システム
+
+### 継承を活用した実際のアプリケーション
+
+```{python}
+from datetime import datetime, timedelta
+
+class LibraryItem:
+    """図書館アイテムの基底クラス"""
+    
+    def __init__(self, title, item_id, location):
+        self.title = title
+        self.item_id = item_id
+        self.location = location
+        self.checked_out = False
+        self.due_date = None
+        self.borrower = None
+    
+    def check_out(self, borrower_name, days=14):
+        """貸出処理"""
+        if self.checked_out:
+            return f"エラー: {self.title}は既に貸出中です"
+        
+        self.checked_out = True
+        self.borrower = borrower_name
+        self.due_date = datetime.now() + timedelta(days=days)
+        return f"{self.title}を{borrower_name}に貸出しました。返却期限: {self.due_date.strftime('%Y-%m-%d')}"
+    
+    def return_item(self):
+        """返却処理"""
+        if not self.checked_out:
+            return f"エラー: {self.title}は貸出されていません"
+        
+        borrower = self.borrower
+        self.checked_out = False
+        self.borrower = None
+        self.due_date = None
+        return f"{self.title}が{borrower}から返却されました"
+    
+    def is_overdue(self):
+        """延滞チェック"""
+        if not self.checked_out:
+            return False
+        return datetime.now() > self.due_date
+    
+    def get_info(self):
+        """基本情報を取得"""
+        status = "貸出中" if self.checked_out else "利用可能"
+        return f"{self.title} (ID: {self.item_id}) - {status}"
+
+class Book(LibraryItem):
+    """書籍クラス"""
+    
+    def __init__(self, title, item_id, location, author, isbn, pages):
+        super().__init__(title, item_id, location)
+        self.author = author
+        self.isbn = isbn
+        self.pages = pages
+        self.item_type = "書籍"
+    
+    def get_info(self):
+        base_info = super().get_info()
+        return f"{base_info}\n  著者: {self.author}, ページ数: {self.pages}"
+
+class DVD(LibraryItem):
+    """DVDクラス"""
+    
+    def __init__(self, title, item_id, location, director, duration, rating):
+        super().__init__(title, item_id, location)
+        self.director = director
+        self.duration = duration  # 分
+        self.rating = rating
+        self.item_type = "DVD"
+    
+    def check_out(self, borrower_name, days=7):  # DVDは短期貸出
+        return super().check_out(borrower_name, days)
+    
+    def get_info(self):
+        base_info = super().get_info()
+        return f"{base_info}\n  監督: {self.director}, 上映時間: {self.duration}分"
+
+class Magazine(LibraryItem):
+    """雑誌クラス"""
+    
+    def __init__(self, title, item_id, location, issue_number, publication_date):
+        super().__init__(title, item_id, location)
+        self.issue_number = issue_number
+        self.publication_date = publication_date
+        self.item_type = "雑誌"
+    
+    def check_out(self, borrower_name, days=3):  # 雑誌は超短期貸出
+        return super().check_out(borrower_name, days)
+    
+    def get_info(self):
+        base_info = super().get_info()
+        return f"{base_info}\n  号数: {self.issue_number}, 発行日: {self.publication_date}"
+
+# 図書館管理システム
+class Library:
+    """図書館クラス"""
+    
+    def __init__(self, name):
+        self.name = name
+        self.items = {}
+    
+    def add_item(self, item):
+        """アイテムを追加"""
+        self.items[item.item_id] = item
+        print(f"{item.item_type}「{item.title}」を追加しました")
+    
+    def find_item(self, item_id):
+        """アイテムを検索"""
+        return self.items.get(item_id)
+    
+    def list_available_items(self):
+        """利用可能なアイテム一覧"""
+        print(f"\n=== {self.name} 利用可能アイテム ===")
+        for item in self.items.values():
+            if not item.checked_out:
+                print(item.get_info())
+    
+    def list_overdue_items(self):
+        """延滞アイテム一覧"""
+        print(f"\n=== {self.name} 延滞アイテム ===")
+        overdue_items = [item for item in self.items.values() if item.is_overdue()]
+        if not overdue_items:
+            print("延滞アイテムはありません")
+        else:
+            for item in overdue_items:
+                print(f"{item.get_info()} - 借用者: {item.borrower}")
+
+# 使用例
+print("=== 図書館管理システム ===")
+library = Library("中央図書館")
+
+# 様々なアイテムを追加
+book1 = Book("Pythonプログラミング入門", "B001", "1F-A1", "田中太郎", "978-4-123456-78-9", 350)
+book2 = Book("データサイエンス実践", "B002", "2F-B3", "佐藤花子", "978-4-987654-32-1", 480)
+dvd1 = DVD("プログラミング講座", "D001", "B1-AV1", "山田監督", 120, "G")
+magazine1 = Magazine("テックマガジン", "M001", "1F-雑誌棚", "2024年1月号", "2024-01-01")
+
+library.add_item(book1)
+library.add_item(book2)
+library.add_item(dvd1)
+library.add_item(magazine1)
+
+# 利用可能アイテム表示
+library.list_available_items()
+
+# 貸出処理
+print(f"\n{book1.check_out('鈴木一郎')}")
+print(f"{dvd1.check_out('田中二郎')}")
+
+# 再度利用可能アイテム表示
+library.list_available_items()
+
+# 延滞チェック
+library.list_overdue_items()
+```
+
+この章では、継承とポリモーフィズムの基本概念から実践的な応用まで学習しました。継承により既存のコードを再利用し、ポリモーフィズムにより柔軟で拡張可能なプログラムを作成することができます。

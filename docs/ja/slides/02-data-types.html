@@ -237,7 +237,7 @@
 </section>
 <section id="ブール型と-none" class="slide level2 smaller">
 <h2>ブール型と None</h2>
-<div id="1262bcc1" class="cell" data-execution_count="1">
+<div id="5f30eecd" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># ブール型</span></span>
 <span id="cb3-2"><a href=""></a>is_valid <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb3-3"><a href=""></a>is_empty <span class="op">=</span> <span class="va">False</span></span>
@@ -262,7 +262,7 @@
 </section>
 <section id="リストの基本" class="slide level2 smaller">
 <h2>リストの基本</h2>
-<div id="73b71e22" class="cell" data-execution_count="2">
+<div id="761f64bc" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># リストの作成</span></span>
 <span id="cb4-2"><a href=""></a>fruits <span class="op">=</span> [<span class="st">"りんご"</span>, <span class="st">"バナナ"</span>, <span class="st">"オレンジ"</span>]</span>
 <span id="cb4-3"><a href=""></a>numbers <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
@@ -278,40 +278,45 @@
 </section>
 <section id="リストの操作" class="slide level2 smaller">
 <h2>リストの操作</h2>
-<div id="1716fe5e" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># リストの操作</span></span>
+<p><strong>リストは変更可能（ミュータブル）なので、要素を自由に追加・削除・変更できます：</strong></p>
+<div id="e57b5f07" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># リストの作成</span></span>
 <span id="cb5-2"><a href=""></a>shopping_list <span class="op">=</span> [<span class="st">"牛乳"</span>, <span class="st">"パン"</span>, <span class="st">"卵"</span>]</span>
 <span id="cb5-3"><a href=""></a></span>
-<span id="cb5-4"><a href=""></a><span class="co"># 要素の追加</span></span>
+<span id="cb5-4"><a href=""></a><span class="co"># .append() - 末尾に要素を追加</span></span>
 <span id="cb5-5"><a href=""></a>shopping_list.append(<span class="st">"バター"</span>)</span>
 <span id="cb5-6"><a href=""></a><span class="bu">print</span>(<span class="ss">f"追加後: </span><span class="sc">{</span>shopping_list<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb5-7"><a href=""></a></span>
-<span id="cb5-8"><a href=""></a><span class="co"># 要素の挿入</span></span>
-<span id="cb5-9"><a href=""></a>shopping_list.insert(<span class="dv">1</span>, <span class="st">"チーズ"</span>)</span>
+<span id="cb5-8"><a href=""></a><span class="co"># .insert() - 指定位置に要素を挿入（既存要素は右にシフト）</span></span>
+<span id="cb5-9"><a href=""></a>shopping_list.insert(<span class="dv">1</span>, <span class="st">"チーズ"</span>)  <span class="co"># インデックス1番目に挿入</span></span>
 <span id="cb5-10"><a href=""></a><span class="bu">print</span>(<span class="ss">f"挿入後: </span><span class="sc">{</span>shopping_list<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb5-11"><a href=""></a></span>
-<span id="cb5-12"><a href=""></a><span class="co"># 要素の削除</span></span>
+<span id="cb5-12"><a href=""></a><span class="co"># .remove() - 値で要素を削除（最初に見つかったもの）</span></span>
 <span id="cb5-13"><a href=""></a>shopping_list.remove(<span class="st">"パン"</span>)</span>
 <span id="cb5-14"><a href=""></a><span class="bu">print</span>(<span class="ss">f"削除後: </span><span class="sc">{</span>shopping_list<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb5-15"><a href=""></a></span>
 <span id="cb5-16"><a href=""></a><span class="co"># インデックスによるアクセス</span></span>
-<span id="cb5-17"><a href=""></a><span class="bu">print</span>(<span class="ss">f"最初の項目: </span><span class="sc">{</span>shopping_list[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb5-18"><a href=""></a><span class="bu">print</span>(<span class="ss">f"最後の項目: </span><span class="sc">{</span>shopping_list[<span class="op">-</span><span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-17"><a href=""></a><span class="bu">print</span>(<span class="ss">f"最初の項目: </span><span class="sc">{</span>shopping_list[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)   <span class="co"># インデックス0は最初</span></span>
+<span id="cb5-18"><a href=""></a><span class="bu">print</span>(<span class="ss">f"最後の項目: </span><span class="sc">{</span>shopping_list[<span class="op">-</span><span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)  <span class="co"># -1は最後から1番目</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><strong>重要</strong>: Pythonのインデックスは0から始まります！</p>
 </section>
 <section id="リストスライシング" class="slide level2 smaller">
 <h2>リストスライシング</h2>
-<div id="6ec92b24" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># スライシング</span></span>
+<p><strong>スライシングはリストの部分を取得する強力な機能です。構文: <code>[開始:終了:ステップ]</code></strong></p>
+<div id="b383b25d" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># スライシングの例</span></span>
 <span id="cb6-2"><a href=""></a>numbers <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
 <span id="cb6-3"><a href=""></a></span>
 <span id="cb6-4"><a href=""></a><span class="bu">print</span>(<span class="ss">f"全体: </span><span class="sc">{</span>numbers<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb6-5"><a href=""></a><span class="bu">print</span>(<span class="ss">f"最初の3つ: </span><span class="sc">{</span>numbers[:<span class="dv">3</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb6-6"><a href=""></a><span class="bu">print</span>(<span class="ss">f"最後の3つ: </span><span class="sc">{</span>numbers[<span class="op">-</span><span class="dv">3</span>:]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb6-7"><a href=""></a><span class="bu">print</span>(<span class="ss">f"中間部分: </span><span class="sc">{</span>numbers[<span class="dv">3</span>:<span class="dv">7</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb6-8"><a href=""></a><span class="bu">print</span>(<span class="ss">f"偶数インデックス: </span><span class="sc">{</span>numbers[::<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb6-9"><a href=""></a><span class="bu">print</span>(<span class="ss">f"逆順: </span><span class="sc">{</span>numbers[::<span class="op">-</span><span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-5"><a href=""></a><span class="bu">print</span>(<span class="ss">f"最初の3つ: </span><span class="sc">{</span>numbers[:<span class="dv">3</span>]<span class="sc">}</span><span class="ss">"</span>)      <span class="co"># 開始を省略=0から、終了=3（含まない）</span></span>
+<span id="cb6-6"><a href=""></a><span class="bu">print</span>(<span class="ss">f"最後の3つ: </span><span class="sc">{</span>numbers[<span class="op">-</span><span class="dv">3</span>:]<span class="sc">}</span><span class="ss">"</span>)     <span class="co"># 開始=-3（後ろから3番目）、終了省略=最後まで</span></span>
+<span id="cb6-7"><a href=""></a><span class="bu">print</span>(<span class="ss">f"中間部分: </span><span class="sc">{</span>numbers[<span class="dv">3</span>:<span class="dv">7</span>]<span class="sc">}</span><span class="ss">"</span>)      <span class="co"># インデックス3から6まで（7は含まない）</span></span>
+<span id="cb6-8"><a href=""></a><span class="bu">print</span>(<span class="ss">f"偶数インデックス: </span><span class="sc">{</span>numbers[::<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>)  <span class="co"># ステップ2で要素を飛ばし取得</span></span>
+<span id="cb6-9"><a href=""></a><span class="bu">print</span>(<span class="ss">f"逆順: </span><span class="sc">{</span>numbers[::<span class="op">-</span><span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)         <span class="co"># ステップ-1で逆順取得</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><strong>覚え方</strong>: - <code>[:n]</code> → 最初からn個 - <code>[n:]</code> → n番目から最後まで<br>
+- <code>[::2]</code> → 1つおきに取得 - <code>[::-1]</code> → 逆順</p>
 </section></section>
 <section>
 <section id="辞書" class="title-slide slide level1 center" data-background-color="#F18F01">
@@ -320,7 +325,7 @@
 </section>
 <section id="辞書の基本" class="slide level2 smaller">
 <h2>辞書の基本</h2>
-<div id="7934afea" class="cell" data-execution_count="5">
+<div id="53ca2829" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># 辞書の作成</span></span>
 <span id="cb7-2"><a href=""></a>person <span class="op">=</span> {</span>
 <span id="cb7-3"><a href=""></a>    <span class="st">"名前"</span>: <span class="st">"田中太郎"</span>,</span>
@@ -336,7 +341,7 @@
 </section>
 <section id="辞書の操作" class="slide level2 smaller">
 <h2>辞書の操作</h2>
-<div id="e9ef1169" class="cell" data-execution_count="6">
+<div id="4ad49b00" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># 辞書の操作</span></span>
 <span id="cb8-2"><a href=""></a>student_grades <span class="op">=</span> {<span class="st">"数学"</span>: <span class="dv">85</span>, <span class="st">"英語"</span>: <span class="dv">92</span>, <span class="st">"理科"</span>: <span class="dv">78</span>}</span>
 <span id="cb8-3"><a href=""></a></span>
@@ -364,7 +369,7 @@
 </section>
 <section id="タプル変更不可" class="slide level2 smaller">
 <h2>タプル（変更不可）</h2>
-<div id="2b71d2f9" class="cell" data-execution_count="7">
+<div id="ec20f295" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># タプルの作成</span></span>
 <span id="cb9-2"><a href=""></a>coordinates <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">20</span>)</span>
 <span id="cb9-3"><a href=""></a>rgb_color <span class="op">=</span> (<span class="dv">255</span>, <span class="dv">128</span>, <span class="dv">0</span>)</span>
@@ -384,7 +389,7 @@
 </section>
 <section id="セット重複なし" class="slide level2 smaller">
 <h2>セット（重複なし）</h2>
-<div id="fe758204" class="cell" data-execution_count="8">
+<div id="c2f29459" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># セットの作成</span></span>
 <span id="cb10-2"><a href=""></a>unique_numbers <span class="op">=</span> {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>}</span>
 <span id="cb10-3"><a href=""></a>colors <span class="op">=</span> {<span class="st">"赤"</span>, <span class="st">"青"</span>, <span class="st">"緑"</span>, <span class="st">"赤"</span>, <span class="st">"黄"</span>}  <span class="co"># 重複は自動削除</span></span>
@@ -408,7 +413,7 @@
 </section>
 <section id="データ処理の例" class="slide level2 smaller">
 <h2>データ処理の例</h2>
-<div id="c84e9927" class="cell" data-execution_count="9">
+<div id="953230b4" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># 学生の成績管理システム</span></span>
 <span id="cb11-2"><a href=""></a>students <span class="op">=</span> [</span>
 <span id="cb11-3"><a href=""></a>    {<span class="st">"名前"</span>: <span class="st">"田中太郎"</span>, <span class="st">"成績"</span>: [<span class="dv">85</span>, <span class="dv">92</span>, <span class="dv">78</span>, <span class="dv">88</span>]},</span>
@@ -426,7 +431,7 @@
 </section>
 <section id="在庫管理システム" class="slide level2 smaller">
 <h2>在庫管理システム</h2>
-<div id="628446db" class="cell" data-execution_count="10">
+<div id="dc4d3279" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a><span class="co"># 在庫管理</span></span>
 <span id="cb12-2"><a href=""></a>inventory <span class="op">=</span> {</span>
 <span id="cb12-3"><a href=""></a>    <span class="st">"りんご"</span>: {<span class="st">"数量"</span>: <span class="dv">50</span>, <span class="st">"価格"</span>: <span class="dv">120</span>},</span>

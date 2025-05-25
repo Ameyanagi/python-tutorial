@@ -1,0 +1,617 @@
+# 非同期プログラミングと並行性
+
+非同期プログラミングを使用すると、ブロックすることなく複数のタスクを効率的に処理できる並行コードを記述できます。これは、Webリクエスト、ファイル操作、データベースクエリなどのI/Oバウンドな操作に最適です。
+
+## 非同期プログラミングの理解
+
+### 同期 vs 非同期
+
+```{python}
+import time
+import asyncio
+
+# 同期的なアプローチ - ブロッキング
+def sync_task(name: str, duration: int) -> str:
+    """時間のかかるタスクを同期的にシミュレート"""
+    print(f"{name}を開始...")
+    time.sleep(duration)  # プログラム全体をブロック
+    print(f"{name}を完了")
+    return f"{name}からの結果"
+
+def run_sync_tasks():
+    """複数のタスクを同期的に実行"""
+    print("=== 同期実行 ===")
+    start_time = time.time()
+    
+    result1 = sync_task("タスク1", 2)
+    result2 = sync_task("タスク2", 2)
+    result3 = sync_task("タスク3", 2)
+    
+    end_time = time.time()
+    print(f"合計時間: {end_time - start_time:.2f}秒")
+    return [result1, result2, result3]
+
+# 非同期的なアプローチ - ノンブロッキング
+async def async_task(name: str, duration: int) -> str:
+    """時間のかかるタスクを非同期的にシミュレート"""
+    print(f"{name}を開始...")
+    await asyncio.sleep(duration)  # ノンブロッキングな待機
+    print(f"{name}を完了")
+    return f"{name}からの結果"
+
+async def run_async_tasks():
+    """複数のタスクを非同期的に実行"""
+    print("\n=== 非同期実行 ===")
+    start_time = time.time()
+    
+    # タスクを並行実行
+    results = await asyncio.gather(
+        async_task("タスク1", 2),
+        async_task("タスク2", 2),
+        async_task("タスク3", 2)
+    )
+    
+    end_time = time.time()
+    print(f"合計時間: {end_time - start_time:.2f}秒")
+    return results
+
+# 実行比較
+print("同期と非同期の実行時間比較:")
+sync_results = run_sync_tasks()
+
+# 非同期の実行
+async_results = await run_async_tasks()
+```
+
+## 基本的な非同期パターン
+
+### async/await の基本
+
+```{python}
+import asyncio
+import random
+
+async def fetch_data(url: str) -> str:
+    """Webからデータを取得する模擬関数"""
+    print(f"データを取得中: {url}")
+    
+    # ランダムな遅延で実際のHTTPリクエストをシミュレート
+    delay = random.uniform(1, 3)
+    await asyncio.sleep(delay)
+    
+    print(f"データ取得完了: {url}")
+    return f"{url}からのデータ"
+
+async def process_data(data: str) -> str:
+    """データを処理する模擬関数"""
+    print(f"データ処理中: {data}")
+    
+    # 処理時間をシミュレート
+    await asyncio.sleep(1)
+    
+    processed = f"処理済み: {data}"
+    print(f"データ処理完了: {processed}")
+    return processed
+
+async def fetch_and_process(url: str) -> str:
+    """データの取得と処理を順序実行"""
+    # 段階的な処理
+    raw_data = await fetch_data(url)
+    processed_data = await process_data(raw_data)
+    return processed_data
+
+# 複数URLの並行処理
+async def main():
+    urls = [
+        "https://api.example1.com",
+        "https://api.example2.com", 
+        "https://api.example3.com"
+    ]
+    
+    print("=== 複数URLの並行処理 ===")
+    start_time = time.time()
+    
+    results = await asyncio.gather(
+        *[fetch_and_process(url) for url in urls]
+    )
+    
+    end_time = time.time()
+    print(f"\n処理完了！合計時間: {end_time - start_time:.2f}秒")
+    
+    for i, result in enumerate(results, 1):
+        print(f"結果{i}: {result}")
+
+# 実行
+await main()
+```
+
+## コルーチンとタスク
+
+### Task の作成と管理
+
+```{python}
+import asyncio
+from typing import List
+
+async def download_file(filename: str, size_mb: int) -> str:
+    """ファイルダウンロードをシミュレート"""
+    print(f"ダウンロード開始: {filename} ({size_mb}MB)")
+    
+    # サイズに比例したダウンロード時間
+    download_time = size_mb * 0.5
+    await asyncio.sleep(download_time)
+    
+    print(f"ダウンロード完了: {filename}")
+    return f"{filename} (サイズ: {size_mb}MB)"
+
+async def monitor_downloads():
+    """ダウンロード監視"""
+    for i in range(5):
+        print(f"監視中... ({i+1}/5)")
+        await asyncio.sleep(1)
+    print("監視終了")
+
+async def manage_downloads():
+    """ダウンロードタスクの管理"""
+    print("=== ダウンロード管理システム ===")
+    
+    # ダウンロードタスクを作成
+    download_tasks = [
+        asyncio.create_task(download_file("document.pdf", 10)),
+        asyncio.create_task(download_file("video.mp4", 25)), 
+        asyncio.create_task(download_file("image.jpg", 5)),
+        asyncio.create_task(download_file("software.zip", 15))
+    ]
+    
+    # 監視タスクを作成
+    monitor_task = asyncio.create_task(monitor_downloads())
+    
+    # すべてのダウンロードが完了するまで待機
+    print("ダウンロード開始...")
+    completed_downloads = await asyncio.gather(*download_tasks)
+    
+    # 監視タスクをキャンセル（必要に応じて）
+    if not monitor_task.done():
+        monitor_task.cancel()
+        try:
+            await monitor_task
+        except asyncio.CancelledError:
+            print("監視タスクをキャンセルしました")
+    
+    print("\nすべてのダウンロードが完了:")
+    for download in completed_downloads:
+        print(f"  - {download}")
+
+# 実行
+await manage_downloads()
+```
+
+## エラーハンドリングとタイムアウト
+
+### 堅牢な非同期処理
+
+```{python}
+import asyncio
+import random
+
+async def unreliable_api_call(api_name: str) -> str:
+    """不安定なAPIコールをシミュレート"""
+    print(f"API呼び出し中: {api_name}")
+    
+    # ランダムな遅延
+    delay = random.uniform(1, 5)
+    await asyncio.sleep(delay)
+    
+    # ランダムに失敗する
+    if random.random() < 0.3:  # 30%の確率で失敗
+        raise Exception(f"{api_name}でエラーが発生しました")
+    
+    print(f"API呼び出し成功: {api_name}")
+    return f"{api_name}からの応答データ"
+
+async def safe_api_call(api_name: str, timeout: float = 3.0, retries: int = 3) -> str:
+    """タイムアウトとリトライ機能付きのAPIコール"""
+    
+    for attempt in range(retries):
+        try:
+            print(f"試行 {attempt + 1}/{retries}: {api_name}")
+            
+            # タイムアウト付きで実行
+            result = await asyncio.wait_for(
+                unreliable_api_call(api_name),
+                timeout=timeout
+            )
+            
+            return result
+            
+        except asyncio.TimeoutError:
+            print(f"タイムアウト: {api_name} (試行 {attempt + 1}/{retries})")
+            if attempt == retries - 1:
+                raise Exception(f"{api_name}: {retries}回すべてタイムアウト")
+            
+        except Exception as e:
+            print(f"エラー: {api_name} - {e} (試行 {attempt + 1}/{retries})")
+            if attempt == retries - 1:
+                raise e
+            
+            # 指数バックオフでリトライ間隔を調整
+            await asyncio.sleep(2 ** attempt)
+    
+    raise Exception(f"{api_name}: 予期しないエラー")
+
+async def batch_api_calls():
+    """複数のAPIコールを並行実行（エラーハンドリング付き）"""
+    apis = ["UserAPI", "ProductAPI", "OrderAPI", "PaymentAPI"]
+    
+    results = []
+    errors = []
+    
+    # すべてのAPIコールを並行実行
+    tasks = [safe_api_call(api) for api in apis]
+    
+    # as_completed で完了順に処理
+    print("=== 並行APIコール（エラーハンドリング付き） ===")
+    for completed_task in asyncio.as_completed(tasks):
+        try:
+            result = await completed_task
+            results.append(result)
+            print(f"✅ 成功: {result}")
+        except Exception as e:
+            errors.append(str(e))
+            print(f"❌ 失敗: {e}")
+    
+    print(f"\n結果: 成功 {len(results)}, 失敗 {len(errors)}")
+    return results, errors
+
+# 実行
+await batch_api_calls()
+```
+
+## 実際のアプリケーション例
+
+### 非同期Webスクレイピング
+
+```{python}
+import asyncio
+import time
+from typing import Dict, List
+
+class AsyncWebScraper:
+    """非同期Webスクレイピングクラス"""
+    
+    def __init__(self, max_concurrent: int = 5):
+        self.max_concurrent = max_concurrent
+        self.semaphore = asyncio.Semaphore(max_concurrent)
+        self.session_active = False
+    
+    async def fetch_page(self, url: str) -> Dict:
+        """単一ページの取得"""
+        async with self.semaphore:  # 同時リクエスト数を制限
+            print(f"取得中: {url}")
+            
+            # HTTPリクエストをシミュレート
+            delay = random.uniform(0.5, 2.0)
+            await asyncio.sleep(delay)
+            
+            # 模擬レスポンス
+            response = {
+                "url": url,
+                "title": f"ページタイトル from {url}",
+                "content_length": random.randint(1000, 10000),
+                "load_time": delay
+            }
+            
+            print(f"完了: {url} ({delay:.2f}秒)")
+            return response
+    
+    async def scrape_multiple(self, urls: List[str]) -> List[Dict]:
+        """複数ページの並行取得"""
+        print(f"=== 非同期スクレイピング開始 ===")
+        print(f"対象URL数: {len(urls)}, 最大同時接続数: {self.max_concurrent}")
+        
+        start_time = time.time()
+        
+        # すべてのタスクを作成
+        tasks = [self.fetch_page(url) for url in urls]
+        
+        # 完了順に結果を収集
+        results = []
+        for completed_task in asyncio.as_completed(tasks):
+            try:
+                result = await completed_task
+                results.append(result)
+                print(f"進捗: {len(results)}/{len(urls)}")
+            except Exception as e:
+                print(f"エラー: {e}")
+        
+        end_time = time.time()
+        total_time = end_time - start_time
+        
+        print(f"\n=== スクレイピング完了 ===")
+        print(f"総時間: {total_time:.2f}秒")
+        print(f"平均時間/URL: {total_time/len(urls):.2f}秒")
+        
+        return results
+
+# チャット応答システム
+class AsyncChatBot:
+    """非同期チャットボット"""
+    
+    def __init__(self):
+        self.conversation_history = []
+        self.processing_queue = asyncio.Queue()
+        self.response_cache = {}
+    
+    async def process_message(self, user_id: str, message: str) -> str:
+        """メッセージを処理して応答を生成"""
+        print(f"ユーザー{user_id}: {message}")
+        
+        # キャッシュをチェック
+        cache_key = message.lower().strip()
+        if cache_key in self.response_cache:
+            print(f"キャッシュから応答: {cache_key}")
+            return self.response_cache[cache_key]
+        
+        # 処理時間をシミュレート
+        thinking_time = random.uniform(1, 3)
+        await asyncio.sleep(thinking_time)
+        
+        # 模擬応答生成
+        responses = [
+            f"「{message}」について考えています...",
+            f"それは興味深い質問ですね。{message}について説明します。",
+            f"{message}に関する情報をお調べしました。",
+            f"ご質問の{message}についてお答えします。"
+        ]
+        
+        response = random.choice(responses)
+        
+        # キャッシュに保存
+        self.response_cache[cache_key] = response
+        
+        # 会話履歴に追加
+        self.conversation_history.append({
+            "user_id": user_id,
+            "message": message,
+            "response": response,
+            "timestamp": time.time()
+        })
+        
+        print(f"ボット → ユーザー{user_id}: {response}")
+        return response
+    
+    async def handle_multiple_users(self, messages: List[tuple]) -> List[str]:
+        """複数ユーザーからのメッセージを並行処理"""
+        print("=== マルチユーザーチャット処理 ===")
+        
+        tasks = [
+            self.process_message(user_id, message) 
+            for user_id, message in messages
+        ]
+        
+        responses = await asyncio.gather(*tasks)
+        
+        print(f"\n処理完了: {len(responses)}件のメッセージ")
+        return responses
+
+# 使用例
+async def demo_applications():
+    """実際のアプリケーション例のデモ"""
+    
+    # 1. Webスクレイピングのデモ
+    scraper = AsyncWebScraper(max_concurrent=3)
+    urls = [
+        "https://example1.com",
+        "https://example2.com", 
+        "https://example3.com",
+        "https://example4.com",
+        "https://example5.com"
+    ]
+    
+    scraping_results = await scraper.scrape_multiple(urls)
+    
+    print(f"\nスクレイピング結果: {len(scraping_results)}ページ取得")
+    
+    # 2. チャットボットのデモ  
+    print("\n" + "="*50)
+    
+    chatbot = AsyncChatBot()
+    user_messages = [
+        ("001", "Pythonについて教えて"),
+        ("002", "非同期プログラミングとは何ですか？"),
+        ("003", "Pythonについて教えて"),  # キャッシュされる
+        ("004", "AIの将来について"),
+        ("001", "ありがとうございます")
+    ]
+    
+    chat_responses = await chatbot.handle_multiple_users(user_messages)
+    
+    print(f"\nチャット処理完了: {len(chat_responses)}件の応答")
+
+# 実行
+await demo_applications()
+```
+
+## パフォーマンス監視と最適化
+
+### 非同期プログラムの監視
+
+```{python}
+import asyncio
+import time
+from dataclasses import dataclass
+from typing import Callable, Any
+
+@dataclass
+class TaskMetrics:
+    """タスクのメトリクス"""
+    name: str
+    start_time: float
+    end_time: float = 0
+    duration: float = 0
+    status: str = "running"
+    result: Any = None
+    error: str = None
+
+class AsyncProfiler:
+    """非同期処理のプロファイラー"""
+    
+    def __init__(self):
+        self.metrics = {}
+        self.start_time = time.time()
+    
+    def profile_task(self, name: str):
+        """タスクのプロファイリングデコレータ"""
+        def decorator(func: Callable):
+            async def wrapper(*args, **kwargs):
+                task_id = f"{name}_{id(asyncio.current_task())}"
+                
+                # メトリクス開始
+                self.metrics[task_id] = TaskMetrics(
+                    name=name,
+                    start_time=time.time()
+                )
+                
+                try:
+                    result = await func(*args, **kwargs)
+                    
+                    # 成功時のメトリクス更新
+                    metric = self.metrics[task_id]
+                    metric.end_time = time.time()
+                    metric.duration = metric.end_time - metric.start_time
+                    metric.status = "completed"
+                    metric.result = result
+                    
+                    return result
+                    
+                except Exception as e:
+                    # エラー時のメトリクス更新
+                    metric = self.metrics[task_id]
+                    metric.end_time = time.time()
+                    metric.duration = metric.end_time - metric.start_time
+                    metric.status = "failed"
+                    metric.error = str(e)
+                    
+                    raise e
+            
+            return wrapper
+        return decorator
+    
+    def get_summary(self) -> dict:
+        """実行サマリーを取得"""
+        if not self.metrics:
+            return {"message": "メトリクスがありません"}
+        
+        completed = [m for m in self.metrics.values() if m.status == "completed"]
+        failed = [m for m in self.metrics.values() if m.status == "failed"]
+        running = [m for m in self.metrics.values() if m.status == "running"]
+        
+        total_duration = time.time() - self.start_time
+        
+        summary = {
+            "総実行時間": f"{total_duration:.2f}秒",
+            "総タスク数": len(self.metrics),
+            "完了": len(completed),
+            "失敗": len(failed), 
+            "実行中": len(running)
+        }
+        
+        if completed:
+            durations = [m.duration for m in completed]
+            summary.update({
+                "平均実行時間": f"{sum(durations)/len(durations):.2f}秒",
+                "最短実行時間": f"{min(durations):.2f}秒",
+                "最長実行時間": f"{max(durations):.2f}秒"
+            })
+        
+        return summary
+    
+    def print_detailed_report(self):
+        """詳細レポートを表示"""
+        print("=== 非同期処理詳細レポート ===")
+        
+        for task_id, metric in self.metrics.items():
+            status_emoji = {
+                "completed": "✅",
+                "failed": "❌", 
+                "running": "🔄"
+            }.get(metric.status, "❓")
+            
+            print(f"{status_emoji} {metric.name}")
+            print(f"   時間: {metric.duration:.2f}秒")
+            print(f"   ステータス: {metric.status}")
+            
+            if metric.error:
+                print(f"   エラー: {metric.error}")
+            print()
+        
+        summary = self.get_summary()
+        print("=== サマリー ===")
+        for key, value in summary.items():
+            print(f"{key}: {value}")
+
+# プロファイラーを使用したデモ
+profiler = AsyncProfiler()
+
+@profiler.profile_task("データベース検索")
+async def database_query(query: str) -> str:
+    """データベースクエリをシミュレート"""
+    await asyncio.sleep(random.uniform(0.5, 2.0))
+    if random.random() < 0.1:  # 10%の確率で失敗
+        raise Exception("データベース接続エラー")
+    return f"クエリ結果: {query}"
+
+@profiler.profile_task("API呼び出し")
+async def api_call(endpoint: str) -> str:
+    """API呼び出しをシミュレート"""
+    await asyncio.sleep(random.uniform(1.0, 3.0))
+    if random.random() < 0.15:  # 15%の確率で失敗
+        raise Exception("API応答エラー")
+    return f"API応答: {endpoint}"
+
+@profiler.profile_task("ファイル処理")
+async def file_processing(filename: str) -> str:
+    """ファイル処理をシミュレート"""
+    await asyncio.sleep(random.uniform(0.3, 1.5))
+    return f"処理済み: {filename}"
+
+async def run_performance_demo():
+    """パフォーマンス監視デモ"""
+    print("=== パフォーマンス監視デモ開始 ===")
+    
+    # 複数のタスクを並行実行
+    tasks = []
+    
+    # データベースクエリタスク
+    for i in range(5):
+        tasks.append(database_query(f"SELECT * FROM table_{i}"))
+    
+    # API呼び出しタスク
+    endpoints = ["users", "products", "orders", "payments"]
+    for endpoint in endpoints:
+        tasks.append(api_call(endpoint))
+    
+    # ファイル処理タスク
+    files = ["data1.csv", "data2.json", "report.pdf"]
+    for filename in files:
+        tasks.append(file_processing(filename))
+    
+    # すべてのタスクを実行
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+    
+    # 結果の分析
+    successful_results = [r for r in results if not isinstance(r, Exception)]
+    failed_results = [r for r in results if isinstance(r, Exception)]
+    
+    print(f"\n=== 実行結果 ===")
+    print(f"成功: {len(successful_results)}")
+    print(f"失敗: {len(failed_results)}")
+    
+    # 詳細レポートを表示
+    profiler.print_detailed_report()
+
+# 実行
+await run_performance_demo()
+```
+
+この章では、Pythonにおける非同期プログラミングの基本概念から実践的な応用まで学習しました。非同期プログラミングを適切に使用することで、I/Oバウンドなタスクのパフォーマンスを大幅に向上させることができます。

@@ -409,27 +409,43 @@ for i in range(1, 31):
 
 ### Exercise 2: Prime Number Checker
 
+A prime number is a number greater than 1 that has no positive divisors other than 1 and itself. Let's build an efficient algorithm to check if a number is prime.
+
+**Mathematical insight**: If a number n has a divisor, at least one divisor must be ≤ √n. This is because if n = a × b and both a and b are > √n, then a × b > n, which is impossible.
+
 ```{python}
 def is_prime(n):
     """Check if a number is prime."""
+    # Handle edge cases: numbers less than 2 are not prime
     if n < 2:
         return False
     
+    # Check for divisors from 2 up to √n
+    # We only need to check up to the square root because:
+    # - If n has a divisor > √n, it must also have one ≤ √n
+    # - This reduces our search space dramatically!
     for i in range(2, int(n ** 0.5) + 1):
-        if n % i == 0:
+        # If n is divisible by i, then n is not prime
+        if n % i == 0:  # % is the modulo operator (remainder)
             return False
     
+    # If we made it here, no divisors were found
     return True
 
 # Find prime numbers up to 30
 print("Prime numbers up to 30:")
 primes = []
-for num in range(2, 31):
+for num in range(2, 31):  # Start from 2 (first prime number)
     if is_prime(num):
         primes.append(num)
 
 print(primes)
 ```
+
+**Why this algorithm is efficient:**
+- For n = 100, instead of checking 98 potential divisors (2 to 99), we only check 8 (2 to 10)
+- Time complexity: O(√n) instead of O(n)
+- For large numbers, this makes a huge difference!
 
 ### Exercise 3: Pattern Printing
 
@@ -520,19 +536,52 @@ print(process_user(test_user))
 
 ### Loop with else
 
+Python has a unique feature that often confuses beginners: loops can have an `else` clause! This `else` block runs **only when the loop completes normally** (without encountering a `break`).
+
+**When does loop-else run?**
+- ✅ **Runs**: When the loop finishes all iterations naturally
+- ❌ **Doesn't run**: When the loop exits via `break`
+
+This is perfect for "search and report if not found" patterns:
+
 ```{python}
 # The else clause runs if the loop completes normally (no break)
 def find_number(numbers, target):
     for num in numbers:
         if num == target:
             print(f"Found {target}!")
-            break
+            break  # Exit loop early - else won't run
     else:
+        # This runs ONLY if the loop completed without breaking
+        # Think of it as "if we didn't find anything"
         print(f"{target} not found in the list")
 
 numbers = [1, 2, 3, 4, 5]
-find_number(numbers, 3)  # Found
-find_number(numbers, 7)  # Not found
+find_number(numbers, 3)  # Found 3! (else doesn't run)
+find_number(numbers, 7)  # 7 not found in the list (else runs)
+```
+
+**Common misconception**: The `else` doesn't mean "if the loop didn't run" - it means "if the loop wasn't interrupted by `break`".
+
+**Real-world example**: Checking if a password meets requirements:
+```{python}
+def validate_password(password):
+    requirements = [
+        (len(password) >= 8, "at least 8 characters"),
+        (any(c.isupper() for c in password), "an uppercase letter"),
+        (any(c.islower() for c in password), "a lowercase letter"),
+        (any(c.isdigit() for c in password), "a number")
+    ]
+    
+    for valid, message in requirements:
+        if not valid:
+            print(f"Password must contain {message}")
+            break
+    else:
+        print("Password is valid!")
+
+validate_password("weakpass")      # Fails - no uppercase/number
+validate_password("StrongPass123") # Valid!
 ```
 
 ## Performance Tips

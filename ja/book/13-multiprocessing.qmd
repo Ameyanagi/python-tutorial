@@ -1,0 +1,634 @@
+# マルチプロセッシングと並列計算
+
+マルチプロセッシングは、複数のCPUコアを活用してCPU集約的なタスクを並列実行することで、プログラムのパフォーマンスを大幅に向上させる技術です。
+
+## マルチプロセッシングの基本概念
+
+### シングルプロセス vs マルチプロセス
+
+```{python}
+import time
+import multiprocessing as mp
+from typing import List
+
+def cpu_intensive_task(n: int) -> int:
+    """CPU集約的なタスクをシミュレート（素数計算）"""
+    def is_prime(num):
+        if num < 2:
+            return False
+        for i in range(2, int(num ** 0.5) + 1):
+            if num % i == 0:
+                return False
+        return True
+    
+    count = 0
+    for i in range(n):
+        if is_prime(i):
+            count += 1
+    
+    return count
+
+def sequential_processing(numbers: List[int]) -> List[int]:
+    """順次処理"""
+    print("=== 順次処理 ===")
+    start_time = time.time()
+    
+    results = []
+    for i, n in enumerate(numbers, 1):
+        print(f"タスク {i}/{len(numbers)} 処理中...")
+        result = cpu_intensive_task(n)
+        results.append(result)
+    
+    end_time = time.time()
+    print(f"順次処理時間: {end_time - start_time:.2f}秒")
+    return results
+
+def parallel_processing(numbers: List[int]) -> List[int]:
+    """並列処理"""
+    print("\n=== 並列処理 ===")
+    start_time = time.time()
+    
+    # CPUコア数を取得
+    num_cores = mp.cpu_count()
+    print(f"利用可能CPUコア数: {num_cores}")
+    
+    # プロセスプールを使用して並列実行
+    with mp.Pool(processes=num_cores) as pool:
+        results = pool.map(cpu_intensive_task, numbers)
+    
+    end_time = time.time()
+    print(f"並列処理時間: {end_time - start_time:.2f}秒")
+    return results
+
+# 性能比較デモ
+def performance_comparison():
+    """性能比較デモ"""
+    # テストデータ（素数計算の範囲）
+    test_numbers = [10000, 15000, 20000, 25000]
+    
+    print("CPU集約的タスクの性能比較")
+    print(f"テストデータ: {test_numbers}")
+    
+    # 順次処理
+    seq_results = sequential_processing(test_numbers)
+    
+    # 並列処理
+    par_results = parallel_processing(test_numbers)
+    
+    # 結果の検証
+    print(f"\n=== 結果比較 ===")
+    for i, (seq, par) in enumerate(zip(seq_results, par_results)):
+        print(f"データ{i+1}: 順次={seq}, 並列={par}, 一致={seq==par}")
+
+# 実行
+performance_comparison()
+```
+
+## プロセス間通信
+
+### Queue を使った通信
+
+```{python}
+import multiprocessing as mp
+import time
+import random
+from queue import Empty
+
+def producer(queue: mp.Queue, producer_id: int, item_count: int):
+    """データを生成してキューに送信"""
+    print(f"プロデューサー {producer_id} 開始")
+    
+    for i in range(item_count):
+        # データ生成をシミュレート
+        time.sleep(random.uniform(0.1, 0.5))
+        
+        item = {
+            "id": f"P{producer_id}-{i+1}",
+            "data": f"データ from プロデューサー{producer_id}",
+            "value": random.randint(1, 100),
+            "timestamp": time.time()
+        }
+        
+        queue.put(item)
+        print(f"プロデューサー {producer_id}: {item['id']} 送信")
+    
+    # 終了シグナル
+    queue.put(None)
+    print(f"プロデューサー {producer_id} 終了")
+
+def consumer(queue: mp.Queue, consumer_id: int, result_queue: mp.Queue):
+    """キューからデータを受信して処理"""
+    print(f"コンシューマー {consumer_id} 開始")
+    processed_count = 0
+    
+    while True:
+        try:
+            # タイムアウト付きでアイテムを取得
+            item = queue.get(timeout=2)
+            
+            if item is None:
+                # 終了シグナルを受信
+                print(f"コンシューマー {consumer_id}: 終了シグナル受信")
+                queue.put(None)  # 他のコンシューマーのために再送
+                break
+            
+            # データ処理をシミュレート
+            processing_time = random.uniform(0.2, 0.8)
+            time.sleep(processing_time)
+            
+            # 処理結果
+            result = {
+                "consumer_id": consumer_id,
+                "original_id": item["id"],
+                "processed_value": item["value"] * 2,
+                "processing_time": processing_time
+            }
+            
+            result_queue.put(result)
+            processed_count += 1
+            
+            print(f"コンシューマー {consumer_id}: {item['id']} 処理完了")
+            
+        except Empty:
+            print(f"コンシューマー {consumer_id}: タイムアウト")
+            break
+    
+    print(f"コンシューマー {consumer_id} 終了 (処理数: {processed_count})")
+
+def run_producer_consumer_demo():
+    """プロデューサー・コンシューマーパターンのデモ"""
+    print("=== プロデューサー・コンシューマーパターン ===")
+    
+    # キューを作成
+    data_queue = mp.Queue(maxsize=10)  # 最大10アイテム
+    result_queue = mp.Queue()
+    
+    # プロセスを作成
+    processes = []
+    
+    # プロデューサープロセス（2つ）
+    for i in range(2):
+        p = mp.Process(target=producer, args=(data_queue, i+1, 5))
+        processes.append(p)
+        p.start()
+    
+    # コンシューマープロセス（3つ）
+    for i in range(3):
+        p = mp.Process(target=consumer, args=(data_queue, i+1, result_queue))
+        processes.append(p)
+        p.start()
+    
+    # 全プロセスの完了を待機
+    for p in processes:
+        p.join()
+    
+    # 結果を収集
+    print("\n=== 処理結果 ===")
+    results = []
+    while not result_queue.empty():
+        try:
+            result = result_queue.get_nowait()
+            results.append(result)
+        except Empty:
+            break
+    
+    # 統計情報
+    print(f"総処理数: {len(results)}")
+    for consumer_id in range(1, 4):
+        consumer_results = [r for r in results if r['consumer_id'] == consumer_id]
+        print(f"コンシューマー {consumer_id}: {len(consumer_results)}件処理")
+
+# 実行
+run_producer_consumer_demo()
+```
+
+## 共有メモリとロック
+
+### 安全な共有リソースアクセス
+
+```{python}
+import multiprocessing as mp
+import time
+import random
+
+def unsafe_counter_worker(shared_counter, worker_id: int, iterations: int):
+    """安全でない共有カウンター（競合状態の例）"""
+    print(f"ワーカー {worker_id} 開始（安全でない版）")
+    
+    for i in range(iterations):
+        # 現在の値を読み取り
+        current_value = shared_counter.value
+        
+        # 処理時間をシミュレート
+        time.sleep(random.uniform(0.001, 0.005))
+        
+        # 値を更新
+        shared_counter.value = current_value + 1
+        
+        if (i + 1) % 10 == 0:
+            print(f"ワーカー {worker_id}: {i+1}/{iterations} 完了")
+    
+    print(f"ワーカー {worker_id} 終了")
+
+def safe_counter_worker(shared_counter, lock, worker_id: int, iterations: int):
+    """安全な共有カウンター（ロック使用）"""
+    print(f"ワーカー {worker_id} 開始（安全版）")
+    
+    for i in range(iterations):
+        # ロックを取得してクリティカルセクションを保護
+        with lock:
+            current_value = shared_counter.value
+            time.sleep(random.uniform(0.001, 0.005))
+            shared_counter.value = current_value + 1
+        
+        if (i + 1) % 10 == 0:
+            print(f"ワーカー {worker_id}: {i+1}/{iterations} 完了")
+    
+    print(f"ワーカー {worker_id} 終了")
+
+def demonstrate_race_condition():
+    """競合状態のデモンストレーション"""
+    print("=== 競合状態のデモ ===")
+    
+    # 安全でない共有カウンター
+    print("\n1. 安全でない共有カウンター:")
+    unsafe_counter = mp.Value('i', 0)
+    
+    processes = []
+    num_workers = 4
+    iterations_per_worker = 25
+    expected_total = num_workers * iterations_per_worker
+    
+    start_time = time.time()
+    
+    for i in range(num_workers):
+        p = mp.Process(target=unsafe_counter_worker, 
+                      args=(unsafe_counter, i+1, iterations_per_worker))
+        processes.append(p)
+        p.start()
+    
+    for p in processes:
+        p.join()
+    
+    unsafe_result = unsafe_counter.value
+    unsafe_time = time.time() - start_time
+    
+    print(f"期待値: {expected_total}")
+    print(f"実際の値: {unsafe_result}")
+    print(f"データ競合による損失: {expected_total - unsafe_result}")
+    print(f"実行時間: {unsafe_time:.2f}秒")
+    
+    # 安全な共有カウンター
+    print("\n2. 安全な共有カウンター（ロック使用）:")
+    safe_counter = mp.Value('i', 0)
+    lock = mp.Lock()
+    
+    processes = []
+    start_time = time.time()
+    
+    for i in range(num_workers):
+        p = mp.Process(target=safe_counter_worker,
+                      args=(safe_counter, lock, i+1, iterations_per_worker))
+        processes.append(p)
+        p.start()
+    
+    for p in processes:
+        p.join()
+    
+    safe_result = safe_counter.value
+    safe_time = time.time() - start_time
+    
+    print(f"期待値: {expected_total}")
+    print(f"実際の値: {safe_result}")
+    print(f"データ整合性: {'✅ 正確' if safe_result == expected_total else '❌ 不正確'}")
+    print(f"実行時間: {safe_time:.2f}秒")
+
+# 実行
+demonstrate_race_condition()
+```
+
+## 実際のアプリケーション例
+
+### 画像処理の並列化
+
+```{python}
+import multiprocessing as mp
+import time
+import random
+from typing import List, Tuple
+
+class ImageProcessor:
+    """画像処理クラス（シミュレーション）"""
+    
+    @staticmethod
+    def process_image(image_info: Tuple[str, int, int]) -> dict:
+        """単一画像の処理"""
+        filename, width, height = image_info
+        print(f"処理中: {filename} ({width}x{height})")
+        
+        # 画像処理をシミュレート（サイズに比例した処理時間）
+        processing_time = (width * height) / 1000000  # 1M pixelで1秒
+        processing_time += random.uniform(0.1, 0.5)
+        time.sleep(processing_time)
+        
+        # 処理結果
+        result = {
+            "filename": filename,
+            "original_size": (width, height),
+            "processed_size": (width // 2, height // 2),  # リサイズ
+            "processing_time": processing_time,
+            "file_size_kb": (width * height * 3) // 1024,  # RGB仮定
+            "status": "completed"
+        }
+        
+        print(f"完了: {filename} ({processing_time:.2f}秒)")
+        return result
+    
+    @staticmethod
+    def process_batch_sequential(images: List[Tuple[str, int, int]]) -> List[dict]:
+        """逐次処理"""
+        print("=== 逐次画像処理 ===")
+        start_time = time.time()
+        
+        results = []
+        for i, image in enumerate(images, 1):
+            print(f"進捗: {i}/{len(images)}")
+            result = ImageProcessor.process_image(image)
+            results.append(result)
+        
+        total_time = time.time() - start_time
+        print(f"逐次処理完了: {total_time:.2f}秒")
+        return results
+    
+    @staticmethod
+    def process_batch_parallel(images: List[Tuple[str, int, int]], num_processes: int = None) -> List[dict]:
+        """並列処理"""
+        if num_processes is None:
+            num_processes = mp.cpu_count()
+        
+        print(f"=== 並列画像処理 (プロセス数: {num_processes}) ===")
+        start_time = time.time()
+        
+        with mp.Pool(processes=num_processes) as pool:
+            results = pool.map(ImageProcessor.process_image, images)
+        
+        total_time = time.time() - start_time
+        print(f"並列処理完了: {total_time:.2f}秒")
+        return results
+
+def batch_processing_demo():
+    """バッチ処理のデモ"""
+    # テスト用画像データ
+    test_images = [
+        ("photo1.jpg", 4000, 3000),
+        ("photo2.jpg", 6000, 4000), 
+        ("photo3.jpg", 3000, 2000),
+        ("photo4.jpg", 5000, 3500),
+        ("photo5.jpg", 4500, 3000),
+        ("photo6.jpg", 3500, 2500),
+    ]
+    
+    print("画像処理バッチ処理デモ")
+    print(f"処理対象: {len(test_images)}枚の画像")
+    
+    # 逐次処理
+    sequential_results = ImageProcessor.process_batch_sequential(test_images)
+    
+    print("\n" + "="*50)
+    
+    # 並列処理
+    parallel_results = ImageProcessor.process_batch_parallel(test_images)
+    
+    # パフォーマンス分析
+    seq_total_time = sum(r["processing_time"] for r in sequential_results)
+    par_total_time = sum(r["processing_time"] for r in parallel_results)
+    
+    print(f"\n=== パフォーマンス分析 ===")
+    print(f"逐次処理時間: {seq_total_time:.2f}秒")
+    print(f"並列処理時間: {par_total_time:.2f}秒")
+    
+    if seq_total_time > 0:
+        speedup = seq_total_time / par_total_time
+        print(f"速度向上: {speedup:.2f}倍")
+
+# データ分析の並列化
+class DataAnalyzer:
+    """データ分析クラス"""
+    
+    @staticmethod
+    def analyze_chunk(data_chunk: List[int]) -> dict:
+        """データチャンクの分析"""
+        chunk_id = id(data_chunk) % 1000  # チャンクID
+        print(f"チャンク {chunk_id} 分析中... (サイズ: {len(data_chunk)})")
+        
+        # 重い計算をシミュレート
+        time.sleep(0.5)
+        
+        result = {
+            "chunk_id": chunk_id,
+            "size": len(data_chunk),
+            "sum": sum(data_chunk),
+            "avg": sum(data_chunk) / len(data_chunk) if data_chunk else 0,
+            "min": min(data_chunk) if data_chunk else 0,
+            "max": max(data_chunk) if data_chunk else 0,
+            "std": 0  # 簡略化
+        }
+        
+        print(f"チャンク {chunk_id} 分析完了")
+        return result
+    
+    @staticmethod
+    def parallel_analyze(data: List[int], chunk_size: int = 1000) -> dict:
+        """大規模データの並列分析"""
+        print(f"=== 大規模データ並列分析 ===")
+        print(f"データサイズ: {len(data):,} 要素")
+        print(f"チャンクサイズ: {chunk_size:,} 要素")
+        
+        # データをチャンクに分割
+        chunks = [data[i:i+chunk_size] for i in range(0, len(data), chunk_size)]
+        print(f"チャンク数: {len(chunks)}")
+        
+        start_time = time.time()
+        
+        # 並列分析実行
+        with mp.Pool(processes=mp.cpu_count()) as pool:
+            chunk_results = pool.map(DataAnalyzer.analyze_chunk, chunks)
+        
+        processing_time = time.time() - start_time
+        
+        # 結果を統合
+        total_sum = sum(r["sum"] for r in chunk_results)
+        total_count = sum(r["size"] for r in chunk_results)
+        overall_avg = total_sum / total_count if total_count > 0 else 0
+        overall_min = min(r["min"] for r in chunk_results if r["size"] > 0)
+        overall_max = max(r["max"] for r in chunk_results if r["size"] > 0)
+        
+        final_result = {
+            "total_elements": total_count,
+            "processing_time": processing_time,
+            "chunks_processed": len(chunk_results),
+            "sum": total_sum,
+            "average": overall_avg,
+            "minimum": overall_min,
+            "maximum": overall_max
+        }
+        
+        print(f"\n=== 分析結果 ===")
+        for key, value in final_result.items():
+            if isinstance(value, float):
+                print(f"{key}: {value:.2f}")
+            else:
+                print(f"{key}: {value:,}" if isinstance(value, int) else f"{key}: {value}")
+        
+        return final_result
+
+def data_analysis_demo():
+    """データ分析デモ"""
+    # 大規模データセットを生成
+    data_size = 50000
+    test_data = [random.randint(1, 1000) for _ in range(data_size)]
+    
+    print("大規模データ分析デモ")
+    
+    # 並列分析実行
+    result = DataAnalyzer.parallel_analyze(test_data, chunk_size=5000)
+
+# 実行
+print("=== マルチプロセッシングデモ ===\n")
+
+# 1. 画像処理デモ
+batch_processing_demo()
+
+print("\n" + "="*70 + "\n")
+
+# 2. データ分析デモ  
+data_analysis_demo()
+```
+
+## プロセスプールとワーカー管理
+
+### 高度なプロセス管理
+
+```{python}
+import multiprocessing as mp
+import time
+import random
+from concurrent.futures import ProcessPoolExecutor, as_completed
+from typing import List, Callable, Any
+
+class ProcessManager:
+    """プロセス管理クラス"""
+    
+    def __init__(self, max_workers: int = None):
+        self.max_workers = max_workers or mp.cpu_count()
+        self.completed_tasks = 0
+        self.failed_tasks = 0
+        self.total_processing_time = 0
+    
+    def execute_with_progress(self, func: Callable, tasks: List[Any]) -> List[Any]:
+        """進捗表示付きでタスクを実行"""
+        print(f"=== プロセスプール実行 ===")
+        print(f"ワーカー数: {self.max_workers}")
+        print(f"タスク数: {len(tasks)}")
+        
+        results = []
+        start_time = time.time()
+        
+        with ProcessPoolExecutor(max_workers=self.max_workers) as executor:
+            # 全タスクを送信
+            future_to_task = {executor.submit(func, task): task for task in tasks}
+            
+            # 完了順に結果を処理
+            for future in as_completed(future_to_task):
+                task = future_to_task[future]
+                
+                try:
+                    result = future.result()
+                    results.append(result)
+                    self.completed_tasks += 1
+                    
+                    print(f"完了: {self.completed_tasks}/{len(tasks)} "
+                          f"({(self.completed_tasks/len(tasks)*100):.1f}%)")
+                    
+                except Exception as e:
+                    self.failed_tasks += 1
+                    print(f"エラー: タスク {task} - {e}")
+                    results.append(None)
+        
+        self.total_processing_time = time.time() - start_time
+        
+        print(f"\n=== 実行完了 ===")
+        print(f"成功: {self.completed_tasks}")
+        print(f"失敗: {self.failed_tasks}")
+        print(f"総時間: {self.total_processing_time:.2f}秒")
+        
+        return results
+
+def complex_calculation(params: dict) -> dict:
+    """複雑な計算タスク"""
+    task_id = params["id"]
+    complexity = params["complexity"]
+    
+    print(f"タスク {task_id} 開始 (複雑度: {complexity})")
+    
+    # 計算の複雑さに応じた処理時間
+    processing_time = complexity * random.uniform(0.1, 0.3)
+    time.sleep(processing_time)
+    
+    # ランダムに失敗
+    if random.random() < 0.1:  # 10%の確率で失敗
+        raise Exception(f"タスク {task_id} で計算エラー")
+    
+    result = {
+        "task_id": task_id,
+        "result": complexity ** 2,
+        "processing_time": processing_time,
+        "worker_pid": mp.current_process().pid
+    }
+    
+    print(f"タスク {task_id} 完了")
+    return result
+
+def advanced_process_management_demo():
+    """高度なプロセス管理デモ"""
+    # タスクリストを生成
+    tasks = [
+        {"id": i, "complexity": random.randint(1, 10)}
+        for i in range(20)
+    ]
+    
+    # プロセス管理器を作成
+    manager = ProcessManager(max_workers=4)
+    
+    # タスクを実行
+    results = manager.execute_with_progress(complex_calculation, tasks)
+    
+    # 成功した結果のみを分析
+    successful_results = [r for r in results if r is not None]
+    
+    if successful_results:
+        print(f"\n=== 結果分析 ===")
+        total_result = sum(r["result"] for r in successful_results)
+        avg_processing_time = sum(r["processing_time"] for r in successful_results) / len(successful_results)
+        
+        # ワーカーごとの統計
+        worker_stats = {}
+        for result in successful_results:
+            pid = result["worker_pid"]
+            if pid not in worker_stats:
+                worker_stats[pid] = {"count": 0, "total_time": 0}
+            worker_stats[pid]["count"] += 1
+            worker_stats[pid]["total_time"] += result["processing_time"]
+        
+        print(f"合計結果: {total_result}")
+        print(f"平均処理時間: {avg_processing_time:.2f}秒")
+        print(f"ワーカー統計:")
+        for pid, stats in worker_stats.items():
+            avg_time = stats["total_time"] / stats["count"]
+            print(f"  PID {pid}: {stats['count']}タスク, 平均{avg_time:.2f}秒")
+
+# 実行
+advanced_process_management_demo()
+```
+
+この章では、Pythonにおけるマルチプロセッシングの基本概念から実践的な応用まで学習しました。適切にマルチプロセッシングを活用することで、CPU集約的なタスクのパフォーマンスを大幅に向上させることができます。

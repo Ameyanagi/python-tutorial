@@ -105,6 +105,8 @@ for key, value in student.items():
 
 ## Dictionary Methods & Operations
 
+**Dictionaries have powerful built-in methods for data manipulation:**
+
 ```python
 inventory = {
     "apples": 50,
@@ -112,31 +114,47 @@ inventory = {
     "oranges": 25
 }
 
-# Useful methods
+# .keys() gets all the dictionary keys (item names)
 print(inventory.keys())    # dict_keys(['apples', 'bananas', 'oranges'])
+
+# .values() gets all the dictionary values (quantities)
 print(inventory.values())  # dict_values([50, 30, 25])
 
-# Membership testing
+# Use 'in' to check if a key exists (very fast!)
 if "apples" in inventory:
     print(f"We have {inventory['apples']} apples")
 
-# Dictionary comprehension
+# Dictionary comprehension: transform all key-value pairs
+# This reads as: "for each key-value pair, create new pair with doubled value"
 doubled = {k: v*2 for k, v in inventory.items()}
+# Result: {"apples": 100, "bananas": 60, "oranges": 50}
 ```
+
+**Key insight**: Dictionary operations are very fast because they use hash tables for lookups!
 
 ## Sets - Unique Collections {.smaller}
 
+**Sets are collections that automatically eliminate duplicates and provide fast membership testing:**
+
 ```python
-# Creating sets
+# Creating sets - notice curly braces like dictionaries, but no key:value pairs
 fruits = {"apple", "banana", "cherry"}
 numbers = {1, 2, 3, 4, 5}
 
-# Adding elements
+# Adding elements - only unique items are stored
 fruits.add("orange")
 
-# Sets automatically handle duplicates
-mixed = {1, 2, 2, 3, 3, 3}
-print(mixed)  # {1, 2, 3}
+# Sets automatically handle duplicates - perfect for removing duplicates!
+mixed = {1, 2, 2, 3, 3, 3}  # We added duplicates here
+print(mixed)  # {1, 2, 3} - duplicates automatically removed!
+
+# Real-world example: Get unique items from a list
+email_list = ["alice@test.com", "bob@test.com", "alice@test.com", "charlie@test.com"]
+unique_emails = set(email_list)  # Converts list to set, removing duplicates
+print(f"Unique emails: {unique_emails}")
+```
+
+**When to use sets**: Fast membership testing (`item in my_set`) and removing duplicates!
 
 # Set operations
 set_a = {1, 2, 3, 4, 5}

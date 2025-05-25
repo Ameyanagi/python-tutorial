@@ -1,0 +1,1086 @@
+# IoT接続とハードウェア制御
+
+Pythonを使用してIoTデバイスやハードウェアと連携し、実世界のデータを収集・制御する方法を学習します。
+
+## IoT基礎とPython
+
+### IoTシステムの概要
+
+```{python}
+import time
+import random
+import json
+from datetime import datetime
+from typing import Dict, List, Optional
+from dataclasses import dataclass
+from enum import Enum
+
+class SensorType(Enum):
+    """センサータイプ"""
+    TEMPERATURE = "温度"
+    HUMIDITY = "湿度"
+    PRESSURE = "気圧"
+    LIGHT = "光"
+    MOTION = "動作"
+    SOUND = "音"
+    GAS = "ガス"
+
+@dataclass
+class SensorReading:
+    """センサー読み取り値"""
+    sensor_id: str
+    sensor_type: SensorType
+    value: float
+    unit: str
+    timestamp: datetime
+    location: str = ""
+    
+    def to_dict(self) -> Dict:
+        return {
+            "sensor_id": self.sensor_id,
+            "sensor_type": self.sensor_type.value,
+            "value": self.value,
+            "unit": self.unit,
+            "timestamp": self.timestamp.isoformat(),
+            "location": self.location
+        }
+
+class IoTDevice:
+    """IoTデバイス基底クラス"""
+    
+    def __init__(self, device_id: str, name: str, location: str = ""):
+        self.device_id = device_id
+        self.name = name
+        self.location = location
+        self.is_connected = False
+        self.last_seen = None
+        self.readings_history: List[SensorReading] = []
+    
+    def connect(self) -> bool:
+        """デバイスに接続"""
+        print(f"🔌 デバイス接続中: {self.name} ({self.device_id})")
+        # 実際の実装では、WiFi、Bluetooth、シリアル通信などを使用
+        self.is_connected = True
+        self.last_seen = datetime.now()
+        print(f"✅ 接続成功: {self.name}")
+        return True
+    
+    def disconnect(self):
+        """デバイスから切断"""
+        print(f"🔌 デバイス切断: {self.name}")
+        self.is_connected = False
+    
+    def read_sensor(self, sensor_type: SensorType) -> Optional[SensorReading]:
+        """センサー値を読み取り"""
+        if not self.is_connected:
+            print(f"❌ デバイス未接続: {self.name}")
+            return None
+        
+        # センサー値のシミュレーション
+        value, unit = self._simulate_sensor_reading(sensor_type)
+        
+        reading = SensorReading(
+            sensor_id=f"{self.device_id}_{sensor_type.name}",
+            sensor_type=sensor_type,
+            value=value,
+            unit=unit,
+            timestamp=datetime.now(),
+            location=self.location
+        )
+        
+        self.readings_history.append(reading)
+        self.last_seen = datetime.now()
+        
+        print(f"📊 {self.name}: {sensor_type.value} = {value}{unit}")
+        return reading
+    
+    def _simulate_sensor_reading(self, sensor_type: SensorType) -> tuple:
+        """センサー読み取り値をシミュレート"""
+        if sensor_type == SensorType.TEMPERATURE:
+            return round(random.uniform(18.0, 30.0), 1), "°C"
+        elif sensor_type == SensorType.HUMIDITY:
+            return round(random.uniform(40.0, 80.0), 1), "%"
+        elif sensor_type == SensorType.PRESSURE:
+            return round(random.uniform(1000.0, 1030.0), 1), "hPa"
+        elif sensor_type == SensorType.LIGHT:
+            return round(random.uniform(0.0, 1000.0), 0), "lux"
+        elif sensor_type == SensorType.MOTION:
+            return random.choice([0, 1]), ""
+        elif sensor_type == SensorType.SOUND:
+            return round(random.uniform(30.0, 80.0), 1), "dB"
+        elif sensor_type == SensorType.GAS:
+            return round(random.uniform(0.0, 100.0), 1), "ppm"
+        else:
+            return 0.0, ""
+    
+    def get_status(self) -> Dict:
+        """デバイス状態を取得"""
+        return {
+            "device_id": self.device_id,
+            "name": self.name,
+            "location": self.location,
+            "is_connected": self.is_connected,
+            "last_seen": self.last_seen.isoformat() if self.last_seen else None,
+            "total_readings": len(self.readings_history)
+        }
+
+# 具体的なIoTデバイス
+class WeatherStation(IoTDevice):
+    """気象観測ステーション"""
+    
+    def __init__(self, device_id: str, location: str = ""):
+        super().__init__(device_id, "気象観測ステーション", location)
+        self.supported_sensors = [
+            SensorType.TEMPERATURE,
+            SensorType.HUMIDITY, 
+            SensorType.PRESSURE
+        ]
+    
+    def read_all_sensors(self) -> List[SensorReading]:
+        """全センサーの値を読み取り"""
+        readings = []
+        for sensor_type in self.supported_sensors:
+            reading = self.read_sensor(sensor_type)
+            if reading:
+                readings.append(reading)
+        return readings
+    
+    def get_weather_summary(self) -> Dict:
+        """天気サマリーを取得"""
+        if not self.readings_history:
+            return {"message": "データがありません"}
+        
+        # 最新の読み取り値を取得
+        latest_readings = {}
+        for reading in reversed(self.readings_history):
+            if reading.sensor_type not in latest_readings:
+                latest_readings[reading.sensor_type] = reading
+            
+            # 全センサーの値が揃ったら終了
+            if len(latest_readings) == len(self.supported_sensors):
+                break
+        
+        summary = {
+            "location": self.location,
+            "timestamp": datetime.now().isoformat(),
+            "readings": {}
+        }
+        
+        for sensor_type, reading in latest_readings.items():
+            summary["readings"][sensor_type.value] = {
+                "value": reading.value,
+                "unit": reading.unit
+            }
+        
+        return summary
+
+class SmartHome(IoTDevice):
+    """スマートホームデバイス"""
+    
+    def __init__(self, device_id: str, room: str = ""):
+        super().__init__(device_id, "スマートホームハブ", room)
+        self.room = room
+        self.devices = {}
+        self.automation_rules = []
+    
+    def add_device(self, device_name: str, device_type: str):
+        """デバイスを追加"""
+        self.devices[device_name] = {
+            "type": device_type,
+            "status": "off",
+            "last_updated": datetime.now()
+        }
+        print(f"🏠 デバイス追加: {device_name} ({device_type}) @ {self.room}")
+    
+    def control_device(self, device_name: str, command: str) -> bool:
+        """デバイスを制御"""
+        if device_name not in self.devices:
+            print(f"❌ デバイスが見つかりません: {device_name}")
+            return False
+        
+        valid_commands = ["on", "off", "toggle", "dim", "bright"]
+        if command not in valid_commands:
+            print(f"❌ 無効なコマンド: {command}")
+            return False
+        
+        device = self.devices[device_name]
+        
+        if command == "on":
+            device["status"] = "on"
+        elif command == "off":
+            device["status"] = "off"
+        elif command == "toggle":
+            device["status"] = "on" if device["status"] == "off" else "off"
+        elif command in ["dim", "bright"]:
+            device["status"] = command
+        
+        device["last_updated"] = datetime.now()
+        
+        print(f"🎛️ {device_name} を {command} に設定しました")
+        return True
+    
+    def add_automation_rule(self, condition: str, action: str):
+        """自動化ルールを追加"""
+        rule = {
+            "id": len(self.automation_rules) + 1,
+            "condition": condition,
+            "action": action,
+            "created_at": datetime.now(),
+            "triggered_count": 0
+        }
+        self.automation_rules.append(rule)
+        print(f"🤖 自動化ルール追加: {condition} → {action}")
+    
+    def check_automation(self, sensor_reading: SensorReading):
+        """自動化ルールをチェック"""
+        for rule in self.automation_rules:
+            if self._evaluate_condition(rule["condition"], sensor_reading):
+                self._execute_action(rule["action"])
+                rule["triggered_count"] += 1
+                print(f"🤖 自動化実行: {rule['condition']} → {rule['action']}")
+    
+    def _evaluate_condition(self, condition: str, reading: SensorReading) -> bool:
+        """条件を評価（簡略化）"""
+        # 実際の実装ではより複雑な条件解析が必要
+        if "温度" in condition and reading.sensor_type == SensorType.TEMPERATURE:
+            if "25度以上" in condition:
+                return reading.value >= 25.0
+            elif "20度以下" in condition:
+                return reading.value <= 20.0
+        elif "湿度" in condition and reading.sensor_type == SensorType.HUMIDITY:
+            if "70%以上" in condition:
+                return reading.value >= 70.0
+        return False
+    
+    def _execute_action(self, action: str):
+        """アクションを実行（簡略化）"""
+        if "エアコン" in action:
+            if "on" in action:
+                self.control_device("エアコン", "on")
+            elif "off" in action:
+                self.control_device("エアコン", "off")
+        elif "照明" in action:
+            if "on" in action:
+                self.control_device("照明", "on")
+            elif "off" in action:
+                self.control_device("照明", "off")
+
+# IoTデバイス管理システム
+class IoTManager:
+    """IoTデバイス管理システム"""
+    
+    def __init__(self):
+        self.devices: Dict[str, IoTDevice] = {}
+        self.data_storage: List[SensorReading] = []
+        self.alerts = []
+    
+    def register_device(self, device: IoTDevice):
+        """デバイスを登録"""
+        self.devices[device.device_id] = device
+        print(f"📱 デバイス登録: {device.name} ({device.device_id})")
+    
+    def connect_all_devices(self):
+        """全デバイスに接続"""
+        print("🔌 全デバイス接続中...")
+        for device in self.devices.values():
+            device.connect()
+        print("✅ 全デバイス接続完了")
+    
+    def collect_data_from_all(self):
+        """全デバイスからデータ収集"""
+        print("📊 データ収集開始...")
+        
+        for device in self.devices.values():
+            if device.is_connected:
+                if isinstance(device, WeatherStation):
+                    readings = device.read_all_sensors()
+                    self.data_storage.extend(readings)
+                else:
+                    # 基本センサー読み取り
+                    reading = device.read_sensor(SensorType.TEMPERATURE)
+                    if reading:
+                        self.data_storage.append(reading)
+        
+        print(f"📈 データ収集完了: {len(self.data_storage)}件")
+    
+    def get_device_summary(self) -> Dict:
+        """デバイスサマリーを取得"""
+        connected = sum(1 for d in self.devices.values() if d.is_connected)
+        total = len(self.devices)
+        
+        return {
+            "total_devices": total,
+            "connected_devices": connected,
+            "total_readings": len(self.data_storage),
+            "device_types": list(set(type(d).__name__ for d in self.devices.values()))
+        }
+    
+    def export_data(self, filename: str):
+        """データをJSONファイルにエクスポート"""
+        data = [reading.to_dict() for reading in self.data_storage]
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        print(f"💾 データエクスポート完了: {filename}")
+
+# IoTシステムデモ
+def demo_iot_system():
+    """IoTシステムデモ"""
+    print("=== IoTシステムデモ ===")
+    
+    # IoT管理システムを作成
+    iot_manager = IoTManager()
+    
+    # 気象観測ステーションを作成
+    weather_station = WeatherStation("WS001", "屋上")
+    iot_manager.register_device(weather_station)
+    
+    # スマートホームハブを作成
+    smart_home = SmartHome("SH001", "リビング")
+    smart_home.add_device("エアコン", "空調")
+    smart_home.add_device("照明", "照明")
+    smart_home.add_device("扇風機", "扇風機")
+    iot_manager.register_device(smart_home)
+    
+    # 自動化ルールを追加
+    smart_home.add_automation_rule("温度25度以上", "エアコンon")
+    smart_home.add_automation_rule("湿度70%以上", "扇風機on")
+    
+    # 全デバイスに接続
+    iot_manager.connect_all_devices()
+    
+    print(f"\n" + "="*50)
+    print("📊 センサーデータ収集シミュレーション")
+    
+    # データ収集を複数回実行
+    for cycle in range(3):
+        print(f"\n--- サイクル {cycle + 1} ---")
+        
+        # 気象データを読み取り
+        weather_readings = weather_station.read_all_sensors()
+        
+        # スマートホーム制御
+        for reading in weather_readings:
+            smart_home.check_automation(reading)
+        
+        # データをマネージャーに保存
+        iot_manager.data_storage.extend(weather_readings)
+        
+        # 天気サマリーを表示
+        weather_summary = weather_station.get_weather_summary()
+        print(f"🌤️ 気象情報: {weather_summary}")
+        
+        time.sleep(1)  # シミュレーション用の待機
+    
+    # システムサマリー
+    print(f"\n📋 システムサマリー:")
+    summary = iot_manager.get_device_summary()
+    for key, value in summary.items():
+        print(f"  {key}: {value}")
+
+demo_iot_system()
+```
+
+## シリアル通信とセンサー制御
+
+### Arduino・Raspberry Pi連携
+
+```{python}
+import serial
+import time
+import threading
+from queue import Queue
+from typing import Callable, Optional
+
+class SerialCommunicator:
+    """シリアル通信クラス"""
+    
+    def __init__(self, port: str = "COM3", baudrate: int = 9600):
+        self.port = port
+        self.baudrate = baudrate
+        self.serial_connection: Optional[serial.Serial] = None
+        self.is_connected = False
+        self.read_thread: Optional[threading.Thread] = None
+        self.message_queue = Queue()
+        self.callbacks = []
+    
+    def connect(self) -> bool:
+        """シリアルポートに接続"""
+        try:
+            print(f"🔌 シリアル接続中: {self.port} @ {self.baudrate}")
+            
+            # 実際の環境では以下のコードを使用
+            # self.serial_connection = serial.Serial(self.port, self.baudrate, timeout=1)
+            # self.is_connected = True
+            
+            # デモ用のシミュレーション
+            self.is_connected = True
+            print(f"✅ シリアル接続成功")
+            
+            # 読み取りスレッドを開始
+            self.start_reading_thread()
+            return True
+            
+        except Exception as e:
+            print(f"❌ シリアル接続エラー: {e}")
+            return False
+    
+    def disconnect(self):
+        """シリアル接続を切断"""
+        self.is_connected = False
+        
+        if self.read_thread and self.read_thread.is_alive():
+            self.read_thread.join(timeout=2)
+        
+        if self.serial_connection:
+            self.serial_connection.close()
+        
+        print("🔌 シリアル接続を切断しました")
+    
+    def send_command(self, command: str) -> bool:
+        """コマンドを送信"""
+        if not self.is_connected:
+            print("❌ シリアル未接続")
+            return False
+        
+        try:
+            # 実際の環境では以下のコードを使用
+            # self.serial_connection.write((command + '\n').encode())
+            
+            # デモ用のシミュレーション
+            print(f"📤 送信: {command}")
+            
+            # 模擬応答を生成
+            self._simulate_response(command)
+            return True
+            
+        except Exception as e:
+            print(f"❌ 送信エラー: {e}")
+            return False
+    
+    def _simulate_response(self, command: str):
+        """模擬応答を生成"""
+        if command.startswith("READ_SENSORS"):
+            response = "TEMP:25.3,HUMID:65.2"
+        elif command.startswith("LED_ON"):
+            response = "LED:ON"
+        elif command.startswith("LED_OFF"):
+            response = "LED:OFF"
+        elif command.startswith("MOTOR"):
+            response = "MOTOR:RUNNING"
+        else:
+            response = "OK"
+        
+        # 応答をキューに追加
+        self.message_queue.put(response)
+        
+        # コールバック関数を呼び出し
+        for callback in self.callbacks:
+            callback(response)
+    
+    def start_reading_thread(self):
+        """読み取りスレッドを開始"""
+        self.read_thread = threading.Thread(target=self._read_loop, daemon=True)
+        self.read_thread.start()
+    
+    def _read_loop(self):
+        """読み取りループ"""
+        while self.is_connected:
+            try:
+                # 実際の環境では以下のコードを使用
+                # if self.serial_connection.in_waiting > 0:
+                #     data = self.serial_connection.readline().decode().strip()
+                #     self.message_queue.put(data)
+                
+                # デモ用: 定期的にダミーデータを生成
+                time.sleep(2)
+                if self.is_connected:
+                    dummy_data = f"SENSOR_DATA:TEMP:{20 + time.time() % 10:.1f}"
+                    self.message_queue.put(dummy_data)
+                
+            except Exception as e:
+                print(f"❌ 読み取りエラー: {e}")
+                break
+    
+    def add_callback(self, callback: Callable[[str], None]):
+        """メッセージ受信時のコールバック関数を追加"""
+        self.callbacks.append(callback)
+    
+    def get_messages(self) -> list:
+        """受信したメッセージを取得"""
+        messages = []
+        while not self.message_queue.empty():
+            messages.append(self.message_queue.get())
+        return messages
+
+class ArduinoController:
+    """Arduino制御クラス"""
+    
+    def __init__(self, port: str = "COM3"):
+        self.communicator = SerialCommunicator(port)
+        self.sensor_data = {}
+        self.led_status = False
+        
+        # コールバック関数を設定
+        self.communicator.add_callback(self._handle_response)
+    
+    def connect(self) -> bool:
+        """Arduinoに接続"""
+        return self.communicator.connect()
+    
+    def disconnect(self):
+        """Arduino接続を切断"""
+        self.communicator.disconnect()
+    
+    def _handle_response(self, response: str):
+        """Arduino応答を処理"""
+        print(f"📥 受信: {response}")
+        
+        if response.startswith("TEMP:"):
+            # 温度データを解析
+            parts = response.split(",")
+            for part in parts:
+                if "TEMP:" in part:
+                    temp = float(part.split(":")[1])
+                    self.sensor_data["temperature"] = temp
+                elif "HUMID:" in part:
+                    humid = float(part.split(":")[1])
+                    self.sensor_data["humidity"] = humid
+    
+    def read_sensors(self) -> Dict:
+        """センサー値を読み取り"""
+        self.communicator.send_command("READ_SENSORS")
+        time.sleep(0.1)  # 応答待機
+        return self.sensor_data.copy()
+    
+    def control_led(self, state: bool) -> bool:
+        """LEDを制御"""
+        command = "LED_ON" if state else "LED_OFF"
+        success = self.communicator.send_command(command)
+        
+        if success:
+            self.led_status = state
+            print(f"💡 LED: {'点灯' if state else '消灯'}")
+        
+        return success
+    
+    def control_motor(self, speed: int, direction: str = "forward") -> bool:
+        """モーターを制御"""
+        command = f"MOTOR:{direction}:{speed}"
+        success = self.communicator.send_command(command)
+        
+        if success:
+            print(f"⚙️ モーター: {direction} 速度{speed}")
+        
+        return success
+    
+    def get_status(self) -> Dict:
+        """デバイス状態を取得"""
+        return {
+            "connected": self.communicator.is_connected,
+            "sensor_data": self.sensor_data,
+            "led_status": self.led_status
+        }
+
+# Raspberry Pi GPIO制御（シミュレーション）
+class RaspberryPiController:
+    """Raspberry Pi GPIO制御クラス"""
+    
+    def __init__(self):
+        self.gpio_states = {}
+        self.pwm_channels = {}
+        print("🥧 Raspberry Pi制御器を初期化しました")
+    
+    def setup_pin(self, pin: int, mode: str):
+        """ピンを設定"""
+        self.gpio_states[pin] = {"mode": mode, "value": 0}
+        print(f"📌 GPIO{pin}を{mode}モードに設定")
+    
+    def digital_write(self, pin: int, value: int):
+        """デジタル出力"""
+        if pin in self.gpio_states:
+            self.gpio_states[pin]["value"] = value
+            print(f"📌 GPIO{pin} = {value}")
+        else:
+            print(f"❌ GPIO{pin}が設定されていません")
+    
+    def digital_read(self, pin: int) -> int:
+        """デジタル入力読み取り"""
+        if pin in self.gpio_states:
+            # シミュレーション: ランダム値
+            value = random.choice([0, 1])
+            print(f"📌 GPIO{pin}読み取り: {value}")
+            return value
+        return 0
+    
+    def setup_pwm(self, pin: int, frequency: int):
+        """PWM設定"""
+        self.pwm_channels[pin] = {"frequency": frequency, "duty_cycle": 0}
+        print(f"🌊 GPIO{pin}をPWM {frequency}Hzに設定")
+    
+    def set_pwm_duty_cycle(self, pin: int, duty_cycle: float):
+        """PWMデューティサイクル設定"""
+        if pin in self.pwm_channels:
+            self.pwm_channels[pin]["duty_cycle"] = duty_cycle
+            print(f"🌊 GPIO{pin} PWM: {duty_cycle}%")
+        else:
+            print(f"❌ GPIO{pin}のPWMが設定されていません")
+
+# ハードウェア制御デモ
+def demo_hardware_control():
+    """ハードウェア制御デモ"""
+    print("=== ハードウェア制御デモ ===")
+    
+    # Arduino制御デモ
+    print("🤖 Arduino制御デモ")
+    arduino = ArduinoController("COM3")
+    
+    if arduino.connect():
+        print("\n📊 センサー読み取りテスト:")
+        for i in range(3):
+            sensors = arduino.read_sensors()
+            print(f"  サイクル {i+1}: {sensors}")
+            time.sleep(1)
+        
+        print("\n💡 LED制御テスト:")
+        arduino.control_led(True)
+        time.sleep(1)
+        arduino.control_led(False)
+        
+        print("\n⚙️ モーター制御テスト:")
+        arduino.control_motor(100, "forward")
+        time.sleep(1)
+        arduino.control_motor(50, "backward")
+        
+        # 状態確認
+        status = arduino.get_status()
+        print(f"\n📋 Arduino状態: {status}")
+        
+        arduino.disconnect()
+    
+    print(f"\n" + "="*50)
+    
+    # Raspberry Pi制御デモ
+    print("🥧 Raspberry Pi GPIO制御デモ")
+    rpi = RaspberryPiController()
+    
+    # GPIO設定
+    rpi.setup_pin(18, "OUTPUT")  # LED用
+    rpi.setup_pin(24, "INPUT")   # センサー用
+    rpi.setup_pin(12, "PWM")     # PWM用
+    
+    # デジタル出力テスト
+    print("\n💡 デジタル出力テスト:")
+    rpi.digital_write(18, 1)
+    time.sleep(0.5)
+    rpi.digital_write(18, 0)
+    
+    # デジタル入力テスト
+    print("\n📥 デジタル入力テスト:")
+    for i in range(3):
+        value = rpi.digital_read(24)
+        print(f"  読み取り {i+1}: {value}")
+    
+    # PWM制御テスト
+    print("\n🌊 PWM制御テスト:")
+    rpi.setup_pwm(12, 1000)  # 1kHz
+    for duty in [0, 25, 50, 75, 100]:
+        rpi.set_pwm_duty_cycle(12, duty)
+        time.sleep(0.3)
+
+demo_hardware_control()
+```
+
+## ネットワーク通信とクラウド連携
+
+### MQTT通信とクラウドサービス
+
+```{python}
+import json
+import time
+import threading
+from datetime import datetime
+from typing import Dict, List, Callable, Optional
+import hashlib
+
+class MQTTClient:
+    """MQTTクライアント（シミュレーション）"""
+    
+    def __init__(self, broker_host: str = "localhost", port: int = 1883):
+        self.broker_host = broker_host
+        self.port = port
+        self.is_connected = False
+        self.subscriptions = {}
+        self.message_handlers = {}
+        self.published_messages = []
+    
+    def connect(self, client_id: str, username: str = None, password: str = None) -> bool:
+        """MQTTブローカーに接続"""
+        try:
+            print(f"🌐 MQTT接続中: {client_id} @ {self.broker_host}:{self.port}")
+            
+            # 実際の環境では以下のライブラリを使用:
+            # import paho.mqtt.client as mqtt
+            # self.client = mqtt.Client(client_id)
+            # if username and password:
+            #     self.client.username_pw_set(username, password)
+            # self.client.connect(self.broker_host, self.port, 60)
+            
+            # シミュレーション
+            self.client_id = client_id
+            self.is_connected = True
+            print(f"✅ MQTT接続成功: {client_id}")
+            return True
+            
+        except Exception as e:
+            print(f"❌ MQTT接続エラー: {e}")
+            return False
+    
+    def disconnect(self):
+        """MQTT接続を切断"""
+        self.is_connected = False
+        print("🌐 MQTT接続を切断しました")
+    
+    def subscribe(self, topic: str, callback: Callable[[str, str], None]):
+        """トピックをサブスクライブ"""
+        if not self.is_connected:
+            print("❌ MQTT未接続")
+            return False
+        
+        self.subscriptions[topic] = True
+        self.message_handlers[topic] = callback
+        print(f"📡 サブスクライブ: {topic}")
+        return True
+    
+    def publish(self, topic: str, payload: str, qos: int = 0) -> bool:
+        """メッセージを発行"""
+        if not self.is_connected:
+            print("❌ MQTT未接続")
+            return False
+        
+        message = {
+            "topic": topic,
+            "payload": payload,
+            "qos": qos,
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        self.published_messages.append(message)
+        print(f"📤 発行: {topic} -> {payload}")
+        
+        # シミュレーション: 自分のサブスクリプションをチェック
+        self._simulate_message_delivery(topic, payload)
+        return True
+    
+    def _simulate_message_delivery(self, topic: str, payload: str):
+        """メッセージ配信をシミュレート"""
+        for subscribed_topic, callback in self.message_handlers.items():
+            if self._topic_matches(subscribed_topic, topic):
+                threading.Thread(
+                    target=callback,
+                    args=(topic, payload),
+                    daemon=True
+                ).start()
+    
+    def _topic_matches(self, pattern: str, topic: str) -> bool:
+        """トピックパターンマッチング"""
+        if pattern == topic:
+            return True
+        if pattern.endswith("#"):
+            prefix = pattern[:-1]
+            return topic.startswith(prefix)
+        if "+" in pattern:
+            # 簡略化したワイルドカード処理
+            return True
+        return False
+
+class IoTCloudPlatform:
+    """IoTクラウドプラットフォーム"""
+    
+    def __init__(self, platform_name: str = "IoT Platform"):
+        self.platform_name = platform_name
+        self.mqtt_client = MQTTClient()
+        self.devices = {}
+        self.telemetry_data = []
+        self.alerts = []
+        self.is_running = False
+    
+    def connect(self, client_id: str) -> bool:
+        """クラウドプラットフォームに接続"""
+        success = self.mqtt_client.connect(client_id)
+        if success:
+            self._setup_subscriptions()
+        return success
+    
+    def _setup_subscriptions(self):
+        """サブスクリプションを設定"""
+        # デバイステレメトリ
+        self.mqtt_client.subscribe("devices/+/telemetry", self._handle_telemetry)
+        
+        # デバイスステータス
+        self.mqtt_client.subscribe("devices/+/status", self._handle_device_status)
+        
+        # アラート
+        self.mqtt_client.subscribe("devices/+/alert", self._handle_alert)
+    
+    def _handle_telemetry(self, topic: str, payload: str):
+        """テレメトリデータを処理"""
+        try:
+            device_id = topic.split('/')[1]
+            data = json.loads(payload)
+            
+            telemetry_record = {
+                "device_id": device_id,
+                "data": data,
+                "timestamp": datetime.now().isoformat(),
+                "topic": topic
+            }
+            
+            self.telemetry_data.append(telemetry_record)
+            print(f"📊 テレメトリ受信: {device_id} -> {data}")
+            
+            # データ分析とアラート生成
+            self._analyze_telemetry(telemetry_record)
+            
+        except Exception as e:
+            print(f"❌ テレメトリ処理エラー: {e}")
+    
+    def _handle_device_status(self, topic: str, payload: str):
+        """デバイスステータスを処理"""
+        device_id = topic.split('/')[1]
+        status = payload
+        
+        if device_id not in self.devices:
+            self.devices[device_id] = {}
+        
+        self.devices[device_id]["status"] = status
+        self.devices[device_id]["last_seen"] = datetime.now().isoformat()
+        
+        print(f"📱 デバイスステータス: {device_id} = {status}")
+    
+    def _handle_alert(self, topic: str, payload: str):
+        """アラートを処理"""
+        try:
+            device_id = topic.split('/')[1]
+            alert_data = json.loads(payload)
+            
+            alert = {
+                "device_id": device_id,
+                "alert_data": alert_data,
+                "timestamp": datetime.now().isoformat()
+            }
+            
+            self.alerts.append(alert)
+            print(f"🚨 アラート: {device_id} -> {alert_data}")
+            
+        except Exception as e:
+            print(f"❌ アラート処理エラー: {e}")
+    
+    def _analyze_telemetry(self, record: Dict):
+        """テレメトリデータを分析"""
+        data = record["data"]
+        device_id = record["device_id"]
+        
+        # 温度アラート
+        if "temperature" in data:
+            temp = data["temperature"]
+            if temp > 30:
+                self._generate_alert(device_id, "high_temperature", 
+                                   f"高温警告: {temp}°C")
+            elif temp < 10:
+                self._generate_alert(device_id, "low_temperature", 
+                                   f"低温警告: {temp}°C")
+        
+        # 湿度アラート
+        if "humidity" in data:
+            humidity = data["humidity"]
+            if humidity > 80:
+                self._generate_alert(device_id, "high_humidity", 
+                                   f"高湿度警告: {humidity}%")
+    
+    def _generate_alert(self, device_id: str, alert_type: str, message: str):
+        """アラートを生成"""
+        alert_payload = {
+            "type": alert_type,
+            "message": message,
+            "severity": "warning",
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        topic = f"alerts/{device_id}"
+        self.mqtt_client.publish(topic, json.dumps(alert_payload))
+    
+    def send_command(self, device_id: str, command: Dict) -> bool:
+        """デバイスにコマンドを送信"""
+        topic = f"devices/{device_id}/commands"
+        payload = json.dumps(command)
+        return self.mqtt_client.publish(topic, payload)
+    
+    def get_device_data(self, device_id: str, hours: int = 24) -> List[Dict]:
+        """デバイスデータを取得"""
+        return [record for record in self.telemetry_data 
+                if record["device_id"] == device_id]
+    
+    def get_platform_statistics(self) -> Dict:
+        """プラットフォーム統計を取得"""
+        return {
+            "total_devices": len(self.devices),
+            "active_devices": len([d for d in self.devices.values() 
+                                 if d.get("status") == "online"]),
+            "total_telemetry_records": len(self.telemetry_data),
+            "total_alerts": len(self.alerts),
+            "recent_alerts": len([a for a in self.alerts 
+                                if (datetime.now() - datetime.fromisoformat(a["timestamp"])).seconds < 3600])
+        }
+
+# IoT仮想デバイス
+class VirtualIoTDevice:
+    """仮想IoTデバイス"""
+    
+    def __init__(self, device_id: str, device_type: str):
+        self.device_id = device_id
+        self.device_type = device_type
+        self.mqtt_client = MQTTClient()
+        self.is_running = False
+        self.telemetry_thread = None
+    
+    def connect_to_platform(self) -> bool:
+        """プラットフォームに接続"""
+        success = self.mqtt_client.connect(f"device_{self.device_id}")
+        if success:
+            self._setup_command_subscription()
+            self._send_status("online")
+        return success
+    
+    def _setup_command_subscription(self):
+        """コマンドサブスクリプションを設定"""
+        topic = f"devices/{self.device_id}/commands"
+        self.mqtt_client.subscribe(topic, self._handle_command)
+    
+    def _handle_command(self, topic: str, payload: str):
+        """コマンドを処理"""
+        try:
+            command = json.loads(payload)
+            print(f"📥 {self.device_id}: コマンド受信 -> {command}")
+            
+            # コマンド実行シミュレーション
+            if command.get("action") == "reboot":
+                print(f"🔄 {self.device_id}: 再起動中...")
+            elif command.get("action") == "update_config":
+                print(f"⚙️ {self.device_id}: 設定更新中...")
+            
+        except Exception as e:
+            print(f"❌ コマンド処理エラー: {e}")
+    
+    def start_telemetry(self, interval: int = 5):
+        """テレメトリ送信を開始"""
+        self.is_running = True
+        self.telemetry_thread = threading.Thread(
+            target=self._telemetry_loop,
+            args=(interval,),
+            daemon=True
+        )
+        self.telemetry_thread.start()
+        print(f"📊 {self.device_id}: テレメトリ送信開始 ({interval}秒間隔)")
+    
+    def stop_telemetry(self):
+        """テレメトリ送信を停止"""
+        self.is_running = False
+        self._send_status("offline")
+        print(f"📊 {self.device_id}: テレメトリ送信停止")
+    
+    def _telemetry_loop(self, interval: int):
+        """テレメトリ送信ループ"""
+        while self.is_running:
+            telemetry_data = self._generate_telemetry()
+            topic = f"devices/{self.device_id}/telemetry"
+            payload = json.dumps(telemetry_data)
+            
+            self.mqtt_client.publish(topic, payload)
+            time.sleep(interval)
+    
+    def _generate_telemetry(self) -> Dict:
+        """テレメトリデータを生成"""
+        base_data = {
+            "device_id": self.device_id,
+            "device_type": self.device_type,
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        if self.device_type == "weather_station":
+            base_data.update({
+                "temperature": round(random.uniform(15, 35), 1),
+                "humidity": round(random.uniform(30, 90), 1),
+                "pressure": round(random.uniform(1000, 1030), 1)
+            })
+        elif self.device_type == "air_quality":
+            base_data.update({
+                "pm25": round(random.uniform(10, 100), 1),
+                "co2": round(random.uniform(400, 1000), 0),
+                "temperature": round(random.uniform(18, 28), 1)
+            })
+        
+        return base_data
+    
+    def _send_status(self, status: str):
+        """ステータスを送信"""
+        topic = f"devices/{self.device_id}/status"
+        self.mqtt_client.publish(topic, status)
+
+# クラウド連携デモ
+def demo_cloud_connectivity():
+    """クラウド連携デモ"""
+    print("=== IoTクラウド連携デモ ===")
+    
+    # クラウドプラットフォームを起動
+    platform = IoTCloudPlatform("スマートシティプラットフォーム")
+    platform.connect("cloud_platform")
+    
+    print("\n🌐 仮想IoTデバイス作成・接続中...")
+    
+    # 仮想デバイスを作成
+    weather_device = VirtualIoTDevice("WS001", "weather_station")
+    air_quality_device = VirtualIoTDevice("AQ001", "air_quality")
+    
+    # プラットフォームに接続
+    weather_device.connect_to_platform()
+    air_quality_device.connect_to_platform()
+    
+    # テレメトリ送信を開始
+    weather_device.start_telemetry(interval=3)
+    air_quality_device.start_telemetry(interval=4)
+    
+    print("\n📊 データ収集中...")
+    time.sleep(15)  # 15秒間データ収集
+    
+    # デバイスにコマンドを送信
+    print("\n📤 デバイス制御コマンド送信...")
+    platform.send_command("WS001", {"action": "reboot", "reason": "scheduled_maintenance"})
+    platform.send_command("AQ001", {"action": "update_config", "config": {"sample_rate": 60}})
+    
+    time.sleep(2)
+    
+    # 統計情報を表示
+    print("\n📈 プラットフォーム統計:")
+    stats = platform.get_platform_statistics()
+    for key, value in stats.items():
+        print(f"  {key}: {value}")
+    
+    # デバイス別データサマリー
+    print("\n📊 デバイス別データサマリー:")
+    for device_id in ["WS001", "AQ001"]:
+        device_data = platform.get_device_data(device_id)
+        if device_data:
+            latest = device_data[-1]["data"]
+            print(f"  {device_id}: {latest}")
+    
+    # テレメトリ送信を停止
+    weather_device.stop_telemetry()
+    air_quality_device.stop_telemetry()
+    
+    platform.mqtt_client.disconnect()
+    print("\n✅ デモ完了")
+
+demo_cloud_connectivity()
+```
+
+この章では、PythonによるIoT開発の基本から実践的な応用まで学習しました。センサーデータの収集、ハードウェア制御、ネットワーク通信、クラウド連携など、IoTシステム開発に必要な技術を総合的に習得することができます。
