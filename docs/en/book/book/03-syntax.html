@@ -449,6 +449,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Data Science with Python</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../book/13-applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Python Applications and Real-World Projects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../book/14-iot-connectivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">IoT Connectivity and Industrial Protocols</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -530,7 +542,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Python’s clean, readable syntax makes it perfect for beginners while remaining powerful for experts.</p>
+<p>Python’s clean, readable syntax makes it perfect for beginners while remaining powerful for experts. Unlike many programming languages that use curly braces <code>{}</code> and semicolons <code>;</code>, Python uses indentation to structure code, making it look almost like plain English.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -546,7 +558,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="your-first-python-program" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="your-first-python-program"><span class="header-section-number">3.1</span> Your First Python Program</h2>
-<div id="32194375" class="cell" data-execution_count="1">
+<div id="0753f36f" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello, Python!"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Welcome to interactive Python learning!"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -554,7 +566,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>your_name <span class="op">=</span> <span class="st">"Student"</span>  <span class="co"># Change this to your name!</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Hello, </span><span class="sc">{</span>your_name<span class="sc">}</span><span class="ss">! Ready to learn Python?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This simple example demonstrates Python’s philosophy: code should be readable and straightforward. <strong>Try editing the code above</strong> - change <code>your_name</code> to your actual name and run it again!</p>
+<p>This simple example demonstrates Python’s philosophy: code should be readable and straightforward. <strong>Let’s break down what happens:</strong></p>
+<ul>
+<li><code>print()</code> - A built-in function that displays text on screen</li>
+<li><code>"Hello, Python!"</code> - A string (text) enclosed in quotes</li>
+<li><code>your_name = "Student"</code> - Variable assignment (storing data with a name)</li>
+<li><code>f"Hello, {your_name}!"</code> - An f-string (formatted string) that inserts variables into text</li>
+</ul>
+<p><strong>Try editing the code above</strong> - change <code>your_name</code> to your actual name and run it again!</p>
 </section>
 <section id="test-file-upload" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="test-file-upload"><span class="header-section-number">3.2</span> Test File Upload</h2>
@@ -595,28 +614,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="python-philosophy---the-zen-of-python" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="python-philosophy---the-zen-of-python"><span class="header-section-number">3.3</span> Python Philosophy - The Zen of Python</h2>
-<div id="7fcf1557" class="cell" data-execution_count="3">
+<div id="151adad6" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> this</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="variables-and-assignment" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="variables-and-assignment"><span class="header-section-number">3.4</span> Variables and Assignment</h2>
-<p>Python uses <strong>dynamic typing</strong> - you don’t need to declare variable types:</p>
-<div id="df9180d6" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Different data types</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">"Alice"</span>          <span class="co"># String</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">25</span>               <span class="co"># Integer</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>height <span class="op">=</span> <span class="fl">5.6</span>           <span class="co"># Float</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>is_student <span class="op">=</span> <span class="va">True</span>      <span class="co"># Boolean</span></span>
+<p>Python uses <strong>dynamic typing</strong> - you don’t need to declare variable types. Think of variables as labeled boxes where you can store different types of data. Python automatically figures out what type of data you’re storing.</p>
+<div id="fc3e4795" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Different data types - Python automatically determines the type</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">"Alice"</span>          <span class="co"># String (text data)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">25</span>               <span class="co"># Integer (whole numbers)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>height <span class="op">=</span> <span class="fl">5.6</span>           <span class="co"># Float (decimal numbers)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>is_student <span class="op">=</span> <span class="va">True</span>      <span class="co"># Boolean (True/False values)</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Name: </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Age: </span><span class="sc">{</span>age<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Height: </span><span class="sc">{</span>height<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Student: </span><span class="sc">{</span>is_student<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the values and their types</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Name: </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> (type: </span><span class="sc">{</span><span class="bu">type</span>(name)<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Age: </span><span class="sc">{</span>age<span class="sc">}</span><span class="ss"> (type: </span><span class="sc">{</span><span class="bu">type</span>(age)<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Height: </span><span class="sc">{</span>height<span class="sc">}</span><span class="ss"> (type: </span><span class="sc">{</span><span class="bu">type</span>(height)<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Student: </span><span class="sc">{</span>is_student<span class="sc">}</span><span class="ss"> (type: </span><span class="sc">{</span><span class="bu">type</span>(is_student)<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><strong>What happens here:</strong> The <code>=</code> operator assigns values to variables. Python looks at the value and automatically determines its type - no need to explicitly declare “this is a string” like in other languages.</p>
 <section id="variable-naming-rules" class="level3" data-number="3.4.1">
 <h3 data-number="3.4.1" class="anchored" data-anchor-id="variable-naming-rules"><span class="header-section-number">3.4.1</span> Variable Naming Rules</h3>
-<div id="d4948900" class="cell" data-execution_count="5">
+<div id="fe0de129" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Valid variable names</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>first_name <span class="op">=</span> <span class="st">"John"</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>last_name <span class="op">=</span> <span class="st">"Doe"</span></span>
@@ -635,7 +656,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="comments" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="comments"><span class="header-section-number">3.5</span> Comments</h2>
 <p>Comments make your code readable:</p>
-<div id="3347cf37" class="cell" data-execution_count="6">
+<div id="9fb1fccc" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a single-line comment</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello"</span>)  <span class="co"># Comment at end of line</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -659,7 +680,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="3.6" class="anchored" data-anchor-id="basic-data-types"><span class="header-section-number">3.6</span> Basic Data Types</h2>
 <section id="numbers" class="level3" data-number="3.6.1">
 <h3 data-number="3.6.1" class="anchored" data-anchor-id="numbers"><span class="header-section-number">3.6.1</span> Numbers</h3>
-<div id="565d7c5a" class="cell" data-execution_count="7">
+<div id="a70dffd5" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Integers</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="dv">42</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>negative <span class="op">=</span> <span class="op">-</span><span class="dv">17</span></span>
@@ -679,7 +700,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="strings" class="level3" data-number="3.6.2">
 <h3 data-number="3.6.2" class="anchored" data-anchor-id="strings"><span class="header-section-number">3.6.2</span> Strings</h3>
-<div id="3eca51b1" class="cell" data-execution_count="8">
+<div id="1e40fdd0" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Different ways to create strings</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>single_quotes <span class="op">=</span> <span class="st">'Hello'</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>double_quotes <span class="op">=</span> <span class="st">"World"</span></span>
@@ -709,7 +730,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="string-operations" class="level3" data-number="3.6.3">
 <h3 data-number="3.6.3" class="anchored" data-anchor-id="string-operations"><span class="header-section-number">3.6.3</span> String Operations</h3>
-<div id="69b94c04" class="cell" data-execution_count="9">
+<div id="890bb820" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"Python Programming"</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Length</span></span>
@@ -733,7 +754,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="booleans" class="level3" data-number="3.6.4">
 <h3 data-number="3.6.4" class="anchored" data-anchor-id="booleans"><span class="header-section-number">3.6.4</span> Booleans</h3>
-<div id="f5d8a198" class="cell" data-execution_count="10">
+<div id="f8683683" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boolean values</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>is_python_fun <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>is_difficult <span class="op">=</span> <span class="va">False</span></span>
@@ -757,7 +778,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="3.7" class="anchored" data-anchor-id="operators"><span class="header-section-number">3.7</span> Operators</h2>
 <section id="arithmetic-operators" class="level3" data-number="3.7.1">
 <h3 data-number="3.7.1" class="anchored" data-anchor-id="arithmetic-operators"><span class="header-section-number">3.7.1</span> Arithmetic Operators</h3>
-<div id="2b711be4" class="cell" data-execution_count="11">
+<div id="3cda52bf" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> <span class="dv">10</span>, <span class="dv">3</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Addition: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> + </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>a <span class="op">+</span> b<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -771,7 +792,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="comparison-operators" class="level3" data-number="3.7.2">
 <h3 data-number="3.7.2" class="anchored" data-anchor-id="comparison-operators"><span class="header-section-number">3.7.2</span> Comparison Operators</h3>
-<div id="26395e21" class="cell" data-execution_count="12">
+<div id="51fbf467" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> <span class="dv">5</span>, <span class="dv">10</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> == </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x <span class="op">==</span> y<span class="sc">}</span><span class="ss">"</span>)   <span class="co"># Equal</span></span>
@@ -784,7 +805,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="assignment-operators" class="level3" data-number="3.7.3">
 <h3 data-number="3.7.3" class="anchored" data-anchor-id="assignment-operators"><span class="header-section-number">3.7.3</span> Assignment Operators</h3>
-<div id="72124987" class="cell" data-execution_count="13">
+<div id="36b54fa3" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>num <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Initial: </span><span class="sc">{</span>num<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -806,7 +827,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="3.8" class="anchored" data-anchor-id="input-and-output"><span class="header-section-number">3.8</span> Input and Output</h2>
 <section id="getting-user-input" class="level3" data-number="3.8.1">
 <h3 data-number="3.8.1" class="anchored" data-anchor-id="getting-user-input"><span class="header-section-number">3.8.1</span> Getting User Input</h3>
-<div id="9c8dadce" class="cell" data-execution_count="14">
+<div id="5374087a" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: input() always returns a string</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># name = input("What's your name? ")</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"Hello, {name}!")</span></span>
@@ -829,7 +850,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="output-formatting" class="level3" data-number="3.8.2">
 <h3 data-number="3.8.2" class="anchored" data-anchor-id="output-formatting"><span class="header-section-number">3.8.2</span> Output Formatting</h3>
-<div id="0edab952" class="cell" data-execution_count="15">
+<div id="15514947" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic print</span></span>
@@ -861,7 +882,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="indentation-and-code-structure" class="level2" data-number="3.9">
 <h2 data-number="3.9" class="anchored" data-anchor-id="indentation-and-code-structure"><span class="header-section-number">3.9</span> Indentation and Code Structure</h2>
 <p>Python uses <strong>indentation</strong> to define code blocks:</p>
-<div id="f3a85373" class="cell" data-execution_count="16">
+<div id="e56380a3" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correct indentation</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">18</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> age <span class="op">&gt;=</span> <span class="dv">18</span>:</span>
@@ -895,7 +916,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exercise-1-variables-and-strings" class="level3" data-number="3.10.1">
 <h3 data-number="3.10.1" class="anchored" data-anchor-id="exercise-1-variables-and-strings"><span class="header-section-number">3.10.1</span> Exercise 1: Variables and Strings</h3>
 <p>Create variables for your personal information and display them nicely:</p>
-<div id="3fe3a6cc" class="cell" data-execution_count="17">
+<div id="91c9e850" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your solution here</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>first_name <span class="op">=</span> <span class="st">"John"</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>last_name <span class="op">=</span> <span class="st">"Doe"</span></span>
@@ -915,7 +936,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exercise-2-calculator" class="level3" data-number="3.10.2">
 <h3 data-number="3.10.2" class="anchored" data-anchor-id="exercise-2-calculator"><span class="header-section-number">3.10.2</span> Exercise 2: Calculator</h3>
 <p>Create a simple calculator:</p>
-<div id="eb6a892b" class="cell" data-execution_count="18">
+<div id="c664b6a6" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculator exercise</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>num1 <span class="op">=</span> <span class="dv">15</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>num2 <span class="op">=</span> <span class="dv">4</span></span>
@@ -933,7 +954,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exercise-3-string-manipulation" class="level3" data-number="3.10.3">
 <h3 data-number="3.10.3" class="anchored" data-anchor-id="exercise-3-string-manipulation"><span class="header-section-number">3.10.3</span> Exercise 3: String Manipulation</h3>
 <p>Work with string methods:</p>
-<div id="869db084" class="cell" data-execution_count="19">
+<div id="76c83a81" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># String manipulation exercise</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>sentence <span class="op">=</span> <span class="st">"python is an amazing programming language"</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1487,7 +1508,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb23" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Python Syntax and Basics</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>Python's clean, readable syntax makes it perfect for beginners while remaining powerful for experts.</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>Python's clean, readable syntax makes it perfect for beginners while remaining powerful for experts. Unlike many programming languages that use curly braces <span class="in">`{}`</span> and semicolons <span class="in">`;`</span>, Python uses indentation to structure code, making it look almost like plain English.</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🚀 Interactive Learning</span></span>
@@ -1505,445 +1526,455 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Hello, </span><span class="sc">{</span>your_name<span class="sc">}</span><span class="ss">! Ready to learn Python?"</span>)</span>
 <span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>This simple example demonstrates Python's philosophy: code should be readable and straightforward. **Try editing the code above** - change <span class="in">`your_name`</span> to your actual name and run it again!</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>This simple example demonstrates Python's philosophy: code should be readable and straightforward. **Let's break down what happens:**</span>
 <span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Test File Upload</span></span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📁 Test Drag and Drop</span></span>
-<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>Try dragging a small text file here to test the upload functionality:</span>
-<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`print()`</span> - A built-in function that displays text on screen</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`"Hello, Python!"`</span> - A string (text) enclosed in quotes</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`your_name = "Student"`</span> - Variable assignment (storing data with a name)</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`f"Hello, {your_name}!"`</span> - An f-string (formatted string) that inserts variables into text</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>**Try editing the code above** - change <span class="in">`your_name`</span> to your actual name and run it again!</span>
 <span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: test-upload</span></span>
-<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a><span class="co">#| drop: true</span></span>
-<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: test.txt</span></span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Test File Upload</span></span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## 📁 Test Drag and Drop</span></span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a>Try dragging a small text file here to test the upload functionality:</span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Drag and drop a text file here</span></span>
-<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> os.path.exists(<span class="st">'test.txt'</span>):</span>
-<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="st">'test.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> f:</span>
-<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a>            content <span class="op">=</span> f.read()</span>
-<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"File uploaded successfully!"</span>)</span>
-<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Content length: </span><span class="sc">{</span><span class="bu">len</span>(content)<span class="sc">}</span><span class="ss"> characters"</span>)</span>
-<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"First 100 characters: </span><span class="sc">{</span>content[:<span class="dv">100</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"No file uploaded yet. Drag a text file to this area!"</span>)</span>
-<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Error reading file: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-53"><a href="#cb23-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-54"><a href="#cb23-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-55"><a href="#cb23-55" aria-hidden="true" tabindex="-1"></a><span class="fu">## Python Philosophy - The Zen of Python</span></span>
-<span id="cb23-56"><a href="#cb23-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-59"><a href="#cb23-59" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-60"><a href="#cb23-60" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> this</span>
-<span id="cb23-61"><a href="#cb23-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-62"><a href="#cb23-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-63"><a href="#cb23-63" aria-hidden="true" tabindex="-1"></a><span class="fu">## Variables and Assignment</span></span>
-<span id="cb23-64"><a href="#cb23-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-65"><a href="#cb23-65" aria-hidden="true" tabindex="-1"></a>Python uses **dynamic typing** - you don't need to declare variable types:</span>
-<span id="cb23-66"><a href="#cb23-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-69"><a href="#cb23-69" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-70"><a href="#cb23-70" aria-hidden="true" tabindex="-1"></a><span class="co"># Different data types</span></span>
-<span id="cb23-71"><a href="#cb23-71" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">"Alice"</span>          <span class="co"># String</span></span>
-<span id="cb23-72"><a href="#cb23-72" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">25</span>               <span class="co"># Integer</span></span>
-<span id="cb23-73"><a href="#cb23-73" aria-hidden="true" tabindex="-1"></a>height <span class="op">=</span> <span class="fl">5.6</span>           <span class="co"># Float</span></span>
-<span id="cb23-74"><a href="#cb23-74" aria-hidden="true" tabindex="-1"></a>is_student <span class="op">=</span> <span class="va">True</span>      <span class="co"># Boolean</span></span>
-<span id="cb23-75"><a href="#cb23-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-76"><a href="#cb23-76" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Name: </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-77"><a href="#cb23-77" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Age: </span><span class="sc">{</span>age<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-78"><a href="#cb23-78" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Height: </span><span class="sc">{</span>height<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-79"><a href="#cb23-79" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Student: </span><span class="sc">{</span>is_student<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-80"><a href="#cb23-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-81"><a href="#cb23-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-82"><a href="#cb23-82" aria-hidden="true" tabindex="-1"></a><span class="fu">### Variable Naming Rules</span></span>
-<span id="cb23-83"><a href="#cb23-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-86"><a href="#cb23-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-87"><a href="#cb23-87" aria-hidden="true" tabindex="-1"></a><span class="co"># Valid variable names</span></span>
-<span id="cb23-88"><a href="#cb23-88" aria-hidden="true" tabindex="-1"></a>first_name <span class="op">=</span> <span class="st">"John"</span></span>
-<span id="cb23-89"><a href="#cb23-89" aria-hidden="true" tabindex="-1"></a>last_name <span class="op">=</span> <span class="st">"Doe"</span></span>
-<span id="cb23-90"><a href="#cb23-90" aria-hidden="true" tabindex="-1"></a>age_2024 <span class="op">=</span> <span class="dv">30</span></span>
-<span id="cb23-91"><a href="#cb23-91" aria-hidden="true" tabindex="-1"></a>_private_var <span class="op">=</span> <span class="st">"hidden"</span></span>
-<span id="cb23-92"><a href="#cb23-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-93"><a href="#cb23-93" aria-hidden="true" tabindex="-1"></a><span class="co"># Invalid names (would cause errors):</span></span>
-<span id="cb23-94"><a href="#cb23-94" aria-hidden="true" tabindex="-1"></a><span class="co"># 2name = "invalid"     # Can't start with number</span></span>
-<span id="cb23-95"><a href="#cb23-95" aria-hidden="true" tabindex="-1"></a><span class="co"># first-name = "invalid" # Can't use hyphens</span></span>
-<span id="cb23-96"><a href="#cb23-96" aria-hidden="true" tabindex="-1"></a><span class="co"># class = "invalid"     # Can't use keywords</span></span>
-<span id="cb23-97"><a href="#cb23-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-98"><a href="#cb23-98" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Full name: </span><span class="sc">{</span>first_name<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>last_name<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-99"><a href="#cb23-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-100"><a href="#cb23-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-101"><a href="#cb23-101" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comments</span></span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: test-upload</span></span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a><span class="co">#| drop: true</span></span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a><span class="co">#| filename: test.txt</span></span>
+<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Drag and drop a text file here</span></span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> os.path.exists(<span class="st">'test.txt'</span>):</span>
+<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="st">'test.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> f:</span>
+<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a>            content <span class="op">=</span> f.read()</span>
+<span id="cb23-53"><a href="#cb23-53" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"File uploaded successfully!"</span>)</span>
+<span id="cb23-54"><a href="#cb23-54" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Content length: </span><span class="sc">{</span><span class="bu">len</span>(content)<span class="sc">}</span><span class="ss"> characters"</span>)</span>
+<span id="cb23-55"><a href="#cb23-55" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"First 100 characters: </span><span class="sc">{</span>content[:<span class="dv">100</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-56"><a href="#cb23-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb23-57"><a href="#cb23-57" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"No file uploaded yet. Drag a text file to this area!"</span>)</span>
+<span id="cb23-58"><a href="#cb23-58" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb23-59"><a href="#cb23-59" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Error reading file: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-60"><a href="#cb23-60" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-61"><a href="#cb23-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-62"><a href="#cb23-62" aria-hidden="true" tabindex="-1"></a><span class="fu">## Python Philosophy - The Zen of Python</span></span>
+<span id="cb23-63"><a href="#cb23-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-66"><a href="#cb23-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-67"><a href="#cb23-67" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> this</span>
+<span id="cb23-68"><a href="#cb23-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-69"><a href="#cb23-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-70"><a href="#cb23-70" aria-hidden="true" tabindex="-1"></a><span class="fu">## Variables and Assignment</span></span>
+<span id="cb23-71"><a href="#cb23-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-72"><a href="#cb23-72" aria-hidden="true" tabindex="-1"></a>Python uses **dynamic typing** - you don't need to declare variable types. Think of variables as labeled boxes where you can store different types of data. Python automatically figures out what type of data you're storing.</span>
+<span id="cb23-73"><a href="#cb23-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-76"><a href="#cb23-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-77"><a href="#cb23-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Different data types - Python automatically determines the type</span></span>
+<span id="cb23-78"><a href="#cb23-78" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">"Alice"</span>          <span class="co"># String (text data)</span></span>
+<span id="cb23-79"><a href="#cb23-79" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">25</span>               <span class="co"># Integer (whole numbers)</span></span>
+<span id="cb23-80"><a href="#cb23-80" aria-hidden="true" tabindex="-1"></a>height <span class="op">=</span> <span class="fl">5.6</span>           <span class="co"># Float (decimal numbers)</span></span>
+<span id="cb23-81"><a href="#cb23-81" aria-hidden="true" tabindex="-1"></a>is_student <span class="op">=</span> <span class="va">True</span>      <span class="co"># Boolean (True/False values)</span></span>
+<span id="cb23-82"><a href="#cb23-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-83"><a href="#cb23-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the values and their types</span></span>
+<span id="cb23-84"><a href="#cb23-84" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Name: </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> (type: </span><span class="sc">{</span><span class="bu">type</span>(name)<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb23-85"><a href="#cb23-85" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Age: </span><span class="sc">{</span>age<span class="sc">}</span><span class="ss"> (type: </span><span class="sc">{</span><span class="bu">type</span>(age)<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb23-86"><a href="#cb23-86" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Height: </span><span class="sc">{</span>height<span class="sc">}</span><span class="ss"> (type: </span><span class="sc">{</span><span class="bu">type</span>(height)<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb23-87"><a href="#cb23-87" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Student: </span><span class="sc">{</span>is_student<span class="sc">}</span><span class="ss"> (type: </span><span class="sc">{</span><span class="bu">type</span>(is_student)<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb23-88"><a href="#cb23-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-89"><a href="#cb23-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-90"><a href="#cb23-90" aria-hidden="true" tabindex="-1"></a>**What happens here:** The <span class="in">`=`</span> operator assigns values to variables. Python looks at the value and automatically determines its type - no need to explicitly declare "this is a string" like in other languages.</span>
+<span id="cb23-91"><a href="#cb23-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-92"><a href="#cb23-92" aria-hidden="true" tabindex="-1"></a><span class="fu">### Variable Naming Rules</span></span>
+<span id="cb23-93"><a href="#cb23-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-96"><a href="#cb23-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-97"><a href="#cb23-97" aria-hidden="true" tabindex="-1"></a><span class="co"># Valid variable names</span></span>
+<span id="cb23-98"><a href="#cb23-98" aria-hidden="true" tabindex="-1"></a>first_name <span class="op">=</span> <span class="st">"John"</span></span>
+<span id="cb23-99"><a href="#cb23-99" aria-hidden="true" tabindex="-1"></a>last_name <span class="op">=</span> <span class="st">"Doe"</span></span>
+<span id="cb23-100"><a href="#cb23-100" aria-hidden="true" tabindex="-1"></a>age_2024 <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb23-101"><a href="#cb23-101" aria-hidden="true" tabindex="-1"></a>_private_var <span class="op">=</span> <span class="st">"hidden"</span></span>
 <span id="cb23-102"><a href="#cb23-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-103"><a href="#cb23-103" aria-hidden="true" tabindex="-1"></a>Comments make your code readable:</span>
-<span id="cb23-104"><a href="#cb23-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-107"><a href="#cb23-107" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-108"><a href="#cb23-108" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a single-line comment</span></span>
-<span id="cb23-109"><a href="#cb23-109" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello"</span>)  <span class="co"># Comment at end of line</span></span>
+<span id="cb23-103"><a href="#cb23-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Invalid names (would cause errors):</span></span>
+<span id="cb23-104"><a href="#cb23-104" aria-hidden="true" tabindex="-1"></a><span class="co"># 2name = "invalid"     # Can't start with number</span></span>
+<span id="cb23-105"><a href="#cb23-105" aria-hidden="true" tabindex="-1"></a><span class="co"># first-name = "invalid" # Can't use hyphens</span></span>
+<span id="cb23-106"><a href="#cb23-106" aria-hidden="true" tabindex="-1"></a><span class="co"># class = "invalid"     # Can't use keywords</span></span>
+<span id="cb23-107"><a href="#cb23-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-108"><a href="#cb23-108" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Full name: </span><span class="sc">{</span>first_name<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>last_name<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-109"><a href="#cb23-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb23-110"><a href="#cb23-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-111"><a href="#cb23-111" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
-<span id="cb23-112"><a href="#cb23-112" aria-hidden="true" tabindex="-1"></a><span class="co">This is a multi-line comment</span></span>
-<span id="cb23-113"><a href="#cb23-113" aria-hidden="true" tabindex="-1"></a><span class="co">or docstring. Use for longer</span></span>
-<span id="cb23-114"><a href="#cb23-114" aria-hidden="true" tabindex="-1"></a><span class="co">explanations.</span></span>
-<span id="cb23-115"><a href="#cb23-115" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
-<span id="cb23-116"><a href="#cb23-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-117"><a href="#cb23-117" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> greet(name):</span>
-<span id="cb23-118"><a href="#cb23-118" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb23-119"><a href="#cb23-119" aria-hidden="true" tabindex="-1"></a><span class="co">    This is a docstring for the function.</span></span>
-<span id="cb23-120"><a href="#cb23-120" aria-hidden="true" tabindex="-1"></a><span class="co">    It explains what the function does.</span></span>
-<span id="cb23-121"><a href="#cb23-121" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb23-122"><a href="#cb23-122" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"Hello, </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">!"</span></span>
-<span id="cb23-123"><a href="#cb23-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-124"><a href="#cb23-124" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greet(<span class="st">"Python"</span>))</span>
-<span id="cb23-125"><a href="#cb23-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-111"><a href="#cb23-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comments</span></span>
+<span id="cb23-112"><a href="#cb23-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-113"><a href="#cb23-113" aria-hidden="true" tabindex="-1"></a>Comments make your code readable:</span>
+<span id="cb23-114"><a href="#cb23-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-117"><a href="#cb23-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-118"><a href="#cb23-118" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a single-line comment</span></span>
+<span id="cb23-119"><a href="#cb23-119" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello"</span>)  <span class="co"># Comment at end of line</span></span>
+<span id="cb23-120"><a href="#cb23-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-121"><a href="#cb23-121" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb23-122"><a href="#cb23-122" aria-hidden="true" tabindex="-1"></a><span class="co">This is a multi-line comment</span></span>
+<span id="cb23-123"><a href="#cb23-123" aria-hidden="true" tabindex="-1"></a><span class="co">or docstring. Use for longer</span></span>
+<span id="cb23-124"><a href="#cb23-124" aria-hidden="true" tabindex="-1"></a><span class="co">explanations.</span></span>
+<span id="cb23-125"><a href="#cb23-125" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
 <span id="cb23-126"><a href="#cb23-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-127"><a href="#cb23-127" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basic Data Types</span></span>
-<span id="cb23-128"><a href="#cb23-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-129"><a href="#cb23-129" aria-hidden="true" tabindex="-1"></a><span class="fu">### Numbers</span></span>
-<span id="cb23-130"><a href="#cb23-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-133"><a href="#cb23-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-134"><a href="#cb23-134" aria-hidden="true" tabindex="-1"></a><span class="co"># Integers</span></span>
-<span id="cb23-135"><a href="#cb23-135" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="dv">42</span></span>
-<span id="cb23-136"><a href="#cb23-136" aria-hidden="true" tabindex="-1"></a>negative <span class="op">=</span> <span class="op">-</span><span class="dv">17</span></span>
-<span id="cb23-137"><a href="#cb23-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-138"><a href="#cb23-138" aria-hidden="true" tabindex="-1"></a><span class="co"># Floats</span></span>
-<span id="cb23-139"><a href="#cb23-139" aria-hidden="true" tabindex="-1"></a>price <span class="op">=</span> <span class="fl">19.99</span></span>
-<span id="cb23-140"><a href="#cb23-140" aria-hidden="true" tabindex="-1"></a>scientific <span class="op">=</span> <span class="fl">1.5e-4</span>  <span class="co"># 0.00015</span></span>
-<span id="cb23-141"><a href="#cb23-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-142"><a href="#cb23-142" aria-hidden="true" tabindex="-1"></a><span class="co"># Complex numbers</span></span>
-<span id="cb23-143"><a href="#cb23-143" aria-hidden="true" tabindex="-1"></a>complex_num <span class="op">=</span> <span class="dv">3</span> <span class="op">+</span> <span class="ot">4j</span></span>
-<span id="cb23-144"><a href="#cb23-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-145"><a href="#cb23-145" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Integer: </span><span class="sc">{</span>count<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-146"><a href="#cb23-146" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Float: </span><span class="sc">{</span>price<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-147"><a href="#cb23-147" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Scientific: </span><span class="sc">{</span>scientific<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-148"><a href="#cb23-148" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Complex: </span><span class="sc">{</span>complex_num<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-149"><a href="#cb23-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-150"><a href="#cb23-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-151"><a href="#cb23-151" aria-hidden="true" tabindex="-1"></a><span class="fu">### Strings</span></span>
-<span id="cb23-152"><a href="#cb23-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-155"><a href="#cb23-155" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-156"><a href="#cb23-156" aria-hidden="true" tabindex="-1"></a><span class="co"># Different ways to create strings</span></span>
-<span id="cb23-157"><a href="#cb23-157" aria-hidden="true" tabindex="-1"></a>single_quotes <span class="op">=</span> <span class="st">'Hello'</span></span>
-<span id="cb23-158"><a href="#cb23-158" aria-hidden="true" tabindex="-1"></a>double_quotes <span class="op">=</span> <span class="st">"World"</span></span>
-<span id="cb23-159"><a href="#cb23-159" aria-hidden="true" tabindex="-1"></a>triple_quotes <span class="op">=</span> <span class="st">"""This is a</span></span>
-<span id="cb23-160"><a href="#cb23-160" aria-hidden="true" tabindex="-1"></a><span class="st">multi-line string"""</span></span>
-<span id="cb23-161"><a href="#cb23-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-162"><a href="#cb23-162" aria-hidden="true" tabindex="-1"></a><span class="co"># String concatenation</span></span>
-<span id="cb23-163"><a href="#cb23-163" aria-hidden="true" tabindex="-1"></a>greeting <span class="op">=</span> single_quotes <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> double_quotes</span>
-<span id="cb23-164"><a href="#cb23-164" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greeting)</span>
-<span id="cb23-165"><a href="#cb23-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-166"><a href="#cb23-166" aria-hidden="true" tabindex="-1"></a><span class="co"># String formatting</span></span>
-<span id="cb23-167"><a href="#cb23-167" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">"Python"</span></span>
-<span id="cb23-168"><a href="#cb23-168" aria-hidden="true" tabindex="-1"></a>version <span class="op">=</span> <span class="fl">3.12</span></span>
-<span id="cb23-169"><a href="#cb23-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-170"><a href="#cb23-170" aria-hidden="true" tabindex="-1"></a><span class="co"># f-strings (recommended)</span></span>
-<span id="cb23-171"><a href="#cb23-171" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> <span class="ss">f"Welcome to </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>version<span class="sc">}</span><span class="ss">!"</span></span>
-<span id="cb23-172"><a href="#cb23-172" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(message)</span>
-<span id="cb23-173"><a href="#cb23-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-174"><a href="#cb23-174" aria-hidden="true" tabindex="-1"></a><span class="co"># format() method</span></span>
-<span id="cb23-175"><a href="#cb23-175" aria-hidden="true" tabindex="-1"></a>message2 <span class="op">=</span> <span class="st">"Welcome to </span><span class="sc">{}</span><span class="st"> </span><span class="sc">{}</span><span class="st">!"</span>.<span class="bu">format</span>(name, version)</span>
-<span id="cb23-176"><a href="#cb23-176" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(message2)</span>
-<span id="cb23-177"><a href="#cb23-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-178"><a href="#cb23-178" aria-hidden="true" tabindex="-1"></a><span class="co"># % formatting (older style)</span></span>
-<span id="cb23-179"><a href="#cb23-179" aria-hidden="true" tabindex="-1"></a>message3 <span class="op">=</span> <span class="st">"Welcome to </span><span class="sc">%s</span><span class="st"> </span><span class="sc">%.1f</span><span class="st">!"</span> <span class="op">%</span> (name, version)</span>
-<span id="cb23-180"><a href="#cb23-180" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(message3)</span>
-<span id="cb23-181"><a href="#cb23-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-182"><a href="#cb23-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-183"><a href="#cb23-183" aria-hidden="true" tabindex="-1"></a><span class="fu">### String Operations</span></span>
-<span id="cb23-184"><a href="#cb23-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-187"><a href="#cb23-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-188"><a href="#cb23-188" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"Python Programming"</span></span>
-<span id="cb23-189"><a href="#cb23-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-190"><a href="#cb23-190" aria-hidden="true" tabindex="-1"></a><span class="co"># Length</span></span>
-<span id="cb23-191"><a href="#cb23-191" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Length: </span><span class="sc">{</span><span class="bu">len</span>(text)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-127"><a href="#cb23-127" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> greet(name):</span>
+<span id="cb23-128"><a href="#cb23-128" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb23-129"><a href="#cb23-129" aria-hidden="true" tabindex="-1"></a><span class="co">    This is a docstring for the function.</span></span>
+<span id="cb23-130"><a href="#cb23-130" aria-hidden="true" tabindex="-1"></a><span class="co">    It explains what the function does.</span></span>
+<span id="cb23-131"><a href="#cb23-131" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb23-132"><a href="#cb23-132" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"Hello, </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">!"</span></span>
+<span id="cb23-133"><a href="#cb23-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-134"><a href="#cb23-134" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greet(<span class="st">"Python"</span>))</span>
+<span id="cb23-135"><a href="#cb23-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-136"><a href="#cb23-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-137"><a href="#cb23-137" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basic Data Types</span></span>
+<span id="cb23-138"><a href="#cb23-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-139"><a href="#cb23-139" aria-hidden="true" tabindex="-1"></a><span class="fu">### Numbers</span></span>
+<span id="cb23-140"><a href="#cb23-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-143"><a href="#cb23-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-144"><a href="#cb23-144" aria-hidden="true" tabindex="-1"></a><span class="co"># Integers</span></span>
+<span id="cb23-145"><a href="#cb23-145" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="dv">42</span></span>
+<span id="cb23-146"><a href="#cb23-146" aria-hidden="true" tabindex="-1"></a>negative <span class="op">=</span> <span class="op">-</span><span class="dv">17</span></span>
+<span id="cb23-147"><a href="#cb23-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-148"><a href="#cb23-148" aria-hidden="true" tabindex="-1"></a><span class="co"># Floats</span></span>
+<span id="cb23-149"><a href="#cb23-149" aria-hidden="true" tabindex="-1"></a>price <span class="op">=</span> <span class="fl">19.99</span></span>
+<span id="cb23-150"><a href="#cb23-150" aria-hidden="true" tabindex="-1"></a>scientific <span class="op">=</span> <span class="fl">1.5e-4</span>  <span class="co"># 0.00015</span></span>
+<span id="cb23-151"><a href="#cb23-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-152"><a href="#cb23-152" aria-hidden="true" tabindex="-1"></a><span class="co"># Complex numbers</span></span>
+<span id="cb23-153"><a href="#cb23-153" aria-hidden="true" tabindex="-1"></a>complex_num <span class="op">=</span> <span class="dv">3</span> <span class="op">+</span> <span class="ot">4j</span></span>
+<span id="cb23-154"><a href="#cb23-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-155"><a href="#cb23-155" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Integer: </span><span class="sc">{</span>count<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-156"><a href="#cb23-156" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Float: </span><span class="sc">{</span>price<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-157"><a href="#cb23-157" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Scientific: </span><span class="sc">{</span>scientific<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-158"><a href="#cb23-158" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Complex: </span><span class="sc">{</span>complex_num<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-159"><a href="#cb23-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-160"><a href="#cb23-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-161"><a href="#cb23-161" aria-hidden="true" tabindex="-1"></a><span class="fu">### Strings</span></span>
+<span id="cb23-162"><a href="#cb23-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-165"><a href="#cb23-165" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-166"><a href="#cb23-166" aria-hidden="true" tabindex="-1"></a><span class="co"># Different ways to create strings</span></span>
+<span id="cb23-167"><a href="#cb23-167" aria-hidden="true" tabindex="-1"></a>single_quotes <span class="op">=</span> <span class="st">'Hello'</span></span>
+<span id="cb23-168"><a href="#cb23-168" aria-hidden="true" tabindex="-1"></a>double_quotes <span class="op">=</span> <span class="st">"World"</span></span>
+<span id="cb23-169"><a href="#cb23-169" aria-hidden="true" tabindex="-1"></a>triple_quotes <span class="op">=</span> <span class="st">"""This is a</span></span>
+<span id="cb23-170"><a href="#cb23-170" aria-hidden="true" tabindex="-1"></a><span class="st">multi-line string"""</span></span>
+<span id="cb23-171"><a href="#cb23-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-172"><a href="#cb23-172" aria-hidden="true" tabindex="-1"></a><span class="co"># String concatenation</span></span>
+<span id="cb23-173"><a href="#cb23-173" aria-hidden="true" tabindex="-1"></a>greeting <span class="op">=</span> single_quotes <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> double_quotes</span>
+<span id="cb23-174"><a href="#cb23-174" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greeting)</span>
+<span id="cb23-175"><a href="#cb23-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-176"><a href="#cb23-176" aria-hidden="true" tabindex="-1"></a><span class="co"># String formatting</span></span>
+<span id="cb23-177"><a href="#cb23-177" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">"Python"</span></span>
+<span id="cb23-178"><a href="#cb23-178" aria-hidden="true" tabindex="-1"></a>version <span class="op">=</span> <span class="fl">3.12</span></span>
+<span id="cb23-179"><a href="#cb23-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-180"><a href="#cb23-180" aria-hidden="true" tabindex="-1"></a><span class="co"># f-strings (recommended)</span></span>
+<span id="cb23-181"><a href="#cb23-181" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> <span class="ss">f"Welcome to </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>version<span class="sc">}</span><span class="ss">!"</span></span>
+<span id="cb23-182"><a href="#cb23-182" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(message)</span>
+<span id="cb23-183"><a href="#cb23-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-184"><a href="#cb23-184" aria-hidden="true" tabindex="-1"></a><span class="co"># format() method</span></span>
+<span id="cb23-185"><a href="#cb23-185" aria-hidden="true" tabindex="-1"></a>message2 <span class="op">=</span> <span class="st">"Welcome to </span><span class="sc">{}</span><span class="st"> </span><span class="sc">{}</span><span class="st">!"</span>.<span class="bu">format</span>(name, version)</span>
+<span id="cb23-186"><a href="#cb23-186" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(message2)</span>
+<span id="cb23-187"><a href="#cb23-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-188"><a href="#cb23-188" aria-hidden="true" tabindex="-1"></a><span class="co"># % formatting (older style)</span></span>
+<span id="cb23-189"><a href="#cb23-189" aria-hidden="true" tabindex="-1"></a>message3 <span class="op">=</span> <span class="st">"Welcome to </span><span class="sc">%s</span><span class="st"> </span><span class="sc">%.1f</span><span class="st">!"</span> <span class="op">%</span> (name, version)</span>
+<span id="cb23-190"><a href="#cb23-190" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(message3)</span>
+<span id="cb23-191"><a href="#cb23-191" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb23-192"><a href="#cb23-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-193"><a href="#cb23-193" aria-hidden="true" tabindex="-1"></a><span class="co"># Case methods</span></span>
-<span id="cb23-194"><a href="#cb23-194" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Upper: </span><span class="sc">{</span>text<span class="sc">.</span>upper()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-195"><a href="#cb23-195" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Lower: </span><span class="sc">{</span>text<span class="sc">.</span>lower()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-196"><a href="#cb23-196" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Title: </span><span class="sc">{</span>text<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-197"><a href="#cb23-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-198"><a href="#cb23-198" aria-hidden="true" tabindex="-1"></a><span class="co"># String methods</span></span>
-<span id="cb23-199"><a href="#cb23-199" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Starts with 'Python': </span><span class="sc">{</span>text<span class="sc">.</span>startswith(<span class="st">'Python'</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-200"><a href="#cb23-200" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Contains 'gram': </span><span class="sc">{</span><span class="st">'gram'</span> <span class="kw">in</span> text<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-201"><a href="#cb23-201" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Replace: </span><span class="sc">{</span>text<span class="sc">.</span>replace(<span class="st">'Python'</span>, <span class="st">'Java'</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-193"><a href="#cb23-193" aria-hidden="true" tabindex="-1"></a><span class="fu">### String Operations</span></span>
+<span id="cb23-194"><a href="#cb23-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-197"><a href="#cb23-197" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-198"><a href="#cb23-198" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"Python Programming"</span></span>
+<span id="cb23-199"><a href="#cb23-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-200"><a href="#cb23-200" aria-hidden="true" tabindex="-1"></a><span class="co"># Length</span></span>
+<span id="cb23-201"><a href="#cb23-201" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Length: </span><span class="sc">{</span><span class="bu">len</span>(text)<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb23-202"><a href="#cb23-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-203"><a href="#cb23-203" aria-hidden="true" tabindex="-1"></a><span class="co"># Slicing</span></span>
-<span id="cb23-204"><a href="#cb23-204" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"First 6 chars: </span><span class="sc">{</span>text[:<span class="dv">6</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-205"><a href="#cb23-205" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Last 11 chars: </span><span class="sc">{</span>text[<span class="dv">7</span>:]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-206"><a href="#cb23-206" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Every 2nd char: </span><span class="sc">{</span>text[::<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-207"><a href="#cb23-207" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-208"><a href="#cb23-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-209"><a href="#cb23-209" aria-hidden="true" tabindex="-1"></a><span class="fu">### Booleans</span></span>
-<span id="cb23-210"><a href="#cb23-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-213"><a href="#cb23-213" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-214"><a href="#cb23-214" aria-hidden="true" tabindex="-1"></a><span class="co"># Boolean values</span></span>
-<span id="cb23-215"><a href="#cb23-215" aria-hidden="true" tabindex="-1"></a>is_python_fun <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb23-216"><a href="#cb23-216" aria-hidden="true" tabindex="-1"></a>is_difficult <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb23-217"><a href="#cb23-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-218"><a href="#cb23-218" aria-hidden="true" tabindex="-1"></a><span class="co"># Boolean operations</span></span>
-<span id="cb23-219"><a href="#cb23-219" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AND: </span><span class="sc">{</span>is_python_fun <span class="kw">and</span> is_difficult<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-220"><a href="#cb23-220" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"OR: </span><span class="sc">{</span>is_python_fun <span class="kw">or</span> is_difficult<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-221"><a href="#cb23-221" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NOT: </span><span class="sc">{</span><span class="kw">not</span> is_difficult<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-222"><a href="#cb23-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-223"><a href="#cb23-223" aria-hidden="true" tabindex="-1"></a><span class="co"># Truthiness - what counts as True/False</span></span>
-<span id="cb23-224"><a href="#cb23-224" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Empty string: </span><span class="sc">{</span><span class="bu">bool</span>(<span class="st">''</span>)<span class="sc">}</span><span class="ss">"</span>)        <span class="co"># False</span></span>
-<span id="cb23-225"><a href="#cb23-225" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Non-empty string: </span><span class="sc">{</span><span class="bu">bool</span>(<span class="st">'hello'</span>)<span class="sc">}</span><span class="ss">"</span>) <span class="co"># True</span></span>
-<span id="cb23-226"><a href="#cb23-226" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Zero: </span><span class="sc">{</span><span class="bu">bool</span>(<span class="dv">0</span>)<span class="sc">}</span><span class="ss">"</span>)                  <span class="co"># False</span></span>
-<span id="cb23-227"><a href="#cb23-227" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Non-zero: </span><span class="sc">{</span><span class="bu">bool</span>(<span class="dv">42</span>)<span class="sc">}</span><span class="ss">"</span>)             <span class="co"># True</span></span>
-<span id="cb23-228"><a href="#cb23-228" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Empty list: </span><span class="sc">{</span><span class="bu">bool</span>([])<span class="sc">}</span><span class="ss">"</span>)           <span class="co"># False</span></span>
-<span id="cb23-229"><a href="#cb23-229" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Non-empty list: </span><span class="sc">{</span><span class="bu">bool</span>([<span class="dv">1</span>, <span class="dv">2</span>])<span class="sc">}</span><span class="ss">"</span>)   <span class="co"># True</span></span>
-<span id="cb23-230"><a href="#cb23-230" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-231"><a href="#cb23-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-232"><a href="#cb23-232" aria-hidden="true" tabindex="-1"></a><span class="fu">## Operators</span></span>
-<span id="cb23-233"><a href="#cb23-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-234"><a href="#cb23-234" aria-hidden="true" tabindex="-1"></a><span class="fu">### Arithmetic Operators</span></span>
-<span id="cb23-235"><a href="#cb23-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-238"><a href="#cb23-238" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-239"><a href="#cb23-239" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> <span class="dv">10</span>, <span class="dv">3</span></span>
-<span id="cb23-240"><a href="#cb23-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-241"><a href="#cb23-241" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Addition: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> + </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>a <span class="op">+</span> b<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-242"><a href="#cb23-242" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Subtraction: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> - </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>a <span class="op">-</span> b<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-243"><a href="#cb23-243" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Multiplication: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> * </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>a <span class="op">*</span> b<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-244"><a href="#cb23-244" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Division: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>a <span class="op">/</span> b<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-245"><a href="#cb23-245" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Floor division: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> // </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>a <span class="op">//</span> b<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-246"><a href="#cb23-246" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Modulus: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> % </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>a <span class="op">%</span> b<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-247"><a href="#cb23-247" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exponentiation: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> ** </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>a <span class="op">**</span> b<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-248"><a href="#cb23-248" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-249"><a href="#cb23-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-250"><a href="#cb23-250" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparison Operators</span></span>
-<span id="cb23-251"><a href="#cb23-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-254"><a href="#cb23-254" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-255"><a href="#cb23-255" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> <span class="dv">5</span>, <span class="dv">10</span></span>
-<span id="cb23-256"><a href="#cb23-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-257"><a href="#cb23-257" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> == </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x <span class="op">==</span> y<span class="sc">}</span><span class="ss">"</span>)   <span class="co"># Equal</span></span>
-<span id="cb23-258"><a href="#cb23-258" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> != </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x <span class="op">!=</span> y<span class="sc">}</span><span class="ss">"</span>)   <span class="co"># Not equal</span></span>
-<span id="cb23-259"><a href="#cb23-259" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> &lt; </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x <span class="op">&lt;</span> y<span class="sc">}</span><span class="ss">"</span>)     <span class="co"># Less than</span></span>
-<span id="cb23-260"><a href="#cb23-260" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> &gt; </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x <span class="op">&gt;</span> y<span class="sc">}</span><span class="ss">"</span>)     <span class="co"># Greater than</span></span>
-<span id="cb23-261"><a href="#cb23-261" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> &lt;= </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x <span class="op">&lt;=</span> y<span class="sc">}</span><span class="ss">"</span>)   <span class="co"># Less than or equal</span></span>
-<span id="cb23-262"><a href="#cb23-262" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> &gt;= </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x <span class="op">&gt;=</span> y<span class="sc">}</span><span class="ss">"</span>)   <span class="co"># Greater than or equal</span></span>
-<span id="cb23-263"><a href="#cb23-263" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-264"><a href="#cb23-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-265"><a href="#cb23-265" aria-hidden="true" tabindex="-1"></a><span class="fu">### Assignment Operators</span></span>
+<span id="cb23-203"><a href="#cb23-203" aria-hidden="true" tabindex="-1"></a><span class="co"># Case methods</span></span>
+<span id="cb23-204"><a href="#cb23-204" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Upper: </span><span class="sc">{</span>text<span class="sc">.</span>upper()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-205"><a href="#cb23-205" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Lower: </span><span class="sc">{</span>text<span class="sc">.</span>lower()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-206"><a href="#cb23-206" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Title: </span><span class="sc">{</span>text<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-207"><a href="#cb23-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-208"><a href="#cb23-208" aria-hidden="true" tabindex="-1"></a><span class="co"># String methods</span></span>
+<span id="cb23-209"><a href="#cb23-209" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Starts with 'Python': </span><span class="sc">{</span>text<span class="sc">.</span>startswith(<span class="st">'Python'</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-210"><a href="#cb23-210" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Contains 'gram': </span><span class="sc">{</span><span class="st">'gram'</span> <span class="kw">in</span> text<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-211"><a href="#cb23-211" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Replace: </span><span class="sc">{</span>text<span class="sc">.</span>replace(<span class="st">'Python'</span>, <span class="st">'Java'</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-212"><a href="#cb23-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-213"><a href="#cb23-213" aria-hidden="true" tabindex="-1"></a><span class="co"># Slicing</span></span>
+<span id="cb23-214"><a href="#cb23-214" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"First 6 chars: </span><span class="sc">{</span>text[:<span class="dv">6</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-215"><a href="#cb23-215" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Last 11 chars: </span><span class="sc">{</span>text[<span class="dv">7</span>:]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-216"><a href="#cb23-216" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Every 2nd char: </span><span class="sc">{</span>text[::<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-217"><a href="#cb23-217" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-218"><a href="#cb23-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-219"><a href="#cb23-219" aria-hidden="true" tabindex="-1"></a><span class="fu">### Booleans</span></span>
+<span id="cb23-220"><a href="#cb23-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-223"><a href="#cb23-223" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-224"><a href="#cb23-224" aria-hidden="true" tabindex="-1"></a><span class="co"># Boolean values</span></span>
+<span id="cb23-225"><a href="#cb23-225" aria-hidden="true" tabindex="-1"></a>is_python_fun <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb23-226"><a href="#cb23-226" aria-hidden="true" tabindex="-1"></a>is_difficult <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb23-227"><a href="#cb23-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-228"><a href="#cb23-228" aria-hidden="true" tabindex="-1"></a><span class="co"># Boolean operations</span></span>
+<span id="cb23-229"><a href="#cb23-229" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"AND: </span><span class="sc">{</span>is_python_fun <span class="kw">and</span> is_difficult<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-230"><a href="#cb23-230" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"OR: </span><span class="sc">{</span>is_python_fun <span class="kw">or</span> is_difficult<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-231"><a href="#cb23-231" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NOT: </span><span class="sc">{</span><span class="kw">not</span> is_difficult<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-232"><a href="#cb23-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-233"><a href="#cb23-233" aria-hidden="true" tabindex="-1"></a><span class="co"># Truthiness - what counts as True/False</span></span>
+<span id="cb23-234"><a href="#cb23-234" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Empty string: </span><span class="sc">{</span><span class="bu">bool</span>(<span class="st">''</span>)<span class="sc">}</span><span class="ss">"</span>)        <span class="co"># False</span></span>
+<span id="cb23-235"><a href="#cb23-235" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Non-empty string: </span><span class="sc">{</span><span class="bu">bool</span>(<span class="st">'hello'</span>)<span class="sc">}</span><span class="ss">"</span>) <span class="co"># True</span></span>
+<span id="cb23-236"><a href="#cb23-236" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Zero: </span><span class="sc">{</span><span class="bu">bool</span>(<span class="dv">0</span>)<span class="sc">}</span><span class="ss">"</span>)                  <span class="co"># False</span></span>
+<span id="cb23-237"><a href="#cb23-237" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Non-zero: </span><span class="sc">{</span><span class="bu">bool</span>(<span class="dv">42</span>)<span class="sc">}</span><span class="ss">"</span>)             <span class="co"># True</span></span>
+<span id="cb23-238"><a href="#cb23-238" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Empty list: </span><span class="sc">{</span><span class="bu">bool</span>([])<span class="sc">}</span><span class="ss">"</span>)           <span class="co"># False</span></span>
+<span id="cb23-239"><a href="#cb23-239" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Non-empty list: </span><span class="sc">{</span><span class="bu">bool</span>([<span class="dv">1</span>, <span class="dv">2</span>])<span class="sc">}</span><span class="ss">"</span>)   <span class="co"># True</span></span>
+<span id="cb23-240"><a href="#cb23-240" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-241"><a href="#cb23-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-242"><a href="#cb23-242" aria-hidden="true" tabindex="-1"></a><span class="fu">## Operators</span></span>
+<span id="cb23-243"><a href="#cb23-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-244"><a href="#cb23-244" aria-hidden="true" tabindex="-1"></a><span class="fu">### Arithmetic Operators</span></span>
+<span id="cb23-245"><a href="#cb23-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-248"><a href="#cb23-248" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-249"><a href="#cb23-249" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> <span class="dv">10</span>, <span class="dv">3</span></span>
+<span id="cb23-250"><a href="#cb23-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-251"><a href="#cb23-251" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Addition: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> + </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>a <span class="op">+</span> b<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-252"><a href="#cb23-252" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Subtraction: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> - </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>a <span class="op">-</span> b<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-253"><a href="#cb23-253" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Multiplication: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> * </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>a <span class="op">*</span> b<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-254"><a href="#cb23-254" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Division: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>a <span class="op">/</span> b<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-255"><a href="#cb23-255" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Floor division: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> // </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>a <span class="op">//</span> b<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-256"><a href="#cb23-256" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Modulus: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> % </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>a <span class="op">%</span> b<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-257"><a href="#cb23-257" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exponentiation: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> ** </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>a <span class="op">**</span> b<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-258"><a href="#cb23-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-259"><a href="#cb23-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-260"><a href="#cb23-260" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparison Operators</span></span>
+<span id="cb23-261"><a href="#cb23-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-264"><a href="#cb23-264" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-265"><a href="#cb23-265" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> <span class="dv">5</span>, <span class="dv">10</span></span>
 <span id="cb23-266"><a href="#cb23-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-269"><a href="#cb23-269" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-270"><a href="#cb23-270" aria-hidden="true" tabindex="-1"></a>num <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb23-271"><a href="#cb23-271" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Initial: </span><span class="sc">{</span>num<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-272"><a href="#cb23-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-273"><a href="#cb23-273" aria-hidden="true" tabindex="-1"></a>num <span class="op">+=</span> <span class="dv">5</span>    <span class="co"># num = num + 5</span></span>
-<span id="cb23-274"><a href="#cb23-274" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"After +=5: </span><span class="sc">{</span>num<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-275"><a href="#cb23-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-276"><a href="#cb23-276" aria-hidden="true" tabindex="-1"></a>num <span class="op">-=</span> <span class="dv">3</span>    <span class="co"># num = num - 3</span></span>
-<span id="cb23-277"><a href="#cb23-277" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"After -=3: </span><span class="sc">{</span>num<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-278"><a href="#cb23-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-279"><a href="#cb23-279" aria-hidden="true" tabindex="-1"></a>num <span class="op">*=</span> <span class="dv">2</span>    <span class="co"># num = num * 2</span></span>
-<span id="cb23-280"><a href="#cb23-280" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"After *=2: </span><span class="sc">{</span>num<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-281"><a href="#cb23-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-282"><a href="#cb23-282" aria-hidden="true" tabindex="-1"></a>num <span class="op">//=</span> <span class="dv">3</span>   <span class="co"># num = num // 3</span></span>
-<span id="cb23-283"><a href="#cb23-283" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"After //=3: </span><span class="sc">{</span>num<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-284"><a href="#cb23-284" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-267"><a href="#cb23-267" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> == </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x <span class="op">==</span> y<span class="sc">}</span><span class="ss">"</span>)   <span class="co"># Equal</span></span>
+<span id="cb23-268"><a href="#cb23-268" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> != </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x <span class="op">!=</span> y<span class="sc">}</span><span class="ss">"</span>)   <span class="co"># Not equal</span></span>
+<span id="cb23-269"><a href="#cb23-269" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> &lt; </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x <span class="op">&lt;</span> y<span class="sc">}</span><span class="ss">"</span>)     <span class="co"># Less than</span></span>
+<span id="cb23-270"><a href="#cb23-270" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> &gt; </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x <span class="op">&gt;</span> y<span class="sc">}</span><span class="ss">"</span>)     <span class="co"># Greater than</span></span>
+<span id="cb23-271"><a href="#cb23-271" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> &lt;= </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x <span class="op">&lt;=</span> y<span class="sc">}</span><span class="ss">"</span>)   <span class="co"># Less than or equal</span></span>
+<span id="cb23-272"><a href="#cb23-272" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> &gt;= </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>x <span class="op">&gt;=</span> y<span class="sc">}</span><span class="ss">"</span>)   <span class="co"># Greater than or equal</span></span>
+<span id="cb23-273"><a href="#cb23-273" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-274"><a href="#cb23-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-275"><a href="#cb23-275" aria-hidden="true" tabindex="-1"></a><span class="fu">### Assignment Operators</span></span>
+<span id="cb23-276"><a href="#cb23-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-279"><a href="#cb23-279" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-280"><a href="#cb23-280" aria-hidden="true" tabindex="-1"></a>num <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb23-281"><a href="#cb23-281" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Initial: </span><span class="sc">{</span>num<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-282"><a href="#cb23-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-283"><a href="#cb23-283" aria-hidden="true" tabindex="-1"></a>num <span class="op">+=</span> <span class="dv">5</span>    <span class="co"># num = num + 5</span></span>
+<span id="cb23-284"><a href="#cb23-284" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"After +=5: </span><span class="sc">{</span>num<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb23-285"><a href="#cb23-285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-286"><a href="#cb23-286" aria-hidden="true" tabindex="-1"></a><span class="fu">## Input and Output</span></span>
-<span id="cb23-287"><a href="#cb23-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-288"><a href="#cb23-288" aria-hidden="true" tabindex="-1"></a><span class="fu">### Getting User Input</span></span>
-<span id="cb23-289"><a href="#cb23-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-292"><a href="#cb23-292" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-293"><a href="#cb23-293" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: input() always returns a string</span></span>
-<span id="cb23-294"><a href="#cb23-294" aria-hidden="true" tabindex="-1"></a><span class="co"># name = input("What's your name? ")</span></span>
-<span id="cb23-295"><a href="#cb23-295" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"Hello, {name}!")</span></span>
-<span id="cb23-296"><a href="#cb23-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-297"><a href="#cb23-297" aria-hidden="true" tabindex="-1"></a><span class="co"># For numbers, convert the input</span></span>
-<span id="cb23-298"><a href="#cb23-298" aria-hidden="true" tabindex="-1"></a><span class="co"># age_str = input("How old are you? ")</span></span>
-<span id="cb23-299"><a href="#cb23-299" aria-hidden="true" tabindex="-1"></a><span class="co"># age = int(age_str)</span></span>
-<span id="cb23-300"><a href="#cb23-300" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"You are {age} years old")</span></span>
-<span id="cb23-301"><a href="#cb23-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-302"><a href="#cb23-302" aria-hidden="true" tabindex="-1"></a><span class="co"># Or in one line:</span></span>
-<span id="cb23-303"><a href="#cb23-303" aria-hidden="true" tabindex="-1"></a><span class="co"># age = int(input("How old are you? "))</span></span>
-<span id="cb23-304"><a href="#cb23-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-305"><a href="#cb23-305" aria-hidden="true" tabindex="-1"></a><span class="co"># For demonstration, we'll simulate input:</span></span>
-<span id="cb23-306"><a href="#cb23-306" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">"Alice"</span>  <span class="co"># Simulating user input</span></span>
-<span id="cb23-307"><a href="#cb23-307" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">25</span>       <span class="co"># Simulating user input</span></span>
-<span id="cb23-308"><a href="#cb23-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-309"><a href="#cb23-309" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Hello, </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">!"</span>)</span>
-<span id="cb23-310"><a href="#cb23-310" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"You are </span><span class="sc">{</span>age<span class="sc">}</span><span class="ss"> years old"</span>)</span>
-<span id="cb23-311"><a href="#cb23-311" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-312"><a href="#cb23-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-313"><a href="#cb23-313" aria-hidden="true" tabindex="-1"></a><span class="fu">### Output Formatting</span></span>
+<span id="cb23-286"><a href="#cb23-286" aria-hidden="true" tabindex="-1"></a>num <span class="op">-=</span> <span class="dv">3</span>    <span class="co"># num = num - 3</span></span>
+<span id="cb23-287"><a href="#cb23-287" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"After -=3: </span><span class="sc">{</span>num<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-288"><a href="#cb23-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-289"><a href="#cb23-289" aria-hidden="true" tabindex="-1"></a>num <span class="op">*=</span> <span class="dv">2</span>    <span class="co"># num = num * 2</span></span>
+<span id="cb23-290"><a href="#cb23-290" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"After *=2: </span><span class="sc">{</span>num<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-291"><a href="#cb23-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-292"><a href="#cb23-292" aria-hidden="true" tabindex="-1"></a>num <span class="op">//=</span> <span class="dv">3</span>   <span class="co"># num = num // 3</span></span>
+<span id="cb23-293"><a href="#cb23-293" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"After //=3: </span><span class="sc">{</span>num<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-294"><a href="#cb23-294" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-295"><a href="#cb23-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-296"><a href="#cb23-296" aria-hidden="true" tabindex="-1"></a><span class="fu">## Input and Output</span></span>
+<span id="cb23-297"><a href="#cb23-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-298"><a href="#cb23-298" aria-hidden="true" tabindex="-1"></a><span class="fu">### Getting User Input</span></span>
+<span id="cb23-299"><a href="#cb23-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-302"><a href="#cb23-302" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-303"><a href="#cb23-303" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: input() always returns a string</span></span>
+<span id="cb23-304"><a href="#cb23-304" aria-hidden="true" tabindex="-1"></a><span class="co"># name = input("What's your name? ")</span></span>
+<span id="cb23-305"><a href="#cb23-305" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"Hello, {name}!")</span></span>
+<span id="cb23-306"><a href="#cb23-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-307"><a href="#cb23-307" aria-hidden="true" tabindex="-1"></a><span class="co"># For numbers, convert the input</span></span>
+<span id="cb23-308"><a href="#cb23-308" aria-hidden="true" tabindex="-1"></a><span class="co"># age_str = input("How old are you? ")</span></span>
+<span id="cb23-309"><a href="#cb23-309" aria-hidden="true" tabindex="-1"></a><span class="co"># age = int(age_str)</span></span>
+<span id="cb23-310"><a href="#cb23-310" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"You are {age} years old")</span></span>
+<span id="cb23-311"><a href="#cb23-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-312"><a href="#cb23-312" aria-hidden="true" tabindex="-1"></a><span class="co"># Or in one line:</span></span>
+<span id="cb23-313"><a href="#cb23-313" aria-hidden="true" tabindex="-1"></a><span class="co"># age = int(input("How old are you? "))</span></span>
 <span id="cb23-314"><a href="#cb23-314" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-317"><a href="#cb23-317" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-318"><a href="#cb23-318" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
-<span id="cb23-319"><a href="#cb23-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-320"><a href="#cb23-320" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic print</span></span>
-<span id="cb23-321"><a href="#cb23-321" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Simple output"</span>)</span>
+<span id="cb23-315"><a href="#cb23-315" aria-hidden="true" tabindex="-1"></a><span class="co"># For demonstration, we'll simulate input:</span></span>
+<span id="cb23-316"><a href="#cb23-316" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">"Alice"</span>  <span class="co"># Simulating user input</span></span>
+<span id="cb23-317"><a href="#cb23-317" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">25</span>       <span class="co"># Simulating user input</span></span>
+<span id="cb23-318"><a href="#cb23-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-319"><a href="#cb23-319" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Hello, </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">!"</span>)</span>
+<span id="cb23-320"><a href="#cb23-320" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"You are </span><span class="sc">{</span>age<span class="sc">}</span><span class="ss"> years old"</span>)</span>
+<span id="cb23-321"><a href="#cb23-321" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb23-322"><a href="#cb23-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-323"><a href="#cb23-323" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple values</span></span>
-<span id="cb23-324"><a href="#cb23-324" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Multiple"</span>, <span class="st">"values"</span>, <span class="st">"in"</span>, <span class="st">"one"</span>, <span class="st">"print"</span>)</span>
-<span id="cb23-325"><a href="#cb23-325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-326"><a href="#cb23-326" aria-hidden="true" tabindex="-1"></a><span class="co"># Custom separator and end</span></span>
-<span id="cb23-327"><a href="#cb23-327" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, sep<span class="op">=</span><span class="st">"-"</span>)</span>
-<span id="cb23-328"><a href="#cb23-328" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"No newline"</span>, end<span class="op">=</span><span class="st">" "</span>)</span>
-<span id="cb23-329"><a href="#cb23-329" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"continues here"</span>)</span>
-<span id="cb23-330"><a href="#cb23-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-331"><a href="#cb23-331" aria-hidden="true" tabindex="-1"></a><span class="co"># Formatting numbers</span></span>
-<span id="cb23-332"><a href="#cb23-332" aria-hidden="true" tabindex="-1"></a>pi <span class="op">=</span> math.pi</span>
-<span id="cb23-333"><a href="#cb23-333" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pi: </span><span class="sc">{</span>pi<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-334"><a href="#cb23-334" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pi (2 decimals): </span><span class="sc">{</span>pi<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb23-335"><a href="#cb23-335" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pi (scientific): </span><span class="sc">{</span>pi<span class="sc">:.2e}</span><span class="ss">"</span>)</span>
-<span id="cb23-336"><a href="#cb23-336" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-337"><a href="#cb23-337" aria-hidden="true" tabindex="-1"></a><span class="co"># Formatting with padding</span></span>
-<span id="cb23-338"><a href="#cb23-338" aria-hidden="true" tabindex="-1"></a>number <span class="op">=</span> <span class="dv">42</span></span>
-<span id="cb23-339"><a href="#cb23-339" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Right aligned: </span><span class="sc">{</span>number<span class="sc">:&gt;10}</span><span class="ss">"</span>)</span>
-<span id="cb23-340"><a href="#cb23-340" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Left aligned: </span><span class="sc">{</span>number<span class="sc">:&lt;10}</span><span class="ss">"</span>)</span>
-<span id="cb23-341"><a href="#cb23-341" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Center aligned: </span><span class="sc">{</span>number<span class="sc">:^10}</span><span class="ss">"</span>)</span>
-<span id="cb23-342"><a href="#cb23-342" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Zero padded: </span><span class="sc">{</span>number<span class="sc">:05}</span><span class="ss">"</span>)</span>
-<span id="cb23-343"><a href="#cb23-343" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-344"><a href="#cb23-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-345"><a href="#cb23-345" aria-hidden="true" tabindex="-1"></a><span class="fu">## Indentation and Code Structure</span></span>
+<span id="cb23-323"><a href="#cb23-323" aria-hidden="true" tabindex="-1"></a><span class="fu">### Output Formatting</span></span>
+<span id="cb23-324"><a href="#cb23-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-327"><a href="#cb23-327" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-328"><a href="#cb23-328" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb23-329"><a href="#cb23-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-330"><a href="#cb23-330" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic print</span></span>
+<span id="cb23-331"><a href="#cb23-331" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Simple output"</span>)</span>
+<span id="cb23-332"><a href="#cb23-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-333"><a href="#cb23-333" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple values</span></span>
+<span id="cb23-334"><a href="#cb23-334" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Multiple"</span>, <span class="st">"values"</span>, <span class="st">"in"</span>, <span class="st">"one"</span>, <span class="st">"print"</span>)</span>
+<span id="cb23-335"><a href="#cb23-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-336"><a href="#cb23-336" aria-hidden="true" tabindex="-1"></a><span class="co"># Custom separator and end</span></span>
+<span id="cb23-337"><a href="#cb23-337" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, sep<span class="op">=</span><span class="st">"-"</span>)</span>
+<span id="cb23-338"><a href="#cb23-338" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"No newline"</span>, end<span class="op">=</span><span class="st">" "</span>)</span>
+<span id="cb23-339"><a href="#cb23-339" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"continues here"</span>)</span>
+<span id="cb23-340"><a href="#cb23-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-341"><a href="#cb23-341" aria-hidden="true" tabindex="-1"></a><span class="co"># Formatting numbers</span></span>
+<span id="cb23-342"><a href="#cb23-342" aria-hidden="true" tabindex="-1"></a>pi <span class="op">=</span> math.pi</span>
+<span id="cb23-343"><a href="#cb23-343" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pi: </span><span class="sc">{</span>pi<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-344"><a href="#cb23-344" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pi (2 decimals): </span><span class="sc">{</span>pi<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb23-345"><a href="#cb23-345" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pi (scientific): </span><span class="sc">{</span>pi<span class="sc">:.2e}</span><span class="ss">"</span>)</span>
 <span id="cb23-346"><a href="#cb23-346" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-347"><a href="#cb23-347" aria-hidden="true" tabindex="-1"></a>Python uses **indentation** to define code blocks:</span>
-<span id="cb23-348"><a href="#cb23-348" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-351"><a href="#cb23-351" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-352"><a href="#cb23-352" aria-hidden="true" tabindex="-1"></a><span class="co"># Correct indentation</span></span>
-<span id="cb23-353"><a href="#cb23-353" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">18</span></span>
-<span id="cb23-354"><a href="#cb23-354" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> age <span class="op">&gt;=</span> <span class="dv">18</span>:</span>
-<span id="cb23-355"><a href="#cb23-355" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"You are an adult"</span>)</span>
-<span id="cb23-356"><a href="#cb23-356" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"You can vote"</span>)</span>
-<span id="cb23-357"><a href="#cb23-357" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb23-358"><a href="#cb23-358" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"You are a minor"</span>)</span>
-<span id="cb23-359"><a href="#cb23-359" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"You cannot vote yet"</span>)</span>
-<span id="cb23-360"><a href="#cb23-360" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-361"><a href="#cb23-361" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"This is outside the if statement"</span>)</span>
-<span id="cb23-362"><a href="#cb23-362" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-363"><a href="#cb23-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-364"><a href="#cb23-364" aria-hidden="true" tabindex="-1"></a><span class="fu">### Common Indentation Mistakes</span></span>
-<span id="cb23-365"><a href="#cb23-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-366"><a href="#cb23-366" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
-<span id="cb23-367"><a href="#cb23-367" aria-hidden="true" tabindex="-1"></a><span class="co"># Wrong - inconsistent indentation (would cause IndentationError)</span></span>
-<span id="cb23-368"><a href="#cb23-368" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">True</span>:</span>
-<span id="cb23-369"><a href="#cb23-369" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"This is indented with 4 spaces"</span>)</span>
-<span id="cb23-370"><a href="#cb23-370" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"This is indented with 8 spaces"</span>)  <span class="co"># Error!</span></span>
-<span id="cb23-371"><a href="#cb23-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-372"><a href="#cb23-372" aria-hidden="true" tabindex="-1"></a><span class="co"># Wrong - missing indentation (would cause IndentationError)</span></span>
-<span id="cb23-373"><a href="#cb23-373" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">True</span>:</span>
-<span id="cb23-374"><a href="#cb23-374" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"This should be indented"</span>)  <span class="co"># Error!</span></span>
+<span id="cb23-347"><a href="#cb23-347" aria-hidden="true" tabindex="-1"></a><span class="co"># Formatting with padding</span></span>
+<span id="cb23-348"><a href="#cb23-348" aria-hidden="true" tabindex="-1"></a>number <span class="op">=</span> <span class="dv">42</span></span>
+<span id="cb23-349"><a href="#cb23-349" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Right aligned: </span><span class="sc">{</span>number<span class="sc">:&gt;10}</span><span class="ss">"</span>)</span>
+<span id="cb23-350"><a href="#cb23-350" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Left aligned: </span><span class="sc">{</span>number<span class="sc">:&lt;10}</span><span class="ss">"</span>)</span>
+<span id="cb23-351"><a href="#cb23-351" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Center aligned: </span><span class="sc">{</span>number<span class="sc">:^10}</span><span class="ss">"</span>)</span>
+<span id="cb23-352"><a href="#cb23-352" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Zero padded: </span><span class="sc">{</span>number<span class="sc">:05}</span><span class="ss">"</span>)</span>
+<span id="cb23-353"><a href="#cb23-353" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-354"><a href="#cb23-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-355"><a href="#cb23-355" aria-hidden="true" tabindex="-1"></a><span class="fu">## Indentation and Code Structure</span></span>
+<span id="cb23-356"><a href="#cb23-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-357"><a href="#cb23-357" aria-hidden="true" tabindex="-1"></a>Python uses **indentation** to define code blocks:</span>
+<span id="cb23-358"><a href="#cb23-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-361"><a href="#cb23-361" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-362"><a href="#cb23-362" aria-hidden="true" tabindex="-1"></a><span class="co"># Correct indentation</span></span>
+<span id="cb23-363"><a href="#cb23-363" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">18</span></span>
+<span id="cb23-364"><a href="#cb23-364" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> age <span class="op">&gt;=</span> <span class="dv">18</span>:</span>
+<span id="cb23-365"><a href="#cb23-365" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"You are an adult"</span>)</span>
+<span id="cb23-366"><a href="#cb23-366" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"You can vote"</span>)</span>
+<span id="cb23-367"><a href="#cb23-367" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb23-368"><a href="#cb23-368" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"You are a minor"</span>)</span>
+<span id="cb23-369"><a href="#cb23-369" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"You cannot vote yet"</span>)</span>
+<span id="cb23-370"><a href="#cb23-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-371"><a href="#cb23-371" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"This is outside the if statement"</span>)</span>
+<span id="cb23-372"><a href="#cb23-372" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-373"><a href="#cb23-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-374"><a href="#cb23-374" aria-hidden="true" tabindex="-1"></a><span class="fu">### Common Indentation Mistakes</span></span>
 <span id="cb23-375"><a href="#cb23-375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-376"><a href="#cb23-376" aria-hidden="true" tabindex="-1"></a><span class="co"># Right - consistent indentation</span></span>
-<span id="cb23-377"><a href="#cb23-377" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">True</span>:</span>
-<span id="cb23-378"><a href="#cb23-378" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"This is correctly indented"</span>)</span>
-<span id="cb23-379"><a href="#cb23-379" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"This too"</span>)</span>
-<span id="cb23-380"><a href="#cb23-380" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-376"><a href="#cb23-376" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb23-377"><a href="#cb23-377" aria-hidden="true" tabindex="-1"></a><span class="co"># Wrong - inconsistent indentation (would cause IndentationError)</span></span>
+<span id="cb23-378"><a href="#cb23-378" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">True</span>:</span>
+<span id="cb23-379"><a href="#cb23-379" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"This is indented with 4 spaces"</span>)</span>
+<span id="cb23-380"><a href="#cb23-380" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"This is indented with 8 spaces"</span>)  <span class="co"># Error!</span></span>
 <span id="cb23-381"><a href="#cb23-381" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-382"><a href="#cb23-382" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
-<span id="cb23-383"><a href="#cb23-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-384"><a href="#cb23-384" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 1: Variables and Strings</span></span>
-<span id="cb23-385"><a href="#cb23-385" aria-hidden="true" tabindex="-1"></a>Create variables for your personal information and display them nicely:</span>
-<span id="cb23-386"><a href="#cb23-386" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-389"><a href="#cb23-389" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-390"><a href="#cb23-390" aria-hidden="true" tabindex="-1"></a><span class="co"># Your solution here</span></span>
-<span id="cb23-391"><a href="#cb23-391" aria-hidden="true" tabindex="-1"></a>first_name <span class="op">=</span> <span class="st">"John"</span></span>
-<span id="cb23-392"><a href="#cb23-392" aria-hidden="true" tabindex="-1"></a>last_name <span class="op">=</span> <span class="st">"Doe"</span></span>
-<span id="cb23-393"><a href="#cb23-393" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">30</span></span>
-<span id="cb23-394"><a href="#cb23-394" aria-hidden="true" tabindex="-1"></a>city <span class="op">=</span> <span class="st">"New York"</span></span>
-<span id="cb23-395"><a href="#cb23-395" aria-hidden="true" tabindex="-1"></a>hobby <span class="op">=</span> <span class="st">"programming"</span></span>
+<span id="cb23-382"><a href="#cb23-382" aria-hidden="true" tabindex="-1"></a><span class="co"># Wrong - missing indentation (would cause IndentationError)</span></span>
+<span id="cb23-383"><a href="#cb23-383" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">True</span>:</span>
+<span id="cb23-384"><a href="#cb23-384" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"This should be indented"</span>)  <span class="co"># Error!</span></span>
+<span id="cb23-385"><a href="#cb23-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-386"><a href="#cb23-386" aria-hidden="true" tabindex="-1"></a><span class="co"># Right - consistent indentation</span></span>
+<span id="cb23-387"><a href="#cb23-387" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">True</span>:</span>
+<span id="cb23-388"><a href="#cb23-388" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"This is correctly indented"</span>)</span>
+<span id="cb23-389"><a href="#cb23-389" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"This too"</span>)</span>
+<span id="cb23-390"><a href="#cb23-390" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-391"><a href="#cb23-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-392"><a href="#cb23-392" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb23-393"><a href="#cb23-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-394"><a href="#cb23-394" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 1: Variables and Strings</span></span>
+<span id="cb23-395"><a href="#cb23-395" aria-hidden="true" tabindex="-1"></a>Create variables for your personal information and display them nicely:</span>
 <span id="cb23-396"><a href="#cb23-396" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-397"><a href="#cb23-397" aria-hidden="true" tabindex="-1"></a><span class="co"># Display information</span></span>
-<span id="cb23-398"><a href="#cb23-398" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== Personal Information ==="</span>)</span>
-<span id="cb23-399"><a href="#cb23-399" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Name: </span><span class="sc">{</span>first_name<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>last_name<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-400"><a href="#cb23-400" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Age: </span><span class="sc">{</span>age<span class="sc">}</span><span class="ss"> years old"</span>)</span>
-<span id="cb23-401"><a href="#cb23-401" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"City: </span><span class="sc">{</span>city<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-402"><a href="#cb23-402" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Hobby: </span><span class="sc">{</span>hobby<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-403"><a href="#cb23-403" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span><span class="op">*</span><span class="dv">30</span>)</span>
-<span id="cb23-404"><a href="#cb23-404" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-405"><a href="#cb23-405" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-406"><a href="#cb23-406" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 2: Calculator</span></span>
-<span id="cb23-407"><a href="#cb23-407" aria-hidden="true" tabindex="-1"></a>Create a simple calculator:</span>
-<span id="cb23-408"><a href="#cb23-408" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-411"><a href="#cb23-411" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-412"><a href="#cb23-412" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculator exercise</span></span>
-<span id="cb23-413"><a href="#cb23-413" aria-hidden="true" tabindex="-1"></a>num1 <span class="op">=</span> <span class="dv">15</span></span>
-<span id="cb23-414"><a href="#cb23-414" aria-hidden="true" tabindex="-1"></a>num2 <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb23-399"><a href="#cb23-399" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-400"><a href="#cb23-400" aria-hidden="true" tabindex="-1"></a><span class="co"># Your solution here</span></span>
+<span id="cb23-401"><a href="#cb23-401" aria-hidden="true" tabindex="-1"></a>first_name <span class="op">=</span> <span class="st">"John"</span></span>
+<span id="cb23-402"><a href="#cb23-402" aria-hidden="true" tabindex="-1"></a>last_name <span class="op">=</span> <span class="st">"Doe"</span></span>
+<span id="cb23-403"><a href="#cb23-403" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb23-404"><a href="#cb23-404" aria-hidden="true" tabindex="-1"></a>city <span class="op">=</span> <span class="st">"New York"</span></span>
+<span id="cb23-405"><a href="#cb23-405" aria-hidden="true" tabindex="-1"></a>hobby <span class="op">=</span> <span class="st">"programming"</span></span>
+<span id="cb23-406"><a href="#cb23-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-407"><a href="#cb23-407" aria-hidden="true" tabindex="-1"></a><span class="co"># Display information</span></span>
+<span id="cb23-408"><a href="#cb23-408" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== Personal Information ==="</span>)</span>
+<span id="cb23-409"><a href="#cb23-409" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Name: </span><span class="sc">{</span>first_name<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>last_name<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-410"><a href="#cb23-410" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Age: </span><span class="sc">{</span>age<span class="sc">}</span><span class="ss"> years old"</span>)</span>
+<span id="cb23-411"><a href="#cb23-411" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"City: </span><span class="sc">{</span>city<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-412"><a href="#cb23-412" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Hobby: </span><span class="sc">{</span>hobby<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-413"><a href="#cb23-413" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span><span class="op">*</span><span class="dv">30</span>)</span>
+<span id="cb23-414"><a href="#cb23-414" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb23-415"><a href="#cb23-415" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-416"><a href="#cb23-416" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number 1: </span><span class="sc">{</span>num1<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-417"><a href="#cb23-417" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number 2: </span><span class="sc">{</span>num2<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-418"><a href="#cb23-418" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">20</span>)</span>
-<span id="cb23-419"><a href="#cb23-419" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Addition: </span><span class="sc">{</span>num1<span class="sc">}</span><span class="ss"> + </span><span class="sc">{</span>num2<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>num1 <span class="op">+</span> num2<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-420"><a href="#cb23-420" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Subtraction: </span><span class="sc">{</span>num1<span class="sc">}</span><span class="ss"> - </span><span class="sc">{</span>num2<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>num1 <span class="op">-</span> num2<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-421"><a href="#cb23-421" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Multiplication: </span><span class="sc">{</span>num1<span class="sc">}</span><span class="ss"> × </span><span class="sc">{</span>num2<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>num1 <span class="op">*</span> num2<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-422"><a href="#cb23-422" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Division: </span><span class="sc">{</span>num1<span class="sc">}</span><span class="ss"> ÷ </span><span class="sc">{</span>num2<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>num1 <span class="op">/</span> num2<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb23-423"><a href="#cb23-423" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Power: </span><span class="sc">{</span>num1<span class="sc">}</span><span class="ss">^</span><span class="sc">{</span>num2<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>num1 <span class="op">**</span> num2<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-424"><a href="#cb23-424" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-416"><a href="#cb23-416" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 2: Calculator</span></span>
+<span id="cb23-417"><a href="#cb23-417" aria-hidden="true" tabindex="-1"></a>Create a simple calculator:</span>
+<span id="cb23-418"><a href="#cb23-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-421"><a href="#cb23-421" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-422"><a href="#cb23-422" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculator exercise</span></span>
+<span id="cb23-423"><a href="#cb23-423" aria-hidden="true" tabindex="-1"></a>num1 <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb23-424"><a href="#cb23-424" aria-hidden="true" tabindex="-1"></a>num2 <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb23-425"><a href="#cb23-425" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-426"><a href="#cb23-426" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 3: String Manipulation</span></span>
-<span id="cb23-427"><a href="#cb23-427" aria-hidden="true" tabindex="-1"></a>Work with string methods:</span>
-<span id="cb23-428"><a href="#cb23-428" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-431"><a href="#cb23-431" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb23-432"><a href="#cb23-432" aria-hidden="true" tabindex="-1"></a><span class="co"># String manipulation exercise</span></span>
-<span id="cb23-433"><a href="#cb23-433" aria-hidden="true" tabindex="-1"></a>sentence <span class="op">=</span> <span class="st">"python is an amazing programming language"</span></span>
-<span id="cb23-434"><a href="#cb23-434" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-435"><a href="#cb23-435" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Original: </span><span class="sc">{</span>sentence<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-436"><a href="#cb23-436" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Length: </span><span class="sc">{</span><span class="bu">len</span>(sentence)<span class="sc">}</span><span class="ss"> characters"</span>)</span>
-<span id="cb23-437"><a href="#cb23-437" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Words: </span><span class="sc">{</span>sentence<span class="sc">.</span>count(<span class="st">' '</span>) <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-438"><a href="#cb23-438" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Title case: </span><span class="sc">{</span>sentence<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-439"><a href="#cb23-439" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Upper case: </span><span class="sc">{</span>sentence<span class="sc">.</span>upper()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-440"><a href="#cb23-440" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Capitalize: </span><span class="sc">{</span>sentence<span class="sc">.</span>capitalize()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-441"><a href="#cb23-441" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Replace 'python' with 'Python': </span><span class="sc">{</span>sentence<span class="sc">.</span>replace(<span class="st">'python'</span>, <span class="st">'Python'</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-442"><a href="#cb23-442" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-443"><a href="#cb23-443" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-444"><a href="#cb23-444" aria-hidden="true" tabindex="-1"></a><span class="fu">## Common Pitfalls</span></span>
-<span id="cb23-445"><a href="#cb23-445" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-446"><a href="#cb23-446" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Indentation errors** - Use consistent spaces (4 spaces recommended)</span>
-<span id="cb23-447"><a href="#cb23-447" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Variable naming** - Use descriptive names, follow conventions</span>
-<span id="cb23-448"><a href="#cb23-448" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**String vs numbers** - Remember input() returns strings</span>
-<span id="cb23-449"><a href="#cb23-449" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Case sensitivity** - <span class="in">`Name`</span> and <span class="in">`name`</span> are different variables</span>
-<span id="cb23-450"><a href="#cb23-450" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-451"><a href="#cb23-451" aria-hidden="true" tabindex="-1"></a><span class="fu">## Best Practices</span></span>
-<span id="cb23-452"><a href="#cb23-452" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-453"><a href="#cb23-453" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Use descriptive variable names**:</span>
-<span id="cb23-454"><a href="#cb23-454" aria-hidden="true" tabindex="-1"></a>   <span class="in">```python</span></span>
-<span id="cb23-455"><a href="#cb23-455" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Bad</span></span>
-<span id="cb23-456"><a href="#cb23-456" aria-hidden="true" tabindex="-1"></a>   x <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb23-457"><a href="#cb23-457" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb23-458"><a href="#cb23-458" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Good</span></span>
-<span id="cb23-459"><a href="#cb23-459" aria-hidden="true" tabindex="-1"></a>   student_age <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb23-460"><a href="#cb23-460" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
-<span id="cb23-461"><a href="#cb23-461" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-462"><a href="#cb23-462" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Follow PEP 8 naming conventions**:</span>
-<span id="cb23-463"><a href="#cb23-463" aria-hidden="true" tabindex="-1"></a>   <span class="in">```python</span></span>
-<span id="cb23-464"><a href="#cb23-464" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Variables and functions: snake_case</span></span>
-<span id="cb23-465"><a href="#cb23-465" aria-hidden="true" tabindex="-1"></a>   user_name <span class="op">=</span> <span class="st">"Alice"</span></span>
-<span id="cb23-466"><a href="#cb23-466" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb23-467"><a href="#cb23-467" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Constants: UPPER_CASE</span></span>
-<span id="cb23-468"><a href="#cb23-468" aria-hidden="true" tabindex="-1"></a>   MAX_ATTEMPTS <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb23-469"><a href="#cb23-469" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb23-470"><a href="#cb23-470" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Classes: PascalCase (we'll learn later)</span></span>
-<span id="cb23-471"><a href="#cb23-471" aria-hidden="true" tabindex="-1"></a>   <span class="co"># UserAccount</span></span>
-<span id="cb23-472"><a href="#cb23-472" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
-<span id="cb23-473"><a href="#cb23-473" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-474"><a href="#cb23-474" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Use f-strings for formatting** (Python 3.6+)</span>
-<span id="cb23-475"><a href="#cb23-475" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Add comments for complex logic**</span>
-<span id="cb23-476"><a href="#cb23-476" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Keep lines under 80 characters when possible**</span>
-<span id="cb23-477"><a href="#cb23-477" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-478"><a href="#cb23-478" aria-hidden="true" tabindex="-1"></a><span class="fu">## Quiz</span></span>
-<span id="cb23-479"><a href="#cb23-479" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-480"><a href="#cb23-480" aria-hidden="true" tabindex="-1"></a>Test your understanding:</span>
-<span id="cb23-481"><a href="#cb23-481" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-482"><a href="#cb23-482" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>What will <span class="in">`print(type(5))`</span> output?</span>
-<span id="cb23-483"><a href="#cb23-483" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>What's the difference between <span class="in">`'hello'`</span> and <span class="in">`"hello"`</span>?</span>
-<span id="cb23-484"><a href="#cb23-484" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>What happens if you add a string and a number?</span>
-<span id="cb23-485"><a href="#cb23-485" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>How do you create a multi-line string?</span>
-<span id="cb23-486"><a href="#cb23-486" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>What's the result of <span class="in">`10 // 3`</span>?</span>
+<span id="cb23-426"><a href="#cb23-426" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number 1: </span><span class="sc">{</span>num1<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-427"><a href="#cb23-427" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number 2: </span><span class="sc">{</span>num2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-428"><a href="#cb23-428" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">20</span>)</span>
+<span id="cb23-429"><a href="#cb23-429" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Addition: </span><span class="sc">{</span>num1<span class="sc">}</span><span class="ss"> + </span><span class="sc">{</span>num2<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>num1 <span class="op">+</span> num2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-430"><a href="#cb23-430" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Subtraction: </span><span class="sc">{</span>num1<span class="sc">}</span><span class="ss"> - </span><span class="sc">{</span>num2<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>num1 <span class="op">-</span> num2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-431"><a href="#cb23-431" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Multiplication: </span><span class="sc">{</span>num1<span class="sc">}</span><span class="ss"> × </span><span class="sc">{</span>num2<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>num1 <span class="op">*</span> num2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-432"><a href="#cb23-432" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Division: </span><span class="sc">{</span>num1<span class="sc">}</span><span class="ss"> ÷ </span><span class="sc">{</span>num2<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>num1 <span class="op">/</span> num2<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb23-433"><a href="#cb23-433" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Power: </span><span class="sc">{</span>num1<span class="sc">}</span><span class="ss">^</span><span class="sc">{</span>num2<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>num1 <span class="op">**</span> num2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-434"><a href="#cb23-434" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-435"><a href="#cb23-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-436"><a href="#cb23-436" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 3: String Manipulation</span></span>
+<span id="cb23-437"><a href="#cb23-437" aria-hidden="true" tabindex="-1"></a>Work with string methods:</span>
+<span id="cb23-438"><a href="#cb23-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-441"><a href="#cb23-441" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb23-442"><a href="#cb23-442" aria-hidden="true" tabindex="-1"></a><span class="co"># String manipulation exercise</span></span>
+<span id="cb23-443"><a href="#cb23-443" aria-hidden="true" tabindex="-1"></a>sentence <span class="op">=</span> <span class="st">"python is an amazing programming language"</span></span>
+<span id="cb23-444"><a href="#cb23-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-445"><a href="#cb23-445" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Original: </span><span class="sc">{</span>sentence<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-446"><a href="#cb23-446" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Length: </span><span class="sc">{</span><span class="bu">len</span>(sentence)<span class="sc">}</span><span class="ss"> characters"</span>)</span>
+<span id="cb23-447"><a href="#cb23-447" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Words: </span><span class="sc">{</span>sentence<span class="sc">.</span>count(<span class="st">' '</span>) <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-448"><a href="#cb23-448" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Title case: </span><span class="sc">{</span>sentence<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-449"><a href="#cb23-449" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Upper case: </span><span class="sc">{</span>sentence<span class="sc">.</span>upper()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-450"><a href="#cb23-450" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Capitalize: </span><span class="sc">{</span>sentence<span class="sc">.</span>capitalize()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-451"><a href="#cb23-451" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Replace 'python' with 'Python': </span><span class="sc">{</span>sentence<span class="sc">.</span>replace(<span class="st">'python'</span>, <span class="st">'Python'</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-452"><a href="#cb23-452" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-453"><a href="#cb23-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-454"><a href="#cb23-454" aria-hidden="true" tabindex="-1"></a><span class="fu">## Common Pitfalls</span></span>
+<span id="cb23-455"><a href="#cb23-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-456"><a href="#cb23-456" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Indentation errors** - Use consistent spaces (4 spaces recommended)</span>
+<span id="cb23-457"><a href="#cb23-457" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Variable naming** - Use descriptive names, follow conventions</span>
+<span id="cb23-458"><a href="#cb23-458" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**String vs numbers** - Remember input() returns strings</span>
+<span id="cb23-459"><a href="#cb23-459" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Case sensitivity** - <span class="in">`Name`</span> and <span class="in">`name`</span> are different variables</span>
+<span id="cb23-460"><a href="#cb23-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-461"><a href="#cb23-461" aria-hidden="true" tabindex="-1"></a><span class="fu">## Best Practices</span></span>
+<span id="cb23-462"><a href="#cb23-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-463"><a href="#cb23-463" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Use descriptive variable names**:</span>
+<span id="cb23-464"><a href="#cb23-464" aria-hidden="true" tabindex="-1"></a>   <span class="in">```python</span></span>
+<span id="cb23-465"><a href="#cb23-465" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Bad</span></span>
+<span id="cb23-466"><a href="#cb23-466" aria-hidden="true" tabindex="-1"></a>   x <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb23-467"><a href="#cb23-467" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb23-468"><a href="#cb23-468" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Good</span></span>
+<span id="cb23-469"><a href="#cb23-469" aria-hidden="true" tabindex="-1"></a>   student_age <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb23-470"><a href="#cb23-470" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
+<span id="cb23-471"><a href="#cb23-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-472"><a href="#cb23-472" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Follow PEP 8 naming conventions**:</span>
+<span id="cb23-473"><a href="#cb23-473" aria-hidden="true" tabindex="-1"></a>   <span class="in">```python</span></span>
+<span id="cb23-474"><a href="#cb23-474" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Variables and functions: snake_case</span></span>
+<span id="cb23-475"><a href="#cb23-475" aria-hidden="true" tabindex="-1"></a>   user_name <span class="op">=</span> <span class="st">"Alice"</span></span>
+<span id="cb23-476"><a href="#cb23-476" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb23-477"><a href="#cb23-477" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Constants: UPPER_CASE</span></span>
+<span id="cb23-478"><a href="#cb23-478" aria-hidden="true" tabindex="-1"></a>   MAX_ATTEMPTS <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb23-479"><a href="#cb23-479" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb23-480"><a href="#cb23-480" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Classes: PascalCase (we'll learn later)</span></span>
+<span id="cb23-481"><a href="#cb23-481" aria-hidden="true" tabindex="-1"></a>   <span class="co"># UserAccount</span></span>
+<span id="cb23-482"><a href="#cb23-482" aria-hidden="true" tabindex="-1"></a>   <span class="in">```</span></span>
+<span id="cb23-483"><a href="#cb23-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-484"><a href="#cb23-484" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Use f-strings for formatting** (Python 3.6+)</span>
+<span id="cb23-485"><a href="#cb23-485" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Add comments for complex logic**</span>
+<span id="cb23-486"><a href="#cb23-486" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Keep lines under 80 characters when possible**</span>
 <span id="cb23-487"><a href="#cb23-487" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-488"><a href="#cb23-488" aria-hidden="true" tabindex="-1"></a><span class="fu">### Answers</span></span>
-<span id="cb23-489"><a href="#cb23-489" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span><span class="in">`&lt;class 'int'&gt;`</span></span>
-<span id="cb23-490"><a href="#cb23-490" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>No difference - both create strings</span>
-<span id="cb23-491"><a href="#cb23-491" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>TypeError - you need to convert one to match the other</span>
-<span id="cb23-492"><a href="#cb23-492" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Use triple quotes: <span class="in">`"""`</span> or <span class="in">`'''`</span></span>
-<span id="cb23-493"><a href="#cb23-493" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span><span class="in">`3`</span> (floor division)</span>
-<span id="cb23-494"><a href="#cb23-494" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-495"><a href="#cb23-495" aria-hidden="true" tabindex="-1"></a><span class="fu">## Next Steps</span></span>
-<span id="cb23-496"><a href="#cb23-496" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-497"><a href="#cb23-497" aria-hidden="true" tabindex="-1"></a>Great! You've learned Python basics. Next, we'll explore <span class="co">[</span><span class="ot">Data Types and Collections</span><span class="co">](04-data-types.qmd)</span> to handle more complex data.</span>
+<span id="cb23-488"><a href="#cb23-488" aria-hidden="true" tabindex="-1"></a><span class="fu">## Quiz</span></span>
+<span id="cb23-489"><a href="#cb23-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-490"><a href="#cb23-490" aria-hidden="true" tabindex="-1"></a>Test your understanding:</span>
+<span id="cb23-491"><a href="#cb23-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-492"><a href="#cb23-492" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>What will <span class="in">`print(type(5))`</span> output?</span>
+<span id="cb23-493"><a href="#cb23-493" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>What's the difference between <span class="in">`'hello'`</span> and <span class="in">`"hello"`</span>?</span>
+<span id="cb23-494"><a href="#cb23-494" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>What happens if you add a string and a number?</span>
+<span id="cb23-495"><a href="#cb23-495" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>How do you create a multi-line string?</span>
+<span id="cb23-496"><a href="#cb23-496" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>What's the result of <span class="in">`10 // 3`</span>?</span>
+<span id="cb23-497"><a href="#cb23-497" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-498"><a href="#cb23-498" aria-hidden="true" tabindex="-1"></a><span class="fu">### Answers</span></span>
+<span id="cb23-499"><a href="#cb23-499" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span><span class="in">`&lt;class 'int'&gt;`</span></span>
+<span id="cb23-500"><a href="#cb23-500" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>No difference - both create strings</span>
+<span id="cb23-501"><a href="#cb23-501" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>TypeError - you need to convert one to match the other</span>
+<span id="cb23-502"><a href="#cb23-502" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Use triple quotes: <span class="in">`"""`</span> or <span class="in">`'''`</span></span>
+<span id="cb23-503"><a href="#cb23-503" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span><span class="in">`3`</span> (floor division)</span>
+<span id="cb23-504"><a href="#cb23-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-505"><a href="#cb23-505" aria-hidden="true" tabindex="-1"></a><span class="fu">## Next Steps</span></span>
+<span id="cb23-506"><a href="#cb23-506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-507"><a href="#cb23-507" aria-hidden="true" tabindex="-1"></a>Great! You've learned Python basics. Next, we'll explore <span class="co">[</span><span class="ot">Data Types and Collections</span><span class="co">](04-data-types.qmd)</span> to handle more complex data.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

@@ -8,12 +8,14 @@ subtitle: "Introduction and Setup"
 
 ## What is Python? {.smaller}
 
+Python is a programming language designed for humans, not just computers.
+
 ::: {.incremental}
-- **Simple and readable** syntax
-- **Versatile** - web, data science, automation, AI
-- **Huge ecosystem** of libraries
-- **Community-driven** development
-- **Cross-platform** compatibility
+- **Simple and readable** syntax - Code looks like English sentences
+- **Versatile** - Build websites, analyze data, create AI, automate tasks
+- **Huge ecosystem** - 400,000+ packages for any task imaginable
+- **Community-driven** - Free, open-source, constantly improving
+- **Cross-platform** - Write once, run on Windows, Mac, Linux
 :::
 
 ## Why Learn Python? {.smaller}

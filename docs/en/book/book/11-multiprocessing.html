@@ -539,7 +539,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="12.1" class="anchored" data-anchor-id="understanding-parallelism-vs-concurrency"><span class="header-section-number">12.1</span> Understanding Parallelism vs Concurrency</h2>
 <section id="the-difference" class="level3" data-number="12.1.1">
 <h3 data-number="12.1.1" class="anchored" data-anchor-id="the-difference"><span class="header-section-number">12.1.1</span> The Difference</h3>
-<div id="f7b0ae19" class="cell" data-execution_count="1">
+<div id="d1e1e641" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> multiprocessing <span class="im">as</span> mp</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> threading</span>
@@ -630,7 +630,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="12.2" class="anchored" data-anchor-id="basic-multiprocessing"><span class="header-section-number">12.2</span> Basic Multiprocessing</h2>
 <section id="process-creation-and-management" class="level3" data-number="12.2.1">
 <h3 data-number="12.2.1" class="anchored" data-anchor-id="process-creation-and-management"><span class="header-section-number">12.2.1</span> Process Creation and Management</h3>
-<div id="b9a01c2e" class="cell" data-execution_count="2">
+<div id="589c0f15" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> multiprocessing <span class="im">as</span> mp</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
@@ -724,7 +724,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="12.3" class="anchored" data-anchor-id="inter-process-communication"><span class="header-section-number">12.3</span> Inter-Process Communication</h2>
 <section id="shared-memory-and-synchronization" class="level3" data-number="12.3.1">
 <h3 data-number="12.3.1" class="anchored" data-anchor-id="shared-memory-and-synchronization"><span class="header-section-number">12.3.1</span> Shared Memory and Synchronization</h3>
-<div id="e7713095" class="cell" data-execution_count="3">
+<div id="1b2bddfb" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> multiprocessing <span class="im">as</span> mp</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
@@ -856,7 +856,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="12.4" class="anchored" data-anchor-id="advanced-multiprocessing-patterns"><span class="header-section-number">12.4</span> Advanced Multiprocessing Patterns</h2>
 <section id="map-reduce-pattern" class="level3" data-number="12.4.1">
 <h3 data-number="12.4.1" class="anchored" data-anchor-id="map-reduce-pattern"><span class="header-section-number">12.4.1</span> Map-Reduce Pattern</h3>
-<div id="c3efaaf4" class="cell" data-execution_count="4">
+<div id="e656c5fe" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> multiprocessing <span class="im">as</span> mp</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> concurrent.futures <span class="im">import</span> ProcessPoolExecutor</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> List, Dict, Callable, Any</span>
@@ -959,7 +959,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="12.5" class="anchored" data-anchor-id="real-world-examples"><span class="header-section-number">12.5</span> Real-World Examples</h2>
 <section id="example-1-parallel-image-processing" class="level3" data-number="12.5.1">
 <h3 data-number="12.5.1" class="anchored" data-anchor-id="example-1-parallel-image-processing"><span class="header-section-number">12.5.1</span> Example 1: Parallel Image Processing</h3>
-<div id="48f89881" class="cell" data-execution_count="5">
+<div id="2fd536dd" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> multiprocessing <span class="im">as</span> mp</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> concurrent.futures <span class="im">import</span> ProcessPoolExecutor, as_completed</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
@@ -1115,7 +1115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="example-2-parallel-data-analysis" class="level3" data-number="12.5.2">
 <h3 data-number="12.5.2" class="anchored" data-anchor-id="example-2-parallel-data-analysis"><span class="header-section-number">12.5.2</span> Example 2: Parallel Data Analysis</h3>
-<div id="16857bf2" class="cell" data-execution_count="6">
+<div id="12550157" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> multiprocessing <span class="im">as</span> mp</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> concurrent.futures <span class="im">import</span> ProcessPoolExecutor</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
@@ -1332,7 +1332,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="12.6" class="anchored" data-anchor-id="performance-considerations-and-best-practices"><span class="header-section-number">12.6</span> Performance Considerations and Best Practices</h2>
 <section id="choosing-the-right-approach" class="level3" data-number="12.6.1">
 <h3 data-number="12.6.1" class="anchored" data-anchor-id="choosing-the-right-approach"><span class="header-section-number">12.6.1</span> Choosing the Right Approach</h3>
-<div id="41788aa1" class="cell" data-execution_count="7">
+<div id="b7ffb20e" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> multiprocessing <span class="im">as</span> mp</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> threading</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> asyncio</span>

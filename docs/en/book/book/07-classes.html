@@ -539,7 +539,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Object-Oriented Programming (OOP) is a programming paradigm that organizes code into classes and objects, making it easier to build complex, maintainable applications.</p>
 <section id="why-object-oriented-programming" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="why-object-oriented-programming"><span class="header-section-number">8.1</span> Why Object-Oriented Programming?</h2>
-<div id="b6205951" class="cell" data-execution_count="1">
+<div id="b2be3fe1" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Without OOP - procedural approach</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_student(name, age, grades):</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">"name"</span>: name, <span class="st">"age"</span>: age, <span class="st">"grades"</span>: grades}</span>
@@ -580,7 +580,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="8.2" class="anchored" data-anchor-id="creating-classes"><span class="header-section-number">8.2</span> Creating Classes</h2>
 <section id="basic-class-definition" class="level3" data-number="8.2.1">
 <h3 data-number="8.2.1" class="anchored" data-anchor-id="basic-class-definition"><span class="header-section-number">8.2.1</span> Basic Class Definition</h3>
-<div id="ee5f402e" class="cell" data-execution_count="2">
+<div id="4efc372d" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Car:</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""A simple car class."""</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -611,7 +611,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="class-vs-instance-attributes" class="level3" data-number="8.2.2">
 <h3 data-number="8.2.2" class="anchored" data-anchor-id="class-vs-instance-attributes"><span class="header-section-number">8.2.2</span> Class vs Instance Attributes</h3>
-<div id="c1fec634" class="cell" data-execution_count="3">
+<div id="26d98aa3" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BankAccount:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Bank account with class and instance attributes."""</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -670,7 +670,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="8.3" class="anchored" data-anchor-id="methods-and-properties"><span class="header-section-number">8.3</span> Methods and Properties</h2>
 <section id="instance-methods" class="level3" data-number="8.3.1">
 <h3 data-number="8.3.1" class="anchored" data-anchor-id="instance-methods"><span class="header-section-number">8.3.1</span> Instance Methods</h3>
-<div id="21570ba9" class="cell" data-execution_count="4">
+<div id="f954bdc5" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Rectangle:</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Rectangle class with various methods."""</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -721,7 +721,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Static methods</strong> (<code>@staticmethod</code>): Independent utilities, don’t need class or instance</li>
 </ol>
 <p><strong>When to use each:</strong> - <strong>Instance method</strong>: When you need access to instance attributes (<code>self.name</code>, <code>self.age</code>) - <strong>Class method</strong>: When you need access to class attributes or want alternative constructors - <strong>Static method</strong>: When the function is related to the class but doesn’t need class/instance data</p>
-<div id="1791b6e8" class="cell" data-execution_count="5">
+<div id="fc9e7a8d" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MathUtils:</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Utility class demonstrating different method types."""</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -775,7 +775,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="properties-with-property" class="level3" data-number="8.3.3">
 <h3 data-number="8.3.3" class="anchored" data-anchor-id="properties-with-property"><span class="header-section-number">8.3.3</span> Properties with <span class="citation" data-cites="property">@property</span></h3>
-<div id="b2b07e34" class="cell" data-execution_count="6">
+<div id="f8c8438e" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Temperature:</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Temperature class with property decorators."""</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -834,7 +834,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="8.4" class="anchored" data-anchor-id="special-methods-magic-methods"><span class="header-section-number">8.4</span> Special Methods (Magic Methods)</h2>
 <section id="string-representation-and-comparison" class="level3" data-number="8.4.1">
 <h3 data-number="8.4.1" class="anchored" data-anchor-id="string-representation-and-comparison"><span class="header-section-number">8.4.1</span> String Representation and Comparison</h3>
-<div id="58ceca7c" class="cell" data-execution_count="7">
+<div id="5bb6c159" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Person:</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Person class with magic methods."""</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -889,7 +889,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="arithmetic-operations" class="level3" data-number="8.4.2">
 <h3 data-number="8.4.2" class="anchored" data-anchor-id="arithmetic-operations"><span class="header-section-number">8.4.2</span> Arithmetic Operations</h3>
-<div id="54b0dbce" class="cell" data-execution_count="8">
+<div id="f717c8c0" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Vector2D:</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""2D vector with arithmetic operations."""</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -952,7 +952,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="8.5" class="anchored" data-anchor-id="real-world-examples"><span class="header-section-number">8.5</span> Real-World Examples</h2>
 <section id="example-1-library-management-system" class="level3" data-number="8.5.1">
 <h3 data-number="8.5.1" class="anchored" data-anchor-id="example-1-library-management-system"><span class="header-section-number">8.5.1</span> Example 1: Library Management System</h3>
-<div id="5e338869" class="cell" data-execution_count="9">
+<div id="2469e77c" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime, timedelta</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Book:</span>
@@ -1072,7 +1072,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="example-2-game-character-system" class="level3" data-number="8.5.2">
 <h3 data-number="8.5.2" class="anchored" data-anchor-id="example-2-game-character-system"><span class="header-section-number">8.5.2</span> Example 2: Game Character System</h3>
-<div id="c2f91fcf" class="cell" data-execution_count="10">
+<div id="e9d7247f" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> GameCharacter:</span>
@@ -1292,7 +1292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="8.6" class="anchored" data-anchor-id="exercises"><span class="header-section-number">8.6</span> Exercises</h2>
 <section id="exercise-1-shopping-cart-system" class="level3" data-number="8.6.1">
 <h3 data-number="8.6.1" class="anchored" data-anchor-id="exercise-1-shopping-cart-system"><span class="header-section-number">8.6.1</span> Exercise 1: Shopping Cart System</h3>
-<div id="7b5d1864" class="cell" data-execution_count="11">
+<div id="ee947900" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Product:</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Represents a product in the store."""</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -1437,7 +1437,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="exercise-2-simple-banking-system" class="level3" data-number="8.6.2">
 <h3 data-number="8.6.2" class="anchored" data-anchor-id="exercise-2-simple-banking-system"><span class="header-section-number">8.6.2</span> Exercise 2: Simple Banking System</h3>
-<div id="3652083c" class="cell" data-execution_count="12">
+<div id="cf04f9da" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Transaction:</span>

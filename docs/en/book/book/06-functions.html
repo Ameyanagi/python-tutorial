@@ -552,7 +552,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Functions are the building blocks of well-organized Python programs. They help you avoid repetition and make your code more readable and maintainable.</p>
 <section id="why-functions-matter" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="why-functions-matter"><span class="header-section-number">6.1</span> Why Functions Matter</h2>
-<div id="72c68ea0" class="cell" data-execution_count="1">
+<div id="d2df0e1f" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Without functions - repetitive code</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>name1 <span class="op">=</span> <span class="st">"Alice"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Hello, </span><span class="sc">{</span>name1<span class="sc">}</span><span class="ss">!"</span>)</span>
@@ -575,7 +575,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="6.2" class="anchored" data-anchor-id="defining-functions"><span class="header-section-number">6.2</span> Defining Functions</h2>
 <section id="basic-function-definition" class="level3" data-number="6.2.1">
 <h3 data-number="6.2.1" class="anchored" data-anchor-id="basic-function-definition"><span class="header-section-number">6.2.1</span> Basic Function Definition</h3>
-<div id="17fb06d5" class="cell" data-execution_count="2">
+<div id="9cc03833" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> say_hello():</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""A simple function that prints a greeting."""</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Hello from Python!"</span>)</span>
@@ -587,7 +587,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="functions-with-parameters" class="level3" data-number="6.2.2">
 <h3 data-number="6.2.2" class="anchored" data-anchor-id="functions-with-parameters"><span class="header-section-number">6.2.2</span> Functions with Parameters</h3>
-<div id="72ae6345" class="cell" data-execution_count="3">
+<div id="19cf32b4" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> greet(name, language<span class="op">=</span><span class="st">"English"</span>):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Greet someone in different languages."""</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> language <span class="op">==</span> <span class="st">"English"</span>:</span>
@@ -610,7 +610,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="functions-with-return-values" class="level3" data-number="6.2.3">
 <h3 data-number="6.2.3" class="anchored" data-anchor-id="functions-with-return-values"><span class="header-section-number">6.2.3</span> Functions with Return Values</h3>
-<div id="8193770d" class="cell" data-execution_count="4">
+<div id="92982a7f" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_numbers(a, b):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Add two numbers and return the result."""</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b</span>
@@ -641,7 +641,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="6.3" class="anchored" data-anchor-id="function-parameters-and-arguments"><span class="header-section-number">6.3</span> Function Parameters and Arguments</h2>
 <section id="positional-arguments" class="level3" data-number="6.3.1">
 <h3 data-number="6.3.1" class="anchored" data-anchor-id="positional-arguments"><span class="header-section-number">6.3.1</span> Positional Arguments</h3>
-<div id="4ba105d6" class="cell" data-execution_count="5">
+<div id="4719e7f4" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> describe_pet(animal_type, pet_name, age):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Describe a pet with given information."""</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"I have a </span><span class="sc">{</span>animal_type<span class="sc">}</span><span class="ss"> named </span><span class="sc">{</span>pet_name<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -654,7 +654,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="keyword-arguments" class="level3" data-number="6.3.2">
 <h3 data-number="6.3.2" class="anchored" data-anchor-id="keyword-arguments"><span class="header-section-number">6.3.2</span> Keyword Arguments</h3>
-<div id="eeea18d4" class="cell" data-execution_count="6">
+<div id="33fc5e24" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_profile(name, age, city, profession):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Create a user profile."""</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    profile <span class="op">=</span> {</span>
@@ -675,7 +675,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="default-parameters" class="level3" data-number="6.3.3">
 <h3 data-number="6.3.3" class="anchored" data-anchor-id="default-parameters"><span class="header-section-number">6.3.3</span> Default Parameters</h3>
-<div id="f1171c6b" class="cell" data-execution_count="7">
+<div id="bcdfb0dc" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_pizza(size, <span class="op">*</span>toppings, crust<span class="op">=</span><span class="st">"thin"</span>, sauce<span class="op">=</span><span class="st">"tomato"</span>):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Make a pizza with given specifications."""</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Making a </span><span class="sc">{</span>size<span class="sc">}</span><span class="ss"> pizza with </span><span class="sc">{</span>crust<span class="sc">}</span><span class="ss"> crust and </span><span class="sc">{</span>sauce<span class="sc">}</span><span class="ss"> sauce"</span>)</span>
@@ -697,7 +697,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="variable-length-arguments" class="level3" data-number="6.3.4">
 <h3 data-number="6.3.4" class="anchored" data-anchor-id="variable-length-arguments"><span class="header-section-number">6.3.4</span> Variable-Length Arguments</h3>
-<div id="7a545795" class="cell" data-execution_count="8">
+<div id="c033f5c1" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sum_all(<span class="op">*</span>numbers):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Sum any number of arguments."""</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="dv">0</span></span>
@@ -724,7 +724,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="6.4" class="anchored" data-anchor-id="scope-and-local-vs-global-variables"><span class="header-section-number">6.4</span> Scope and Local vs Global Variables</h2>
 <section id="local-scope" class="level3" data-number="6.4.1">
 <h3 data-number="6.4.1" class="anchored" data-anchor-id="local-scope"><span class="header-section-number">6.4.1</span> Local Scope</h3>
-<div id="d507f23a" class="cell" data-execution_count="9">
+<div id="0d3739d7" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_area(length, width):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Calculate area - variables are local to function."""</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    area <span class="op">=</span> length <span class="op">*</span> width  <span class="co"># Local variable</span></span>
@@ -741,7 +741,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="global-scope" class="level3" data-number="6.4.2">
 <h3 data-number="6.4.2" class="anchored" data-anchor-id="global-scope"><span class="header-section-number">6.4.2</span> Global Scope</h3>
-<div id="307a5ea3" class="cell" data-execution_count="10">
+<div id="33e61105" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Global variable</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>total_calculations <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -764,7 +764,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="6.5" class="anchored" data-anchor-id="advanced-function-concepts"><span class="header-section-number">6.5</span> Advanced Function Concepts</h2>
 <section id="functions-as-first-class-objects" class="level3" data-number="6.5.1">
 <h3 data-number="6.5.1" class="anchored" data-anchor-id="functions-as-first-class-objects"><span class="header-section-number">6.5.1</span> Functions as First-Class Objects</h3>
-<div id="530c7e68" class="cell" data-execution_count="11">
+<div id="e45a3e81" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> square(x):</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">**</span> <span class="dv">2</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -790,7 +790,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="lambda-functions-anonymous-functions" class="level3" data-number="6.5.2">
 <h3 data-number="6.5.2" class="anchored" data-anchor-id="lambda-functions-anonymous-functions"><span class="header-section-number">6.5.2</span> Lambda Functions (Anonymous Functions)</h3>
-<div id="51929b92" class="cell" data-execution_count="12">
+<div id="f2ce2c9f" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lambda functions for simple operations</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>square <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>add <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
@@ -822,7 +822,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A <strong>closure</strong> is a function that “captures” variables from its surrounding scope, even after the outer function has finished executing. This is a powerful concept for creating specialized functions.</p>
 <p><strong>How closures work:</strong> 1. An outer function defines variables 2. An inner function uses those variables 3. The outer function returns the inner function 4. The inner function “remembers” the outer variables</p>
 <p>Let’s see this in action:</p>
-<div id="9b4732f3" class="cell" data-execution_count="13">
+<div id="fb077326" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_multiplier(factor):</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Create a function that multiplies by a specific factor."""</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 'factor' is captured by the inner function</span></span>
@@ -840,7 +840,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Triple 4: </span><span class="sc">{</span>triple(<span class="dv">4</span>)<span class="sc">}</span><span class="ss">"</span>)  <span class="co"># Uses captured factor = 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>More advanced closure with mutable state:</strong></p>
-<div id="a9c05338" class="cell" data-execution_count="14">
+<div id="5d421f9f" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_counter(start<span class="op">=</span><span class="dv">0</span>):</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Create a counter function with persistent state."""</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    count <span class="op">=</span> start  <span class="co"># This variable persists between calls</span></span>
@@ -868,7 +868,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="6.6" class="anchored" data-anchor-id="practical-examples"><span class="header-section-number">6.6</span> Practical Examples</h2>
 <section id="example-1-text-processing-functions" class="level3" data-number="6.6.1">
 <h3 data-number="6.6.1" class="anchored" data-anchor-id="example-1-text-processing-functions"><span class="header-section-number">6.6.1</span> Example 1: Text Processing Functions</h3>
-<div id="7c99264b" class="cell" data-execution_count="15">
+<div id="a06a3a9d" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> word_count(text):</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Count words in text."""</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> text.split()</span>
@@ -904,7 +904,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="example-2-mathematical-functions" class="level3" data-number="6.6.2">
 <h3 data-number="6.6.2" class="anchored" data-anchor-id="example-2-mathematical-functions"><span class="header-section-number">6.6.2</span> Example 2: Mathematical Functions</h3>
-<div id="65bb0cb5" class="cell" data-execution_count="16">
+<div id="7d410f5a" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> factorial(n):</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Calculate factorial of n."""</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="kw">or</span> n <span class="op">==</span> <span class="dv">1</span>:</span>
@@ -961,7 +961,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="example-3-data-processing-functions" class="level3" data-number="6.6.3">
 <h3 data-number="6.6.3" class="anchored" data-anchor-id="example-3-data-processing-functions"><span class="header-section-number">6.6.3</span> Example 3: Data Processing Functions</h3>
-<div id="d30f6f36" class="cell" data-execution_count="17">
+<div id="e2b6ef52" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> filter_students_by_grade(students, min_grade):</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Filter students by minimum grade."""</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [student <span class="cf">for</span> student <span class="kw">in</span> students <span class="cf">if</span> student[<span class="st">'grade'</span>] <span class="op">&gt;=</span> min_grade]</span>
@@ -1022,7 +1022,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="6.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">6.7</span> Exercises</h2>
 <section id="exercise-1-temperature-converter" class="level3" data-number="6.7.1">
 <h3 data-number="6.7.1" class="anchored" data-anchor-id="exercise-1-temperature-converter"><span class="header-section-number">6.7.1</span> Exercise 1: Temperature Converter</h3>
-<div id="052a9d6b" class="cell" data-execution_count="18">
+<div id="5e2efb70" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> celsius_to_fahrenheit(celsius):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Convert Celsius to Fahrenheit."""</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (celsius <span class="op">*</span> <span class="dv">9</span><span class="op">/</span><span class="dv">5</span>) <span class="op">+</span> <span class="dv">32</span></span>
@@ -1066,7 +1066,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="exercise-2-list-processing-functions" class="level3" data-number="6.7.2">
 <h3 data-number="6.7.2" class="anchored" data-anchor-id="exercise-2-list-processing-functions"><span class="header-section-number">6.7.2</span> Exercise 2: List Processing Functions</h3>
-<div id="6eaecfc2" class="cell" data-execution_count="19">
+<div id="46dd56f5" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_max(numbers):</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Find maximum number in list."""</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> numbers:</span>
@@ -1158,7 +1158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Use Docstrings</strong> - Document what the function does</li>
 <li><strong>Keep It Simple</strong> - Break complex functions into smaller ones</li>
 </ol>
-<div id="1ffbebd7" class="cell" data-execution_count="20">
+<div id="5807e692" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Good function design</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_bmi(weight_kg, height_m):</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>

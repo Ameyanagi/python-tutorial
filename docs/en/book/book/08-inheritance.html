@@ -534,12 +534,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Inheritance allows you to create new classes based on existing classes, promoting code reuse and creating logical hierarchies. Polymorphism enables objects of different types to be treated uniformly.</p>
+<p>Inheritance allows you to create new classes based on existing classes, promoting code reuse and creating logical hierarchies. Think of inheritance like a family tree - children inherit traits from parents but can also have their own unique characteristics. Polymorphism enables objects of different types to be treated uniformly - like how both cars and bicycles can “move” but in different ways.</p>
 <section id="understanding-inheritance" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="understanding-inheritance"><span class="header-section-number">9.1</span> Understanding Inheritance</h2>
 <section id="basic-inheritance" class="level3" data-number="9.1.1">
 <h3 data-number="9.1.1" class="anchored" data-anchor-id="basic-inheritance"><span class="header-section-number">9.1.1</span> Basic Inheritance</h3>
-<div id="12397c82" class="cell" data-execution_count="1">
+<div id="6e9c5e76" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Base class (Parent/Superclass)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Animal:</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Base class representing a generic animal."""</span></span>
@@ -647,7 +647,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="multiple-inheritance" class="level3" data-number="9.1.2">
 <h3 data-number="9.1.2" class="anchored" data-anchor-id="multiple-inheritance"><span class="header-section-number">9.1.2</span> Multiple Inheritance</h3>
-<div id="5f45bd39" class="cell" data-execution_count="2">
+<div id="f1a8003b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiple base classes</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Flyable:</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Mixin for flying behavior."""</span></span>
@@ -722,7 +722,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="9.2" class="anchored" data-anchor-id="polymorphism"><span class="header-section-number">9.2</span> Polymorphism</h2>
 <section id="method-overriding-and-polymorphism" class="level3" data-number="9.2.1">
 <h3 data-number="9.2.1" class="anchored" data-anchor-id="method-overriding-and-polymorphism"><span class="header-section-number">9.2.1</span> Method Overriding and Polymorphism</h3>
-<div id="076166a1" class="cell" data-execution_count="3">
+<div id="74cb70b2" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Shape:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Base class for geometric shapes."""</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -828,7 +828,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="duck-typing" class="level3" data-number="9.2.2">
 <h3 data-number="9.2.2" class="anchored" data-anchor-id="duck-typing"><span class="header-section-number">9.2.2</span> Duck Typing</h3>
-<div id="73840e04" class="cell" data-execution_count="4">
+<div id="2ef59861" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Duck typing: "If it walks like a duck and quacks like a duck, it's a duck"</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RealDuck:</span>
@@ -888,7 +888,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="9.3" class="anchored" data-anchor-id="advanced-inheritance-concepts"><span class="header-section-number">9.3</span> Advanced Inheritance Concepts</h2>
 <section id="abstract-base-classes" class="level3" data-number="9.3.1">
 <h3 data-number="9.3.1" class="anchored" data-anchor-id="abstract-base-classes"><span class="header-section-number">9.3.1</span> Abstract Base Classes</h3>
-<div id="345e6e93" class="cell" data-execution_count="5">
+<div id="6fea6282" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> abc <span class="im">import</span> ABC, abstractmethod</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Vehicle(ABC):</span>
@@ -1019,7 +1019,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="method-resolution-order-mro" class="level3" data-number="9.3.2">
 <h3 data-number="9.3.2" class="anchored" data-anchor-id="method-resolution-order-mro"><span class="header-section-number">9.3.2</span> Method Resolution Order (MRO)</h3>
-<div id="aee44eca" class="cell" data-execution_count="6">
+<div id="9c894a1e" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A:</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> method(<span class="va">self</span>):</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"A.method"</span>)</span>
@@ -1079,7 +1079,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="9.4" class="anchored" data-anchor-id="real-world-examples"><span class="header-section-number">9.4</span> Real-World Examples</h2>
 <section id="example-1-employee-management-system" class="level3" data-number="9.4.1">
 <h3 data-number="9.4.1" class="anchored" data-anchor-id="example-1-employee-management-system"><span class="header-section-number">9.4.1</span> Example 1: Employee Management System</h3>
-<div id="0972c8b6" class="cell" data-execution_count="7">
+<div id="e820d3f2" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime, date</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Employee:</span>
@@ -1264,7 +1264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="example-2-media-player-system" class="level3" data-number="9.4.2">
 <h3 data-number="9.4.2" class="anchored" data-anchor-id="example-2-media-player-system"><span class="header-section-number">9.4.2</span> Example 2: Media Player System</h3>
-<div id="3c807e76" class="cell" data-execution_count="8">
+<div id="e450d966" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> abc <span class="im">import</span> ABC, abstractmethod</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1542,7 +1542,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="9.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">9.5</span> Exercises</h2>
 <section id="exercise-1-shape-hierarchy-with-areas" class="level3" data-number="9.5.1">
 <h3 data-number="9.5.1" class="anchored" data-anchor-id="exercise-1-shape-hierarchy-with-areas"><span class="header-section-number">9.5.1</span> Exercise 1: Shape Hierarchy with Areas</h3>
-<div id="48893c64" class="cell" data-execution_count="9">
+<div id="c16a06c2" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Shape:</span>
@@ -1603,7 +1603,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="exercise-2-vehicle-fleet-management" class="level3" data-number="9.5.2">
 <h3 data-number="9.5.2" class="anchored" data-anchor-id="exercise-2-vehicle-fleet-management"><span class="header-section-number">9.5.2</span> Exercise 2: Vehicle Fleet Management</h3>
-<div id="c4c64984" class="cell" data-execution_count="10">
+<div id="31276510" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Vehicle:</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Base vehicle class."""</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -2256,7 +2256,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb11" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Inheritance and Polymorphism</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Inheritance allows you to create new classes based on existing classes, promoting code reuse and creating logical hierarchies. Polymorphism enables objects of different types to be treated uniformly.</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Inheritance allows you to create new classes based on existing classes, promoting code reuse and creating logical hierarchies. Think of inheritance like a family tree - children inherit traits from parents but can also have their own unique characteristics. Polymorphism enables objects of different types to be treated uniformly - like how both cars and bicycles can "move" but in different ways.</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Understanding Inheritance</span></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>

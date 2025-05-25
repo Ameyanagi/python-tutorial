@@ -1,42 +1,48 @@
 # 環境構築
 
-この章では、モダンなツールを使用して Python 開発環境をセットアップします。
+この章では、モダンなツールを使用して Python 開発環境をセットアップします。適切な開発環境の構築は、Python プログラミングにおいて非常に重要です。これは、木工作業を始める前に作業場を整えるようなもので、適切なツールがあれば作業がずっと楽になります。
 
 ## Python のインストール
 
-最高の型ヒントサポートのために Python 3.12 以降を推奨します。
+最高の型ヒントサポートのために Python 3.12 以降を推奨します。Python 3.12 には重要なパフォーマンス改善と強化された型ヒントが含まれており、コードをより信頼性高く、デバッグしやすくします。これは、基本的な電卓から科学電卓にアップグレードするようなもので、より多くの機能とより高い精度を得ることができます。
 
 ### Windows
 ```bash
-# winget を使用
+# winget を使用（Windows用パッケージマネージャー）
 winget install Python.Python.3.12
 
-# Microsoft Store を使用
+# Microsoft Store を使用（初心者に最も簡単）
 # Microsoft Store で "Python 3.12" を検索
 ```
 
+**これらのコマンドの動作:** `winget` は Windows の最新パッケージマネージャーで、Python を自動的にダウンロードし、適切な PATH 設定でインストールします。Microsoft Store版は サンドボックス化されており自動更新されるため、初心者には最適です。
+
 ### macOS
 ```bash
-# Homebrew を使用
+# Homebrew を使用（macOS用パッケージマネージャー）
 brew install python@3.12
 
-# pyenv を使用
+# pyenv を使用（Python バージョン管理ツール）
 pyenv install 3.12.8
 pyenv global 3.12.8
 ```
 
+**これらのコマンドの動作:** Homebrew は Python を `/opt/homebrew/bin` にインストールし、依存関係を自動管理します。`pyenv` はより高度で、複数の Python バージョンをインストールして簡単に切り替えることができます。pyenv は複数の工具箱を持っているようなもので、各プロジェクトに適した道具（Python バージョン）を選択できます。
+
 ### Linux
 ```bash
-# Ubuntu/Debian
-sudo apt update
-sudo apt install python3.12 python3.12-venv
+# Ubuntu/Debian（APT パッケージマネージャーを使用）
+sudo apt update                      # パッケージリストを更新
+sudo apt install python3.12 python3.12-venv  # Python + 仮想環境サポートをインストール
 
-# Fedora
+# Fedora（DNF パッケージマネージャーを使用）
 sudo dnf install python3.12
 
-# Arch Linux
-sudo pacman -S python
+# Arch Linux（Pacman パッケージマネージャーを使用）
+sudo pacman -S python               # 常に最新の Python をインストール
 ```
+
+**これらのコマンドの動作:** 各 Linux ディストリビューションは異なるパッケージマネージャーを使用しますが、すべて同じ作業を行います - Python をダウンロード、インストール、設定します。`sudo` コマンドはシステム全体のパッケージをインストールするために必要な管理者権限を提供します。Ubuntu/Debian では仮想環境（各プロジェクト用の分離された Python 環境）を有効にするために `python3.12-venv` もインストールします。
 
 ## 環境管理ツール
 

@@ -449,6 +449,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Data Science with Python</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../book/13-applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Python Applications and Real-World Projects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../book/14-iot-connectivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">IoT Connectivity and Industrial Protocols</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -534,7 +546,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Type hints make Python code more readable, maintainable, and help catch errors before runtime. They’re especially valuable in larger codebases and team environments.</p>
 <section id="why-type-hints-matter" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="why-type-hints-matter"><span class="header-section-number">10.1</span> Why Type Hints Matter</h2>
-<div id="e89abeba" class="cell" data-execution_count="1">
+<div id="776d1140" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Without type hints - unclear what types are expected</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_discount(price, discount_rate, is_member):</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> is_member:</span>
@@ -557,7 +569,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="10.2" class="anchored" data-anchor-id="basic-type-hints"><span class="header-section-number">10.2</span> Basic Type Hints</h2>
 <section id="built-in-types" class="level3" data-number="10.2.1">
 <h3 data-number="10.2.1" class="anchored" data-anchor-id="built-in-types"><span class="header-section-number">10.2.1</span> Built-in Types</h3>
-<div id="c00a8c69" class="cell" data-execution_count="2">
+<div id="5e44b367" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic type annotations</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> greet_user(name: <span class="bu">str</span>, age: <span class="bu">int</span>, height: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Greet a user with their details."""</span></span>
@@ -584,7 +596,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="collection-types" class="level3" data-number="10.2.2">
 <h3 data-number="10.2.2" class="anchored" data-anchor-id="collection-types"><span class="header-section-number">10.2.2</span> Collection Types</h3>
-<div id="c6aff453" class="cell" data-execution_count="3">
+<div id="06f6dc22" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> List, Dict, Tuple, Set, Optional, Union</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_scores(scores: List[<span class="bu">int</span>]) <span class="op">-&gt;</span> Dict[<span class="bu">str</span>, <span class="bu">float</span>]:</span>
@@ -630,7 +642,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="optional-and-union-types" class="level3" data-number="10.2.3">
 <h3 data-number="10.2.3" class="anchored" data-anchor-id="optional-and-union-types"><span class="header-section-number">10.2.3</span> Optional and Union Types</h3>
-<div id="2d7c2b91" class="cell" data-execution_count="4">
+<div id="9015059d" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Optional, Union</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_user_by_id(user_id: <span class="bu">int</span>, users: List[Dict[<span class="bu">str</span>, Union[<span class="bu">str</span>, <span class="bu">int</span>]]]) <span class="op">-&gt;</span> Optional[Dict[<span class="bu">str</span>, Union[<span class="bu">str</span>, <span class="bu">int</span>]]]:</span>
@@ -689,7 +701,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="10.3" class="anchored" data-anchor-id="advanced-type-hints"><span class="header-section-number">10.3</span> Advanced Type Hints</h2>
 <section id="generic-types-and-typevar" class="level3" data-number="10.3.1">
 <h3 data-number="10.3.1" class="anchored" data-anchor-id="generic-types-and-typevar"><span class="header-section-number">10.3.1</span> Generic Types and TypeVar</h3>
-<div id="50d5246b" class="cell" data-execution_count="5">
+<div id="25e9dd07" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> TypeVar, Generic, List, Callable, Any</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> TypeVar(<span class="st">'T'</span>)  <span class="co"># Generic type variable</span></span>
@@ -758,7 +770,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="protocol-and-structural-typing" class="level3" data-number="10.3.2">
 <h3 data-number="10.3.2" class="anchored" data-anchor-id="protocol-and-structural-typing"><span class="header-section-number">10.3.2</span> Protocol and Structural Typing</h3>
-<div id="c1d941b0" class="cell" data-execution_count="6">
+<div id="9ab06c8c" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Protocol, runtime_checkable</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="at">@runtime_checkable</span></span>
@@ -825,7 +837,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="literal-and-final-types" class="level3" data-number="10.3.3">
 <h3 data-number="10.3.3" class="anchored" data-anchor-id="literal-and-final-types"><span class="header-section-number">10.3.3</span> Literal and Final Types</h3>
-<div id="c2c8d529" class="cell" data-execution_count="7">
+<div id="3cd52763" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Literal, Final</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> enum <span class="im">import</span> Enum</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -877,7 +889,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="10.4" class="anchored" data-anchor-id="type-checking-with-mypy"><span class="header-section-number">10.4</span> Type Checking with mypy</h2>
 <section id="creating-a-type-checked-module" class="level3" data-number="10.4.1">
 <h3 data-number="10.4.1" class="anchored" data-anchor-id="creating-a-type-checked-module"><span class="header-section-number">10.4.1</span> Creating a Type-Checked Module</h3>
-<div id="a8162269" class="cell" data-execution_count="8">
+<div id="3651e492" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This would be in a separate .py file for mypy checking</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">Example module demonstrating type checking.</span></span>
@@ -1035,7 +1047,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="10.6" class="anchored" data-anchor-id="real-world-examples"><span class="header-section-number">10.6</span> Real-World Examples</h2>
 <section id="example-1-api-client-with-type-hints" class="level3" data-number="10.6.1">
 <h3 data-number="10.6.1" class="anchored" data-anchor-id="example-1-api-client-with-type-hints"><span class="header-section-number">10.6.1</span> Example 1: API Client with Type Hints</h3>
-<div id="e87b21b3" class="cell" data-execution_count="9">
+<div id="30131e31" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Dict, List, Optional, Union, Any, TypedDict</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dataclasses <span class="im">import</span> dataclass</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> enum <span class="im">import</span> Enum</span>
@@ -1193,7 +1205,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="example-2-configuration-management-with-types" class="level3" data-number="10.6.2">
 <h3 data-number="10.6.2" class="anchored" data-anchor-id="example-2-configuration-management-with-types"><span class="header-section-number">10.6.2</span> Example 2: Configuration Management with Types</h3>
-<div id="40bf0337" class="cell" data-execution_count="10">
+<div id="f2a5afe9" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Dict, List, Optional, Union, Literal, get_type_hints</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dataclasses <span class="im">import</span> dataclass, field</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>

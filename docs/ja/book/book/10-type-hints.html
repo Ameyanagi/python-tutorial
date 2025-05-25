@@ -548,7 +548,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="型ヒントとは" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="型ヒントとは"><span class="header-section-number">11.1</span> 型ヒントとは</h2>
 <p>型ヒントは、変数や関数の引数・戻り値の型を明示的に指定する仕組みです。</p>
-<div id="56ab6f7e" class="cell" data-execution_count="1">
+<div id="96995adf" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 型ヒントなし</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> greet(name):</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"Hello, </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">!"</span></span>
@@ -566,7 +566,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="11.2" class="anchored" data-anchor-id="基本的な型の指定"><span class="header-section-number">11.2</span> 基本的な型の指定</h2>
 <section id="プリミティブ型" class="level3" data-number="11.2.1">
 <h3 data-number="11.2.1" class="anchored" data-anchor-id="プリミティブ型"><span class="header-section-number">11.2.1</span> プリミティブ型</h3>
-<div id="55961e8c" class="cell" data-execution_count="2">
+<div id="2cde4642" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> List, Dict, Tuple, Optional</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 基本型</span></span>
@@ -583,7 +583,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="コレクション型" class="level3" data-number="11.2.2">
 <h3 data-number="11.2.2" class="anchored" data-anchor-id="コレクション型"><span class="header-section-number">11.2.2</span> コレクション型</h3>
-<div id="2ec6c4bf" class="cell" data-execution_count="3">
+<div id="b9e7f893" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># リスト型</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>numbers: List[<span class="bu">int</span>] <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>names: List[<span class="bu">str</span>] <span class="op">=</span> [<span class="st">"太郎"</span>, <span class="st">"花子"</span>, <span class="st">"次郎"</span>]</span>
@@ -611,7 +611,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="11.3" class="anchored" data-anchor-id="関数の型ヒント"><span class="header-section-number">11.3</span> 関数の型ヒント</h2>
 <section id="基本的な関数" class="level3" data-number="11.3.1">
 <h3 data-number="11.3.1" class="anchored" data-anchor-id="基本的な関数"><span class="header-section-number">11.3.1</span> 基本的な関数</h3>
-<div id="ee470057" class="cell" data-execution_count="4">
+<div id="45595b97" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_numbers(a: <span class="bu">int</span>, b: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""二つの数値を足し算する関数"""</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b</span>
@@ -642,7 +642,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="optional-と-union-型" class="level3" data-number="11.3.2">
 <h3 data-number="11.3.2" class="anchored" data-anchor-id="optional-と-union-型"><span class="header-section-number">11.3.2</span> Optional と Union 型</h3>
-<div id="0dda29d7" class="cell" data-execution_count="5">
+<div id="b4d9de1a" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Optional, Union</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_student(students: List[<span class="bu">str</span>], name: <span class="bu">str</span>) <span class="op">-&gt;</span> Optional[<span class="bu">int</span>]:</span>
@@ -676,7 +676,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="クラスの型ヒント" class="level2" data-number="11.4">
 <h2 data-number="11.4" class="anchored" data-anchor-id="クラスの型ヒント"><span class="header-section-number">11.4</span> クラスの型ヒント</h2>
-<div id="ce147e5b" class="cell" data-execution_count="6">
+<div id="5e26439b" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> ClassVar</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -727,7 +727,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="ジェネリック型" class="level2" data-number="11.5">
 <h2 data-number="11.5" class="anchored" data-anchor-id="ジェネリック型"><span class="header-section-number">11.5</span> ジェネリック型</h2>
-<div id="cc334ad2" class="cell" data-execution_count="7">
+<div id="0e8be4c2" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> TypeVar, Generic, List</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 型変数の定義</span></span>
@@ -787,7 +787,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="11.6" class="anchored" data-anchor-id="高度な型ヒント"><span class="header-section-number">11.6</span> 高度な型ヒント</h2>
 <section id="callable-型" class="level3" data-number="11.6.1">
 <h3 data-number="11.6.1" class="anchored" data-anchor-id="callable-型"><span class="header-section-number">11.6.1</span> Callable 型</h3>
-<div id="f67321b9" class="cell" data-execution_count="8">
+<div id="6feeca36" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Callable</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> apply_operation(x: <span class="bu">int</span>, y: <span class="bu">int</span>, operation: Callable[[<span class="bu">int</span>, <span class="bu">int</span>], <span class="bu">int</span>]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
@@ -814,7 +814,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="literal-型" class="level3" data-number="11.6.2">
 <h3 data-number="11.6.2" class="anchored" data-anchor-id="literal-型"><span class="header-section-number">11.6.2</span> Literal 型</h3>
-<div id="cc332af3" class="cell" data-execution_count="9">
+<div id="2cdbde7d" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Literal</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> set_color(color: Literal[<span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>]) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
@@ -849,7 +849,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="11.7" class="anchored" data-anchor-id="型ヒントの検証"><span class="header-section-number">11.7</span> 型ヒントの検証</h2>
 <section id="mypy-を使った静的型チェック" class="level3" data-number="11.7.1">
 <h3 data-number="11.7.1" class="anchored" data-anchor-id="mypy-を使った静的型チェック"><span class="header-section-number">11.7.1</span> mypy を使った静的型チェック</h3>
-<div id="d0c6bdb0" class="cell" data-execution_count="10">
+<div id="1af5645a" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 以下は mypy でチェックできる例</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> divide_numbers(a: <span class="bu">int</span>, b: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
@@ -882,7 +882,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="実践的な例タスク管理システム" class="level2" data-number="11.8">
 <h2 data-number="11.8" class="anchored" data-anchor-id="実践的な例タスク管理システム"><span class="header-section-number">11.8</span> 実践的な例：タスク管理システム</h2>
-<div id="b3558675" class="cell" data-execution_count="11">
+<div id="60b9b23b" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> NamedTuple</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> enum <span class="im">import</span> Enum</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime, date</span>
@@ -993,7 +993,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="11.9" class="anchored" data-anchor-id="型ヒントのベストプラクティス"><span class="header-section-number">11.9</span> 型ヒントのベストプラクティス</h2>
 <section id="段階的な導入" class="level3" data-number="11.9.1">
 <h3 data-number="11.9.1" class="anchored" data-anchor-id="段階的な導入"><span class="header-section-number">11.9.1</span> 1. 段階的な導入</h3>
-<div id="4dcdd71a" class="cell" data-execution_count="12">
+<div id="08fd576a" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 始めは重要な関数から</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> important_function(data: List[<span class="bu">str</span>]) <span class="op">-&gt;</span> Dict[<span class="bu">str</span>, <span class="bu">int</span>]:</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""重要な処理を行う関数"""</span></span>
@@ -1007,7 +1007,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="複雑な型の簡略化" class="level3" data-number="11.9.2">
 <h3 data-number="11.9.2" class="anchored" data-anchor-id="複雑な型の簡略化"><span class="header-section-number">11.9.2</span> 2. 複雑な型の簡略化</h3>
-<div id="540c7293" class="cell" data-execution_count="13">
+<div id="b39c0f04" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> TypeAlias, Any</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 複雑な型を別名で定義</span></span>
